@@ -1,6 +1,6 @@
 // API 등 기능 테스트에 쓰이는 컨트롤러
 
-package com.ino.test;
+package com.ino.test.controller;
 
 import java.net.URLEncoder;
 import java.text.DateFormat;
