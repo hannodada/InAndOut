@@ -1,4 +1,4 @@
-package com.ino.post.controller;
+package com.ino.sales.controller;
 
 public class SalesController {
 

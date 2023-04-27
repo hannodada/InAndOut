@@ -1,4 +1,4 @@
-package com.ino.post.controller;
+package com.ino.gallery.controller;
 
 public class GalleryController {
 
