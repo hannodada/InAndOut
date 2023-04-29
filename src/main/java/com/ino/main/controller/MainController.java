@@ -13,11 +13,12 @@ public class MainController {
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Model model) {
-		
-		model.addAttribute("msg", "this is main page.");
+	public String home() {
+
+		logger.info("home");
 		
 		return "home";
+		
 	}
 	
 }

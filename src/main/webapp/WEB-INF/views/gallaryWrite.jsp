@@ -10,8 +10,9 @@
 <style></style>
 </head>
 <body>
-	<a href="salesWrite.go">판매글 등록</a>
-	<a href="galleryWrite.go">갤러리 등록</a>
+	<form action="galleryWrite.do" method="post" enctype="Multipart/form-data">
+	내용 : <textarea name="content"></textarea>
+	</form>
 </body>
 <script>
 </script>
