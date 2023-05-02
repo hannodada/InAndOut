@@ -11,7 +11,7 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="com.ino.main">
+	<logger name="com.ino">
 		<level value="info" />
 	</logger>
 	
