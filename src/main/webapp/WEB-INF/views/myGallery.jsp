@@ -13,9 +13,9 @@
 <form action="/" method="get">
 	<header>
 	  <nav>
-	   <a href="/" style="color:blue; text-decoration: underline;">모아보기</a>
+	   <a href="/">모아보기</a>
 	   <a href="mySales">판매글</a>
-	   <a href="myGallery">갤러리</a>
+	   <a href="myGallery" style="color:blue; text-decoration: underline;">갤러리</a>
 	   <a href="mySalesJjim">관심판매글</a>
 	   <a href="myGalleryJjim">찜한갤러리</a>
 	   <a href="mySetting">설정</a>
@@ -44,7 +44,6 @@
 
         </div>
     </div>
-
 </form>
 </body>    
 </head>

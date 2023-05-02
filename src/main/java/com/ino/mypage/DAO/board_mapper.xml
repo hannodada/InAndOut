@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC   "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- xml을 자바에서 쓰기 위해 연결되는 interface가 필요하다(context처럼) -->
+<mapper namespace="com.ino.mypage.DAO.MypageDAO"><!-- 그래서 그 인터페이스 지정 -->
+<!-- 이 쿼리는 xml에 저장하고, 쿼리는 자바에서 써야하는데 자바와 xml이 바로 연결하지 못해서 인터페이스를 지정해줌. -->
+
+	<select id="mypage" resultType="com.ino.mypage.dto.MypageDTO">
+		SELECT user_id, nickname FROM user WHERE user_id=#{param1}
+	</select>
+
+</mapper>
