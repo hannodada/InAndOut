@@ -9,4 +9,26 @@
 		SELECT * FROM biz
 	</select>
 	
+	<select id="getGoodsList" resultType="com.ino.sales.dto.goodsDTO">
+		SELECT * FROM goods
+	</select>
+	
+	<insert 
+		useGeneratedKeys="true"
+		keyColumn="sales_no"
+		keyProperty="sales_no"
+		id="salesWrite" parameterType="com.ino.sales.dto.SalesDTO"
+	>
+		INSERT INTO sales(user_id, subject, price, post_num, sales_sido, sigungu, left_addr, content, sales_state, blind, biz_id, goods_id)
+			values(#{user_id}, #{subject}, #{price}, #{post_num}, #{sales_sido}, #{sigungu}, #{left_addr}, #{content}, #{sales_state}, #{blind}, #{biz_id}, #{goods_id})
+	</insert>
+	
+	<insert id="fileWrite">
+		INSERT INTO photo(ori_photo_name, new_photo_name, photo_div, cate_no)
+			VALUES(#{param1}, #{param2}, #{param3}, #{param4})
+	</insert>
+	
+	<select id="salesList" resultType="com.ino.sales.dto.SalesDTO">
+		SELECT * FROM sales ORDER BY sales_no DESC
+	</select>
 </mapper>
