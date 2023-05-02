@@ -64,13 +64,14 @@ public class SalesController {
 	@RequestMapping(value = "/salesDetail.do", method = RequestMethod.GET)
 	public String salesDetail(Model model, @RequestParam String sales_no) {
 		
-		logger.info("sales_no : "+sales_no);
+		logger.info("deatail sales_no : "+sales_no);
 		
-		SalesDTO detailData = service.salesDetail(sales_no, "detail");
+		SalesDTO detailData = service.salesDetail(Integer.parseInt(sales_no), "detail");
 		String page = "redirect:/salesList.do";
 		
 		if(detailData != null) {
 			
+			logger.info("if문 진입");
 			page = "salesDetail";
 			model.addAttribute("detailData", detailData);
 			

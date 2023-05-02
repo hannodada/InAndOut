@@ -109,10 +109,10 @@ public class SalesService {
 		
 	}
 
-	public SalesDTO salesDetail(String sales_no, String flag) {
+	public SalesDTO salesDetail(int sales_no, String flag) {
 
 		if(flag.equals("detail")) {
-			
+			logger.info("if문 진입");
 			dao.upHit(sales_no);
 			
 		}

@@ -17,22 +17,29 @@
 </head>
 <body>
 	<table>
-	
+		<tr>
+			<th>판매글번호</th>
+			<td>${detailData.sales_no }</td>
+		</tr>
+		<tr>
+			<th>판매상태</th>
+			<td>${detailData.sales_state }</td>
+		</tr>
 		<tr>
 			<th>아이디</th>
 			<td>${detailData.user_id }</td>
+		</tr>
+		<tr>
+			<th>닉네임</th>
+			<td>${detailData.nickname }</td>
 		</tr>
 		<tr>
 			<th>제목</th>
 			<td>${detailData.subject }</td>
 		</tr>
 		<tr>
-			<th>판매글번호</th>
-			<td>${detailData.sales_no }</td>
-		</tr>
-		<tr>
 			<th>사진</th>
-			<td><img src="/photo/${i.new_photo_name }"/></td>
+			<td></td>
 		</tr>
 		<tr>
 			<th>가격</th>
@@ -41,43 +48,41 @@
 		<tr>
 			<th>거래지역</th>
 			<td>
-				<input type="text" id="postcode" name="postcode" placeholder="우편번호">
-				<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기">
+				<input type="text" id="postcode" name="postcode" value="${detailData.post_num }" placeholder="우편번호">
 				<br>
-				<input type="text" id="roadAddress" name="roadAddress" placeholder="도로명주소">
+				<input type="text" id="roadAddress" name="roadAddress" value="${detailData.sales_sido } ${detailData.sigungu }" placeholder="도로명주소">
 				<br>
-				<input type="text" id="jibunAddress" name="jibunAddress" placeholder="지번주소">
-				<br>
-				<input type="text" id="sido" name="sido" placeholder="시도" hidden="true">
-				<br>
-				<input type="text" id="sigungu" name="sigungu" placeholder="시군구" hidden="true">
-				<br>
-				<span id="guide" style="color:#999;display:none"></span>
-				<input type="text" id="detailAddress" name="detailAddress" placeholder="상세주소">
-				<br>
-				<input type="text" id="extraAddress" name="extraAddress" placeholder="참고항목">
 			</td>
 		</tr>
 		<tr>
 			<th>1차 카테고리</th>
 			<td>
-				${dto.biz_name }
+				${detailData.biz_name }
 			</td>
 		</tr>
 		<tr>
 			<th>2차 카테고리</th>
 			<td>
-				${dto.goods_name }
+				${detailData.goods_name }
 			</td>
 		</tr>
 		<tr>
 			<th>내용</th>
-			<td>${dto.content }</td>
+			<td>${detailData.content }</td>
+		</tr>
+		<tr>
+			<th>조회수</th>
+			<td>${detailData.hit }</td>
+		</tr>
+		<tr>
+			<th>관심수</th>
+			<td>${detailData.attention }</td>
 		</tr>
 		<tr>
 			<th colspan="2">
-				<input type="button" onclick="location.href='./salesUpdate.go?sales_no=${dto.sales_no}'" value="수정"/>
-				<input type="button" onclick="location.href='./Saleslist.do'" value="리스트"/>
+			<input type="button" onclick="location.href='./salesReport.go?sales_no=${detailData.sales_no}'" value="신고하기"/>
+				<input type="button" onclick="location.href='./salesUpdate.go?sales_no=${detailData.sales_no}'" value="수정"/>
+				<input type="button" onclick="location.href='./salesList.do'" value="리스트"/>
 			</th>
 		</tr>
 	</table>

@@ -19,6 +19,9 @@ public interface SalesDAO {
 
 	void upHit(String sales_no);
 
-	SalesDTO salesDetail(String sales_no);
+	SalesDTO salesDetail(int sales_no);
+
+	void upHit(int sales_no);
+
 
 }
