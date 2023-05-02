@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC   "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+
+<mapper namespace="com.ino.gallery.dao.GalleryDAO">
+	
+
+	
+	<insert 
+		useGeneratedKeys="true"
+		keyColumn="gallery_no"
+		keyProperty="gallery_no"
+		id="galleryWrite" parameterType="com.ino.gallery.dto.GalleryDTO"
+	>
+		INSERT INTO gallery(user_id, store_name, gallery_subject, gallery_content)
+			VALUES(#{user_id}, #{store_name}, #{gallery_subject}, #{gallery_content})
+	</insert>
+	
+	<insert id="fileWrite">
+		INSERT INTO photo(ori_photo_name, new_photo_name, photo_div, cate_no)
+			VALUES(#{param1}, #{param2}, #{param3}, #{param4})
+	</insert>
+	
+</mapper>

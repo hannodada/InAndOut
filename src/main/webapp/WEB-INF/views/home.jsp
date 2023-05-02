@@ -13,7 +13,7 @@
 	<a href="salesWrite.go">판매글 등록</a>
 	<a href="galleryWrite.go">갤러리 등록</a>
 	<a href="salesList.do">판매글 보기</a>
-	<a href="galleryList.do">판매글 보기</a>
+	<a href="galleryList.do">갤러리 보기</a>
 </body>
 <script>
 </script>

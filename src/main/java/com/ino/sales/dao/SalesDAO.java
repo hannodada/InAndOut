@@ -17,4 +17,8 @@ public interface SalesDAO {
 
 	ArrayList<SalesDTO> salesList();
 
+	void upHit(String sales_no);
+
+	SalesDTO salesDetail(String sales_no);
+
 }

@@ -40,7 +40,7 @@ public class SalesService {
 		return dao.getGoodsList();
 	}
 
-	public String salesWrite(MultipartFile photo, HashMap<String, String> params) {
+	public String salesWrite(MultipartFile[] photos, HashMap<String, String> params) {
 
 		String page = "redirect:/salesList.do";
 		
@@ -66,17 +66,23 @@ public class SalesService {
 		int idx = dto.getSales_no();
 		logger.info("방금 insert한 idx : "+idx);
 		
-		logger.info("파일 이름 : "+photo.getOriginalFilename());
-		
-		page = "redirect:/detail.do?idx="+idx;
-		
-		if(!photo.getOriginalFilename().equals("")) {
-			
-			logger.info("파일 업로드 작업");
-
-			fileSave(idx, photo);
-			
+		for (MultipartFile photo : photos) {
+			logger.info("photo 여부 :"+photo.isEmpty());
+			if(photo.isEmpty()==false) {
+				
+				fileSave(idx, photo);
+				
+				try {
+					Thread.sleep(1);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				
+			}
 		}
+
+		page = "redirect:/salesDetail.do?idx="+idx;
+
 		return page;
 	}
 
@@ -102,6 +108,20 @@ public class SalesService {
 		}
 		
 	}
+
+	public SalesDTO salesDetail(String sales_no, String flag) {
+
+		if(flag.equals("detail")) {
+			
+			dao.upHit(sales_no);
+			
+		}
+		
+		return dao.salesDetail(sales_no);
+	}
+
+
+
 
 
 

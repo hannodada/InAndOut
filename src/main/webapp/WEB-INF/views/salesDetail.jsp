@@ -20,23 +20,23 @@
 	
 		<tr>
 			<th>아이디</th>
-			<td>${dto.user_id }</td>
+			<td>${detailData.user_id }</td>
 		</tr>
 		<tr>
 			<th>제목</th>
-			<td>${dto.subject }</td>
+			<td>${detailData.subject }</td>
 		</tr>
 		<tr>
 			<th>판매글번호</th>
-			<td>${dto.sales_no }</td>
+			<td>${detailData.sales_no }</td>
 		</tr>
 		<tr>
 			<th>사진</th>
-			<td><input type="file" name="photo"/></td>
+			<td><img src="/photo/${i.new_photo_name }"/></td>
 		</tr>
 		<tr>
 			<th>가격</th>
-			<td>${dto.price }</td>
+			<td>${detailData.price }</td>
 		</tr>
 		<tr>
 			<th>거래지역</th>

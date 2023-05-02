@@ -41,7 +41,7 @@
 		<beans:property name="mapperLocations">
 			<beans:list>
 				<beans:value>classpath:com/ino/sales/dao/*.xml</beans:value>
-				<beans:value>classpath:com/ino/gallary/dao/*.xml</beans:value>
+				<beans:value>classpath:com/ino/gallery/dao/*.xml</beans:value>
 			</beans:list>
 		</beans:property>
 	</beans:bean>

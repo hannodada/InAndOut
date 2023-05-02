@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ino.sales.dto.BizDTO;
 import com.ino.sales.dto.SalesDTO;
@@ -50,9 +51,9 @@ public class SalesController {
 		
 		return "salesWriteForm";
 	}
-
+	
 	@RequestMapping(value = "/salesWrite.do", method = RequestMethod.POST)
-	public String salesWrite(MultipartFile photo, @RequestParam HashMap<String, String> params) {
+	public String salesWrite(MultipartFile[] photo, @RequestParam HashMap<String, String> params) {
 		
 		logger.info("params : "+params);
 		logger.info("fileName : "+photo);
@@ -61,12 +62,21 @@ public class SalesController {
 	}
 	
 	@RequestMapping(value = "/salesDetail.do", method = RequestMethod.GET)
-	public String salesDetail(MultipartFile photo, @RequestParam HashMap<String, String> params) {
+	public String salesDetail(Model model, @RequestParam String sales_no) {
 		
-		logger.info("params : "+params);
-		logger.info("fileName : "+photo);
+		logger.info("sales_no : "+sales_no);
 		
-		return service.salesWrite(photo, params);
+		SalesDTO detailData = service.salesDetail(sales_no, "detail");
+		String page = "redirect:/salesList.do";
+		
+		if(detailData != null) {
+			
+			page = "salesDetail";
+			model.addAttribute("detailData", detailData);
+			
+		}
+		
+		return page;
 	}	
 	
 }

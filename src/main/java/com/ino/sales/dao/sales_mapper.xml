@@ -5,6 +5,15 @@
 
 <mapper namespace="com.ino.sales.dao.SalesDAO">
 	
+	<select id="salesList" resultType="com.ino.sales.dto.SalesDTO">
+		SELECT s.sales_no, s.sales_state, s.subject, s.price, s.sales_sido, s.sigungu, s.hit, s.user_id, u.nickname, s.date, p.new_photo_name, s.biz_id, b.biz_name, s.goods_id, g.goods_name 
+		FROM sales s 
+		LEFT JOIN user u ON s.user_id = u.user_id
+		LEFT JOIN photo p ON p.photo_div = s.sales_no 
+		LEFT JOIN biz b ON s.biz_id = b.biz_id 
+		LEFT JOIN goods g ON s.goods_id = g.goods_id;
+	</select>
+	
 	<select id="getBizList" resultType="com.ino.sales.dto.BizDTO">
 		SELECT * FROM biz
 	</select>
@@ -20,7 +29,7 @@
 		id="salesWrite" parameterType="com.ino.sales.dto.SalesDTO"
 	>
 		INSERT INTO sales(user_id, subject, price, post_num, sales_sido, sigungu, left_addr, content, sales_state, blind, biz_id, goods_id)
-			values(#{user_id}, #{subject}, #{price}, #{post_num}, #{sales_sido}, #{sigungu}, #{left_addr}, #{content}, #{sales_state}, #{blind}, #{biz_id}, #{goods_id})
+			VALUES(#{user_id}, #{subject}, #{price}, #{post_num}, #{sales_sido}, #{sigungu}, #{left_addr}, #{content}, #{sales_state}, #{blind}, #{biz_id}, #{goods_id})
 	</insert>
 	
 	<insert id="fileWrite">
@@ -28,7 +37,12 @@
 			VALUES(#{param1}, #{param2}, #{param3}, #{param4})
 	</insert>
 	
-	<select id="salesList" resultType="com.ino.sales.dto.SalesDTO">
-		SELECT * FROM sales ORDER BY sales_no DESC
+	<insert id="upHit" parameterType="String">
+		UPDATE sales SET hit = hit + 1 WHERE sales_no = #{sales_no}
+	</insert>
+
+	<select id="salesDetail" resultType="com.ino.sales.dto.SalesDTO">
+		
 	</select>
+
 </mapper>
