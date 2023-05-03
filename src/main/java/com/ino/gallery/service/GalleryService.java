@@ -1,4 +1,4 @@
-package com.ino.sales.service;
+package com.ino.gallery.service;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -13,56 +13,37 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.ino.sales.dao.SalesDAO;
-import com.ino.sales.dto.BizDTO;
-import com.ino.sales.dto.SalesDTO;
-import com.ino.sales.dto.goodsDTO;
+import com.ino.gallery.dao.GalleryDAO;
+import com.ino.gallery.dto.GalleryDTO;
 
 @Service
-public class SalesService {
+public class GalleryService {
 
 	Logger logger = LoggerFactory.getLogger(this.getClass());
-	@Autowired SalesDAO dao;
+	@Autowired GalleryDAO dao;
 	
-	public ArrayList<SalesDTO> salesList() {
-		
-		return dao.salesList();
-	}
-
-	public ArrayList<BizDTO> getBizList() {
-		
-		return dao.getBizList();
+	public ArrayList<GalleryDTO> galleryList() {
+		// TODO Auto-generated method stub
+		return dao.galleryList();
 	}
 	
-	public ArrayList<goodsDTO> goodsCall(String biz_id) {
+	public String galleryWrite(MultipartFile[] photos, HashMap<String, String> params) {
 
-		return dao.goodsCall(biz_id);
-	}
-	
-	public String salesWrite(MultipartFile[] photos, HashMap<String, String> params) {
 
-		String page = "redirect:/salesList.do";
+		String page = "redirect:/galleryList.do";
 		
-		SalesDTO dto = new SalesDTO();
+		GalleryDTO dto = new GalleryDTO();
 		
 		logger.info("params :"+params);
 		dto.setUser_id(params.get("user_id"));
-		dto.setSubject(params.get("subject"));
-		dto.setPrice(Integer.parseInt(params.get("price")));
-		dto.setPost_num(params.get("postcode"));
-		dto.setSales_sido(params.get("sido"));
-		dto.setSigungu(params.get("sigungu"));
-		dto.setLeft_addr(params.get("roadAddress").substring(params.get("sido").length()+params.get("sigungu").length()+2)+", "+params.get("detailAddress")+params.get("extraAddress"));
-		dto.setContent(params.get("content"));
-		dto.setSales_state("판매중");
-		dto.setBlind(false);
-		dto.setBiz_id(params.get("biz"));
-		dto.setGoods_id(params.get("goods"));
+		dto.setStore_name(params.get("store_name"));
+		dto.setGallery_subject(params.get("gallery_subject"));
+		dto.setGallery_content(params.get("gallery_content"));
 		
-		int row = dao.salesWrite(dto);
+		int row = dao.galleryWrite(dto);
 		logger.info("updated row : "+row);
 		
-		int idx = dto.getSales_no();
+		int idx = dto.getGallery_no();
 		logger.info("방금 insert한 idx : "+idx);
 		
 		for (MultipartFile photo : photos) {
@@ -80,7 +61,7 @@ public class SalesService {
 			}
 		}
 
-		page = "redirect:/salesDetail.do?sales_no="+idx;
+		page = "redirect:/galleryDetail.do?gallery_no="+idx;
 
 		return page;
 	}
@@ -89,7 +70,7 @@ public class SalesService {
 
 		String ori_photo_name = photo.getOriginalFilename();
 		String ext = ori_photo_name.substring(ori_photo_name.lastIndexOf("."));
-		String cate_no = "p005";
+		String cate_no = "p006";
 		String new_photo_name = System.currentTimeMillis() + ext;
 		logger.info(ori_photo_name+"=>"+new_photo_name);
 		
@@ -108,29 +89,20 @@ public class SalesService {
 		
 	}
 
-	public SalesDTO salesDetail(int sales_no, String flag) {
-
+	public GalleryDTO galleryDetail(int gallery_no, String flag) {
+		
 		if(flag.equals("detail")) {
 			logger.info("if문 진입");
-			dao.upHit(sales_no);
-			
+			dao.upHit(gallery_no);
 		}
 		
-		return dao.salesDetail(sales_no);
+		return dao.galleryDetail(gallery_no);
 	}
 
-	public ArrayList<String> salesDetailPhoto(int sales_no) {
+	public ArrayList<String> galleryDetailPhoto(int gallery_no) {
 
-		return dao.salesDetailPhoto(sales_no);
+		return dao.galleryDetailPhoto(gallery_no);
 	}
 
 
-
-
-
-
-
-
-
-	
 }

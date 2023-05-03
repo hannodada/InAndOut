@@ -75,12 +75,12 @@ img{ /* 이미지 배율 증가 시 부드럽게 */
 <body>
 	<table>
 		<tr>
-			<th>판매글번호</th>
-			<td>${detailData.sales_no }</td>
+			<th>갤러리번호</th>
+			<td>${detailData.gallery_no }</td>
 		</tr>
 		<tr>
-			<th>판매상태</th>
-			<td>${detailData.sales_state }</td>
+			<th>상호명</th>
+			<td>${detailData.store_name }</td>
 		</tr>
 		<tr>
 			<th>아이디</th>
@@ -92,72 +92,49 @@ img{ /* 이미지 배율 증가 시 부드럽게 */
 		</tr>
 		<tr>
 			<th>제목</th>
-			<td>${detailData.subject }</td>
+			<td>${detailData.gallery_subject }</td>
 		</tr>
 		<tr>
 			<th>사진</th>
 			<td>
-				<c:if test="${detailPhoto.size() == 0 }">
-					<div class="default">
-						<span class="wrap">
-							<img src="/photo/default.png">
-					 	</span>
-					</div>
-				</c:if>
-				<c:if test="${detailPhoto.size() > 0 }">
-					<c:forEach items="${detailPhoto }" var="i">
-							<div class="container text-center d-flex flex-wrap">
-							    <span class="wrap">
-							        <img src="/photo/${i }" alt="test">
-							    </span>
-							</div>
-					</c:forEach>
-				</c:if>
+				<c:forEach items="${detailPhoto }" var="i">
+					<c:if test="${i ne null }">
+						<div class="container text-center d-flex flex-wrap">
+						    <span class="wrap">
+						        <img src="/photo/${i }" alt="test">
+						    </span>
+						</div>
+					</c:if>
+				</c:forEach>
 			</td>
 		</tr>
 		<tr>
-			<th>가격</th>
-			<td>${detailData.price }</td>
-		</tr>
-		<tr>
-			<th>거래지역</th>
+			<th>위치</th>
 			<td>
-				${detailData.sales_sido } ${detailData.sigungu }
-			</td>
-		</tr>
-		<tr>
-			<th>1차 카테고리</th>
-			<td>
-				${detailData.biz_name }
-			</td>
-		</tr>
-		<tr>
-			<th>2차 카테고리</th>
-			<td>
-				${detailData.goods_name }
+				위치
 			</td>
 		</tr>
 		<tr>
 			<th>내용</th>
-			<td>${detailData.content }</td>
+			<td>${detailData.gallery_content }</td>
 		</tr>
 		<tr>
 			<th>조회수</th>
-			<td>${detailData.hit }</td>
+			<td>${detailData.gallery_hit }</td>
 		</tr>
 		<tr>
 			<th>관심수</th>
-			<td>${detailData.attention }</td>
+			<td>${detailData.gallery_jjim }</td>
 		</tr>
 		<tr>
 			<th>등록일자</th>
-			<td>${detailData.date }</td>
+			<td>${detailData.gallery_date }</td>
 		</tr>
 		<tr>
 			<th colspan="2">
-			<input type="button" onclick="location.href='./salesReport.go?sales_no=${detailData.sales_no}'" value="신고하기"/>
-				<input type="button" onclick="location.href='./salesUpdate.go?sales_no=${detailData.sales_no}'" value="수정"/>
-				<input type="button" onclick="location.href='./salesList.do'" value="리스트"/>
+			<input type="button" onclick="location.href='./galleryReport.go?gallery_no=${detailData.gallery_no}'" value="신고하기"/>
+				<input type="button" onclick="location.href='./galleryUpdate.go?gallery_no=${detailData.gallery_no}'" value="수정"/>
+				<input type="button" onclick="location.href='./galleryList.do'" value="리스트"/>
 			</th>
 		</tr>
 	</table>
