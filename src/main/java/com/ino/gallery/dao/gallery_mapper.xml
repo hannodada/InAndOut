@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC   "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+
+<mapper namespace="com.ino.gallery.dao.GalleryDAO">
+	
+	<select id="galleryList" resultType="com.ino.gallery.dto.GalleryDTO">
+		SELECT g.gallery_no, g.gallery_subject, g.gallery_hit, g.user_id, u.nickname, g.gallery_date, p.new_photo_name
+			FROM gallery g 
+			LEFT JOIN user u ON g.user_id = u.user_id
+			LEFT JOIN photo p ON p.photo_div = g.gallery_no AND p.cate_no = 'p006'
+		GROUP BY g.gallery_no ORDER BY g.gallery_no DESC
+	</select>
+	
+	<insert 
+		useGeneratedKeys="true"
+		keyColumn="gallery_no"
+		keyProperty="gallery_no"
+		id="galleryWrite" parameterType="com.ino.gallery.dto.GalleryDTO"
+	>
+		INSERT INTO gallery(user_id, store_name, gallery_subject, gallery_content)
+			VALUES(#{user_id}, #{store_name}, #{gallery_subject}, #{gallery_content})
+	</insert>
+	
+	<insert id="fileWrite">
+		INSERT INTO photo(ori_photo_name, new_photo_name, photo_div, cate_no)
+			VALUES(#{param1}, #{param2}, #{param3}, #{param4})
+	</insert>
+	
+	<update id="upHit" parameterType="Integer">
+		UPDATE gallery SET gallery_hit = gallery_hit + 1 WHERE gallery_no = #{gallery_no}
+	</update>
+
+	<select id="galleryDetail" parameterType="Integer" resultType="com.ino.gallery.dto.GalleryDTO">
+		select g.*, u.nickname from gallery g
+		inner join `user` u on u.user_id = g.user_id and g.gallery_no = #{gallery_no}
+	</select>
+
+	<select id="galleryDetailPhoto" parameterType="Integer" resultType="String">
+		SELECT p.new_photo_name FROM photo p 
+			INNER JOIN gallery g ON g.gallery_no = p.photo_div 
+		AND p.cate_no = 'p006' AND g.gallery_no = #{gallery_no}
+	</select>
+	
+</mapper>

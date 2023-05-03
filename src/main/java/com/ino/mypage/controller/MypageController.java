@@ -45,6 +45,9 @@ Logger logger = LoggerFactory.getLogger(getClass());
 		//판매글 띄우기
 		ArrayList<MypageDTO> saleslist = service.saleslist("user001");
 		model.addAttribute("saleslist",saleslist);
+		//갤러리 띄우기
+		ArrayList<MypageDTO> galleryList = service.galleryList("user001");
+		model.addAttribute("galleryList",galleryList);
 		return page;
 	}
 	

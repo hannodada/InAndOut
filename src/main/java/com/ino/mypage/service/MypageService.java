@@ -39,6 +39,11 @@ Logger logger = LoggerFactory.getLogger(getClass());
 		// TODO Auto-generated method stub
 		return dao.saleslist(saleslist);
 	}
+
+	public ArrayList<MypageDTO> galleryList(String galleryList) {
+		// TODO Auto-generated method stub
+		return dao.galleryList(galleryList);
+	}
 	
 	
 }

@@ -13,6 +13,8 @@ public interface MypageDAO {
 	MypageDTO myrider(String riderid);
 
 	ArrayList<MypageDTO> saleslist(String saleslist);
+
+	ArrayList<MypageDTO> galleryList(String galleryList);
 	
 	
 

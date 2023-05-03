@@ -37,6 +37,7 @@ public class MypageDTO {
 	   private String new_photo_name;
 	   private String biz_name;
 	   private String goods_name;
+	   private String gallery_subject;
 
 	
 	
@@ -234,6 +235,12 @@ public class MypageDTO {
 	}
 	public void setGoods_name(String goods_name) {
 		this.goods_name = goods_name;
+	}
+	public String getGallery_subject() {
+		return gallery_subject;
+	}
+	public void setGallery_subject(String gallery_subject) {
+		this.gallery_subject = gallery_subject;
 	}
 	
 	

@@ -19,16 +19,11 @@
 	<table>
 		<thead>
 			<tr>
-				<th>판매글번호</th>
-				<th>판매상태</th>
+				<th>갤러리번호</th>
 				<th>사진</th>
 				<th>제목</th>
-				<th>가격</th>
-				<th>시도</th>
-				<th>시군구</th>
-				<th>업종별</th>
-				<th>물품별</th>
 				<th>조회수</th>
+				<th>관심수</th>
 				<th>작성자 아이디</th>
 				<th>작성자 닉네임</th>
 				<th>등록일자</th>
@@ -36,30 +31,25 @@
 		</thead>
 		<c:if test="${list.size() == 0 }">
 			<tr>
-				<th colspan="13">판매글이 없습니다.</th>
+				<th colspan="8">갤러리 글이 없습니다.</th>
 			</tr>
 		</c:if>
 		<c:if test="${list.size() > 0 }">
 			<c:forEach items="${list }" var="i">
 				<tr>
-					<th>${i.sales_no }</th>
-					<th>${i.sales_state }</th>
+					<th>${i.gallery_no }</th>
 					<c:if test="${i.new_photo_name ne null }">
 						<th><img src="/photo/${i.new_photo_name }"/></th>
 					</c:if>
 					<c:if test="${i.new_photo_name eq null }">
 						<th><img src="/photo/default.png"/></th>
 					</c:if>
-					<th><a href="salesDetail.do?sales_no=${i.sales_no}">${i.subject }</a></th>
-					<th>${i.price }</th>
-					<th>${i.sales_sido }</th>
-					<th>${i.sigungu }</th>
-					<th>${i.biz_name }</th>
-					<th>${i.goods_name }</th>
-					<th>${i.hit }</th>
+					<th><a href="galleryDetail.do?gallery_no=${i.gallery_no}">${i.gallery_subject }</a></th>
+					<th>${i.gallery_hit }</th>
+					<th>${i.gallery_jjim }</th>
 					<th>${i.user_id }</th>
 					<th>${i.nickname }</th>
-					<th>${i.date }</th>
+					<th>${i.gallery_date }</th>
 				</tr>
 			</c:forEach>
 		</c:if>

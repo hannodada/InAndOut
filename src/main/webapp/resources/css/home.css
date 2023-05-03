@@ -174,3 +174,13 @@
 		left: 40%;
 		padding: 5px;
 		}
+		
+		#userdetailgallery{
+		position: absolute;
+		height: 70%;
+		width: 70%;
+		margin: -150px 0px 0px -200px;
+		top: 80%;
+		left: 40%;
+		padding: 5px;
+		}

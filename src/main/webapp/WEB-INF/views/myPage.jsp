@@ -32,13 +32,15 @@
 		<h5>${sl.subject}</h5>
 		<h5 align="center">${sl.price}</h5>
 	</div>
+	</c:forEach>
+	</div>
+	
 	<div id="userdetailgallery">
 	<h4 style="font-size:15px; color:skyblue;line-height: 300%;">내가 올린 갤러리</h4>
-	<c:forEach items="${saleslist}" var="sl">
+	<c:forEach items="${galleryList}" var="gl">
 	<div style="float:left; margin-right:10px; display:inline;">
-		<img width="500" src="/photo/${sl.new_photo_name}"/>
-		<h5>${sl.subject}</h5>
-		<h5 align="center">${sl.price}</h5>
+		<img width="500" src="/photo/${gl.new_photo_name}"/>
+		<h5>${gl.gallery_subject}</h5>
 	</div>
 	</c:forEach>
 	</div>

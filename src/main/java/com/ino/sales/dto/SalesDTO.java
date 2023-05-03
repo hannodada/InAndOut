@@ -6,6 +6,7 @@ public class SalesDTO {
 	
 	private int sales_no;
 	private String user_id;
+	private String nickname;
 	private String subject;
 	private int price;
 	private String post_num;
@@ -21,6 +22,10 @@ public class SalesDTO {
 	private String biz_id;
 	private String goods_id;
 	
+	private String new_photo_name;
+	private String biz_name;
+	private String goods_name;
+	
 	public int getSales_no() {
 		return sales_no;
 	}
@@ -32,6 +37,12 @@ public class SalesDTO {
 	}
 	public void setUser_id(String user_id) {
 		this.user_id = user_id;
+	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 	public String getSubject() {
 		return subject;
@@ -116,6 +127,24 @@ public class SalesDTO {
 	}
 	public void setGoods_id(String goods_id) {
 		this.goods_id = goods_id;
+	}
+	public String getNew_photo_name() {
+		return new_photo_name;
+	}
+	public void setNew_photo_name(String new_photo_name) {
+		this.new_photo_name = new_photo_name;
+	}
+	public String getBiz_name() {
+		return biz_name;
+	}
+	public void setBiz_name(String biz_name) {
+		this.biz_name = biz_name;
+	}
+	public String getGoods_name() {
+		return goods_name;
+	}
+	public void setGoods_name(String goods_name) {
+		this.goods_name = goods_name;
 	}
 	
 }
