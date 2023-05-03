@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.slf4j.Logger;
@@ -20,6 +21,11 @@ public class GalleryService {
 
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired GalleryDAO dao;
+	
+	public ArrayList<GalleryDTO> galleryList() {
+		// TODO Auto-generated method stub
+		return dao.galleryList();
+	}
 	
 	public String galleryWrite(MultipartFile[] photos, HashMap<String, String> params) {
 
@@ -55,7 +61,7 @@ public class GalleryService {
 			}
 		}
 
-		page = "redirect:/galleryDetail.do?idx="+idx;
+		page = "redirect:/galleryDetail.do?gallery_no="+idx;
 
 		return page;
 	}
@@ -82,5 +88,21 @@ public class GalleryService {
 		}
 		
 	}
+
+	public GalleryDTO galleryDetail(int gallery_no, String flag) {
+		
+		if(flag.equals("detail")) {
+			logger.info("if문 진입");
+			dao.upHit(gallery_no);
+		}
+		
+		return dao.galleryDetail(gallery_no);
+	}
+
+	public ArrayList<String> galleryDetailPhoto(int gallery_no) {
+
+		return dao.galleryDetailPhoto(gallery_no);
+	}
+
 
 }

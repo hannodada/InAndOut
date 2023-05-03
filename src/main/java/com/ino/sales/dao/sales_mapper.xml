@@ -7,12 +7,12 @@
 	
 	<select id="salesList" resultType="com.ino.sales.dto.SalesDTO">
 		SELECT s.sales_no, s.sales_state, s.subject, s.price, s.sales_sido, s.sigungu, s.hit, s.user_id, u.nickname, s.date, p.new_photo_name, s.biz_id, b.biz_name, s.goods_id, g.goods_name
-		FROM sales s 
-		LEFT JOIN sales s2 ON s2.blind = '0'
-		LEFT JOIN user u ON s.user_id = u.user_id
-		LEFT JOIN photo p ON p.photo_div = s.sales_no AND p.cate_no = 'p005'
-		LEFT JOIN biz b ON s.biz_id = b.biz_id 
-		LEFT JOIN goods g ON s.goods_id = g.goods_id 
+			FROM sales s 
+			LEFT JOIN sales s2 ON s2.blind = '0'
+			LEFT JOIN user u ON s.user_id = u.user_id
+			LEFT JOIN photo p ON p.photo_div = s.sales_no AND p.cate_no = 'p005'
+			LEFT JOIN biz b ON s.biz_id = b.biz_id 
+			LEFT JOIN goods g ON s.goods_id = g.goods_id 
 		GROUP BY s.sales_no ORDER BY s.sales_no DESC
 	</select>
 	
@@ -20,8 +20,8 @@
 		SELECT * FROM biz
 	</select>
 	
-	<select id="getGoodsList" resultType="com.ino.sales.dto.goodsDTO">
-		SELECT * FROM goods
+	<select id="goodsCall" parameterType="String" resultType="com.ino.sales.dto.goodsDTO">
+		SELECT * FROM goods WHERE biz_id = #{biz_id}
 	</select>
 	
 	<insert 
@@ -45,9 +45,14 @@
 
 	<select id="salesDetail" parameterType="Integer" resultType="com.ino.sales.dto.SalesDTO">
 		select s.*, b.biz_name, g.goods_name, u.nickname from sales s 
-		inner join biz b on b.biz_id = s.biz_id 
-		inner join goods g on g.goods_id = s.goods_id 
+			inner join biz b on b.biz_id = s.biz_id 
+			inner join goods g on g.goods_id = s.goods_id 
 		inner join `user` u on u.user_id = s.user_id and s.sales_no = #{sales_no}
 	</select>
 
+	<select id="salesDetailPhoto" parameterType="Integer" resultType="String">
+		SELECT p.new_photo_name FROM photo p 
+			INNER JOIN sales s ON s.sales_no = p.photo_div 
+		AND p.cate_no = 'p005' AND s.sales_no = #{sales_no}
+	</select>
 </mapper>

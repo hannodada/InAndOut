@@ -29,17 +29,16 @@ public class SalesService {
 		return dao.salesList();
 	}
 
-	
 	public ArrayList<BizDTO> getBizList() {
 		
 		return dao.getBizList();
 	}
+	
+	public ArrayList<goodsDTO> goodsCall(String biz_id) {
 
-	public ArrayList<goodsDTO> getGoodsList() {
-
-		return dao.getGoodsList();
+		return dao.goodsCall(biz_id);
 	}
-
+	
 	public String salesWrite(MultipartFile[] photos, HashMap<String, String> params) {
 
 		String page = "redirect:/salesList.do";
@@ -81,7 +80,7 @@ public class SalesService {
 			}
 		}
 
-		page = "redirect:/salesDetail.do?idx="+idx;
+		page = "redirect:/salesDetail.do?sales_no="+idx;
 
 		return page;
 	}
@@ -119,6 +118,14 @@ public class SalesService {
 		
 		return dao.salesDetail(sales_no);
 	}
+
+	public ArrayList<String> salesDetailPhoto(int sales_no) {
+
+		return dao.salesDetailPhoto(sales_no);
+	}
+
+
+
 
 
 

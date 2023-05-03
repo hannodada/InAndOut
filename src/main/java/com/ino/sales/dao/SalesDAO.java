@@ -1,6 +1,8 @@
 package com.ino.sales.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import com.ino.sales.dto.BizDTO;
 import com.ino.sales.dto.SalesDTO;
 import com.ino.sales.dto.goodsDTO;
@@ -9,7 +11,7 @@ public interface SalesDAO {
 
 	ArrayList<BizDTO> getBizList();
 
-	ArrayList<goodsDTO> getGoodsList();
+	ArrayList<goodsDTO> goodsCall(String biz_id);
 
 	int salesWrite(SalesDTO dto);
 
@@ -17,11 +19,10 @@ public interface SalesDAO {
 
 	ArrayList<SalesDTO> salesList();
 
-	void upHit(String sales_no);
-
 	SalesDTO salesDetail(int sales_no);
 
 	void upHit(int sales_no);
 
+	ArrayList<String> salesDetailPhoto(int sales_no);
 
 }

@@ -14,6 +14,9 @@ public class GalleryDTO {
 	private int gallery_jjim;
 	
 	private String new_photo_name;
+	private String nickname;
+
+
 
 	public int getGallery_no() {
 		return gallery_no;
@@ -85,5 +88,13 @@ public class GalleryDTO {
 
 	public void setNew_photo_name(String new_photo_name) {
 		this.new_photo_name = new_photo_name;
+	}
+	
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 }
