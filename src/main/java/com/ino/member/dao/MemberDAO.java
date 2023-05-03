@@ -33,7 +33,7 @@ public interface MemberDAO {
 
 	int bizregist(String user_id, int biz_num, String biz, String store_name, String state);
 	
-	int riderbizregist(String user_id, int biz_num, String biz, String store_name,  String news);
+	int riderbizregist(String user_id, int biz_num, String biz, String store_name,  String news, String nickname);
 
 	
 	
@@ -42,6 +42,8 @@ public interface MemberDAO {
 	MemberDTO afterList(String user_id);
 
 	int riderRegist(HashMap<String, String> params);
+
+	void user_div(int user_div, String user_id, String user_div_name);
 
 	
 
