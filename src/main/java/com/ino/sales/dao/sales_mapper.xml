@@ -47,7 +47,7 @@
 		select s.*, b.biz_name, g.goods_name, u.nickname from sales s 
 		inner join biz b on b.biz_id = s.biz_id 
 		inner join goods g on g.goods_id = s.goods_id 
-		inner join `user` u on u.user_id = s.user_id and s.sales_no = #{sales_no};
+		inner join `user` u on u.user_id = s.user_id and s.sales_no = #{sales_no}
 	</select>
 
 </mapper>
