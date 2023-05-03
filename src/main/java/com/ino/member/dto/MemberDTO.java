@@ -1,6 +1,6 @@
-package com.ino.main.dto;
+package com.ino.member.dto;
 
-public class HomeDTO {
+public class MemberDTO {
 	
 	private String user_id;
 	private String user_pw;

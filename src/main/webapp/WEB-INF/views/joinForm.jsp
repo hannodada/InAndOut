@@ -73,7 +73,7 @@ h6{
 }
 
 /*버튼꾸미기!!!  */
-  .test_btn1{
+  			.test_btn1{
             border-top-left-radius: 5px;
             border-bottom-left-radius: 5px;
             border-top-right-radius: 5px;
@@ -96,13 +96,13 @@ h6{
             color:white;
             background-color: #3788fd;
         }
-  .test_btn2{
+  		.test_btn2{
             border-top-left-radius: 5px;
             border-bottom-left-radius: 5px;
             border-top-right-radius: 5px;
             border-bottom-right-radius: 5px;  
             
-            margin-right:-4px;
+            margin-right:6px;
              font-family: 'Noto Sans KR', sans-serif;
              font-size: 15px;
             
@@ -119,6 +119,54 @@ h6{
             color:white;
             background-color: #3788fd;
         }
+        
+        .preview-edit{
+        	border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;  
+            
+            margin-right:-4px;
+             font-family: 'Noto Sans KR', sans-serif;
+             font-size: 13px;
+        
+        }
+         .preview-edit{
+			
+            color: white;
+            padding: 5px 10px 5px 10px;
+            font: 'Noto Sans KR', sans-serif;
+            width: 45px;
+        
+        }
+        .preview-edit:hover{
+            color:white;
+            background-color: #3788fd;
+        }
+        
+       .preview-de{
+            
+            
+            margin-right:-5px;
+             font-family: 'Noto Sans KR', sans-serif;
+             font-size: 15px;
+            
+        }
+       
+        .preview-de{
+            
+            color: white;
+            padding: 5px 10px 5px 10px;
+            font: 'Noto Sans KR', sans-serif;
+            width: 45px;
+        }
+        .preview-de:hover{
+            cursor:pointer;
+        }
+        
+        
+
+	
         
   
 
@@ -175,7 +223,7 @@ h6{
 			<td><input type="text" name="post_num" id="post_num"/></td>
 		</tr>
 		<tr>
-			<th>*상세주소</th>
+			<th>상세주소</th>
 			<td><input type="text" name="left_addr" id="left_addr"/></td>
 		</tr>
 		
@@ -188,15 +236,15 @@ h6{
 				    <option value="011">011</option>
 				    <option value="012">012</option>
 		  	</select>
-			<input name="phone_num" type="text" id="phone2"/>
-			<input name="phone_num" type="text" id="phone2"/>
+			<input name="phone_num" type="text" id="phone_num"/>
+			<input name="phone_num" type="text" id="phone_num"/>
 			</td>
 		</tr>
 		<tr>
 			<th>이메일</th>
 			<td><input type="text" name="email" id="email"/> 
 			&nbsp; @ &nbsp; 
-			<select id="url">
+			<select id="url" name="email">
 			<option value="naver">naver</option>
 			<option value="gmail">gmail</option>
 			<option value="daum">daum</option>
@@ -208,7 +256,7 @@ h6{
 			<th>*관심업종</th>
 			<td>	
 				<select name="interest_biz_id" id="interest_biz_id">
-					<option value=".">==선택==</option>
+					 <option value=".">==선택==</option>
 				    <option value="1">카페</option>
 				    <option value="2">음식점</option>
 				    <option value="3">여가오락</option>
@@ -243,28 +291,25 @@ h6{
 		<tr>
 			<th>프로필 추가</th>
 			<td>
-			<!-- 
-			<form action="profile.do" method="post" enctype="multipart/form-data">
-				<button >
-					
-					<img id="profile" src="resources/photo/프로필 기본.png">
-					<input type="file" name="photo" id="inputPhoto">
-					<img id="profile" src="resources/photo/${dto.newFileName}"/>
-					
-				</button>
-				<button>저장</button>
-			
-			</form>	
-			 -->
-			
-			<button type="button" >
-				<img id="preview" src="resources/photo/프로필 기본.png"/>
-				 <input type="file" name="profile" onchange="readURL(this);" >
-			</button>
-			
-			<button >
-					삭제
-			</button>
+
+				
+				<div class="file-wrapper flie-wrapper-area">
+				  <div class="float-left">
+				    <span class="label-plus"><i class="fas fa-plus"></i></span>
+				    <button type="button">
+				    <div id="preview"><img id="preview" src="resources/photo/프로필 기본.png"/></div>
+				    
+				    <input type="file" name="profile" id="file" class="upload-box upload-plus" accept="image/*">
+				    <div class="file-edit-icon">
+				    
+				      <!-- <a href="#" class="preview-edit">수정</a> -->
+				      <br>
+				      <br>
+				      <img href="#" class="preview-de" src="resources/photo/free-icon-cancel-8532372.png"></img>
+				      </button>
+				    </div>
+				  </div>
+				</div>
 			<br>
 					<h6 id="des">
 						※ 프로필 사진은 10MB 용량 이하의 이미지만 첨부 가능합니다
@@ -328,10 +373,10 @@ h6{
 		
 		<tr>
 			<th colspan="2">
-				<!--  <button type="button" onclick="join()">등록</button>-->
-				<button class="test_btn2">등록</button>
+				<button type="button" class="test_btn2" onclick="join()">입력확인</button>
+				<button class="test_btn2" >등록</button>
 				
-				<button onclick="location.href='./'" class="test_btn2">돌아가기</button>
+				<button type="button" onclick="location.href='./'" class="test_btn2">돌아가기</button>
 			</th>
 		</tr>
 	</table>
@@ -345,27 +390,19 @@ var overlayChk2 = false;
 
 function join(){
 	
-	if(pweq && overlayChk){
+	if(pweq && overlayChk && overlayChk2){
 		
 		var $user_id = $('#user_id');
 		var $user_pw = $('#user_pw');
 		var $user_name = $('#user_name');
-		var $nickname = $('nickname');
-		var $post_num = $('post_num');
+		var $nickname = $('#nickname');
+		var $post_num = $('#post_num');
 		var $phone_num = $('#phone_num');
 		var $email = $('#email');
-		var $interest_biz_id = $('interest_biz_id');
-		console.log($user_id.val())
-		console.log($user_pw.val())
-		console.log($user_name.val())
-		console.log($nickname.val())
-		console.log($post_num.val())
-		console.log($phone_num.val())
-		console.log($email.val())
-		console.log($interest_biz_id.val())
+		var $interest_biz_id = $('#interest_biz_id');
 		
 		
-				
+		
 		if($user_id.val()==''){
 			alert('아이디를 입력해 주세요!');
 			$user_id.focus();
@@ -376,21 +413,21 @@ function join(){
 			alert('이름을 입력해 주세요!');
 			$user_name.focus();
 		}else if($nickname.val() == ''){
-			alert('이름을 입력해 주세요!');
+			alert('닉네임을 입력해 주세요!');
 			$nickname.focus();
-		}else if($post_num.val() == ''){
-			alert('주소를 입력해 주세요!');
-			$post_num.focus();
-		}else if($phone_num.val() == ''){
-			alert('전화번호을 입력해 주세요!');
-			$phone_num.focus();
+		}else if($post_num.val() == null){
+			alert('우편번호를 입력해 주세요!');
+		}else if($phone_num.val() == null){
+			alert('전화번호를 입력해 주세요!');
 		}else if($email.val() == ''){
 			alert('이메일 입력해 주세요!');
 			$email.focus();
-		}else if($interest_biz_id.val() == ''){
+		}else if($interest_biz_id.val() == '.'){
 			alert('관심업종을 선택해 주세요!');
-			$interest_biz_id.focus();
 		}else{
+			var param = {};
+			param.interest_biz_id = $interest_biz_id.val();
+			console.log(param);
 			/*
 			var param = {};
 			param.user_id = $user_id.val();
@@ -497,18 +534,31 @@ $('#confirm').on('keyup',function(e){
 });
 
 
-//파일 미리보기!!
-function readURL(input) {
-	  if (input.files && input.files[0]) {
-	    var reader = new FileReader();
-	    reader.onload = function(e) {
-	      document.getElementById('preview').src = e.target.result;
-	    };
-	    reader.readAsDataURL(input.files[0]);
-	  } else {
-	    document.getElementById('preview').src = "";
-	  }
-	}
+//파일 미리보기!
+console.log()
+function handleFileSelect(event) {
+    var input = this;
+    console.log(input.files)
+    if (input.files && input.files.length) {
+        var reader = new FileReader();
+        this.enabled = false
+        reader.onload = (function (e) {
+        console.log(e)
+            $("#preview").html(['<img class="thumb" src="', e.target.result, '" title="', escape(e.name), '"/>'].join(''))
+        });
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+$('#file').change(handleFileSelect);
+$('.file-edit-icon').on('click', '.preview-de', function () {
+    $("#preview").empty()
+    $("#file").val("");
+});
+$('.preview-edit').click( function() {
+  $("#file").click();
+} );
+
+
 // 사업자 등록증!	
 function workURL(input) {
 	  if (input.files && input.files[0]) {
@@ -521,6 +571,7 @@ function workURL(input) {
 	    document.getElementById('previeww').src = "";
 	  }
 	}
+
 
 
 

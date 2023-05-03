@@ -3,7 +3,7 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd"
 >
 <!-- xml 을 java 에서 쓰기 위해 연결되는 interface 가 필요 하다. -->
-<mapper namespace="com.ino.main.dao.HomeDAO">
+<mapper namespace="com.ino.member.dao.MemberDAO">
 
 	<select id="overlay" resultType="int">
 		SELECT COUNT(user_id) FROM user
@@ -25,9 +25,28 @@
 		)
 	</insert>
 	
+		<insert id="riderRegist" parameterType="hashmap">
+		INSERT INTO user(
+			user_id,user_pw,user_name,nickname,post_num,
+			left_addr,phone_num,email,user_state,interest_biz_id
+		)VALUES(
+			#{user_id},#{user_pw},#{user_name},#{nickname},#{post_num},#{left_addr}
+			,#{phone_num},#{email},#{user_state},#{interest_biz_id}
+		)
+	</insert>
+	
+	
 	<insert id="bizregist" >
 		INSERT INTO auth_extra(
 			user_id,biz_num,biz,store_name,state
+			
+		)VALUES(
+			#{param1},#{param2},#{param3},#{param4},#{param5}
+		)
+	</insert>
+		<insert id="riderbizregist" >
+		INSERT INTO rider_extra(
+			user_id,biz_num,intro,news,store_time
 			
 		)VALUES(
 			#{param1},#{param2},#{param3},#{param4},#{param5}
@@ -61,7 +80,7 @@
 	
 	
 	<select id="afterList" 
-	resultType="com.ino.main.dto.HomeDTO">
+	resultType="com.ino.member.dto.MemberDTO">
 		SELECT new_photo_name FROM photo WHERE photo_div = (select user_id from user where user_id = #{param1});
 	</select>
 	

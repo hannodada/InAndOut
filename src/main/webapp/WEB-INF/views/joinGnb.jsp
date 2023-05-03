@@ -139,7 +139,7 @@ header{
     <header>
       <nav>
 		<div id="navbar">
-		      <div class="logo"><img src="resources/photo/로고2.png"></div>
+		      <div class="logo"><img src="resources/photo/로고2.png" onclick="location.href='home'"></div>
 		      
 		      
 		      <div>

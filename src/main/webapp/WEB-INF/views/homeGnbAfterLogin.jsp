@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <style>
@@ -90,36 +91,51 @@ header{
   
 }
 
+#logout{
+	width: 35px;
+	cursor:pointer;
+	margin-right: 9px;  
+}
+
+#profile{
+	width: 40px;
+	cursor:pointer;
+	border-top-left-radius: 15px;
+            border-bottom-left-radius: 15px;
+            border-top-right-radius: 15px;
+            border-bottom-right-radius: 15px; 
+            
+    margin-right: 9px;     
+            
+}
+#chating{
+	width: 35px;
+	cursor:pointer;
+	margin-right: 11px;
+}
+#etc{
+		display: flex;
+		justify-content: space-between;
+		align-items: center; 
+		justify-content: flex-star;
+}
+#location{
+	margin-right: 13px;
+}
+#lol{
+	display: flex;
+		justify-content: space-between;
+		align-items: center; 
+		justify-content: flex-star;
+
+}
+
+
+
 
 .nbsp {
   width:860px;
 }
-
-
-.loginbax{
-	width: 27%;
-	margin-right: 13px;
-
-}
-
-.loginOutline{
-	display: flex;
-		justify-content: flex-end;
-		align-items: center; 
-		justify-content: flex-star;
-		
-		
-}
-
-.realLogin{
-	display: flex;
-		justify-content: center;
-		align-items: center; 
-		justify-content: flex-star;
-		margin-right: 13px;
-
-}
-  
 .test_btn1{
             border-top-left-radius: 5px;
             border-bottom-left-radius: 5px;
@@ -145,51 +161,67 @@ header{
             background-color: #3788fd;
         }
         
-       
-#id{
-	margin-right: 5px;
-
+        
+ 
+.dropdown {
+  position: relative;
+  display: inline-block;
 }
-#login{
-	margin-right: 3px;
-
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
 }
-#join{
-	
-
+#drop {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
 }
+#drop :hover {
+  background-color: #ddd;
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+.dropdown:hover .dropbtn {
+  background-color: #3e8e41;
+}
+        
+
 
 
 @media(max-width:1913px){
    #navbar{position: relative;position: fixed;width: 100%;top: 0;left: 0;}
-   #navbar .nbsp{ width: 45%;}
+   #navbar .nbsp{ width: 52%;}
    }
 @media(max-width:1750px){
    #navbar{position: relative;position: fixed;width: 100%;top: 0;left: 0;}
-   #navbar .nbsp{ width: 40%;}
+   #navbar .nbsp{ width: 48%;}
    }
 @media(max-width:1564px){
    #navbar{position: relative;position: fixed;width: 100%;top: 0;left: 0;}
-   #navbar .nbsp{ width: 35%;}   
+   #navbar .nbsp{ width: 40%;}   
 
-@media(max-width:1378px){
+@media(max-width:1300px){
 #navbar{position: relative;position: fixed;width: 100%;top: 0;left: 0;}
-#navbar .nbsp{ width: 30%;}
-}
-@media(max-width:1280px){
-#navbar{position: relative;position: fixed;width: 100%;top: 0;left: 0;}
-#navbar .nbsp{ width: 20%;}
+#navbar .nbsp{ width: 35%;}
 }   
 @media(max-width:1204px){
 #navbar{position: relative;position: fixed;width: 100%;top: 0;left: 0;}
-#navbar .nbsp{ width: 1%;}
+#navbar .nbsp{ width:25%;}
 }
-@media(max-width:980px){
+@media(max-width:960px){
 #navbar{position: relative;position: fixed;width: 100%;top: 0;left: 0;}
-#navbar .nbsp{ width: 1%; display: none;}
+#navbar .nbsp{ width: 20%; display: none;}
 #navbar a{ visibility: hidden; width: 0%; display: none;}
 }
   
+
+         
  
 </style>
 <head>
@@ -197,33 +229,47 @@ header{
  <header>
       <nav>
 		<div id="navbar">
-		     
-		      <div class="logo"><img src="resources/photo/로고2.png" onclick="location.href='home'"></div>
-		      
-		      
-		     
-		      <div >
-					<a href="#">판매글</a>
-					<a href="#">갤러리</a>
-		      </div>
-		       <div class="nbsp">
-					 		     
+		      <div class="logo"><img src="resources/photo/로고2.png" onclick="location.href='afterLogin.go'" ></div>
+					<a href="salesList.do">Store</a>
+					<a href="galleryList.do">Gallery</a>
+		       <div class="nbsp">		     
  		      </div>
-		       <div class="loginOutline">
-					
-			            <input type="text" id="id" class="loginbax">
-			            <input type="password" id="pw" class="loginbax">
-           		 	
-		      </div>
-		     
-		      <div class="realLogin">
-					 <!-- <a id="login"onclick="login()" class="test_btn1">login</a> -->
-					  <button id="login" onclick="login()" class="test_btn1">로그인</button>
-					 
-					<button id="join" onclick="location.href='join.go'" class="test_btn1">회원가입</button>
-			 </div>
-		 </div>
-				
+	 		      <div id="etc">
+					       <div id="location">
+											            거주  지역
+						            <button  class="test_btn1">지역활동인증</button>
+			           		 	
+					      	</div>
+					      	
+					      	
+					     	<div  id="lol">
+					     		
+					     		  <c:if test="${dto.new_photo_name eq null}">
+					     		 <img src="resources/photo/프로필 기본.png" id="profile" onclick="location.href='profile.go'">
+					     		 </c:if>
+					     		 
+					     		 <c:if test="${dto.new_photo_name ne null}">
+					     		 <img src="resources/photo/${dto.new_photo_name}" id="profile" onclick="location.href='profile.go'">
+					     		 </c:if>
+								<img src="resources/photo/logout.png" id="logout" onclick="location.href='home'">
+								<img src="resources/photo/free-icon-letter-1250663.png" id="chating" onclick="location.href='chatlist.go'">
+						 </div>
+						 
+						 
+							      <div class="dropdown">
+							    <button  class="test_btn1">글쓰기</button>
+							    <div class="dropdown-content">
+							      <a href="salesWrite.go" id="drop">판매글 등록</a>
+							      <a href="galleryWrite.go"  id="drop">갤러리 등록</a>
+							      
+							      
+							      
+							    </div>
+							  </div>
+						 
+						 
+				 </div>
+			
 	</nav>
 	 
 </header>
@@ -234,6 +280,7 @@ header{
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3.0">
   <title>INaNdOUT</title> 
   <link rel="stylesheet" href="style.css">
+  <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
@@ -372,7 +419,7 @@ function login(){
 			console.log(data);
 			if(data.success == 1){
 				alert('로그인에 성공 했습니다.');
-				location.href='afterLogin.go';
+				location.href='list.go';
 			}else{
 				alert('아이디 또는 비밀번호를 확인해 주세요!');
 			}			

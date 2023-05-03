@@ -1,4 +1,4 @@
-package com.ino.main.service;
+package com.ino.member.service;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -15,16 +15,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.ino.main.dao.HomeDAO;
-import com.ino.main.dto.HomeDTO;
-
+import com.ino.member.dao.MemberDAO;
+import com.ino.member.dto.MemberDTO;
 
 
 
 @Service
-public class HomeService {
+public class MemberService {
 	
-	@Autowired HomeDAO dao;
+	@Autowired MemberDAO dao;
 	
 	Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -43,6 +42,8 @@ public class HomeService {
 		return map;
 	}
 	
+	
+	
 	public String userRegist(MultipartFile profile, HashMap<String, String> params, 
 			MultipartFile bizprofile) {
 		String page = "joinForm";
@@ -50,7 +51,7 @@ public class HomeService {
 		//**이거 idx 값으로 해서 dto로 넣어야 할까?? 고민중..,,,
 		int userRegistrow = dao.userRegist(params);
 		logger.info("userRegistrow변경되면 이거 나옴!!: "+userRegistrow);
-		HomeDTO dto = new HomeDTO();
+		MemberDTO dto = new MemberDTO();
 		dto.setUser_id(params.get("user_id"));
 		
 		
@@ -75,12 +76,62 @@ public class HomeService {
 			logger.info("bizregistrow변경되면 이거 나옴!!: "+bizregistrow);
 			
 		}
+		
+		
+		
+		
 		if(!bizprofile.getOriginalFilename().equals("")) {
 			logger.info("bizprofile파일 업로드 작업");
 			bizfileSave(user_id, bizprofile);
 		}
 		return page;
 	}
+	
+	
+	
+	
+	public String riderRegist(MultipartFile profile, HashMap<String, String> params, MultipartFile bizprofile) {
+		String page = "riderForm";
+		
+		//**이거 idx 값으로 해서 dto로 넣어야 할까?? 고민중..,,,
+		int riderRegistrow = dao.riderRegist(params);
+		logger.info("riderRegistrow변경되면 이거 나옴!!: "+riderRegistrow);
+		MemberDTO dto = new MemberDTO();
+		dto.setUser_id(params.get("user_id"));
+		
+		
+		String user_id = dto.getUser_id();
+		logger.info("if문 밖에는 있나???"+user_id);
+		
+		if(!profile.getOriginalFilename().equals("")) {
+			logger.info("profile파일 업로드 작업");
+			fileSave(user_id, profile);
+		}
+		//****  만약인증사용자 추가 정보가 들어오면 실행되는 구문
+		if(!params.get("intro").equals("")) {
+			
+			
+			int biz_num = Integer.parseInt((params.get("biz_num")));
+			
+			String intro =  params.get("intro");
+			String news =  params.get("news");
+			String store_time = params.get("store_time");
+			
+			logger.info(user_id+biz_num+intro+news);
+			int riderbizregist = dao.riderbizregist(user_id,biz_num,intro,news,store_time);
+			
+			logger.info("이거 안들어가나??"+user_id);
+			logger.info("riderbizregistrow변경되면 이거 나옴!!: "+riderbizregist);
+			
+		}
+		if(!bizprofile.getOriginalFilename().equals("")) {
+			logger.info("riderbizprofile파일 업로드 작업");
+			bizfileSave(user_id, bizprofile);
+		}
+		return page;
+	}
+	
+	
 
 	public HashMap<String, Object> join(HashMap<String, String> params) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -92,7 +143,7 @@ public class HomeService {
 		return dao.login(id,pw);
 	}
 	
-	public HomeDTO afterList(String user_id) {
+	public MemberDTO afterList(String user_id) {
 		// TODO Auto-generated method stub
 		return dao.afterList(user_id);
 	}
@@ -154,8 +205,6 @@ public class HomeService {
 		}
 		
 	}
-
-
 
 
 
