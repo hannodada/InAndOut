@@ -17,21 +17,30 @@
 	 
 	<insert id="userRegist" parameterType="hashmap">
 		INSERT INTO user(
-			user_id,user_pw,user_name,nickname,post_num,
+			user_id,user_pw,user_name,nickname,post_num,sido,sigungu,
 			left_addr,phone_num,email,user_state,interest_biz_id
 		)VALUES(
 			#{user_id},#{user_pw},#{user_name},#{nickname},#{post_num},#{left_addr}
-			,#{phone_num},#{email},#{user_state},#{interest_biz_id}
+			,#{sido},#{sigungu},#{phone_num},#{email},#{user_state},#{interest_biz_id}
 		)
 	</insert>
 	
+	<insert id="user_div" >
+		INSERT INTO user_div(
+			user_div,user_id,user_div_name
+		)VALUES(
+			#{param1},#{param2},#{param3}
+		)
+	</insert>
+	
+	
 		<insert id="riderRegist" parameterType="hashmap">
 		INSERT INTO user(
-			user_id,user_pw,user_name,nickname,post_num,
+			user_id,user_pw,user_name,nickname,post_num,sido,sigungu,
 			left_addr,phone_num,email,user_state,interest_biz_id
 		)VALUES(
 			#{user_id},#{user_pw},#{user_name},#{nickname},#{post_num},#{left_addr}
-			,#{phone_num},#{email},#{user_state},#{interest_biz_id}
+			,#{sido},#{sigungu},#{phone_num},#{email},#{user_state},#{interest_biz_id}
 		)
 	</insert>
 	
@@ -46,10 +55,10 @@
 	</insert>
 		<insert id="riderbizregist" >
 		INSERT INTO rider_extra(
-			user_id,biz_num,intro,news,store_time
+			user_id,biz_num,intro,news,store_time,store_name
 			
 		)VALUES(
-			#{param1},#{param2},#{param3},#{param4},#{param5}
+			#{param1},#{param2},#{param3},#{param4},#{param5},#{param6}
 		)
 	</insert>
 	
@@ -81,15 +90,11 @@
 	
 	<select id="afterList" 
 	resultType="com.ino.member.dto.MemberDTO">
-		SELECT new_photo_name FROM photo WHERE photo_div = (select user_id from user where user_id = #{param1});
+		SELECT p.new_photo_name FROM photo p 
+		WHERE photo_div = (select user_id from user where user_id = #{param1}) and cate_no = 'p001'
 	</select>
 	
-<!-- 		SELECT user_id FROM user WHERE  user_id = #{param1}
-		SELECT newFileName FROM photo WHERE user_id = #{param1}
-	
-		SELECT newFileName FROM photo WHERE user_id = (SELECT user_id FROM user WHERE  user_id = #{param1})
-	 SELECT new_photo_name FROM photo WHERE photo_div = (select user_id from user where user_id = #{param1});
-	 -->
+<!--  SELECT p.new_photo_name FROM photo p WHERE photo_div = 'bb' and cate_no = 'p001';-->
 	
 	<delete id="delete">
 		DELETE FROM member WHERE id = #{param1}

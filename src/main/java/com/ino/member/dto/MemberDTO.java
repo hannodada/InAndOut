@@ -11,6 +11,8 @@ public class MemberDTO {
 	private int phone_num;
 	private String email;
  	private String new_photo_name;
+ 	private String sido;
+ 	private String sigungu;
  	
  	
  	public String getNew_photo_name() {
@@ -77,6 +79,18 @@ public class MemberDTO {
 	}
 	public void setInterest_biz_id(String interest_biz_id) {
 		this.interest_biz_id = interest_biz_id;
+	}
+	public String getSido() {
+		return sido;
+	}
+	public void setSido(String sido) {
+		this.sido = sido;
+	}
+	public String getSigungu() {
+		return sigungu;
+	}
+	public void setSigungu(String sigungu) {
+		this.sigungu = sigungu;
 	}
  
  	

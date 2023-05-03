@@ -57,6 +57,15 @@ public class MemberService {
 		
 		String user_id = dto.getUser_id();
 		logger.info("if문 밖에는 있나???"+user_id);
+		String user_div_name = "일반";
+		int user_div = 1;
+		dao.user_div(user_div,user_id,user_div_name);
+		
+		//주소에서 시도, 시군구만 빼오기
+		
+		
+		
+		
 		
 		if(!profile.getOriginalFilename().equals("")) {
 			logger.info("profile파일 업로드 작업");
@@ -74,6 +83,10 @@ public class MemberService {
 			int bizregistrow = dao.bizregist(user_id,biz_num,biz,store_name,state);
 			logger.info("이거 안들어가나??"+user_id);
 			logger.info("bizregistrow변경되면 이거 나옴!!: "+bizregistrow);
+			int user_div2 = 2;
+			String user_div_name2 = "인증";
+			dao.user_div(user_div2, user_id, user_div_name2);
+			
 			
 		}
 		
@@ -98,10 +111,21 @@ public class MemberService {
 		logger.info("riderRegistrow변경되면 이거 나옴!!: "+riderRegistrow);
 		MemberDTO dto = new MemberDTO();
 		dto.setUser_id(params.get("user_id"));
+		dto.setNickname(params.get("nickname"));
+		logger.info("라이더 파람!! nickname 출력!!  : "+ params.get("nickname"));
+		
+		int user_div3 = 3;
+		String user_div_name3 = "라이더";
 		
 		
 		String user_id = dto.getUser_id();
+		String Nickname = dto.getNickname();
+		logger.info("라이더 Nickname 출력!!  : "+ Nickname);
 		logger.info("if문 밖에는 있나???"+user_id);
+		dao.user_div(user_div3, user_id, user_div_name3);
+		
+		
+		
 		
 		if(!profile.getOriginalFilename().equals("")) {
 			logger.info("profile파일 업로드 작업");
@@ -117,8 +141,8 @@ public class MemberService {
 			String news =  params.get("news");
 			String store_time = params.get("store_time");
 			
-			logger.info(user_id+biz_num+intro+news);
-			int riderbizregist = dao.riderbizregist(user_id,biz_num,intro,news,store_time);
+			logger.info(user_id+biz_num+intro+news+Nickname);
+			int riderbizregist = dao.riderbizregist(user_id,biz_num,intro,news,store_time,Nickname);
 			
 			logger.info("이거 안들어가나??"+user_id);
 			logger.info("riderbizregistrow변경되면 이거 나옴!!: "+riderbizregist);
@@ -174,7 +198,7 @@ public class MemberService {
 		logger.info(oriFileName+" => " + newFileName);
 		try {
 			byte[] bytes= file.getBytes();
-			Path path = Paths.get("D:\\SPRING\\inAndOutLast\\src\\main\\webapp\\resources\\photo\\"+newFileName);
+			Path path = Paths.get("D:\\STUDY\\SPRING\\inAndOutLast\\src\\main\\webapp\\resources\\photo\\"+newFileName);
 			Files.write(path, bytes);
 			logger.info(newFileName+"save OK");
 			String cate_no = "p001";
@@ -193,9 +217,9 @@ public class MemberService {
 		logger.info(oriFileName+" => " + newFileName);
 		try {
 			byte[] bytes= bizprofile.getBytes();
-			Path path = Paths.get("D:/SPRING/gnb/src/main/webapp/resources/photo/"+newFileName);
+			Path path = Paths.get("D:\\STUDY\\SPRING\\inAndOutLast\\src\\main\\webapp\\resources\\photo\\"+newFileName);
 			Files.write(path, bytes);
-			logger.info(newFileName+"bizsave OK");
+			logger.info(newFileName +" : bizsave OK ");
 			String cate_no = "p002";
 			dao.bizfileWrite(oriFileName,newFileName,user_id,cate_no);
 			
