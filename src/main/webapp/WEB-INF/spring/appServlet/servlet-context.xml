@@ -40,12 +40,16 @@
 		<!-- 쿼리문이 있을 장소 -->
 		<beans:property name="mapperLocations">
 			<beans:list>
+
 				<beans:value>classpath:com/ino/**/DAO/*.xml</beans:value>
+				<beans:value>classpath:com/ino/**/dao/*.xml</beans:value>
 			</beans:list>
 		</beans:property>
 	</beans:bean>
 	
 	<!-- mybatis area -->
+
 	<mybatis-spring:scan base-package="com.ino.**.DAO"/>
+	<mybatis-spring:scan base-package="com.ino.**.dao"/>
 	
 </beans:beans>
