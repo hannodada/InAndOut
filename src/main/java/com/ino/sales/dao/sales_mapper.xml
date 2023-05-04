@@ -4,8 +4,44 @@
 >
 
 <mapper namespace="com.ino.sales.dao.SalesDAO">
+		
+	<select id="getUserSido" parameterType="String" resultType="String">
+		SELECT u.sido FROM user u WHERE u.user_id = #{loginId}
+	</select>
+	
+	<select id="getUserSigungu" parameterType="String" resultType="String">
+			SELECT u.sigungu FROM user u WHERE u.user_id = #{loginId}
+	</select>
 	
 	<select id="salesList" resultType="com.ino.sales.dto.SalesDTO">
+		SELECT s.sales_no, s.sales_state, s.subject, s.price, s.sales_sido, s.sigungu, s.hit, s.user_id, u.nickname, s.date, p.new_photo_name, s.biz_id, b.biz_name, s.goods_id, g.goods_name
+			FROM sales s 
+			LEFT JOIN user u ON s.user_id = u.user_id
+			LEFT JOIN photo p ON p.photo_div = s.sales_no
+			LEFT JOIN biz b ON s.biz_id = b.biz_id 
+			LEFT JOIN goods g ON s.goods_id = g.goods_id 
+			WHERE p.cate_no = 'p005' AND s.blind = '0'
+		<if test='param1 != null  and !param1.equals("default")'>
+			AND s.sales_sido = #{param1}
+		</if>	
+		<if test='param2 != null  and !param2.equals("default")'>
+			AND s.sigungu = #{param2}
+		</if>	
+		GROUP BY s.sales_no ORDER BY s.sales_no DESC
+	</select>
+	
+		<select id="filteringByHit" parameterType="String" resultType="com.ino.sales.dto.SalesDTO">
+		SELECT s.sales_no, s.sales_state, s.subject, s.price, s.sales_sido, s.sigungu, s.hit, s.user_id, u.nickname, s.date, p.new_photo_name, s.biz_id, b.biz_name, s.goods_id, g.goods_name
+			FROM sales s 
+			LEFT JOIN sales s2 ON s2.blind = '0'
+			LEFT JOIN user u ON s.user_id = u.user_id
+			LEFT JOIN photo p ON p.photo_div = s.sales_no AND p.cate_no = 'p005'
+			LEFT JOIN biz b ON s.biz_id = b.biz_id 
+			LEFT JOIN goods g ON s.goods_id = g.goods_id 
+		GROUP BY s.sales_no ORDER BY s.hit DESC
+	</select>
+	
+	<select id="filteringBySales_no" parameterType="String" resultType="com.ino.sales.dto.SalesDTO">
 		SELECT s.sales_no, s.sales_state, s.subject, s.price, s.sales_sido, s.sigungu, s.hit, s.user_id, u.nickname, s.date, p.new_photo_name, s.biz_id, b.biz_name, s.goods_id, g.goods_name
 			FROM sales s 
 			LEFT JOIN sales s2 ON s2.blind = '0'
@@ -15,7 +51,7 @@
 			LEFT JOIN goods g ON s.goods_id = g.goods_id 
 		GROUP BY s.sales_no ORDER BY s.sales_no DESC
 	</select>
-	
+		
 	<select id="getBizList" resultType="com.ino.sales.dto.BizDTO">
 		SELECT * FROM biz
 	</select>
@@ -55,4 +91,5 @@
 			INNER JOIN sales s ON s.sales_no = p.photo_div 
 		AND p.cate_no = 'p005' AND s.sales_no = #{sales_no}
 	</select>
+
 </mapper>

@@ -16,6 +16,10 @@
 </style>
 </head>
 <body>
+	<select name="filter" id="filter" onchange="filtering()">
+		<option value="sales_no">등록일 순</option>
+		<option value="hit">조회수 순</option>
+	</select>
 	<table>
 		<thead>
 			<tr>
@@ -34,36 +38,119 @@
 				<th>등록일자</th>
 			</tr>
 		</thead>
-		<c:if test="${list.size() == 0 }">
-			<tr>
-				<th colspan="13">판매글이 없습니다.</th>
-			</tr>
-		</c:if>
-		<c:if test="${list.size() > 0 }">
-			<c:forEach items="${list }" var="i">
+		<tbody id="list">
+			<c:if test="${list.size() == 0 }">
 				<tr>
-					<th>${i.sales_no }</th>
-					<th>${i.sales_state }</th>
-					<c:if test="${i.new_photo_name ne null }">
-						<th><img src="/photo/${i.new_photo_name }"/></th>
-					</c:if>
-					<c:if test="${i.new_photo_name eq null }">
-						<th><img src="/photo/default.png"/></th>
-					</c:if>
-					<th><a href="salesDetail.do?sales_no=${i.sales_no}">${i.subject }</a></th>
-					<th>${i.price }</th>
-					<th>${i.sales_sido }</th>
-					<th>${i.sigungu }</th>
-					<th>${i.biz_name }</th>
-					<th>${i.goods_name }</th>
-					<th>${i.hit }</th>
-					<th>${i.user_id }</th>
-					<th>${i.nickname }</th>
-					<th>${i.date }</th>
+					<th colspan="13">판매글이 없습니다.</th>
 				</tr>
-			</c:forEach>
-		</c:if>
+			</c:if>
+			<c:if test="${list.size() > 0 }">
+				<c:forEach items="${list }" var="i">
+					<tr>
+						<th>${i.sales_no }</th>
+						<th>${i.sales_state }</th>
+						<c:if test="${i.new_photo_name ne null }">
+							<th><img src="/photo/${i.new_photo_name }"/></th>
+						</c:if>
+						<c:if test="${i.new_photo_name eq null }">
+							<th><img src="/photo/default.png"/></th>
+						</c:if>
+						<th><a href="salesDetail.do?sales_no=${i.sales_no}">${i.subject }</a></th>
+						<th>${i.price }</th>
+						<th>${i.sales_sido }</th>
+						<th>${i.sigungu }</th>
+						<th>${i.biz_name }</th>
+						<th>${i.goods_name }</th>
+						<th>${i.hit }</th>
+						<th>${i.user_id }</th>
+						<th>${i.nickname }</th>
+						<th>${i.date }</th>
+					</tr>
+				</c:forEach>
+			</c:if>
+		</tbody>
 	</table>
 </body>
-<script></script>
+<script>
+	function filtering(){
+		
+		console.log('change');
+		var elem = document.getElementById('filter');
+		console.log(elem);
+		var val = elem.value;
+		console.log(val);
+		
+		$.ajax({
+			type: 'get',
+			url: 'filtering.ajax',
+			data: {
+				filterName:val
+			},
+			dataType: 'json',
+			success: function(data){
+				console.log(data.filteredList);
+				if(data!=null){
+					filterListDraw(data.filteredList);
+				}
+			},
+			error: function(e){
+				console.log(e);
+			}
+		});
+		
+	}
+	
+	function filterListDraw(list){
+		
+		var content = '';
+		
+		list.forEach(function(item, index){
+			
+			content += '<tr>';
+			content += '<th>'+item.sales_no+'</th>';
+			content += '<th>'+item.sales_state+'</th>';
+
+			content += '<th><img src="/photo/';
+
+			if(item.new_photo_name == null){
+				content += 'default.png';
+			}else{
+				content += item.new_photo_name;
+			}
+			
+			content += '"/></th>';
+			
+			content += '<th><a href="salesDetail.do?sales_no='+item.sales_no+'">'+item.subject+'</a></th>';
+			content += '<th>'+item.price+'</th>';
+			content += '<th>'+item.sales_sido+'</th>';
+			content += '<th>'+item.sigungu+'</th>';
+			content += '<th>'+item.biz_name+'</th>';
+			content += '<th>'+item.goods_name+'</th>';
+			content += '<th>'+item.hit+'</th>';
+			content += '<th>'+item.user_id+'</th>';
+			content += '<th>'+item.nickname+'</th>';
+			
+			let milliseconds = item.date;
+			let date = getFormatDate(new Date(milliseconds));
+
+			content += '<th>'+date+'</th>';
+			content += '</tr>';
+		});
+		
+		$('#list').empty();
+		$('#list').append(content);
+		
+	}
+	
+	function getFormatDate(date){
+		
+		var year = date.getFullYear();
+		var month = (1 + date.getMonth());
+		month = month >= 10 ? month : '0' + month;
+		var day = date.getDate();
+		day = day >= 10 ? day : '0' + day;
+		
+		return year + '-' + month + '-' +day;
+	}
+</script>
 </html>

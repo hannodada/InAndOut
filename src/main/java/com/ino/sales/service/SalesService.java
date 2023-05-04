@@ -7,6 +7,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,19 +26,49 @@ public class SalesService {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired SalesDAO dao;
 	
-	public ArrayList<SalesDTO> salesList() {
+	public ArrayList<SalesDTO> salesList(HttpSession session) {
 		
-		return dao.salesList();
+		ArrayList<SalesDTO> list = new ArrayList<SalesDTO>();
+		logger.info("salesList 진입");
+		if(session.getAttribute("loginId")!=null) {
+			logger.info("salesList  if 진입");
+			String loginId = (String) session.getAttribute("loginId");
+			logger.info("salesList  if 세션 진입"+loginId);
+			String sido = dao.getUserSido(loginId);
+			String sigungu = dao.getUserSigungu(loginId);
+			
+			logger.info("salesList  if 세션 진입"+sido+sigungu);
+			list = dao.salesList(sido, sigungu);
+			
+		}else {
+			
+			list = dao.salesList("default" ,"default");
+			
+		}
+		
+		return list;
 	}
-
+	
+	public ArrayList<SalesDTO> filtering(String filterName) {
+		
+		ArrayList<SalesDTO> list = new ArrayList<SalesDTO>();
+		
+		if(filterName.equals("hit")) {
+			
+			list = dao.filteringByHit();
+			
+		}else if(filterName.equals("sales_no")) {
+			
+			list = dao.filteringBySales_no();
+			
+		}
+		
+		return list;
+	}
+	
 	public ArrayList<BizDTO> getBizList() {
 		
 		return dao.getBizList();
-	}
-	
-	public ArrayList<goodsDTO> goodsCall(String biz_id) {
-
-		return dao.goodsCall(biz_id);
 	}
 	
 	public String salesWrite(MultipartFile[] photos, HashMap<String, String> params) {
@@ -107,6 +139,11 @@ public class SalesService {
 		}
 		
 	}
+	
+	public ArrayList<goodsDTO> goodsCall(String biz_id) {
+
+		return dao.goodsCall(biz_id);
+	}
 
 	public SalesDTO salesDetail(int sales_no, String flag) {
 
@@ -123,6 +160,8 @@ public class SalesService {
 
 		return dao.salesDetailPhoto(sales_no);
 	}
+
+
 
 
 
