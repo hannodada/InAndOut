@@ -108,7 +108,7 @@ header{
     margin-right: 9px;     
             
 }
-#chating{
+#chatting{
 	width: 35px;
 	cursor:pointer;
 	margin-right: 11px;
@@ -252,7 +252,7 @@ header{
 					     		 <img src="resources/photo/${dto.new_photo_name}" id="profile" onclick="location.href='profile.go'">
 					     		 </c:if>
 								<img src="resources/photo/logout.png" id="logout" onclick="location.href='home'">
-								<img src="resources/photo/free-icon-letter-1250663.png" id="chating" onclick="location.href='chatlist.go'">
+								<img src="resources/photo/free-icon-letter-1250663.png" id="chatting" onclick="location.href='chat.go'">&nbsp;
 						 </div>
 						 
 						 
@@ -278,7 +278,7 @@ header{
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3.0">
-  <title>INaNdOUT</title> 
+  <title>InAndOut</title> 
   <link rel="stylesheet" href="style.css">
   <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
