@@ -31,11 +31,16 @@
 		<table>
 			<tr>
 				<th>아이디</th>
-				<td><input type="text" name="user_id"/></td>
+				<td><input type="text" name="user_id" value="${loginId}" readonly="readonly"/></td>
 			</tr>
 			<tr>
 				<th>제목</th>
-				<td><input type="text" name="subject"/></td>
+				<td>
+					<input type="text" name="subject" id="subject" maxlength="30" onkeyup="counter(event, '30')"/>
+					<div>
+						<span id="reCount">0 / 30</span>
+					</div>
+				</td>
 			</tr>
 			<tr>
 				<th>사진</th>
@@ -89,7 +94,12 @@
 			</tr>
 			<tr>
 				<th>내용</th>
-				<td><textarea name="content"></textarea></td>
+				<td>
+					<textarea name="content" id="content" maxlength="299" onkeyup="counter(event, '300')"></textarea>
+					<div>
+						<span id="reCount">0 / 300</span>
+					</div>
+				</td>
 			</tr>
 			<tr>
 				<th colspan="2">
@@ -226,17 +236,17 @@
 	
 	            // 우편번호와 주소 정보를 해당 필드에 넣는다.
 	            document.getElementById('postcode').value = data.zonecode;
-	            document.getElementById("roadAddress").value = roadAddr;
-	            document.getElementById("jibunAddress").value = data.jibunAddress;
+	            document.getElementById('roadAddress').value = roadAddr;
+	            document.getElementById('jibunAddress').value = data.jibunAddress;
 	            
 	            //커스텀
-	            document.getElementById("sido").value = data.sido;
-	            document.getElementById("sigungu").value = data.sigungu;            
+	            document.getElementById('sido').value = data.sido;
+	            document.getElementById('sigungu').value = data.sigungu;            
 	            // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
 	            if(roadAddr !== ''){
-	                document.getElementById("extraAddress").value = extraRoadAddr;
+	                document.getElementById('extraAddress').value = extraRoadAddr;
 	            } else {
-	                document.getElementById("extraAddress").value = '';
+	                document.getElementById('extraAddress').value = '';
 	            }
 	
 	            var guideTextBox = document.getElementById("guide");
@@ -296,5 +306,18 @@
 		$('#goods').append(content);
 		
 	}
+	
+	function counter(event, limit){
+		var val = event.target.value.length;
+		var elem = $(event.target).siblings().find('span');
+		console.log(val);
+		console.log(limit);
+		console.log(elem);
+		if(val<=limit){
+			elem.html(val + " / " + limit);
+		}
+		
+	}
+
 </script>
 </html>

@@ -138,7 +138,7 @@ header{
     margin-right: 9px;     
             
 }
-#chating{
+#chatting{
 	width: 35px;
 	cursor:pointer;
 	margin-right: 11px;
@@ -273,7 +273,54 @@ header{
 <head>
 
  <header>
+<<<<<<< HEAD
      
+=======
+      <nav>
+		<div id="navbar">
+		      <div class="logo"><img src="resources/photo/로고2.png" onclick="location.href='afterLogin.go'" ></div>
+					<a href="salesList.do">Store</a>
+					<a href="galleryList.do">Gallery</a>
+		       <div class="nbsp">		     
+ 		      </div>
+	 		      <div id="etc">
+					       <div id="location">
+											            거주  지역
+						            <button  class="test_btn1">지역활동인증</button>
+			           		 	
+					      	</div>
+					      	
+					      	
+					     	<div  id="lol">
+					     		
+					     		  <c:if test="${dto.new_photo_name eq null}">
+					     		 <img src="resources/photo/프로필 기본.png" id="profile" onclick="location.href='profile.go'">
+					     		 </c:if>
+					     		 
+					     		 <c:if test="${dto.new_photo_name ne null}">
+					     		 <img src="resources/photo/${dto.new_photo_name}" id="profile" onclick="location.href='profile.go'">
+					     		 </c:if>
+								<img src="resources/photo/logout.png" id="logout" onclick="location.href='home'">
+								<img src="resources/photo/free-icon-letter-1250663.png" id="chatting" onclick="location.href='chat.go'">&nbsp;
+						 </div>
+						 
+						 
+							      <div class="dropdown">
+							    <button  class="test_btn1">글쓰기</button>
+							    <div class="dropdown-content">
+							      <a href="salesWrite.go" id="drop">판매글 등록</a>
+							      <a href="galleryWrite.go"  id="drop">갤러리 등록</a>
+							      
+							      
+							      
+							    </div>
+							  </div>
+						 
+						 
+				 </div>
+			
+	</nav>
+>>>>>>> origin/master
 	 
 </header>
 
@@ -281,7 +328,7 @@ header{
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3.0">
-  <title>INaNdOUT</title> 
+  <title>InAndOut</title> 
   <link rel="stylesheet" href="style.css">
   <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

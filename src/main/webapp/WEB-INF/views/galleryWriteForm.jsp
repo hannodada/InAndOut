@@ -31,7 +31,7 @@
 		<table>
 			<tr>
 				<th>아이디</th>
-				<td><input type="text" name="user_id"/></td>
+				<td><input type="text" name="user_id" value="${loginId }" readonly="readonly"/></td>
 			</tr>
 			<tr>
 				<th>상호명</th>
@@ -39,11 +39,11 @@
 			</tr>
 			<tr>
 				<th>제목</th>
-				<td><input type="text" name="gallery_subject"/></td>
+				<td><input type="text" name="gallery_subject" maxlength="30"/></td>
 			</tr>
 			<tr>
 				<th>내용</th>
-				<td><textarea name="gallery_content"></textarea></td>
+				<td><textarea name="gallery_content" maxlength="500"></textarea></td>
 			</tr>
 			<tr>
 				<th>사진</th>
