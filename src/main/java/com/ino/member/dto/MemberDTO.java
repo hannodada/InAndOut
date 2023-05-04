@@ -13,6 +13,7 @@ public class MemberDTO {
  	private String new_photo_name;
  	private String sido;
  	private String sigungu;
+ 	private String user_div_name;
  	
  	
  	public String getNew_photo_name() {
@@ -91,6 +92,12 @@ public class MemberDTO {
 	}
 	public void setSigungu(String sigungu) {
 		this.sigungu = sigungu;
+	}
+	public String getUser_div_name() {
+		return user_div_name;
+	}
+	public void setUser_div_name(String user_div_name) {
+		this.user_div_name = user_div_name;
 	}
  
  	
