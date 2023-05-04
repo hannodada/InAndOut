@@ -87,7 +87,7 @@ public class MemberController {
 		
 		
 		if(dto != null) {
-			page = "homeGnbAfterLogin";
+			page = "home";
 			logger.info("dto 나온거!!! " +dto.getNew_photo_name());
 			model.addAttribute("dto", dto);
 		}

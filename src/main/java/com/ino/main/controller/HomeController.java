@@ -35,7 +35,7 @@ public class HomeController {
 	@RequestMapping(value={"/","/home"})
 	public String home() {
 		logger.info("홈페이지로 이동");
-		return "homeGnbBeforeLogin";
+		return "home";
 	}
 
 	@RequestMapping(value="/login.go")

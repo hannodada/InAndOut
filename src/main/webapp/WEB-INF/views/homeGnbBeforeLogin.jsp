@@ -195,6 +195,10 @@ header{
 <head>
 
  <header>
+ 
+ 
+ 
+ 
       <nav>
 		<div id="navbar">
 		     
