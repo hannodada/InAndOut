@@ -60,10 +60,6 @@ public class HomeController {
 	@RequestMapping(value="/profile.go")
 	public String profile() {
 		return "profile";
-	}	
-	@RequestMapping(value="/chatlist.go")
-	public String chatlist() {
-		return "profile";
 	}
 	
 	
