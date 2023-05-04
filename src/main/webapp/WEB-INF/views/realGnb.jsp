@@ -1,233 +1,202 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
+<link href="resources/css/realgnb.css" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    
-    }
-
-
-    .logo{
-  padding-top:0px;
-	}
-
-	.logo img{
-	  width:80px;
-	  cursor:pointer;
-	  margin: 4px 0px -10px 0px;
-	}
-	
-
-    body {
-      font-family: 'Noto Sans KR', sans-serif;
-      
-      
- 
-    }
-
-
-
-
-    a:link {
-      text-decoration: none;
-      
-    }
-
-    a:visited {
-      
-}
-
-    a:hover {
-      color: #21325D;
-    }
-
-    a:active {
-     
-    }
-
-
-
-header{
-  height:70px;
-  
-}
-
-#navbar {
-  position: fixed;
-  top:0;
-  width: 100%;
-  display: flex;
-  transition: top 0.8s;
-  line-height: 3rem;
-  padding: 0px 8%;
-  z-index:2;
-  background:white;
-  
-}
-
-#navbar a {
-  float: left;
-  display: block;
-  color: #333;
-  text-decoration: none;
-  margin: 4px 10px 10px 20px;
-  font-size:1rem;
- 
-  
-}
-
-
-#navbar a:hover {
-  color: #4f54d9;
-  font-weight: bold;
-  
-  
-}
-
-
-.nbsp {
-  width:860px;
-}
-
-
-.loginbax{
-	width: 27%;
-	margin-right: 13px;
-
-}
-
-.loginOutline{
-	display: flex;
-		justify-content: flex-end;
-		align-items: center; 
-		justify-content: flex-star;
-		
-		
-}
-
-.realLogin{
-	display: flex;
-		justify-content: center;
-		align-items: center; 
-		justify-content: flex-star;
-		margin-right: 13px;
-
-}
-  
-.test_btn1{
-            border-top-left-radius: 5px;
-            border-bottom-left-radius: 5px;
-            border-top-right-radius: 5px;
-            border-bottom-right-radius: 5px;  
-            
-            margin-right:-4px;
-             font-family: 'Noto Sans KR', sans-serif;
-             font-size: 13px;
-            
-        }
-       
-        .test_btn1{
-            border: 1px solid #227cff;
-            background-color: #227cff;
-            color: white;
-            padding: 5px 10px 5px 10px;
-            font: 'Noto Sans KR', sans-serif;
-        }
-        
-        .test_btn1:hover{
-            color:white;
-            background-color: #3788fd;
-        }
-        
-       
-#id{
-	margin-right: 5px;
-
-}
-#login{
-	margin-right: 3px;
-
-}
-#join{
-	
-
-}
-
-
-@media(max-width:1913px){
-   #navbar{position: relative;position: fixed;width: 100%;top: 0;left: 0;}
-   #navbar .nbsp{ width: 45%;}
-   }
-@media(max-width:1750px){
-   #navbar{position: relative;position: fixed;width: 100%;top: 0;left: 0;}
-   #navbar .nbsp{ width: 40%;}
-   }
-@media(max-width:1564px){
-   #navbar{position: relative;position: fixed;width: 100%;top: 0;left: 0;}
-   #navbar .nbsp{ width: 35%;}   
-
-@media(max-width:1378px){
-#navbar{position: relative;position: fixed;width: 100%;top: 0;left: 0;}
-#navbar .nbsp{ width: 30%;}
-}
-@media(max-width:1280px){
-#navbar{position: relative;position: fixed;width: 100%;top: 0;left: 0;}
-#navbar .nbsp{ width: 20%;}
-}   
-@media(max-width:1204px){
-#navbar{position: relative;position: fixed;width: 100%;top: 0;left: 0;}
-#navbar .nbsp{ width: 1%;}
-}
-@media(max-width:980px){
-#navbar{position: relative;position: fixed;width: 100%;top: 0;left: 0;}
-#navbar .nbsp{ width: 1%; display: none;}
-#navbar a{ visibility: hidden; width: 0%; display: none;}
-}
-  
- 
 </style>
 <head>
 
  <header>
- 	<
-      <nav>
-		<div id="navbar">
-		     
-		      <div class="logo"><img src="resources/photo/로고2.png" onclick="location.href='home'"></div>
-		      
-		      
-		     
-		      <div >
-					<a href="#">판매글</a>
-					<a href="#">갤러리</a>
-		      </div>
-		       <div class="nbsp">
-					 		     
- 		      </div>
-		       <div class="loginOutline">
-					
-			            <input type="text" id="id" class="loginbax">
-			            <input type="password" id="pw" class="loginbax">
-           		 	
-		      </div>
-		     
-		      <div class="realLogin">
-					 <!-- <a id="login"onclick="login()" class="test_btn1">login</a> -->
-					  <button id="login" onclick="login()" class="test_btn1">로그인</button>
-					 
-					<button id="join" onclick="location.href='join.go'" class="test_btn1">회원가입</button>
-			 </div>
-			 
-		 </div>
-				
-	</nav>
-	 <hr>
+
+ 				
+   					  <c:if test="${sessionScope.loginId eq  null}">
+						  			<nav>
+										<div id="navbar">
+										     
+										      <div class="logo">
+										      	<img src="resources/photo/로고2.png" onclick="location.href='home'">
+										      </div>
+										      
+										      
+										     
+										      <div >
+													<a href="salesList.do">판매글</a>
+													<a href="galleryList.do">갤러리</a>
+										      </div>
+										       <div class="nbsp">
+													 		     
+								 		      </div>
+										       <div class="loginOutline">
+													
+											            <input type="text" id="id" class="loginbax">
+											            <input type="password" id="pw" class="loginbax">
+								           		 	
+										      </div>
+										     
+										      <div class="realLogin">
+													 <!-- <a id="login"onclick="login()" class="test_btn1">login</a> -->
+													  <button id="login" onclick="login()" class="test_btn1">로그인</button>
+													 
+													<button id="join" onclick="location.href='join.go'" class="test_btn1">회원가입</button>
+											 </div>
+										 </div>
+												
+									</nav>
+					     		</c:if>
+					     			
+					     		 <c:if test="${sessionScope.user_div_name eq \"일반\" }">
+									<c:if test="${sessionScope.loginId ne null}">
+										 <nav>
+											<div id="navbar">
+											      <div class="logo">
+											      		<img src="resources/photo/로고2.png" onclick="location.href='home'" >
+											      </div>
+														<a href="salesList.do">Store</a>
+														<a href="galleryList.do">Gallery</a>
+											       <div class="nbsp">		     
+									 		      </div>
+										 		      <div id="etc">
+														       <div id="location">
+																				            거주  지역
+															            <button  class="test_btn1">지역활동인증</button>
+												           		 	
+														      	</div>
+													  </div>    	
+														      
+														     	<div  id="lol">
+														     		
+														     		  <c:if test="${sessionScope.new_photo_name eq null}">
+														     		 <img src="resources/photo/프로필 기본.png" id="profileNomal" onclick="location.href='profile.go'">
+														     		 </c:if>
+														     		 
+														     		 <c:if test="${sessionScope.new_photo_name ne null}">
+														     		 <img src="resources/photo/${sessionScope.new_photo_name}" id="profileUser" onclick="location.href='profile.go'">
+														     		 </c:if>
+														     		  
+																	<img src="resources/photo/logout.png" id="logout" onclick="location.href='logout.do'">
+																	<img src="resources/photo/free-icon-letter-1250663.png" id="chating" onclick="location.href='chatlist.go'">
+															 </div>
+															 
+															 
+															 
+																      <div class="dropdown">
+																    <button  class="test_btn1">글쓰기</button>
+																    <div class="dropdown-content">
+																      <a href="salesWrite.go" id="drop">판매글 등록</a>
+																      <a href="galleryWrite.go"  id="drop">갤러리 등록</a>
+																      
+																      
+																      
+																    </div>
+																  </div>
+															 
+															 
+													 </div>
+												
+										</nav>
+									</c:if>
+								</c:if>
+								 <c:if test="${sessionScope.user_div_name eq \"라이더\" }">
+								 		<c:if test="${sessionScope.loginId ne null}">
+										 <nav>
+											<div id="navbar">
+											      <div class="logo">
+											      		<img src="resources/photo/로고2.png" onclick="location.href='home'" >
+											      </div>
+														<a href="#">제안 확인</a>
+														<a href="$">배송상태 관리</a>
+														<a href="$">배송 이력</a>
+											       <div class="nbsp">		     
+									 		      </div>
+										 		      <div id="etc">
+														       <div id="location">
+																				         
+														      	</div>
+													  </div>    	
+														      
+														     	<div  id="lol">
+														     		
+														     		  <c:if test="${sessionScope.new_photo_name eq null}">
+														     		 <img src="resources/photo/프로필 기본.png" id="profileNomal" onclick="location.href='profile.go'">
+														     		 </c:if>
+														     		 
+														     		 <c:if test="${sessionScope.new_photo_name ne null}">
+														     		 <img src="resources/photo/${sessionScope.new_photo_name}" id="profileUser" onclick="location.href='profile.go'">
+														     		 </c:if>
+														     		  
+																	<img src="resources/photo/logout.png" id="logout" onclick="location.href='logout.do'">
+																	<img src="resources/photo/free-icon-letter-1250663.png" id="chating" onclick="location.href='chatlist.go'">
+															 </div>
+															 
+															 
+															 
+																      <div class="dropdown">
+																   
+																      
+																      
+																      
+																    </div>
+																  </div>
+															 
+															 
+													 </div>
+												
+										</nav>
+									</c:if>
+								 
+								 </c:if>
+								 <c:if test="${sessionScope.user_div_name eq \"관리자\" }">
+								 
+								 	<c:if test="${sessionScope.loginId ne null}">
+										 <nav>
+											<div id="navbar">
+											      <div class="logo">
+											      		<img src="resources/photo/로고2.png" onclick="location.href='logout.do'" >
+											      </div>
+														<a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+														<a href="$">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+														<a href="$">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+											       <div class="nbsp">		     
+									 		      </div>
+										 		      <div id="etc">
+														       <div id="location">
+																
+												           		 	
+														      	</div>
+													  </div>    	
+														      
+														     	<div  id="lol">
+														     		
+														     		  <c:if test="${sessionScope.new_photo_name eq null}">
+														     		 <img src="resources/photo/프로필 기본.png" id="profileNomal" onclick="location.href='profile.go'">
+														     		 </c:if>
+														     		 
+														     		 <c:if test="${sessionScope.new_photo_name ne null}">
+														     		 <img src="resources/photo/${sessionScope.new_photo_name}" id="profileUser" onclick="location.href='profile.go'">
+														     		 </c:if>
+														     		  
+																	<img src="resources/photo/logout.png" id="logout" onclick="location.href='logout.do'">
+																	<img src="resources/photo/free-icon-letter-1250663.png" id="chating" onclick="location.href='chatlist.go'">
+															 </div>
+															 
+															 
+															 
+																      <div class="dropdown">
+																    
+																  </div>
+															 
+															 
+													 </div>
+												
+										</nav>
+									</c:if>
+								 
+								 </c:if>
+
 </header>
 
 
@@ -246,9 +215,7 @@ header{
     
 </head>
 <body>
-<br>
-<br>
-<br>
+
 <hr>
 
 

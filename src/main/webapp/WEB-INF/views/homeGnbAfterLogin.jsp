@@ -27,7 +27,7 @@
 
     body {
       font-family: 'Noto Sans KR', sans-serif;
-      background-color: bisque;
+      
       
  
     }
@@ -91,6 +91,36 @@ header{
   
 }
 
+
+.nbsp {
+  width:860px;
+}
+
+
+.loginbax{
+	width: 27%;
+	margin-right: 13px;
+
+}
+
+.loginOutline{
+	display: flex;
+		justify-content: flex-end;
+		align-items: center; 
+		justify-content: flex-star;
+		
+		
+}
+
+.realLogin{
+	display: flex;
+		justify-content: center;
+		align-items: center; 
+		justify-content: flex-star;
+		margin-right: 13px;
+
+}
+
 #logout{
 	width: 35px;
 	cursor:pointer;
@@ -108,7 +138,7 @@ header{
     margin-right: 9px;     
             
 }
-#chating{
+#chatting{
 	width: 35px;
 	cursor:pointer;
 	margin-right: 11px;
@@ -161,6 +191,19 @@ header{
             background-color: #3788fd;
         }
         
+     
+#id{
+	margin-right: 5px;
+
+}
+#login{
+	margin-right: 3px;
+
+}
+#join{
+	
+
+}        
         
  
 .dropdown {
@@ -196,30 +239,33 @@ header{
 
 @media(max-width:1913px){
    #navbar{position: relative;position: fixed;width: 100%;top: 0;left: 0;}
-   #navbar .nbsp{ width: 52%;}
+   #navbar .nbsp{ width: 45%;}
    }
 @media(max-width:1750px){
    #navbar{position: relative;position: fixed;width: 100%;top: 0;left: 0;}
-   #navbar .nbsp{ width: 48%;}
+   #navbar .nbsp{ width: 40%;}
    }
 @media(max-width:1564px){
    #navbar{position: relative;position: fixed;width: 100%;top: 0;left: 0;}
-   #navbar .nbsp{ width: 40%;}   
+   #navbar .nbsp{ width: 35%;}   
 
-@media(max-width:1300px){
+@media(max-width:1378px){
 #navbar{position: relative;position: fixed;width: 100%;top: 0;left: 0;}
-#navbar .nbsp{ width: 35%;}
+#navbar .nbsp{ width: 30%;}
+}
+@media(max-width:1280px){
+#navbar{position: relative;position: fixed;width: 100%;top: 0;left: 0;}
+#navbar .nbsp{ width: 20%;}
 }   
 @media(max-width:1204px){
 #navbar{position: relative;position: fixed;width: 100%;top: 0;left: 0;}
-#navbar .nbsp{ width:25%;}
+#navbar .nbsp{ width: 1%;}
 }
-@media(max-width:960px){
+@media(max-width:980px){
 #navbar{position: relative;position: fixed;width: 100%;top: 0;left: 0;}
-#navbar .nbsp{ width: 20%; display: none;}
+#navbar .nbsp{ width: 1%; display: none;}
 #navbar a{ visibility: hidden; width: 0%; display: none;}
-}
-  
+
 
          
  
@@ -227,7 +273,52 @@ header{
 <head>
 
  <header>
-     
+
+      <nav>
+		<div id="navbar">
+		      <div class="logo"><img src="resources/photo/로고2.png" onclick="location.href='afterLogin.go'" ></div>
+					<a href="salesList.do">Store</a>
+					<a href="galleryList.do">Gallery</a>
+		       <div class="nbsp">		     
+ 		      </div>
+	 		      <div id="etc">
+					       <div id="location">
+											            거주  지역
+						            <button  class="test_btn1">지역활동인증</button>
+			           		 	
+					      	</div>
+					      	
+					      	
+					     	<div  id="lol">
+					     		
+					     		  <c:if test="${dto.new_photo_name eq null}">
+					     		 <img src="resources/photo/프로필 기본.png" id="profile" onclick="location.href='profile.go'">
+					     		 </c:if>
+					     		 
+					     		 <c:if test="${dto.new_photo_name ne null}">
+					     		 <img src="resources/photo/${dto.new_photo_name}" id="profile" onclick="location.href='profile.go'">
+					     		 </c:if>
+								<img src="resources/photo/logout.png" id="logout" onclick="location.href='home'">
+								<img src="resources/photo/free-icon-letter-1250663.png" id="chatting" onclick="location.href='chat.go'">&nbsp;
+						 </div>
+						 
+						 
+							      <div class="dropdown">
+							    <button  class="test_btn1">글쓰기</button>
+							    <div class="dropdown-content">
+							      <a href="salesWrite.go" id="drop">판매글 등록</a>
+							      <a href="galleryWrite.go"  id="drop">갤러리 등록</a>
+							      
+							      
+							      
+							    </div>
+							  </div>
+						 
+						 
+				 </div>
+			
+	</nav>
+
 	 
 </header>
 
@@ -235,7 +326,7 @@ header{
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3.0">
-  <title>INaNdOUT</title> 
+  <title>InAndOut</title> 
   <link rel="stylesheet" href="style.css">
   <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

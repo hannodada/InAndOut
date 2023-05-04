@@ -77,26 +77,89 @@ public class MemberController {
 	public String afterList(Model model , HttpSession session) {		
 		logger.info("afterList call!!"); // 컨트롤러가 도착 했는지? (파라메터는 제대로 들어 왔는지?)
 		
-		String page = "homeGnbAfterLogin";
+		String page = "home";
 		String user_id = (String) session.getAttribute("loginId");
 		logger.info("세션!!!아이디값 : "+user_id);
 		
-		MemberDTO dto = service.afterList(user_id);
+		
 		// service -> dao ->service -> controller 로 온 값이 정확 한가?
 		//logger.info("list : "+list.size());
+		MemberDTO dto = new MemberDTO();
+		String user_div_name = service.userCategory(user_id);
+		String new_photo_name  = service.afterList(user_id);
+		page = "home";
+		logger.info("유저 구분 뭔지 좀 보자!!!!!  : "+user_div_name );
 		
 		
-		if(dto != null) {
-			page = "home";
-			logger.info("dto 나온거!!! " +dto.getNew_photo_name());
-			model.addAttribute("dto", dto);
+
+		
+		if(user_div_name.equals("일반")) {
+						if(new_photo_name != null) {
+							
+							session.setAttribute("new_photo_name", new_photo_name);
+							logger.info("일반dto사진!! 나온거!!! :  " +new_photo_name);
+							
+							
+						}
+						if(new_photo_name == null) {
+							//session.setAttribute("user_id", user_id);
+							//logger.info("제발dto 유저 아이디좀 해줘 : "+dto.getUser_id());
+							
+						}
+		
+
 		}
+		if(user_div_name.equals("라이더")) {
+			if(new_photo_name != null) {
+				
+				session.setAttribute("new_photo_name", new_photo_name);
+				//dto.setNew_photo_name(new_photo_name);
+				String new_photo_name2 =  (String) session.getAttribute("new_photo_name");
+				logger.info("(세션에저장된)라이더!!dtot사진!! 나온거!!! :  " +new_photo_name2);
+				
+				
+			}
+			if(new_photo_name == null) {
+				//session.setAttribute("user_id", user_id);
+				//dto.setUser_id(user_id);
+				logger.info("제발dto 유저 아이디좀 해줘 : "+user_id);
+				
+			}
+			
+		}
+		logger.info("여기 까지는 오너ㅏ?");
+		
+		//dto.setUser_div_name(user_div_name);
+		session.setAttribute("user_div_name", user_div_name);
+		
+		/*
+		//가상
+		dto.setUser_id(user_id);
+		
+		model.addAttribute("dto",dto);
+		*/
 		
 		
-		
-					
+
 		return page;
+	
 	}
+	@RequestMapping(value = "/logout.do", method = RequestMethod.GET)
+	   public String logout( HttpSession session) {
+		   session.removeAttribute("loginId");
+		   session.removeAttribute("new_photo_name");
+		   session.removeAttribute("user_div_name");
+		   
+		   logger.info("로그아웃 요청");
+		   logger.info((String) session.getAttribute("loginId"));
+		   logger.info((String) session.getAttribute("new_photo_name"));
+		   logger.info((String) session.getAttribute("user_div_name"));
+	     
+	      return "home";
+	   }   
+	
+	
+	
 	
 	
 	@RequestMapping(value="/userRegist.do",method = RequestMethod.POST)

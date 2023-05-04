@@ -3,6 +3,8 @@ package com.ino.gallery.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,11 +37,22 @@ public class GalleryController {
 	}
 	
 	@RequestMapping(value = "/galleryWrite.go", method = RequestMethod.GET)
-	public String galleryWrite() {
+	public String galleryWriteForm(Model model, HttpSession session) {
 		
-		logger.info("GO TO galleryWriteForm");
+		String page = "redirect:/home";
+
+		if(session.getAttribute("loginId")!=null) {
+			
+			model.addAttribute("loginId", session.getAttribute("loginId"));
+			page = "galleryWriteForm";
+			
+		}else {
+			
+			model.addAttribute("msg", "로그인이 필요한 기능입니다.");
+			
+		}
 		
-		return "galleryWriteForm";
+		return page;
 	}
 	
 	@RequestMapping(value = "/galleryWrite.do", method = RequestMethod.POST)

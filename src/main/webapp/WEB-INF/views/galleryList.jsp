@@ -16,6 +16,7 @@
 </style>
 </head>
 <body>
+<jsp:include page="realGnb.jsp"/>
 	<table>
 		<thead>
 			<tr>

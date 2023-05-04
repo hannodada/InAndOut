@@ -5,9 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <link href="resources/css/home.css" rel="stylesheet">
+    <!-- <link href="resources/css/home.css" rel="stylesheet"> -->
     <style>
-        @import url('https://fonts.googleapis.com/css2family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@100&display=swap');
+        /* @import url('https://fonts.googleapis.com/css2family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@100&display=swap'); */
     </style>
 <body>
 

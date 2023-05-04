@@ -48,20 +48,23 @@ public class MemberService {
 			MultipartFile bizprofile) {
 		String page = "joinForm";
 		
-		//**이거 idx 값으로 해서 dto로 넣어야 할까?? 고민중..,,,
-		int userRegistrow = dao.userRegist(params);
-		logger.info("userRegistrow변경되면 이거 나옴!!: "+userRegistrow);
 		MemberDTO dto = new MemberDTO();
 		dto.setUser_id(params.get("user_id"));
 		
 		
 		String user_id = dto.getUser_id();
 		logger.info("if문 밖에는 있나???"+user_id);
-		String user_div_name = "일반";
-		int user_div = 1;
-		dao.user_div(user_div,user_id,user_div_name);
 		
-		//주소에서 시도, 시군구만 빼오기
+		//
+		//**이거 idx 값으로 해서 dto로 넣어야 할까?? 고민중..,,,
+		String user_div = "a";
+		params.put("user_div", user_div);
+		int userRegistrow = dao.userRegist(params);
+		logger.info("userRegistrow변경되면 이거 나옴!!: "+userRegistrow);
+		
+		
+		
+		
 		
 		
 		
@@ -83,9 +86,8 @@ public class MemberService {
 			int bizregistrow = dao.bizregist(user_id,biz_num,biz,store_name,state);
 			logger.info("이거 안들어가나??"+user_id);
 			logger.info("bizregistrow변경되면 이거 나옴!!: "+bizregistrow);
-			int user_div2 = 2;
-			String user_div_name2 = "인증";
-			dao.user_div(user_div2, user_id, user_div_name2);
+		
+			//dao.user_div(user_div2, user_id, user_div_name2);
 			
 			
 		}
@@ -114,15 +116,14 @@ public class MemberService {
 		dto.setNickname(params.get("nickname"));
 		logger.info("라이더 파람!! nickname 출력!!  : "+ params.get("nickname"));
 		
-		int user_div3 = 3;
-		String user_div_name3 = "라이더";
+		
 		
 		
 		String user_id = dto.getUser_id();
 		String Nickname = dto.getNickname();
 		logger.info("라이더 Nickname 출력!!  : "+ Nickname);
 		logger.info("if문 밖에는 있나???"+user_id);
-		dao.user_div(user_div3, user_id, user_div_name3);
+		//dao.user_div(user_div3, user_id, user_div_name3);
 		
 		
 		
@@ -167,7 +168,7 @@ public class MemberService {
 		return dao.login(id,pw);
 	}
 	
-	public MemberDTO afterList(String user_id) {
+	public String afterList(String user_id) {
 		// TODO Auto-generated method stub
 		return dao.afterList(user_id);
 	}
@@ -198,7 +199,7 @@ public class MemberService {
 		logger.info(oriFileName+" => " + newFileName);
 		try {
 			byte[] bytes= file.getBytes();
-			Path path = Paths.get("D:\\STUDY\\SPRING\\inAndOutLast\\src\\main\\webapp\\resources\\photo\\"+newFileName);
+			Path path = Paths.get("D:\\STUDY\\SPRING\\inAndOut3\\src\\main\\webapp\\resources\\photo\\"+newFileName);
 			Files.write(path, bytes);
 			logger.info(newFileName+"save OK");
 			String cate_no = "p001";
@@ -217,7 +218,7 @@ public class MemberService {
 		logger.info(oriFileName+" => " + newFileName);
 		try {
 			byte[] bytes= bizprofile.getBytes();
-			Path path = Paths.get("D:\\STUDY\\SPRING\\inAndOutLast\\src\\main\\webapp\\resources\\photo\\"+newFileName);
+			Path path = Paths.get("D:\\STUDY\\SPRING\\inAndOut3\\src\\main\\webapp\\resources\\photo\\"+newFileName);
 			Files.write(path, bytes);
 			logger.info(newFileName +" : bizsave OK ");
 			String cate_no = "p002";
@@ -229,6 +230,13 @@ public class MemberService {
 		}
 		
 	}
+
+	public String userCategory(String user_id) {
+		
+		return dao.userCategory(user_id);
+	}
+
+	
 
 
 

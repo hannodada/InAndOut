@@ -3,6 +3,8 @@ package com.ino.sales.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,27 +29,58 @@ public class SalesController {
 	@Autowired SalesService service;
 	
 	@RequestMapping(value = "/salesList.do", method = RequestMethod.GET)
-	public String salesList(Model model) {
+	public String salesList(Model model, HttpSession session) {
 		
 		logger.info("salesList call");
-		ArrayList<SalesDTO> list = service.salesList();
+		
+		ArrayList<SalesDTO> list = service.salesList(session);
 		
 		model.addAttribute("list", list);
 		
 		return "salesList";
 	}
 	
+	@RequestMapping(value = "/filtering.ajax", method = RequestMethod.GET)
+	@ResponseBody
+	public HashMap<String, Object> filtering(Model model, @RequestParam String filterName) {
+		
+		logger.info(filterName);
+
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ArrayList<SalesDTO> filteredList = service.filtering(filterName);
+		
+		logger.info("filteredList :"+filteredList);
+		
+		map.put("filteredList", filteredList);
+
+		return map;
+	}
+	
 	@RequestMapping(value = "/salesWrite.go", method = RequestMethod.GET)
-	public String salesWriteForm(Model model) {
+	public String salesWriteForm(Model model, HttpSession session) {
+		
+		String page = "redirect:/home";
+
+		if(session.getAttribute("loginId")!=null) {
 			
-		logger.info("GO TO selesWriteForm page");
-		ArrayList<BizDTO> bizList = service.getBizList();
-		
-		logger.info("bizList : "+bizList);
-		
-		model.addAttribute("bizList", bizList);
-		
-		return "salesWriteForm";
+			model.addAttribute("loginId", session.getAttribute("loginId"));
+			
+			logger.info("GO TO selesWriteForm page");
+			
+			ArrayList<BizDTO> bizList = service.getBizList();
+			logger.info("bizList : "+bizList);
+			model.addAttribute("bizList", bizList);
+			
+			page = "salesWriteForm";
+			
+		}else {
+			
+			session.setAttribute("msg", "로그인이 필요한 기능입니다.");
+			session.removeAttribute("msg");
+			
+		}
+
+		return page;
 	}
 	
 	@RequestMapping(value = "/goodsCall.ajax")

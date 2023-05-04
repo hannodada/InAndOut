@@ -158,6 +158,7 @@ img{ /* 이미지 배율 증가 시 부드럽게 */
 			<input type="button" onclick="location.href='./salesReport.go?sales_no=${detailData.sales_no}'" value="신고하기"/>
 				<input type="button" onclick="location.href='./salesUpdate.go?sales_no=${detailData.sales_no}'" value="수정"/>
 				<input type="button" onclick="location.href='./salesList.do'" value="리스트"/>
+				관심여부 : <input type="checkbox"/>
 			</th>
 		</tr>
 	</table>

@@ -25,14 +25,7 @@
 		)
 	</insert>
 	
-	<insert id="user_div" >
-		INSERT INTO user_div(
-			user_div,user_id,user_div_name
-		)VALUES(
-			#{param1},#{param2},#{param3}
-		)
-	</insert>
-	
+
 	
 		<insert id="riderRegist" parameterType="hashmap">
 		INSERT INTO user(
@@ -89,9 +82,16 @@
 	
 	
 	<select id="afterList" 
-	resultType="com.ino.member.dto.MemberDTO">
+	resultType="string">
 		SELECT p.new_photo_name FROM photo p 
-		WHERE photo_div = (select user_id from user where user_id = #{param1}) and cate_no = 'p001'
+		WHERE photo_div = (select user_id from user where user_id = #{param1} and cate_no = 'p001')
+	</select>
+	
+	<select id="userCategory" 
+	resultType="string">
+		SELECT user_div_name FROM user_div 
+		WHERE user_id =  #{param1}
+	
 	</select>
 	
 <!--  SELECT p.new_photo_name FROM photo p WHERE photo_div = 'bb' and cate_no = 'p001';-->

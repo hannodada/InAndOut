@@ -33,10 +33,12 @@ public class HomeController {
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@RequestMapping(value={"/","/home"})
-	public String home() {
+	public String home(Model model) {
 		logger.info("홈페이지로 이동");
+
 		return "home";
 	}
+	//homeGnbBeforeLogin
 
 	@RequestMapping(value="/login.go")
 	public String login() {
@@ -59,10 +61,6 @@ public class HomeController {
 	}	
 	@RequestMapping(value="/profile.go")
 	public String profile() {
-		return "profile";
-	}	
-	@RequestMapping(value="/chatlist.go")
-	public String chatlist() {
 		return "profile";
 	}
 	

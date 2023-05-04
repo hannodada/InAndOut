@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <style>
@@ -26,7 +27,7 @@
 
     body {
       font-family: 'Noto Sans KR', sans-serif;
-      background-color: bisque;
+      
       
  
     }
@@ -196,39 +197,89 @@ header{
 
  <header>
  
+
+ 								<c:if test="${dto.new_photo_name eq null}">
+						  			<nav>
+										<div id="navbar">
+										     
+										      <div class="logo"><img src="resources/photo/로고2.png" onclick="location.href='home'"></div>
+										      
+										      
+										     
+										      <div >
+													<a href="#">판매글</a>
+													<a href="#">갤러리</a>
+										      </div>
+										       <div class="nbsp">
+													 		     
+								 		      </div>
+										       <div class="loginOutline">
+													
+											            <input type="text" id="id" class="loginbax">
+											            <input type="password" id="pw" class="loginbax">
+								           		 	
+										      </div>
+										     
+										      <div class="realLogin">
+													 <!-- <a id="login"onclick="login()" class="test_btn1">login</a> -->
+													  <button id="login" onclick="login()" class="test_btn1">로그인</button>
+													 
+													<button id="join" onclick="location.href='join.go'" class="test_btn1">회원가입</button>
+											 </div>
+										 </div>
+												
+									</nav>
+					     		</c:if>
+					     			
+					     		 
+									<c:if test="${dto.new_photo_name ne null}">
+											 <nav>
+											<div id="navbar">
+											      <div class="logo"><img src="resources/photo/로고2.png" onclick="location.href='afterLogin.go'" ></div>
+														<a href="salesList.do">Store</a>
+														<a href="galleryList.do">Gallery</a>
+											       <div class="nbsp">		     
+									 		      </div>
+										 		      <div id="etc">
+														       <div id="location">
+																				            거주  지역
+															            <button  class="test_btn1">지역활동인증</button>
+												           		 	
+														      	</div>
+														      	
+														      	
+														     	<div  id="lol">
+														     		
+														     		  <c:if test="${dto.new_photo_name eq null}">
+														     		 <img src="resources/photo/프로필 기본.png" id="profile" onclick="location.href='profile.go'">
+														     		 </c:if>
+														     		 
+														     		 <c:if test="${dto.new_photo_name ne null}">
+														     		 <img src="resources/photo/${dto.new_photo_name}" id="profile" onclick="location.href='profile.go'">
+														     		 </c:if>
+																	<img src="resources/photo/logout.png" id="logout" onclick="location.href='home'">
+																	<img src="resources/photo/free-icon-letter-1250663.png" id="chating" onclick="location.href='chatlist.go'">
+															 </div>
+															 
+															 
+																      <div class="dropdown">
+																    <button  class="test_btn1">글쓰기</button>
+																    <div class="dropdown-content">
+																      <a href="salesWrite.go" id="drop">판매글 등록</a>
+																      <a href="galleryWrite.go"  id="drop">갤러리 등록</a>
+																      
+																      
+																      
+																    </div>
+																  </div>
+															 
+															 
+													 </div>
+												
+										</nav>
+									</c:if>
  
  
- 
-      <nav>
-		<div id="navbar">
-		     
-		      <div class="logo"><img src="resources/photo/로고2.png" onclick="location.href='home'"></div>
-		      
-		      
-		     
-		      <div >
-					<a href="#">판매글</a>
-					<a href="#">갤러리</a>
-		      </div>
-		       <div class="nbsp">
-					 		     
- 		      </div>
-		       <div class="loginOutline">
-					
-			            <input type="text" id="id" class="loginbax">
-			            <input type="password" id="pw" class="loginbax">
-           		 	
-		      </div>
-		     
-		      <div class="realLogin">
-					 <!-- <a id="login"onclick="login()" class="test_btn1">login</a> -->
-					  <button id="login" onclick="login()" class="test_btn1">로그인</button>
-					 
-					<button id="join" onclick="location.href='join.go'" class="test_btn1">회원가입</button>
-			 </div>
-		 </div>
-				
-	</nav>
 	 
 </header>
 
