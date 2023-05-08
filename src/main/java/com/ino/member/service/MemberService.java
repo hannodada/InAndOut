@@ -62,13 +62,7 @@ public class MemberService {
 		int userRegistrow = dao.userRegist(params);
 		logger.info("userRegistrow변경되면 이거 나옴!!: "+userRegistrow);
 		
-		
-		
-		
-		
-		
-		
-		
+
 		
 		if(!profile.getOriginalFilename().equals("")) {
 			logger.info("profile파일 업로드 작업");
@@ -77,6 +71,10 @@ public class MemberService {
 		//****  만약인증사용자 추가 정보가 들어오면 실행되는 구문
 		if(!params.get("store_name").equals("")) {
 			
+			String user_div2 = "b";
+			params.put("user_div2", user_div2);
+			int userChangerow = dao.userChange(user_id,user_div2);
+			logger.info("인증사용자로 변경되면 나오는 row : " +userChangerow);
 			
 			int biz_num = Integer.parseInt((params.get("biz_num")));
 			String biz = params.get("biz");
@@ -109,6 +107,8 @@ public class MemberService {
 		String page = "riderForm";
 		
 		//**이거 idx 값으로 해서 dto로 넣어야 할까?? 고민중..,,,
+		String user_div = "c";
+		params.put("user_div", user_div);
 		int riderRegistrow = dao.riderRegist(params);
 		logger.info("riderRegistrow변경되면 이거 나옴!!: "+riderRegistrow);
 		MemberDTO dto = new MemberDTO();
@@ -199,7 +199,7 @@ public class MemberService {
 		logger.info(oriFileName+" => " + newFileName);
 		try {
 			byte[] bytes= file.getBytes();
-			Path path = Paths.get("D:\\STUDY\\SPRING\\inAndOut3\\src\\main\\webapp\\resources\\photo\\"+newFileName);
+			Path path = Paths.get("D:\\SPRING\\inAndOutLast\\src\\main\\webapp\\resources\\photo\\"+newFileName);
 			Files.write(path, bytes);
 			logger.info(newFileName+"save OK");
 			String cate_no = "p001";
@@ -218,7 +218,7 @@ public class MemberService {
 		logger.info(oriFileName+" => " + newFileName);
 		try {
 			byte[] bytes= bizprofile.getBytes();
-			Path path = Paths.get("D:\\STUDY\\SPRING\\inAndOut3\\src\\main\\webapp\\resources\\photo\\"+newFileName);
+			Path path = Paths.get("D:\\SPRING\\inAndOutLast\\src\\main\\webapp\\resources\\photo\\"+newFileName);
 			Files.write(path, bytes);
 			logger.info(newFileName +" : bizsave OK ");
 			String cate_no = "p002";
@@ -234,6 +234,16 @@ public class MemberService {
 	public String userCategory(String user_id) {
 		
 		return dao.userCategory(user_id);
+	}
+
+	public ArrayList<String> normalTopList() {
+		
+		return dao.normaTopList();
+	}
+
+	public ArrayList<String> findTopPhoto(String top1, String top2, String top3, String top4, String top5) {
+		
+		return dao.findTopPhoto(top1,top2,top3,top4,top5);
 	}
 
 	

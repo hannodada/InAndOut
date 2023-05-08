@@ -47,6 +47,14 @@ public interface MemberDAO {
 
 	String userCategory(String user_id);
 
+	int userChange(String user_id, String user_div2);
+
+	ArrayList<String> normaTopList();
+
+	ArrayList<String> findTopPhoto(String top1, String top2, String top3, String top4, String top5);
+
+	
+
 	
 
 	

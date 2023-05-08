@@ -23,8 +23,8 @@
 										      
 										      
 										     
-										      <div >
-													<a href="salesList.do">판매글</a>
+										      <div id="banner">
+													<a href="salesList.do">전체판매목록</a>
 													<a href="galleryList.do">갤러리</a>
 										      </div>
 										       <div class="nbsp">
@@ -48,7 +48,7 @@
 									</nav>
 					     		</c:if>
 					     			
-					     		 <c:if test="${sessionScope.user_div_name eq \"일반\" }">
+					     		 <c:if test="${sessionScope.user_div eq \"a\" }">
 									<c:if test="${sessionScope.loginId ne null}">
 										 <nav>
 											<div id="navbar">
@@ -62,28 +62,27 @@
 										 		      <div id="etc">
 														       <div id="location">
 																				            거주  지역
-															            <button  class="test_btn1">지역활동인증</button>
+															            <button  class="test_btn1">활동지역 인증</button>
 												           		 	
 														      	</div>
 													  </div>    	
 														      
 														     	<div  id="lol">
 														     		
-														     		  <c:if test="${sessionScope.new_photo_name eq null}">
+														     		 
+														     		  
+																	<img src="resources/photo/logout.png" id="logout" onclick="location.href='logout.do'">
+																	<img src="resources/photo/free-icon-letter-1250663.png" id="chating" onclick="location.href='chatlist.go'">
+															 
+															 		 <c:if test="${sessionScope.new_photo_name eq null}">
 														     		 <img src="resources/photo/프로필 기본.png" id="profileNomal" onclick="location.href='profile.go'">
 														     		 </c:if>
 														     		 
 														     		 <c:if test="${sessionScope.new_photo_name ne null}">
 														     		 <img src="resources/photo/${sessionScope.new_photo_name}" id="profileUser" onclick="location.href='profile.go'">
 														     		 </c:if>
-														     		  
-																	<img src="resources/photo/logout.png" id="logout" onclick="location.href='logout.do'">
-																	<img src="resources/photo/free-icon-letter-1250663.png" id="chating" onclick="location.href='chatlist.go'">
-															 </div>
 															 
-															 
-															 
-																      <div class="dropdown">
+															 		  <div class="dropdown">
 																    <button  class="test_btn1">글쓰기</button>
 																    <div class="dropdown-content">
 																      <a href="salesWrite.go" id="drop">판매글 등록</a>
@@ -95,21 +94,88 @@
 																  </div>
 															 
 															 
+															 
+															 </div>
+															 
+															 			
+																    
+															 
+															 
 													 </div>
 												
 										</nav>
 									</c:if>
 								</c:if>
-								 <c:if test="${sessionScope.user_div_name eq \"라이더\" }">
-								 		<c:if test="${sessionScope.loginId ne null}">
+								<c:if test="${sessionScope.user_div eq \"b\" }">
+									<c:if test="${sessionScope.loginId ne null}">
 										 <nav>
 											<div id="navbar">
 											      <div class="logo">
 											      		<img src="resources/photo/로고2.png" onclick="location.href='home'" >
 											      </div>
+														<a href="salesList.do">Store</a>
+														<a href="galleryList.do">Gallery</a>
+											       <div class="nbsp">		     
+									 		      </div>
+										 		      <div id="etc">
+														       <div id="location">
+																				            거주  지역
+															            <button  class="test_btn1">활동지역 인증</button>
+												           		 	
+														      	</div>
+													  </div>    	
+														      
+														     	<div  id="lol">
+														     		
+														     		 
+														     		  
+																	<img src="resources/photo/logout.png" id="logout" onclick="location.href='logout.do'">
+																	<img src="resources/photo/free-icon-letter-1250663.png" id="chating" onclick="location.href='chatlist.go'">
+															 
+															 		 <c:if test="${sessionScope.new_photo_name eq null}">
+														     		 <img src="resources/photo/프로필 기본.png" id="profileNomal" onclick="location.href='profile.go'">
+														     		 </c:if>
+														     		 
+														     		 <c:if test="${sessionScope.new_photo_name ne null}">
+														     		 <img src="resources/photo/${sessionScope.new_photo_name}" id="profileUser" onclick="location.href='profile.go'">
+														     		 </c:if>
+															 
+															 		  <div class="dropdown">
+																    <button  class="test_btn1">글쓰기</button>
+																    <div class="dropdown-content">
+																      <a href="salesWrite.go" id="drop">판매글 등록</a>
+																      <a href="galleryWrite.go"  id="drop">갤러리 등록</a>
+																      
+																      
+																      
+																    </div>
+																  </div>
+															 
+															 
+															 
+															 </div>
+															 
+															 			
+																    
+															 
+															 
+													 </div>
+												
+										</nav>
+									</c:if>
+								</c:if>
+								 <c:if test="${sessionScope.user_div eq \"c\" }">
+								 		<c:if test="${sessionScope.loginId ne null}">
+										 <nav>
+											<div id="navbar">
+											      <div class="logo">
+											      		<img src="resources/photo/로고2.png" onclick="location.href='home'" >
+											      </div >
+											      <div id="banner">
 														<a href="#">제안 확인</a>
 														<a href="$">배송상태 관리</a>
 														<a href="$">배송 이력</a>
+													</div>	
 											       <div class="nbsp">		     
 									 		      </div>
 										 		      <div id="etc">
@@ -120,16 +186,22 @@
 														      
 														     	<div  id="lol">
 														     		
-														     		  <c:if test="${sessionScope.new_photo_name eq null}">
+														     		 
+														     		  
+																	<img src="resources/photo/logout.png" id="logout" onclick="location.href='logout.do'">
+																	<img src="resources/photo/free-icon-letter-1250663.png" id="chating" onclick="location.href='chatlist.go'">
+															 
+															 
+															 		 <c:if test="${sessionScope.new_photo_name eq null}">
 														     		 <img src="resources/photo/프로필 기본.png" id="profileNomal" onclick="location.href='profile.go'">
 														     		 </c:if>
 														     		 
 														     		 <c:if test="${sessionScope.new_photo_name ne null}">
 														     		 <img src="resources/photo/${sessionScope.new_photo_name}" id="profileUser" onclick="location.href='profile.go'">
 														     		 </c:if>
-														     		  
-																	<img src="resources/photo/logout.png" id="logout" onclick="location.href='logout.do'">
-																	<img src="resources/photo/free-icon-letter-1250663.png" id="chating" onclick="location.href='chatlist.go'">
+															 
+															 
+															 
 															 </div>
 															 
 															 
@@ -149,7 +221,7 @@
 									</c:if>
 								 
 								 </c:if>
-								 <c:if test="${sessionScope.user_div_name eq \"관리자\" }">
+								 <c:if test="${sessionScope.user_div eq \"d\" }">
 								 
 								 	<c:if test="${sessionScope.loginId ne null}">
 										 <nav>

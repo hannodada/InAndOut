@@ -98,7 +98,7 @@ header{
 
 
 .loginbax{
-	width: 27%;
+	width: 41%;
 	margin-right: 13px;
 
 }
@@ -108,6 +108,7 @@ header{
 		justify-content: flex-end;
 		align-items: center; 
 		justify-content: flex-star;
+		width: 297px;
 		
 		
 }
@@ -171,6 +172,10 @@ header{
 		align-items: center; 
 		justify-content: flex-star;
 
+}
+#banner{
+	font-weight: bold;
+	
 }
 
 

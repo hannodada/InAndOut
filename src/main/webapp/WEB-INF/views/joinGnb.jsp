@@ -83,8 +83,12 @@ header{
 #navbar a:hover {
   color: blue;
   font-weight: bold;
-  text-decoration: underline;
   
+  
+}
+
+#banner{
+	font-weight: bold;
 }
 
 
@@ -142,7 +146,7 @@ header{
 		      <div class="logo"><img src="resources/photo/로고2.png" onclick="location.href='home'"></div>
 		      
 		      
-		      <div>
+		      <div id="banner">
 					<a href="#">카테고리</a>
 					<a href="#">갤러리</a>
 		      </div>

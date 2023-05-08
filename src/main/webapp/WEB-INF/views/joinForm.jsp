@@ -74,6 +74,16 @@ h6{
 	width: 120px;
 }
 
+#essential{
+	text-align: right;
+	color: gray;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: bold; 
+	font-size: 12px;
+	padding: 0% 0% 0% 62%;
+	
+}
+
 /*버튼꾸미기!!!  */
   			.test_btn1{
             border-top-left-radius: 5px;
@@ -220,6 +230,9 @@ h6{
 	<br>
 	<br>
 	<br>
+	<a id="essential">* 필수 기입 항목입니다.</a>
+	<br>
+	<br>
 	
 	
 	<form action="userRegist.do" method="post" enctype="multipart/form-data">
@@ -361,11 +374,12 @@ h6{
 	
 	<h4>추가정보</h4> <h6>더 정확한 정보를 원하시면 꼭 기입해주세요:)</h6>
 	
-	<table>
-	<br>
-	
 	<hr>
-	<br>
+	<table>
+	
+	
+	
+
 	
 	
 	<tr>
