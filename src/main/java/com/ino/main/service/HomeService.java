@@ -28,9 +28,9 @@ public class HomeService {
 	
 	Logger logger = LoggerFactory.getLogger(getClass());
 
-	public ArrayList<String> normalTopList() {
+	public ArrayList<HomeDTO> normalTopList() {
 		
-		return dao.normaTopList();
+		return dao.normalTopList();
 	}
 
 	public ArrayList<String> findTopPhoto(String top1, String top2, String top3, String top4, String top5) {

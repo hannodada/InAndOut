@@ -236,16 +236,7 @@ public class MemberService {
 		return dao.userCategory(user_id);
 	}
 
-	public ArrayList<String> normalTopList() {
-		
-		return dao.normaTopList();
-	}
-
-	public ArrayList<String> findTopPhoto(String top1, String top2, String top3, String top4, String top5) {
-		
-		return dao.findTopPhoto(top1,top2,top3,top4,top5);
-	}
-
+	
 	
 
 

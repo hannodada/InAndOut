@@ -26,18 +26,7 @@
 		)
 	</insert>
 	
-	<select id="normaTopList" resultType="String">
-		select  user_id,count(user_id) as 글갯수
- 		 FROM sales   
-	  		GROUP BY user_id ORDER BY 글갯수 desc  
-	</select>
 	
-	<select id="findTopPhoto" resultType="String">
-		select new_photo_name
-			from photo
-		where photo_div 
-		in(#{param1},#{param2},#{param3},#{param4},#{param5}) and cate_no = 'p001'
-	</select>
 	
 
 	

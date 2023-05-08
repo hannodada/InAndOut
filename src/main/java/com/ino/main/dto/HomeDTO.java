@@ -17,6 +17,7 @@ public class HomeDTO {
 	private String date;
 	private String biz_id;
  	private String goods_id;
+ 	private String new_photo_name;
 	
  	public String getUser_id() {
 		return user_id;
@@ -107,6 +108,12 @@ public class HomeDTO {
 	}
 	public void setGoods_id(String goods_id) {
 		this.goods_id = goods_id;
+	}
+	public String getNew_photo_name() {
+		return new_photo_name;
+	}
+	public void setNew_photo_name(String new_photo_name) {
+		this.new_photo_name = new_photo_name;
 	}
  	
  	
