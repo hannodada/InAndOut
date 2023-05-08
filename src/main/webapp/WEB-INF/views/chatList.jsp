@@ -50,7 +50,7 @@
       }
 </style>
 </head>
-<body>
+<body style="height:100%">
 	<div class="modal">
       <div class="modal_body">
       	<h4>새 채팅 만들기</h4>
@@ -71,7 +71,9 @@
 		</form>
       </div>
     </div>
-
+	
+	<jsp:include page="realGnb.jsp"/>
+	<!--
 	<div class="pos-f-t">
 	  <nav class="navbar navbar-dark bg-dark">
 	    <button class="navbar-toggler" type="button" id="mListToggle">
@@ -79,15 +81,15 @@
 	    </button>
 	    <a class="navbar-brand" href="afterLogin.do">${loginId}</a>
 	  </nav>
-	</div>
+	</div> -->
 	
-	<div class="container">
+	<div class="container" style="height:100%">
 	 <!-- 
 	 	<h3 class=" text-center">당신의 이름: ${loginId} </h3>
 	  -->
-	<div class="messaging">
-	      <div class="inbox_msg">
-	        <div class="inbox_people" id="left_box" style="resize: horizontal">
+	<div class="messaging" style="height:100%">
+	      <div class="inbox_msg" id="inbox_msg" style="height:700px">
+	        <div class="inbox_people" id="left_box" style="height:100%">
 	          <div class="headind_srch">
 	            <div class="recent_heading">
 	              <h4>대화 목록</h4>
@@ -100,7 +102,7 @@
 	                </span> </div>
 	            </div>
 	          </div>
-	          <div class="inbox_chat" id="chatlistbox">
+	          <div class="inbox_chat" id="chatlistbox" style="height:100%">
 	          
 	          	<!-- 
 	            <div class="chat_list active_chat">
@@ -117,10 +119,29 @@
 	            
 	          </div>
 	        </div>
-	        <div class="mesgs">
+	        <div class="mesgs" style="width:60%; padding:0">
+	          <div id="sale_def" style="width:100%;height:100px;background-color: #F0F0F0;display:none;padding:16px 20px">
+	          		<div>
+	          			<h3>&nbsp;pepe</h3>
+	          		</div>
+	          		<div style="width:100%; text-align: right; padding: 5px 5px">
+	          			<h4>RTX 4070 TI</h4>
+	          			<h5 style>1000,000원</h5>
+	          		</div>
+	          		<div style="width:20px"></div>
+	          		<div>
+	          			<img src="/photo/1683508729270.png" style="max-height:80px">
+	          		</div>
+	          </div>
+	          <div id="sale_def2" style="display:none;width:100%;height:2px;background-color: #E6E6E6;text-align: center">
+	          
+	          </div>
+	          <div style="width:100%;height:20px;">
+	          
+	          </div>
 	          <div class="msg_history" id="msglistbox"></div>
-	          <div class="type_msg">
-	            <div class="input_msg_write">
+	          <div class="type_msg" id="type_msg" style="display:none">
+	            <div class="input_msg_write" style="height:50px">
 	              <input type="text" class="write_msg" placeholder="Type a message" id="send_msg" onkeyup="enterkey()"/>
 	              <button class="msg_send_btn" type="button" onclick="sendmsg()"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
 	            </div>
@@ -170,7 +191,7 @@ function list(){
 		dataType: 'json',
 		success: function(data){
 			console.log(data.list);
-			listDraw(data.list, data.userlist);
+			listDraw(data.list, data.userlist, data.salephotolist, data.userphotolist);
 		},
 		error: function(e) {
 			console.log(e);
@@ -178,27 +199,43 @@ function list(){
 	})	
 }
 
-function listDraw(list, userlist) {
+function listDraw(list, userlist, salephotolist, userphotolist) {
 	var content = '';
 	console.log(userlist);
 	list.forEach(function(item, index){
+		var salephoto = "";
+		if(salephotolist[index]!="rider"){
+			salephoto = salephotolist[index];
+		}
 		if(selectedDst==item.roomid){
 			content += '<div class="chat_list active_chat">';
 		}else{
 			content += '<div class="chat_list">';
 		}
-		content += '<div class="chat_people" onclick="select(' + item.roomid + ')">';
-		content += '<div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>';
+		content += '<div class="chat_people" style="display:flex" onclick="select(' + item.roomid + ')">';
+		if(userphotolist[index] == null){
+			content += '<div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>';
+		} else{
+			content += '<div class="chat_img"> <img src="resources/photo/' + userphotolist[index] + '" alt="sunil"> </div>';
+		}
 		content += '<div class="chat_ib"><h5>';
-		content += userlist[index] + ' <span class="chat_date">' + item.recent_time + '</span></h5>';
+		content += userlist[index] + ' <span class="chat_date">' + item.recent_time + '&nbsp;&nbsp;</span></h5>';
 		content += '<p>'+item.recent_msg+'</p>';
-		content += '</div></div></div>';
+		content += '</div>';
+		if(salephotolist[index]!="rider"){
+			salephoto = salephotolist[index];
+			content += '<div><img src="/photo/' + salephoto + '" style="max-width:60px;max-height:100%"></div>';
+		}
+		content += '</div></div>';
 	});
 	$('#chatlistbox').empty();
 	$('#chatlistbox').append(content);
 	if(selectedDst!=""){
 		msgList(selectedDst);
 	}
+	
+	/* var hei = $('#inbox_msg').css("height");
+	$('#left_box').css("height", hei); */
 }
 
 function msgList(dst){
@@ -211,7 +248,7 @@ function msgList(dst){
 		dataType: 'json',
 		success: function(data){
 			console.log(data.list);
-			msgDraw(data.list);
+			msgDraw(data.list,data.sale,data.salephoto,data.user,data.userphoto);
 		},
 		error: function(e) {
 		}
@@ -220,16 +257,21 @@ function msgList(dst){
 
 var enter = false;
 
-function msgDraw(list){
+function msgDraw(list,sale,salephoto,user,userphoto){
+	
 	var content = '';
 	list.forEach(function(item, index){
 		if(item.from_id == "${loginId}"){
-			content += '<div class="outgoing_msg"><div class="sent_msg">';
+			content += '<div class="outgoing_msg"><div class="sent_msg" style="margin-right: 5px">';
 			content += '<p>' + item.msg_content + '</p>';
 			content += '<span class="time_date">' + item.from_time + '</span> </div>';
 		}else{
-			content += '<div class="incoming_msg"><div class="incoming_msg_img">';
-			content += '<img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>';
+			content += '<div class="incoming_msg"><div class="incoming_msg_img" style="margin-left: 10px;">';
+			if(userphoto!= null){
+				content += '<img src="resources/photo/' + userphoto + '" alt="sunil"> </div>';
+			}else{
+				content += '<img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>';
+			}
 			content += '<div class="received_msg"><div class="received_withd_msg">';
 			content += '<p>' + item.msg_content + '</p>';
 			content += '<span class="time_date">' + item.from_time + '</span> </div> </div>';
@@ -237,9 +279,18 @@ function msgDraw(list){
 		}
 		content += '</div>'
 	});
+
 	$('#msglistbox').empty();
 	$('#msglistbox').append(content);
 	
+	content = '';
+	content += '<div><h3>&nbsp;' + user + '</h3></div>';
+	content += '<div style="width:100%; text-align: right; padding: 5px 5px"><h4>' + sale.subject + '</h4>';
+	content += '<h5>' + sale.price + '</h5></div><div style="width:20px"></div><div>';
+	content += '<img src="/photo/' + salephoto + '" style="max-height:80px"></div>';
+	
+	$('#sale_def').empty();
+	$('#sale_def').append(content);
 	
 	$("#send_msg").mouseenter(function name() {
 		$('#msglistbox').scrollTop($('#msglistbox')[0].scrollHeight);
@@ -248,9 +299,13 @@ function msgDraw(list){
 		$('#msglistbox').scrollTop($('#msglistbox')[0].scrollHeight);
 		enter=false;
 	}
+	
 }
 
 function select(roomid){
+	$('#sale_def').css("display","flex");
+	$('#sale_def2').css("display","block");
+	$('#type_msg').css("display","block");
 	selectedDst = roomid;
 	list();
 }
@@ -271,20 +326,21 @@ function sendmsg(){
 	param.roomid = selectedDst;
 	
 	$("#send_msg").val('');
-	
-	$.ajax({
-		type: 'post',
-		url: 'msgSend.ajax',
-		data: param,
-		dataType: 'json',
-		success: function(){
-			list();
-			
-		},
-		error: function(e) {
-			console.log(e);
-		}
-	})	
+	if(selectedDst!=""){
+		$.ajax({
+			type: 'post',
+			url: 'msgSend.ajax',
+			data: param,
+			dataType: 'json',
+			success: function(){
+				list();
+				
+			},
+			error: function(e) {
+				console.log(e);
+			}
+		});
+	}
 }
 </script>
 </html>

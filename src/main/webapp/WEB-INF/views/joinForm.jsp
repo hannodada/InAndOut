@@ -340,17 +340,17 @@ h6{
 			<td>	
 				<select name="interest_biz_id" id="interest_biz_id">
 					 <option value=".">==선택==</option>
-				    <option value="1">카페</option>
-				    <option value="2">음식점</option>
-				    <option value="3">여가오락</option>
-				    <option value="4">교육</option>
-				    <option value="5">운동</option>
-				    <option value="6">미용</option>
-				    <option value="7">숙박업</option>
-				    <option value="8">반려동물</option>
-				    <option value="9">세탁업</option>
-				    <option value="10">도소매</option>
-				    <option value="11">기타</option>
+				    <option value="b001">카페</option>
+				    <option value="b002">음식점</option>
+				    <option value="b003">여가오락</option>
+				    <option value="b004">교육</option>
+				    <option value="b005">운동</option>
+				    <option value="b006">미용</option>
+				    <option value="b007">숙박업</option>
+				    <option value="b008">반려동물</option>
+				    <option value="b009">세탁업</option>
+				    <option value="b010">도소매</option>
+				    <option value="b011">기타</option>
 			  	</select>
 			  	
 		  	</td>
@@ -416,17 +416,17 @@ h6{
 			<td>
 			<select name="biz" id="interest_biz_id" id="interest_biz_id">
 					<option value=".">==선택==</option>
-				    <option value="1">카페</option>
-				    <option value="2">음식점</option>
-				    <option value="3">여가오락</option>
-				    <option value="4">교육</option>
-				    <option value="5">운동</option>
-				    <option value="6">미용</option>
-				    <option value="7">숙박업</option>
-				    <option value="8">반려동물</option>
-				    <option value="9">세탁업</option>
-				    <option value="10">도소매</option>
-				    <option value="11">기타</option>
+				    <option value="b001">카페</option>
+				    <option value="b002">음식점</option>
+				    <option value="b003">여가오락</option>
+				    <option value="b004">교육</option>
+				    <option value="b005">운동</option>
+				    <option value="b006">미용</option>
+				    <option value="b007">숙박업</option>
+				    <option value="b008">반려동물</option>
+				    <option value="b009">세탁업</option>
+				    <option value="b010">도소매</option>
+				    <option value="b011">기타</option>
 			  	</select>
 		  	</td>
 		</tr>
