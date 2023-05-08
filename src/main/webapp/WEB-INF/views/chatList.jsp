@@ -224,7 +224,7 @@ function listDraw(list, userlist, salephotolist, userphotolist) {
 		content += '</div>';
 		if(salephotolist[index]!="rider"){
 			salephoto = salephotolist[index];
-			content += '<div><img src="/photo/' + salephoto + '" style="max-width:60px;max-height:100%"></div>';
+			content += '<div><img src="/photo/' + salephoto + '" style="width:60px;height:auto;max-height:60px"></div>';
 		}
 		content += '</div></div>';
 	});
@@ -284,10 +284,11 @@ function msgDraw(list,sale,salephoto,user,userphoto){
 	$('#msglistbox').append(content);
 	
 	content = '';
-	content += '<div><h3>&nbsp;' + user + '</h3></div>';
+	content += '<h3>&nbsp;' + user + '</h3></div>';
+	content += '<div style="display:flex;width:100%" onclick="location.href=\'salesDetail.do?sales_no=' + sale.sales_no + '\'">'
 	content += '<div style="width:100%; text-align: right; padding: 5px 5px"><h4>' + sale.subject + '</h4>';
 	content += '<h5>' + sale.price + '</h5></div><div style="width:20px"></div><div>';
-	content += '<img src="/photo/' + salephoto + '" style="max-height:80px"></div>';
+	content += '<img src="/photo/' + salephoto + '" style="max-height:80px"></div></div>';
 	
 	$('#sale_def').empty();
 	$('#sale_def').append(content);
