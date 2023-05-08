@@ -199,7 +199,7 @@ public class MemberService {
 		logger.info(oriFileName+" => " + newFileName);
 		try {
 			byte[] bytes= file.getBytes();
-			Path path = Paths.get("D:\\SPRING\\inAndOutLast\\src\\main\\webapp\\resources\\photo\\"+newFileName);
+			Path path = Paths.get("D:\\STUDY\\SPRING\\inAndOutLast\\src\\main\\webapp\\resources\\photo\\"+newFileName);
 			Files.write(path, bytes);
 			logger.info(newFileName+"save OK");
 			String cate_no = "p001";
@@ -218,7 +218,7 @@ public class MemberService {
 		logger.info(oriFileName+" => " + newFileName);
 		try {
 			byte[] bytes= bizprofile.getBytes();
-			Path path = Paths.get("D:\\SPRING\\inAndOutLast\\src\\main\\webapp\\resources\\photo\\"+newFileName);
+			Path path = Paths.get("D:\\STUDY\\SPRING\\inAndOutLast\\src\\main\\webapp\\resources\\photo\\"+newFileName);
 			Files.write(path, bytes);
 			logger.info(newFileName +" : bizsave OK ");
 			String cate_no = "p002";

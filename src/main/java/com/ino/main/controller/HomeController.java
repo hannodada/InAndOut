@@ -35,9 +35,9 @@ public class HomeController {
 	@RequestMapping(value={"/","/home"})
 	public String home(Model model) {
 		logger.info("홈페이지로 이동");
-		
-		ArrayList<String> list = service.normalTopList();
 		/*
+		ArrayList<String> list = service.normalTopList();
+		
 		logger.info("list : "+ list.size());
 		logger.info("list : " + list.get(0));
 		logger.info("list : " + list.get(1));
