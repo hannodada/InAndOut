@@ -10,32 +10,13 @@ import com.ino.main.dto.HomeDTO;
 
 public interface HomeDAO {
 
-	int overlay(String user_id);
-	
-	int overlay2(String nickname);
+	ArrayList<HomeDTO> normalTopList();
 
-	int join(HashMap<String, String> params);
-
-	int login(String id, String pw);
-
-	ArrayList<HomeDTO> list();
-
-	int delete(String id);
-
-	HashMap<String, Object> detail(String user_id);
+	ArrayList<String> findTopPhoto(String top1, String top2, String top3, String top4, String top5);
 
 	
+
 	
-
-	int userRegist(HashMap<String, String> params);
-
-	void fileWrite(String oriFileName, String newFileName, String user_id, String cate_no);
-
-	int bizregist(String user_id, int biz_num, String biz, String store_name, String state);
-
-	void bizfileWrite(String oriFileName, String newFileName, String user_id, String cate_no);
-
-	HomeDTO afterList(String user_id);
 
 	
 

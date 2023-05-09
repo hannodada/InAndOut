@@ -18,29 +18,27 @@
 	<insert id="userRegist" parameterType="hashmap">
 		INSERT INTO user(
 			user_id,user_pw,user_name,nickname,post_num,sido,sigungu,
-			left_addr,phone_num,email,user_state,interest_biz_id
+			left_addr,phone_num,email,user_state,interest_biz_id,user_div
 		)VALUES(
 			#{user_id},#{user_pw},#{user_name},#{nickname},#{post_num},#{left_addr}
 			,#{sido},#{sigungu},#{phone_num},#{email},#{user_state},#{interest_biz_id}
+			,#{user_div}
 		)
 	</insert>
 	
-	<insert id="user_div" >
-		INSERT INTO user_div(
-			user_div,user_id,user_div_name
-		)VALUES(
-			#{param1},#{param2},#{param3}
-		)
-	</insert>
 	
+	
+
 	
 		<insert id="riderRegist" parameterType="hashmap">
 		INSERT INTO user(
 			user_id,user_pw,user_name,nickname,post_num,sido,sigungu,
-			left_addr,phone_num,email,user_state,interest_biz_id
+			left_addr,phone_num,email,user_state,interest_biz_id,user_div
 		)VALUES(
 			#{user_id},#{user_pw},#{user_name},#{nickname},#{post_num},#{left_addr}
 			,#{sido},#{sigungu},#{phone_num},#{email},#{user_state},#{interest_biz_id}
+			,#{user_div}
+			
 		)
 	</insert>
 	
@@ -53,6 +51,13 @@
 			#{param1},#{param2},#{param3},#{param4},#{param5}
 		)
 	</insert>
+	
+	<update id="userChange">
+		UPDATE user SET user_div = #{param2} WHERE user_id = #{param1};
+	</update>
+	
+	
+	
 		<insert id="riderbizregist" >
 		INSERT INTO rider_extra(
 			user_id,biz_num,intro,news,store_time,store_name
@@ -61,6 +66,8 @@
 			#{param1},#{param2},#{param3},#{param4},#{param5},#{param6}
 		)
 	</insert>
+	
+	
 	
 	<insert id="join" parameterType="hashmap">
 		INSERT INTO user(
@@ -89,9 +96,15 @@
 	
 	
 	<select id="afterList" 
-	resultType="com.ino.member.dto.MemberDTO">
+	resultType="string">
 		SELECT p.new_photo_name FROM photo p 
-		WHERE photo_div = (select user_id from user where user_id = #{param1}) and cate_no = 'p001'
+		WHERE photo_div = (select user_id from user where user_id = #{param1} and cate_no = 'p001')
+	</select>
+	
+	<select id="userCategory" 
+	resultType="string">
+		SELECT user_div FROM user
+		WHERE user_id =  #{param1}
 	</select>
 	
 <!--  SELECT p.new_photo_name FROM photo p WHERE photo_div = 'bb' and cate_no = 'p001';-->

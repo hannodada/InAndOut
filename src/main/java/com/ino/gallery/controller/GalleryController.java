@@ -157,4 +157,22 @@ public class GalleryController {
 		return map;
 	}
 	
+	@RequestMapping(value = "/galleryUpdate.go")
+	public String galleryUpdateForm(@RequestParam String gallery_no, @RequestParam String user_id,
+			HttpSession session, Model model) {
+		
+		String page = "";
+		String loginId = null;
+		
+		if(session.getAttribute("loginId")!=null) {
+			loginId = (String) session.getAttribute("loginId");
+			if(loginId.equals(user_id)) {
+				
+				logger.info("작성자와 세션아이디 일치함");
+				
+			}
+		}
+		
+		return null;
+	}
 }

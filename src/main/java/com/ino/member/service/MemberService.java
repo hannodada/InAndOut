@@ -48,24 +48,21 @@ public class MemberService {
 			MultipartFile bizprofile) {
 		String page = "joinForm";
 		
-		//**이거 idx 값으로 해서 dto로 넣어야 할까?? 고민중..,,,
-		int userRegistrow = dao.userRegist(params);
-		logger.info("userRegistrow변경되면 이거 나옴!!: "+userRegistrow);
 		MemberDTO dto = new MemberDTO();
 		dto.setUser_id(params.get("user_id"));
 		
 		
 		String user_id = dto.getUser_id();
 		logger.info("if문 밖에는 있나???"+user_id);
-		String user_div_name = "일반";
-		int user_div = 1;
-		dao.user_div(user_div,user_id,user_div_name);
 		
-		//주소에서 시도, 시군구만 빼오기
+		//
+		//**이거 idx 값으로 해서 dto로 넣어야 할까?? 고민중..,,,
+		String user_div = "a";
+		params.put("user_div", user_div);
+		int userRegistrow = dao.userRegist(params);
+		logger.info("userRegistrow변경되면 이거 나옴!!: "+userRegistrow);
 		
-		
-		
-		
+
 		
 		if(!profile.getOriginalFilename().equals("")) {
 			logger.info("profile파일 업로드 작업");
@@ -74,6 +71,10 @@ public class MemberService {
 		//****  만약인증사용자 추가 정보가 들어오면 실행되는 구문
 		if(!params.get("store_name").equals("")) {
 			
+			String user_div2 = "b";
+			params.put("user_div2", user_div2);
+			int userChangerow = dao.userChange(user_id,user_div2);
+			logger.info("인증사용자로 변경되면 나오는 row : " +userChangerow);
 			
 			int biz_num = Integer.parseInt((params.get("biz_num")));
 			String biz = params.get("biz");
@@ -83,9 +84,8 @@ public class MemberService {
 			int bizregistrow = dao.bizregist(user_id,biz_num,biz,store_name,state);
 			logger.info("이거 안들어가나??"+user_id);
 			logger.info("bizregistrow변경되면 이거 나옴!!: "+bizregistrow);
-			int user_div2 = 2;
-			String user_div_name2 = "인증";
-			dao.user_div(user_div2, user_id, user_div_name2);
+		
+			//dao.user_div(user_div2, user_id, user_div_name2);
 			
 			
 		}
@@ -107,6 +107,8 @@ public class MemberService {
 		String page = "riderForm";
 		
 		//**이거 idx 값으로 해서 dto로 넣어야 할까?? 고민중..,,,
+		String user_div = "c";
+		params.put("user_div", user_div);
 		int riderRegistrow = dao.riderRegist(params);
 		logger.info("riderRegistrow변경되면 이거 나옴!!: "+riderRegistrow);
 		MemberDTO dto = new MemberDTO();
@@ -114,15 +116,14 @@ public class MemberService {
 		dto.setNickname(params.get("nickname"));
 		logger.info("라이더 파람!! nickname 출력!!  : "+ params.get("nickname"));
 		
-		int user_div3 = 3;
-		String user_div_name3 = "라이더";
+		
 		
 		
 		String user_id = dto.getUser_id();
 		String Nickname = dto.getNickname();
 		logger.info("라이더 Nickname 출력!!  : "+ Nickname);
 		logger.info("if문 밖에는 있나???"+user_id);
-		dao.user_div(user_div3, user_id, user_div_name3);
+		//dao.user_div(user_div3, user_id, user_div_name3);
 		
 		
 		
@@ -167,7 +168,7 @@ public class MemberService {
 		return dao.login(id,pw);
 	}
 	
-	public MemberDTO afterList(String user_id) {
+	public String afterList(String user_id) {
 		// TODO Auto-generated method stub
 		return dao.afterList(user_id);
 	}
@@ -229,6 +230,14 @@ public class MemberService {
 		}
 		
 	}
+
+	public String userCategory(String user_id) {
+		
+		return dao.userCategory(user_id);
+	}
+
+	
+	
 
 
 

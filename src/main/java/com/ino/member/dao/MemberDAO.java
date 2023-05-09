@@ -39,11 +39,20 @@ public interface MemberDAO {
 	
 	void bizfileWrite(String oriFileName, String newFileName, String user_id, String cate_no);
 
-	MemberDTO afterList(String user_id);
+	String afterList(String user_id);
 
 	int riderRegist(HashMap<String, String> params);
 
-	void user_div(int user_div, String user_id, String user_div_name);
+
+
+	String userCategory(String user_id);
+
+	int userChange(String user_id, String user_div2);
+
+	
+	
+
+	
 
 	
 

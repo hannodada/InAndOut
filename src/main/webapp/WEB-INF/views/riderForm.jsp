@@ -326,7 +326,7 @@ h6{
 		<tr>
 			
 			
-				<input type="hidden" name="interest_biz_id" value="b00" id="interest_biz_id" />
+				<input type="hidden" name="interest_biz_id" value="b012" id="interest_biz_id" />
 					
 			  	
 

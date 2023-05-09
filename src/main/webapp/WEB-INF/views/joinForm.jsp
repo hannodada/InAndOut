@@ -5,201 +5,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
-<link rel="stylesheet" href="resources/css/common.css" type="text/css">
+<link rel="stylesheet" href="resources/css/joinform.css" type="text/css">
 <style>
-
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-   	}
-    body {
-    	
-      font-family: 'Noto Sans KR', sans-serif;
-
-    }
-#user_id{
-	width: 69%;}
-#email{
-	width: 35%;
-}
-#url{
-	width: 40%;
-}
-
-#workNumber{
-	width: 40%;
-}
-#nickName{
-	width: 40%;
-
-}
-#phone2{
-	width: 40%;
-}
-#biz_num{
-	width: 60%;
-}
-table{
-	margin: 0 auto;
-
-}
-
-table, th, td{
-	border: 0px solid black;
-	border-collapse: collapse;
-	padding: 5px 10px;
-}
-
-
-
-h2{
-text-align: center;
-
-}
-h4{
-	padding: 0% 0% 0% 25%;
-	color: blue;
-}
-h6{
-	padding: 0% 0% 0% 25%;
-	color: gray;
-}
-#des{
-	padding: 0%;
-	color: gray;
-}
-#profile{
-	width: 120px;
-}
-
-/*버튼꾸미기!!!  */
-  			.test_btn1{
-            border-top-left-radius: 5px;
-            border-bottom-left-radius: 5px;
-            border-top-right-radius: 5px;
-            border-bottom-right-radius: 5px;  
-            
-            margin-right:-4px;
-             font-family: 'Noto Sans KR', sans-serif;
-             font-size: 13px;
-            
-        }
-       
-        .test_btn1{
-            border: 1px solid #227cff;
-            background-color: #227cff;
-            color: white;
-            padding: 5px 10px 5px 10px;
-            font: 'Noto Sans KR', sans-serif;
-        }
-        .test_btn1:hover{
-            color:white;
-            background-color: #3788fd;
-        }
-  		.test_btn2{
-            border-top-left-radius: 5px;
-            border-bottom-left-radius: 5px;
-            border-top-right-radius: 5px;
-            border-bottom-right-radius: 5px;  
-            
-            margin-right:6px;
-             font-family: 'Noto Sans KR', sans-serif;
-             font-size: 15px;
-            
-        }
-       
-        .test_btn2{
-            border: 1px solid #227cff;
-            background-color: #227cff;
-            color: white;
-            padding: 6px 22px 6px 22px;
-            font: 'Noto Sans KR', sans-serif;
-        }
-        .test_btn2:hover{
-            color:white;
-            background-color: #3788fd;
-        }
-        
-        .preview-edit{
-        	border-top-left-radius: 5px;
-            border-bottom-left-radius: 5px;
-            border-top-right-radius: 5px;
-            border-bottom-right-radius: 5px;  
-            
-            margin-right:-4px;
-             font-family: 'Noto Sans KR', sans-serif;
-             font-size: 13px;
-        
-        }
-        
-        
-      		#findPost{
-            border-top-left-radius: 7px;
-            border-bottom-left-radius: 7px;
-            border-top-right-radius: 7px;
-            border-bottom-right-radius: 7px;  
-            
-            margin-right:6px;
-             font-family: 'Noto Sans KR', sans-serif;
-             font-size: 13px;
-             
-            
-        }
-       
-        #findPost{
-            border: 1px solid #227cff;
-            background-color: #227cff;
-            color: white;
-            padding: 6px 14px 6px 13px;
-            font: 'Noto Sans KR', sans-serif;
-        }
-        #findPost:hover{
-            color:white;
-            background-color: #3788fd;
-        }
-        
-        
-   
-         .preview-edit{
-			
-            color: white;
-            padding: 5px 10px 5px 10px;
-            font: 'Noto Sans KR', sans-serif;
-            width: 45px;
-        
-        }
-        .preview-edit:hover{
-            color:white;
-            background-color: #3788fd;
-        }
-        
-       .preview-de{
-            
-            
-            margin-right:-5px;
-             font-family: 'Noto Sans KR', sans-serif;
-             font-size: 15px;
-            
-        }
-       
-        .preview-de{
-            
-            color: white;
-            padding: 5px 10px 5px 10px;
-            font: 'Noto Sans KR', sans-serif;
-            width: 45px;
-        }
-        .preview-de:hover{
-            cursor:pointer;
-        }
-        
-        
-
-	
-        
-  
 
 
 </style>
@@ -218,6 +25,9 @@ h6{
 	<h2>회원가입</h2>
 	<br>
 	<br>
+	<br>
+	<br>
+	<a id="essential">* 필수 기입 항목입니다.</a>
 	<br>
 	<br>
 	
@@ -327,17 +137,17 @@ h6{
 			<td>	
 				<select name="interest_biz_id" id="interest_biz_id">
 					 <option value=".">==선택==</option>
-				    <option value="1">카페</option>
-				    <option value="2">음식점</option>
-				    <option value="3">여가오락</option>
-				    <option value="4">교육</option>
-				    <option value="5">운동</option>
-				    <option value="6">미용</option>
-				    <option value="7">숙박업</option>
-				    <option value="8">반려동물</option>
-				    <option value="9">세탁업</option>
-				    <option value="10">도소매</option>
-				    <option value="11">기타</option>
+				    <option value="b001">카페</option>
+				    <option value="b002">음식점</option>
+				    <option value="b003">여가오락</option>
+				    <option value="b004">교육</option>
+				    <option value="b005">운동</option>
+				    <option value="b006">미용</option>
+				    <option value="b007">숙박업</option>
+				    <option value="b008">반려동물</option>
+				    <option value="b009">세탁업</option>
+				    <option value="b010">도소매</option>
+				    <option value="b011">기타</option>
 			  	</select>
 			  	
 		  	</td>
@@ -361,11 +171,12 @@ h6{
 	
 	<h4>추가정보</h4> <h6>더 정확한 정보를 원하시면 꼭 기입해주세요:)</h6>
 	
-	<table>
-	<br>
-	
 	<hr>
-	<br>
+	<table>
+	
+	
+	
+
 	
 	
 	<tr>
@@ -402,17 +213,17 @@ h6{
 			<td>
 			<select name="biz" id="interest_biz_id" id="interest_biz_id">
 					<option value=".">==선택==</option>
-				    <option value="1">카페</option>
-				    <option value="2">음식점</option>
-				    <option value="3">여가오락</option>
-				    <option value="4">교육</option>
-				    <option value="5">운동</option>
-				    <option value="6">미용</option>
-				    <option value="7">숙박업</option>
-				    <option value="8">반려동물</option>
-				    <option value="9">세탁업</option>
-				    <option value="10">도소매</option>
-				    <option value="11">기타</option>
+				    <option value="b001">카페</option>
+				    <option value="b002">음식점</option>
+				    <option value="b003">여가오락</option>
+				    <option value="b004">교육</option>
+				    <option value="b005">운동</option>
+				    <option value="b006">미용</option>
+				    <option value="b007">숙박업</option>
+				    <option value="b008">반려동물</option>
+				    <option value="b009">세탁업</option>
+				    <option value="b010">도소매</option>
+				    <option value="b011">기타</option>
 			  	</select>
 		  	</td>
 		</tr>

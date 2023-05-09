@@ -27,7 +27,7 @@
 
     body {
       font-family: 'Noto Sans KR', sans-serif;
-      background-color: bisque;
+      
       
  
     }
@@ -89,6 +89,36 @@ header{
   font-weight: bold;
   
   
+}
+
+
+.nbsp {
+  width:860px;
+}
+
+
+.loginbax{
+	width: 27%;
+	margin-right: 13px;
+
+}
+
+.loginOutline{
+	display: flex;
+		justify-content: flex-end;
+		align-items: center; 
+		justify-content: flex-star;
+		
+		
+}
+
+.realLogin{
+	display: flex;
+		justify-content: center;
+		align-items: center; 
+		justify-content: flex-star;
+		margin-right: 13px;
+
 }
 
 #logout{
@@ -161,6 +191,19 @@ header{
             background-color: #3788fd;
         }
         
+     
+#id{
+	margin-right: 5px;
+
+}
+#login{
+	margin-right: 3px;
+
+}
+#join{
+	
+
+}        
         
  
 .dropdown {
@@ -196,30 +239,33 @@ header{
 
 @media(max-width:1913px){
    #navbar{position: relative;position: fixed;width: 100%;top: 0;left: 0;}
-   #navbar .nbsp{ width: 52%;}
+   #navbar .nbsp{ width: 45%;}
    }
 @media(max-width:1750px){
    #navbar{position: relative;position: fixed;width: 100%;top: 0;left: 0;}
-   #navbar .nbsp{ width: 48%;}
+   #navbar .nbsp{ width: 40%;}
    }
 @media(max-width:1564px){
    #navbar{position: relative;position: fixed;width: 100%;top: 0;left: 0;}
-   #navbar .nbsp{ width: 40%;}   
+   #navbar .nbsp{ width: 35%;}   
 
-@media(max-width:1300px){
+@media(max-width:1378px){
 #navbar{position: relative;position: fixed;width: 100%;top: 0;left: 0;}
-#navbar .nbsp{ width: 35%;}
+#navbar .nbsp{ width: 30%;}
+}
+@media(max-width:1280px){
+#navbar{position: relative;position: fixed;width: 100%;top: 0;left: 0;}
+#navbar .nbsp{ width: 20%;}
 }   
 @media(max-width:1204px){
 #navbar{position: relative;position: fixed;width: 100%;top: 0;left: 0;}
-#navbar .nbsp{ width:25%;}
+#navbar .nbsp{ width: 1%;}
 }
-@media(max-width:960px){
+@media(max-width:980px){
 #navbar{position: relative;position: fixed;width: 100%;top: 0;left: 0;}
-#navbar .nbsp{ width: 20%; display: none;}
+#navbar .nbsp{ width: 1%; display: none;}
 #navbar a{ visibility: hidden; width: 0%; display: none;}
-}
-  
+
 
          
  
@@ -227,6 +273,7 @@ header{
 <head>
 
  <header>
+
       <nav>
 		<div id="navbar">
 		      <div class="logo"><img src="resources/photo/로고2.png" onclick="location.href='afterLogin.go'" ></div>
@@ -271,6 +318,7 @@ header{
 				 </div>
 			
 	</nav>
+
 	 
 </header>
 
