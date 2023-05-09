@@ -39,4 +39,6 @@ public interface ChatDAO {
 	SalesDTO msgsale(int salenum);
 
 	String msguser(int id, String loginId);
+
+	String username(String msguser);
 }

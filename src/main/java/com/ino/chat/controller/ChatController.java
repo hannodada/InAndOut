@@ -95,7 +95,8 @@ public class ChatController {
 			logger.info("issale: " + issale);
 			if(issale.equals("판매")) {
 				int salenum = service.salenum(id);
-				SalesDTO msgsale = service.msgsale(salenum);
+				SalesDTO msgsale = new SalesDTO();
+				msgsale = service.msgsale(salenum);
 				logger.info("msgsale: " + msgsale);
 				map.put("sale", msgsale);
 				String salephoto = service.salephoto(Integer.toString(salenum));
@@ -107,6 +108,7 @@ public class ChatController {
 			map.put("list", msglist);
 			
 			String msguser = service.msguser(id, (String)session.getAttribute("loginId"));
+			String username = service.username(msguser);
 			String userphoto = service.userphoto(msguser);
 			map.put("user", msguser);
 			map.put("userphoto", userphoto);
@@ -139,6 +141,14 @@ public class ChatController {
 	
 	@RequestMapping(value = "newchat.do")
 	public String newchat(@RequestParam String username, HttpSession session) {
+		String loginId = (String) session.getAttribute("loginId");
+		service.newroom(loginId, username);
+		
+		return "redirect:/chat.go";
+	}
+	
+	@RequestMapping(value = "chatsaledone.do")
+	public String chatsaledone(@RequestParam String username, HttpSession session) {
 		String loginId = (String) session.getAttribute("loginId");
 		service.newroom(loginId, username);
 		

@@ -35,8 +35,9 @@
         top: 50%;
         left: 50%;
 
-        width: 400px;
-        height: 300px;
+        width: 500px;
+        height: auto;
+        min-height: 200px;
 
         padding: 40px;
 
@@ -48,26 +49,57 @@
 
         transform: translateX(-50%) translateY(-50%);
       }
+      
+      .dropdown2 {
+		  position: relative;
+		  display: inline-block;
+		}
+      
+      .dropdown-content2 {
+      	  border-top-left-radius: 5px;
+          border-bottom-left-radius: 5px;
+          border-top-right-radius: 5px;
+          border-bottom-right-radius: 5px; 
+		  display: none;
+		  position: absolute;
+		  background-color: #264EED;
+		  min-width: 160px;
+		  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+		  z-index: 1;
+		  left: 70%;
+		  top: 80px;
+		}
+		
+		#saledone {
+		  color: white;
+		  padding: 12px 16px;
+		  text-decoration: none;
+		  display: block;
+		}
+		#saledone :hover {
+		  background-color: #ddd;
+		}
 </style>
 </head>
 <body style="height:100%">
 	<div class="modal">
       <div class="modal_body">
-      	<h4>새 채팅 만들기</h4>
+      	<h4>판매 상태 변경하기</h4>
       	<p></p>
-      	<div>새로운 대화를 할 상대의 이름을 입력하세요.</div>
+      	<div style="display:inline"><h6 id="modal_text" style="color:#264EED;display:inline">테스트</h6><h6 style="display:inline"> 상품을 판매 완료 상태로 변경하시겠습니까?</h6>
+      	</div>
       	<p></p>
-      	<form action="newchat.do" method="post">
-      	<div class="input-group mb-3">
+      	<form action="chatsaledone.do" method="post">
+      	<div class="input-group mb-3" style="display:none">
 		  <div class="input-group-prepend">
 		    <span class="input-group-text" id="basic-addon1">@</span>
 		  </div>
-		  <input type="text" name="username" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+		  <input type="text" id="modalsaleid" name="modalsaleid" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
 		</div>
       	<hr/>
       
-      	<button class="btn btn-primary" type="submit">연결하기!</button>&nbsp;
-		<button type="button" class="btn btn-secondary" id="modalClose">취소하기</button>
+      	<button class="btn btn-primary" type="submit">변경</button>&nbsp;
+		<button type="button" class="btn btn-secondary" id="modalClose">취소</button>
 		</form>
       </div>
     </div>
@@ -120,7 +152,7 @@
 	          </div>
 	        </div>
 	        <div class="mesgs" style="width:60%; padding:0">
-	          <div id="sale_def" style="width:100%;height:100px;background-color: #F0F0F0;display:none;padding:16px 20px">
+	          <div id="sale_def"  class="dropdown2" style="width:100%;height:100px;background-color: #F0F0F0;display:none;padding:16px 20px">
 	          		<div>
 	          			<h3>&nbsp;pepe</h3>
 	          		</div>
@@ -132,6 +164,9 @@
 	          		<div>
 	          			<img src="/photo/1683508729270.png" style="max-height:80px">
 	          		</div>
+	          		<div class="dropdown-content2" id="saledonediv"> 
+			          	<a href="#" id="saledone">판매 완료 변경</a>
+			        </div>
 	          </div>
 	          <div id="sale_def2" style="display:none;width:100%;height:2px;background-color: #E6E6E6;text-align: center">
 	          
@@ -139,6 +174,7 @@
 	          <div style="width:100%;height:20px;">
 	          
 	          </div>
+	          
 	          <div class="msg_history" id="msglistbox"></div>
 	          <div class="type_msg" id="type_msg" style="display:none">
 	            <div class="input_msg_write" style="height:50px">
@@ -148,6 +184,7 @@
 	          </div>
 	        </div>
 	      </div>
+	      <button class="btn btn-primary" id="modaltest">모달</button>
 	      <p class="text-center top_spac"> Created by <a target="_blank" href="https://github.com/Mochacina">SSS</a></p>
 	    </div>
 	</div>
@@ -156,19 +193,21 @@
 const body = document.querySelector('body');
 const modal = document.querySelector('.modal');
 
-$("#mListToggle").click(function () {
+function showModal() {
 	modal.classList.toggle('show');
 
     if (modal.classList.contains('show')) {
       body.style.overflow = 'hidden';
     }
-});
+}
 
-$("#modalClose").click(function () {
+$('#modalClose').click(function () {
 	modal.classList.toggle('show');
 
     if (modal.classList.contains('show')) {
-      body.style.overflow = 'hidden';
+		body.style.overflow = 'hidden';
+    } else {
+    	body.style.overflow = 'scroll';
     }
 });
 
@@ -289,9 +328,12 @@ function msgDraw(list,sale,salephoto,user,userphoto){
 	content += '<div style="width:100%; text-align: right; padding: 5px 5px"><h4>' + sale.subject + '</h4>';
 	content += '<h5>' + sale.price + '</h5></div><div style="width:20px"></div><div>';
 	content += '<img src="/photo/' + salephoto + '" style="max-height:80px"></div></div>';
+	content += '<div class="dropdown-content2" id="saledonediv" onclick="showModal()"><a href="#" id="saledone">판매 완료 변경</a></div>';
 	
 	$('#sale_def').empty();
 	$('#sale_def').append(content);
+	$('#modal_text').text(sale.subject);
+	$('#modalsaleid').val(sale.sales_no);
 	
 	$("#send_msg").mouseenter(function name() {
 		$('#msglistbox').scrollTop($('#msglistbox')[0].scrollHeight);
@@ -301,7 +343,22 @@ function msgDraw(list,sale,salephoto,user,userphoto){
 		enter=false;
 	}
 	
+	var saleid = sale.user_id;
+	console.log(saleid);
+	if(saleid == "${loginId}"){
+		$('#sale_def').hover(function () {
+			$('.dropdown-content2').css("display","block");
+		}, function () {
+			$('.dropdown-content2').css("display","none");
+		});
+	} else {
+		$('#sale_def').unbind('mouseenter mouseleave');
+	}
+	
+	
 }
+
+
 
 function select(roomid){
 	$('#sale_def').css("display","flex");
