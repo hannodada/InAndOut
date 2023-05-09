@@ -148,9 +148,8 @@ public class ChatController {
 	}
 	
 	@RequestMapping(value = "chatsaledone.do")
-	public String chatsaledone(@RequestParam String username, HttpSession session) {
+	public String chatsaledone(@RequestParam String modalsaleid, HttpSession session) {
 		String loginId = (String) session.getAttribute("loginId");
-		service.newroom(loginId, username);
 		
 		return "redirect:/chat.go";
 	}
