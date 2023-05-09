@@ -132,10 +132,8 @@ public class MemberController {
 		//dto.setUser_div_name(user_div_name);
 		session.setAttribute("user_div", user_div);
 		
-		
-<<<<<<< HEAD
+
 		model.addAttribute("dto",dto);
-		*/
 		/*
 		ArrayList<String> list = service.normalTopList();
 		logger.info("list : "+ list.size());
@@ -199,8 +197,6 @@ public class MemberController {
 			model.addAttribute("findTopPhoto4",findTopPhoto4);
 			model.addAttribute("findTopPhoto5",findTopPhoto5);
 		}*/
-		
-		*/
 		return page;
 	
 	}
@@ -215,10 +211,6 @@ public class MemberController {
 		   logger.info((String) session.getAttribute("new_photo_name"));
 		   logger.info((String) session.getAttribute("user_div_name"));
 	     
-<<<<<<< HEAD
-=======
-		   
->>>>>>> origin/master
 		   /*
 		   ArrayList<String> list = service.normalTopList();
 			logger.info("list : "+ list.size());
@@ -283,9 +275,6 @@ public class MemberController {
 				model.addAttribute("findTopPhoto5",findTopPhoto5);
 			}
 			*/
-		   
-		   
-		   */
 	      return "home";
 	   }   
 	
