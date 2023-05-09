@@ -9,6 +9,8 @@ public class MsgDTO {
 	private String from_time;
 	private int roomid;
 	
+	private String new_photo_name;
+	
 	public int getMsg_no() {
 		return msg_no;
 	}

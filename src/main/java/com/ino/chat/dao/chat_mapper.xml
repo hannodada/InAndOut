@@ -80,4 +80,8 @@
 	<select id="username" resultType="String">
 		select user_name from user where user_id = #{param1}
 	</select>
+	
+	<update id="chatsaledone">
+		update sales set sales_state='판매완료' where sales_no = #{param1}
+	</update>
 </mapper>

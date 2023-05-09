@@ -96,4 +96,9 @@ public class ChatService {
 		return dao.username(msguser);
 	}
 
+	public void chatsaledone(String modalsaleid) {
+		dao.chatsaledone(modalsaleid);
+		
+	}
+
 }
