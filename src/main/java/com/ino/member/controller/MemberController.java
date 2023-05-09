@@ -132,10 +132,8 @@ public class MemberController {
 		//dto.setUser_div_name(user_div_name);
 		session.setAttribute("user_div", user_div);
 		
-		/*
-		//가상
-		dto.setUser_id(user_id);
 		
+<<<<<<< HEAD
 		model.addAttribute("dto",dto);
 		*/
 		/*
