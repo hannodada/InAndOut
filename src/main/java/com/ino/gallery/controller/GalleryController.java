@@ -13,11 +13,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ino.gallery.dto.GalleryDTO;
 import com.ino.gallery.service.GalleryService;
-import com.ino.sales.dto.SalesDTO;
 
 @Controller
 public class GalleryController {
@@ -65,7 +65,7 @@ public class GalleryController {
 	}
 	
 	@RequestMapping(value = "/galleryDetail.do", method = RequestMethod.GET)
-	public String galleryDetail(Model model, @RequestParam String gallery_no) {
+	public String galleryDetail(HttpSession session, Model model, @RequestParam String gallery_no) {
 		
 		logger.info("deatail gallery_no : "+gallery_no);
 		
@@ -85,7 +85,76 @@ public class GalleryController {
 			
 		}
 		
+		String loginId = null;
+		// attention이 없으면 그대로 0, 있으면 1로 변환됨
+		int attentionCheck;
+		if(session.getAttribute("loginId")!=null) {
+			loginId = (String) session.getAttribute("loginId");
+			if(loginId.length()>0) {
+				logger.info("로그인하고 갤러리번호 :"+gallery_no);
+				attentionCheck = service.attentionCheck(loginId, gallery_no);
+				logger.info("로그인하고 관심여부 :"+attentionCheck);
+				model.addAttribute("attentionCheck", attentionCheck);
+			}
+		}
+		
 		return page;
+	}
+	
+	@RequestMapping(value = "/addGalleryAttention.ajax")
+	@ResponseBody
+	public void addAttention(HttpSession session, @RequestParam String gallery_no){
+		
+		logger.info("gallery_no : "+gallery_no);
+		String loginId = (String) session.getAttribute("loginId");
+		
+		service.addAttention(loginId, gallery_no);
+	}
+	
+	@RequestMapping(value = "/removeGalleryAttention.ajax")
+	@ResponseBody
+	public void removeAttention(HttpSession session, @RequestParam String gallery_no){
+		
+		logger.info("gallery_no : "+gallery_no);
+		String loginId = (String) session.getAttribute("loginId");
+		
+		service.removeAttention(loginId, gallery_no);
+	}
+	
+	@RequestMapping(value = "/galleryDelete.do")
+	public String galleryDelete(Model model, HttpSession session, @RequestParam HashMap<String, String> params) {
+		
+		String page = "redirect:/home";
+		// 삭제 글 작성자 아이디
+		String user_id = params.get("user_id");
+		
+		if(session.getAttribute("loginId")!=null) {//로그인 상태에서
+			if(session.getAttribute("loginId").equals(user_id)) {// 작성자와 세션 아이디가 일치할 때
+				logger.info("같대요");
+				String gallery_no = params.get("gallery_no");
+				service.galleryDelete(gallery_no);
+				page = "redirect:/galleryList.do";
+			}else {// 작성자와 세션 아이디가 다를때
+				logger.info("틀려요");
+			}
+		}
+		return page;
+	}
+	
+	@RequestMapping(value = "/galleryFiltering.ajax", method = RequestMethod.GET)
+	@ResponseBody
+	public HashMap<String, Object> filtering(Model model, @RequestParam HashMap<String, String> userParams) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String filterName = userParams.get("filterName");
+		logger.info("filterName :"+filterName);
+		ArrayList<GalleryDTO> filteredList = service.filtering(filterName);
+		
+		logger.info("filteredList :"+filteredList);
+		
+		map.put("filteredList", filteredList);
+
+		return map;
 	}
 	
 }

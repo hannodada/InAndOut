@@ -104,5 +104,37 @@ public class GalleryService {
 		return dao.galleryDetailPhoto(gallery_no);
 	}
 
+	public int attentionCheck(String loginId, String gallery_no) {
+
+		return dao.attentionCheck(loginId, gallery_no);
+	}
+
+	public void addAttention(String loginId, String gallery_no) {
+		dao.addAttention(loginId, gallery_no);
+		dao.addGalleryAttention(gallery_no);
+	}
+
+	public void removeAttention(String loginId, String gallery_no) {
+		dao.removeAttention(loginId, gallery_no);
+		dao.removeGalleryAttention(gallery_no);
+	}
+
+	public void galleryDelete(String gallery_no) {
+		
+		dao.galleryDelete(gallery_no);
+	}
+
+	public ArrayList<GalleryDTO> filtering(String filterName) {
+
+		ArrayList<GalleryDTO> list = new ArrayList<GalleryDTO>();
+		
+		logger.info("filterName :"+filterName);
+		
+		list = dao.galleryFilteringList(filterName);
+		
+		return list;
+	}
+
+
 
 }

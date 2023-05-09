@@ -18,4 +18,18 @@ public interface GalleryDAO {
 
 	ArrayList<String> galleryDetailPhoto(int gallery_no);
 
+	int attentionCheck(String loginId, String gallery_no);
+
+	void addAttention(String loginId, String gallery_no);
+
+	void addGalleryAttention(String gallery_no);
+
+	void removeAttention(String loginId, String gallery_no);
+
+	void removeGalleryAttention(String gallery_no);
+
+	void galleryDelete(String gallery_no);
+
+	ArrayList<GalleryDTO> galleryFilteringList(String filterName);
+
 }

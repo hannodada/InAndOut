@@ -132,9 +132,19 @@ img{ /* 이미지 배율 증가 시 부드럽게 */
 		</tr>
 		<tr>
 			<th colspan="2">
-			<input type="button" onclick="location.href='./galleryReport.go?gallery_no=${detailData.gallery_no}'" value="신고하기"/>
-				<input type="button" onclick="location.href='./galleryUpdate.go?gallery_no=${detailData.gallery_no}'" value="수정"/>
+				<c:if test="${sessionScope.loginId != null}">
+					<input type="button" onclick="openGalleryReportForm(${detailData.gallery_no})" value="신고하기"/>
+				</c:if>
+				<c:if test="${sessionScope.loginId eq detailData.user_id}">
+					<input type="button" onclick="location.href='./galleryUpdate.go?gallery_no=${detailData.gallery_no}'" value="수정"/>
+				</c:if>
+				<c:if test="${sessionScope.loginId eq detailData.user_id}">
+					<input type="button" onclick="location.href='./galleryDelete.do?gallery_no=${detailData.gallery_no}&user_id=${detailData.user_id }'" value="삭제"/>
+				</c:if>
 				<input type="button" onclick="location.href='./galleryList.do'" value="리스트"/>
+				<c:if test="${sessionScope.loginId ne null}">
+					찜여부 : <input type="checkbox" onclick="attention(this)" <c:if test="${attentionCheck==1 }">checked</c:if>/>
+				</c:if>
 			</th>
 		</tr>
 	</table>
@@ -244,5 +254,56 @@ imgs.forEach(img=>{ // 이미지 마다 설정하기
         }
     });
 });
+
+function attention(box){
+	
+	var gallery_no = ${detailData.gallery_no };
+	
+	if(box.checked){
+		
+		console.log('나 체크됨');
+		console.log(gallery_no);
+		
+		$.ajax({
+			type: 'get',
+			url: 'addGalleryAttention.ajax',
+			data: {
+				'gallery_no':gallery_no
+			},
+			dataType: 'json',
+			success: function(data){
+				console.log(data);
+			},
+			error: function(e){
+				console.log(e);
+			}
+		});
+		
+	}else{
+		console.log('나 체크 안됨');
+		
+		$.ajax({
+			type: 'get',
+			url: 'removeGalleryAttention.ajax',
+			data: {
+				'gallery_no':gallery_no
+			},
+			dataType: 'json',
+			success: function(data){
+				console.log(data);
+			},
+			error: function(e){
+				console.log(e);
+			}
+		});
+	}
+	
+}
+
+function openGalleryReportForm(gallery_no){
+	
+	window.name = "galleryDetail";
+	openWin = window.open("galleryReport.go?gallery_no=${detailData.gallery_no }", "galleryReportForm", "width=570, height=350, resizable = no, scrollbars = no");
+}
 </script>
 </html>
