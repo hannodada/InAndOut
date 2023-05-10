@@ -164,8 +164,8 @@ img{ /* 이미지 배율 증가 시 부드럽게 */
 				<c:if test="${sessionScope.loginId eq detailData.user_id}">
 					<input type="button" onclick="location.href='./salesDelete.do?sales_no=${detailData.sales_no}&user_id=${detailData.user_id }'" value="삭제"/>
 				</c:if>
-				<c:if test="${sessionScope.loginId eq detailData.user_id}"> <!-- 구현해야됨 -->
-					<input type="button" onclick="location.href='./salesComplete.do?sales_no=${detailData.sales_no}&user_id=${detailData.user_id }'" value="판매완료"/>
+				<c:if test="${sessionScope.loginId != null}">
+					<input type="button" onclick="location.href='./chat.go?sales_no=${detailData.sales_no}&user_id=${detailData.user_id }'" value="채팅하기"/>
 				</c:if>
 				<!-- 판매자-구매자간 채팅. 판매자가 클릭하는 경우 alert 출력 -->
 				<input type="button" onclick="saleChat()" value="채팅"/>
