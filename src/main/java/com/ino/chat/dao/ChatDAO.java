@@ -22,7 +22,7 @@ public interface ChatDAO {
 
 	void recentmsgtime(HashMap<String, Object> params);
 
-	void newchat(String roomname);
+	void newchat(String saleno, String username);
 
 	int lastroom();
 
@@ -43,4 +43,6 @@ public interface ChatDAO {
 	String username(String msguser);
 
 	void chatsaledone(String modalsaleid);
+
+	String findroomuser(String user_id, String sales_no);
 }

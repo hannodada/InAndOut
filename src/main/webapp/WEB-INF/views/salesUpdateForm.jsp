@@ -75,12 +75,12 @@ img{ /* 이미지 배율 증가 시 부드럽게 */
 <body>
 	<table>
 		<tr>
-			<th>갤러리번호</th>
-			<td>${detailData.gallery_no }</td>
+			<th>판매글번호</th>
+			<td>${detailData.sales_no }</td>
 		</tr>
 		<tr>
-			<th>상호명</th>
-			<td>${detailData.store_name }</td>
+			<th>판매상태</th>
+			<td>${detailData.sales_state }</td>
 		</tr>
 		<tr>
 			<th>아이디</th>
@@ -92,59 +92,73 @@ img{ /* 이미지 배율 증가 시 부드럽게 */
 		</tr>
 		<tr>
 			<th>제목</th>
-			<td>${detailData.gallery_subject }</td>
+			<td>${detailData.subject }</td>
 		</tr>
 		<tr>
 			<th>사진</th>
 			<td>
-				<c:forEach items="${detailPhoto }" var="i">
-					<c:if test="${i ne null }">
-						<div class="container text-center d-flex flex-wrap">
-						    <span class="wrap">
-						        <img src="/photo/${i }" alt="test">
-						    </span>
-						</div>
-					</c:if>
-				</c:forEach>
+				<c:if test="${detailPhoto.size() == 0 }">
+					<div class="default">
+						<span class="wrap">
+							<img src="/photo/default.png">
+					 	</span>
+					</div>
+				</c:if>
+				<c:if test="${detailPhoto.size() > 0 }">
+					<c:forEach items="${detailPhoto }" var="i">
+							<div class="container text-center d-flex flex-wrap">
+							    <span class="wrap">
+							        <img src="/photo/${i }" alt="test">
+							    </span>
+							</div>
+					</c:forEach>
+				</c:if>
 			</td>
 		</tr>
 		<tr>
-			<th>위치</th>
+			<th>가격</th>
+			<td>${detailData.price }</td>
+		</tr>
+		<tr>
+			<th>거래지역</th>
 			<td>
-				위치
+				${detailData.sales_sido } ${detailData.sigungu }
+			</td>
+		</tr>
+		<tr>
+			<th>1차 카테고리</th>
+			<td>
+				${detailData.biz_name }
+			</td>
+		</tr>
+		<tr>
+			<th>2차 카테고리</th>
+			<td>
+				${detailData.goods_name }
 			</td>
 		</tr>
 		<tr>
 			<th>내용</th>
-			<td>${detailData.gallery_content }</td>
+			<td>${detailData.content }</td>
 		</tr>
 		<tr>
 			<th>조회수</th>
-			<td>${detailData.gallery_hit }</td>
+			<td>${detailData.hit }</td>
 		</tr>
 		<tr>
 			<th>관심수</th>
-			<td>${detailData.gallery_jjim }</td>
+			<td>${detailData.attention }</td>
 		</tr>
 		<tr>
 			<th>등록일자</th>
-			<td>${detailData.gallery_date }</td>
+			<td>${detailData.date }</td>
 		</tr>
 		<tr>
 			<th colspan="2">
-				<c:if test="${sessionScope.loginId != null}">
-					<input type="button" onclick="openGalleryReportForm(${detailData.gallery_no})" value="신고하기"/>
-				</c:if>
-				<c:if test="${sessionScope.loginId eq detailData.user_id}">
-					<input type="button" onclick="location.href='./galleryUpdate.go?gallery_no=${detailData.gallery_no}'" value="수정"/>
-				</c:if>
-				<c:if test="${sessionScope.loginId eq detailData.user_id}">
-					<input type="button" onclick="location.href='./galleryDelete.do?gallery_no=${detailData.gallery_no}&user_id=${detailData.user_id }'" value="삭제"/>
-				</c:if>
-				<input type="button" onclick="location.href='./galleryList.do'" value="리스트"/>
-				<c:if test="${sessionScope.loginId ne null}">
-					찜여부 : <input type="checkbox" onclick="attention(this)" <c:if test="${attentionCheck==1 }">checked</c:if>/>
-				</c:if>
+			<input type="button" onclick="location.href='./salesReport.go?sales_no=${detailData.sales_no}'" value="신고하기"/>
+				<input type="button" onclick="location.href='./salesUpdate.go?sales_no=${detailData.sales_no}'" value="수정"/>
+				<input type="button" onclick="location.href='./salesList.do'" value="리스트"/>
+				관심여부 : <input type="checkbox"/>
 			</th>
 		</tr>
 	</table>
@@ -254,56 +268,5 @@ imgs.forEach(img=>{ // 이미지 마다 설정하기
         }
     });
 });
-
-function attention(box){
-	
-	var gallery_no = ${detailData.gallery_no };
-	
-	if(box.checked){
-		
-		console.log('나 체크됨');
-		console.log(gallery_no);
-		
-		$.ajax({
-			type: 'get',
-			url: 'addGalleryAttention.ajax',
-			data: {
-				'gallery_no':gallery_no
-			},
-			dataType: 'json',
-			success: function(data){
-				console.log(data);
-			},
-			error: function(e){
-				console.log(e);
-			}
-		});
-		
-	}else{
-		console.log('나 체크 안됨');
-		
-		$.ajax({
-			type: 'get',
-			url: 'removeGalleryAttention.ajax',
-			data: {
-				'gallery_no':gallery_no
-			},
-			dataType: 'json',
-			success: function(data){
-				console.log(data);
-			},
-			error: function(e){
-				console.log(e);
-			}
-		});
-	}
-	
-}
-
-function openGalleryReportForm(gallery_no){
-	
-	window.name = "galleryDetail";
-	openWin = window.open("galleryReport.go?gallery_no=${detailData.gallery_no }", "galleryReportForm", "width=570, height=350, resizable = no, scrollbars = no");
-}
 </script>
 </html>

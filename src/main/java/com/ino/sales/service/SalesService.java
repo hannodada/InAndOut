@@ -26,44 +26,63 @@ public class SalesService {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired SalesDAO dao;
 	
-	public ArrayList<SalesDTO> salesList(HttpSession session) {
+	public ArrayList<SalesDTO> salesList(HttpSession session, HashMap<String, String> userParams) {
+		
+		logger.info("salesList 진입");
+		String sido = null;
+		String sigungu = null;
 		
 		ArrayList<SalesDTO> list = new ArrayList<SalesDTO>();
-		logger.info("salesList 진입");
-		if(session.getAttribute("loginId")!=null) {
-			logger.info("salesList  if 진입");
+
+		if(session.getAttribute("loginId")!=null) {//로그인 상태일때
 			String loginId = (String) session.getAttribute("loginId");
-			logger.info("salesList  if 세션 진입"+loginId);
-			String sido = dao.getUserSido(loginId);
-			String sigungu = dao.getUserSigungu(loginId);
+			logger.info("salesList  if 세션 진입 : "+loginId);
 			
-			logger.info("salesList  if 세션 진입"+sido+sigungu);
-			list = dao.salesList(sido, sigungu);
+			if(userParams.get("sido")!=null) {
+				if(userParams.get("sido").length()>0) {//로그인 상태 && 뷰에서 시도 선택했을 때
+					logger.info("sido :"+userParams.get("sido"));
+					
+					sido = userParams.get("sido");
+					logger.info("login sigungu"+userParams.get("sigungu"));
+					sigungu = userParams.get("sigungu");
+					userParams.put("sido", sido);
+					userParams.put("sigungu", sigungu);
+				}
+			}else {//로그인 상태 && 처음 판매글 들어왔을 떄
+				sido = dao.getUserSido(loginId);
+				sigungu = dao.getUserSigungu(loginId);
+				userParams.put("sido", dao.getUserSido(loginId));
+				userParams.put("sigungu", dao.getUserSigungu(loginId));
+			}
+
+		
+		}else {// 로그인 상태 아닐때
 			
-		}else {
-			
-			list = dao.salesList("default" ,"default");
-			
+
+			if(userParams.get("sido")!=null) {
+				if(userParams.get("sido").length()>0) {//로그인 상태x && 뷰에서 시도 선택했을 때
+					logger.info("sido login x :"+userParams.get("sido"));
+
+					sido = userParams.get("sido");
+					sigungu = userParams.get("sigungu");
+
+					userParams.put("sido", sido);
+					userParams.put("sigungu", sigungu);
+				}
+			}else {//로그인 상태x && 처음 판매글 들어왔을 때
+//				userParams.put("sido", "전체");
+//				userParams.put("sigungu", "전체");
+			}
 		}
+		
+		list = dao.salesList(userParams);		
 		
 		return list;
 	}
 	
-	public ArrayList<SalesDTO> filtering(String filterName) {
-		
-		ArrayList<SalesDTO> list = new ArrayList<SalesDTO>();
-		
-		if(filterName.equals("hit")) {
-			
-			list = dao.filteringByHit();
-			
-		}else if(filterName.equals("sales_no")) {
-			
-			list = dao.filteringBySales_no();
-			
-		}
-		
-		return list;
+	public String getBiz_name(String biz_id) {
+
+		return dao.getBiz_name(biz_id);
 	}
 	
 	public ArrayList<BizDTO> getBizList() {
@@ -160,6 +179,66 @@ public class SalesService {
 
 		return dao.salesDetailPhoto(sales_no);
 	}
+
+	public ArrayList<SalesDTO> filtering(HashMap<String, String> userParams) {
+		
+		ArrayList<SalesDTO> list = new ArrayList<SalesDTO>();
+		String filterName = userParams.get("filterName");
+		
+		logger.info("filterName :"+filterName);
+		logger.info("biz_id :"+userParams.get("biz_id"));
+		logger.info("goods_id :"+userParams.get("goods_id"));
+		logger.info("sido :"+userParams.get("sido"));
+		logger.info("sigungu :"+userParams.get("sigungu"));
+		logger.info("minPrice :"+userParams.get("minPrice"));
+		logger.info("maxPrice :"+userParams.get("maxPrice"));
+		
+		
+		if(userParams.get("sido")!=null) {
+			if(userParams.get("sido").equals("시/도 선택")) {
+				userParams.remove("sido");
+			}
+		}		
+		if(userParams.get("sigungu")!=null) {
+			if(userParams.get("sigungu").length()==0) {
+				userParams.remove("sigungu");
+			}
+		}		
+		if(userParams.get("minPrice")!=null) {
+			if(userParams.get("minPrice").length()==0) {
+				userParams.remove("minPrice");
+			}
+		}		
+		if(userParams.get("maxPrice")!=null) {
+			if(userParams.get("maxPrice").length()==0) {
+				userParams.remove("maxPrice");
+			}
+		}
+
+		list = dao.salesList(userParams);
+		
+		return list;
+	}
+
+	public void salesDelete(String sales_no) {
+		dao.salesDelete(sales_no);
+	}
+
+	public int attentionCheck(String loginId, String sales_no) {
+		
+		return dao.attentionCheck(loginId, sales_no);
+	}
+
+	public void addAttention(String loginId, String sales_no) {
+		dao.addAttention(loginId, sales_no);
+		dao.addSalesAttention(sales_no);
+	}
+
+	public void removeAttention(String loginId, String sales_no) {
+		dao.removeAttention(loginId, sales_no);
+		dao.removeSalesAttention(sales_no);
+	}
+
 
 
 

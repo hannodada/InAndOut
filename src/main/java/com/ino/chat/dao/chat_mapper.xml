@@ -39,8 +39,8 @@
 	</update>
 	
 	<insert id="newchat" parameterType="String">
-		insert into chatroom(roomname, recent_msg, recent_no)
-			values(#{param1}, "", 0)
+		insert into chatroom(roomname, msg_div, msg_div_no, recent_msg, recent_no)
+			values(#{param2},"판매",#{param1}, "", 9999999999);
 	</insert>
 	
 	<select id="lastroom" resultType="Int">
@@ -84,4 +84,8 @@
 	<update id="chatsaledone">
 		update sales set sales_state='판매완료' where sales_no = #{param1}
 	</update>
+	
+	<select id="findroomuser" resultType="String">
+		select roomid from roomuser where id = #{param1} and roomid in (select roomid from chatroom where msg_div='판매' and msg_div_no = #{param2});
+	</select>
 </mapper>

@@ -52,13 +52,15 @@ public class ChatService {
 		dao.recentmsgtime(params);
 	}
 
-	public void newroom(String loginId, String username) {
+	public int newroom(String saleno, String loginId, String username) {
 		// TODO Auto-generated method stub
 		logger.info("newchat service");
-		dao.newchat(loginId+username);
+		dao.newchat(saleno, username);
 		int roomid = dao.lastroom();
 		dao.roomjoin(roomid,loginId);
 		dao.roomjoin(roomid,username);
+		
+		return roomid;
 	}
 
 	public String salephoto(String msg_div_no) {
@@ -99,6 +101,11 @@ public class ChatService {
 	public void chatsaledone(String modalsaleid) {
 		dao.chatsaledone(modalsaleid);
 		
+	}
+
+	public String findroomuser(String user_id, String sales_no) {
+		// TODO Auto-generated method stub
+		return dao.findroomuser(user_id, sales_no);
 	}
 
 }

@@ -11,10 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ino.chat.dto.ChatDTO;
+import com.ino.chat.dto.ImgChatDTO;
 import com.ino.chat.dto.MsgDTO;
 import com.ino.chat.service.ChatService;
 import com.ino.sales.dto.SalesDTO;
@@ -64,7 +68,7 @@ public class ChatController {
 				logger.info("salephotolist: "+salephotolist);
 				for (String roomusername: roomuserlist) {
 					if(!roomusername.equals(loginId)) {
-						userlist.add(roomusername);
+						userlist.add(service.username(roomusername));
 						userphotolist.add(service.userphoto(roomusername));
 					}
 				}
@@ -91,6 +95,8 @@ public class ChatController {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		if(session.getAttribute("loginId") != null) {
+			session.setAttribute("selectedRoom", id);
+			
 			String issale = service.issale(id);
 			logger.info("issale: " + issale);
 			if(issale.equals("판매")) {
@@ -110,7 +116,7 @@ public class ChatController {
 			String msguser = service.msguser(id, (String)session.getAttribute("loginId"));
 			String username = service.username(msguser);
 			String userphoto = service.userphoto(msguser);
-			map.put("user", msguser);
+			map.put("user", username);
 			map.put("userphoto", userphoto);
 		}
 		
@@ -139,12 +145,38 @@ public class ChatController {
 		map.put("login", login);
 	}
 	
-	@RequestMapping(value = "newchat.do")
-	public String newchat(@RequestParam String username, HttpSession session) {
+	@RequestMapping(value = "saleChatOpen.do")
+	public String newchat(@RequestParam String sales_no, @RequestParam String user_id, HttpSession session) {
 		String loginId = (String) session.getAttribute("loginId");
-		service.newroom(loginId, username);
+		if(session.getAttribute("loginId") != null) {
+			String roomuserno = service.findroomuser(user_id, sales_no);
+			logger.info("findroomuser: " + roomuserno);
+			if(roomuserno == null) {
+				logger.info("속한 채팅방이 없다");
+				int newroom = service.newroom(sales_no,loginId,user_id);
+				session.setAttribute("selectedRoom", newroom);
+			}else {
+				session.setAttribute("selectedRoom", roomuserno);
+			}
+		}
 		
 		return "redirect:/chat.go";
+	}
+	
+	@RequestMapping(value = "imgSend.ajax", method = RequestMethod.POST)
+	@ResponseBody
+	public void imgSend(ImgChatDTO imgDTO, HttpSession session) throws Exception {
+		logger.info("getid: " + imgDTO.getId());
+		logger.info("getroomid: " + imgDTO.getRoomid());
+		logger.info("getuploadfile: " + imgDTO.getUploadFile());
+		logger.info("--------------------------------------------");
+		
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("id", imgDTO.getId());
+		params.put("roomid", imgDTO.getRoomid());
+		params.put("msg", "이미지 전송");
+		
+		//service.imgmsgsend(params, imgDTO.getUploadFile());
 	}
 	
 	@RequestMapping(value = "chatsaledone.do")
@@ -152,6 +184,7 @@ public class ChatController {
 		String loginId = (String) session.getAttribute("loginId");
 		service.chatsaledone(modalsaleid);
 		
-		return "redirect:/salesDetail.do?sales_no=" + modalsaleid;
+		//return "redirect:/salesDetail.do?sales_no=" + modalsaleid;
+		return "redirect:/chat.go";
 	}
 }

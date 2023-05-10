@@ -13,11 +13,9 @@ public interface SalesDAO {
 
 	String getUserSigungu(String loginId);
 
-	ArrayList<SalesDTO> salesList(String sido, String sigungu);
+	ArrayList<SalesDTO> salesList(HashMap<String, String> userParams);
 	
-	ArrayList<SalesDTO> filteringByHit();
-
-	ArrayList<SalesDTO> filteringBySales_no();
+	String getBiz_name(String biz_id);
 
 	ArrayList<BizDTO> getBizList();
 	
@@ -32,6 +30,19 @@ public interface SalesDAO {
 	void upHit(int sales_no);
 
 	ArrayList<String> salesDetailPhoto(int sales_no);
+
+	void salesDelete(String sales_no);
+
+	int attentionCheck(String loginId, String sales_no);
+
+	void addAttention(String loginId, String sales_no);
+
+	void addSalesAttention(String sales_no);
+	
+	void removeAttention(String loginId, String sales_no);
+
+	void removeSalesAttention(String sales_no);
+
 
 
 

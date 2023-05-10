@@ -49,36 +49,6 @@
 
         transform: translateX(-50%) translateY(-50%);
       }
-      
-      .dropdown2 {
-		  position: relative;
-		  display: inline-block;
-		}
-      
-      .dropdown-content2 {
-      	  border-top-left-radius: 5px;
-          border-bottom-left-radius: 5px;
-          border-top-right-radius: 5px;
-          border-bottom-right-radius: 5px; 
-		  display: none;
-		  position: absolute;
-		  background-color: #264EED;
-		  min-width: 160px;
-		  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-		  z-index: 1;
-		  left: 70%;
-		  top: 80px;
-		}
-		
-		#saledone {
-		  color: white;
-		  padding: 12px 16px;
-		  text-decoration: none;
-		  display: block;
-		}
-		#saledone :hover {
-		  background-color: #ddd;
-		}
 </style>
 </head>
 <body style="height:100%">
@@ -178,13 +148,16 @@
 	          <div class="msg_history" id="msglistbox"></div>
 	          <div class="type_msg" id="type_msg" style="display:none">
 	            <div class="input_msg_write" style="height:50px">
-	              <input type="text" class="write_msg" placeholder="Type a message" id="send_msg" onkeyup="enterkey()"/>
+	              <input type="text" class="write_msg" placeholder="메세지를 입력하세요." id="send_msg" onkeyup="enterkey()"/>
+	              <form id="uploadForm" method="post" enctype="multipart/form-data">
+	              <button onclick="inputFile()" id="btnsendimg" class="msg_send_btn" type="button" style="right:40px; background:#000000"><i class="fa fa-regular fa-image"></i></button>
+	              <input type="file" onchange="sendimg()" id="input-file" style="display:none"/>
+	              </form>
 	              <button class="msg_send_btn" type="button" onclick="sendmsg()"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
 	            </div>
 	          </div>
 	        </div>
 	      </div>
-	      <button class="btn btn-primary" id="modaltest">모달</button>
 	      <p class="text-center top_spac"> Created by <a target="_blank" href="https://github.com/Mochacina">SSS</a></p>
 	    </div>
 	</div>
@@ -193,7 +166,12 @@
 const body = document.querySelector('body');
 const modal = document.querySelector('.modal');
 
+function inputFile(){
+	$('#input-file').click();
+}
+
 function showModal() {
+	event.stopPropagation();
 	modal.classList.toggle('show');
 
     if (modal.classList.contains('show')) {
@@ -211,8 +189,7 @@ $('#modalClose').click(function () {
     }
 });
 
-//var selectedDst = "${selectedRoom}";
-var selectedDst = "";
+var selectedDst = "${selectedRoom}";
 
 function realTime() {
 	setInterval(() => {
@@ -322,13 +299,30 @@ function msgDraw(list,sale,salephoto,user,userphoto){
 	$('#msglistbox').empty();
 	$('#msglistbox').append(content);
 	
+	$('#sale_def').css("display","flex");
+	$('#sale_def2').css("display","block");
+	$('#type_msg').css("display","block");
+	
 	content = '';
-	content += '<h3>&nbsp;' + user + '</h3></div>';
+	content += '<h3 style="min-width: 100px; width: auto">&nbsp;' + user + '&nbsp;님</h3></div>';
 	content += '<div style="display:flex;width:100%" onclick="location.href=\'salesDetail.do?sales_no=' + sale.sales_no + '\'">'
-	content += '<div style="width:100%; text-align: right; padding: 5px 5px"><h4>' + sale.subject + '</h4>';
-	content += '<h5>' + sale.price + '</h5></div><div style="width:20px"></div><div>';
+	content += '<div style="width:100%; display:block; padding: 5px 5px">';
+	content += '<div style="float:right"><div style="display:flex">';
+	if(sale.sales_state == "판매중"){
+		if(sale.user_id == "${loginId}"){
+			content += '<button class="btn btn-primary" id="saledonebtn" onclick="showModal()">판매중</button>';
+		} else{
+			content += '<button class="btn btn-primary">판매중</button>';
+		}
+	}else if(sale.sales_state == "판매중단"){
+		content += '<button class="btn btn-secondary">판매중단</button>';
+	}else{
+		content += '<button class="btn btn-secondary">판매완료</button>';
+	}
+	content += '&nbsp;&nbsp;<h4>' + sale.subject + '</h4></div>';
+	content += '<div style="text-align:right"><h5>' + "₩ " + sale.price + '</h5></div></div></div><div style="width:20px"></div><div>';
 	content += '<img src="/photo/' + salephoto + '" style="max-height:80px"></div></div>';
-	content += '<div class="dropdown-content2" id="saledonediv" onclick="showModal()"><a href="#" id="saledone">판매 완료 변경</a></div>';
+	//content += '<div class="dropdown-content2" id="saledonediv" onclick="showModal()"><a href="#" id="saledone">판매 완료 변경</a></div>';
 	
 	$('#sale_def').empty();
 	$('#sale_def').append(content);
@@ -341,6 +335,16 @@ function msgDraw(list,sale,salephoto,user,userphoto){
 	if (enter){
 		$('#msglistbox').scrollTop($('#msglistbox')[0].scrollHeight);
 		enter=false;
+	}
+	
+	if (sale.sales_state == "판매완료" || sale.sales_state == "판매중단"){
+		$('#send_msg').attr("placeholder", "메세지를 보낼 수 없는 상태입니다.");
+		$('#send_msg').prop('readonly', true);
+		$('#btnsendimg').removeAttr("onclick");
+	} else {
+		$('#send_msg').attr("placeholder", "메세지를 입력하세요.");
+		$('#send_msg').prop('readonly', false);
+		$('#btnsendimg').attr("onclick","inputFile()");
 	}
 	
 	var saleid = sale.user_id;
@@ -361,9 +365,6 @@ function msgDraw(list,sale,salephoto,user,userphoto){
 
 
 function select(roomid){
-	$('#sale_def').css("display","flex");
-	$('#sale_def2').css("display","block");
-	$('#type_msg').css("display","block");
 	selectedDst = roomid;
 	list();
 }
@@ -384,7 +385,7 @@ function sendmsg(){
 	param.roomid = selectedDst;
 	
 	$("#send_msg").val('');
-	if(selectedDst!=""){
+	if(selectedDst!="" && param.msg!=""){
 		$.ajax({
 			type: 'post',
 			url: 'msgSend.ajax',
@@ -399,6 +400,34 @@ function sendmsg(){
 			}
 		});
 	}
+}
+
+function sendimg(){
+	
+	const formData = new FormData();
+	const imageInput = $("#input-file");
+	const files = imageInput[0].files;
+	
+	console.log(files);
+	formData.append("id", "${loginId}");
+	formData.append("roomid", selectedDst);
+	formData.append("uploadFile", files[0]);
+	console.log(formData);
+		
+	$.ajax({
+		type: 'post',
+		url: 'imgSend.ajax',
+		processData: false,
+	    contentType: false,
+		data:formData,
+		dataType: 'json',
+		success: function(rtn){
+			console.log("rtn: ", rtn)
+		},
+		error: function(e) {
+			console.log(e);
+		}
+	});
 }
 </script>
 </html>

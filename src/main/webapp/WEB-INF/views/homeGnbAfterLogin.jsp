@@ -344,9 +344,10 @@ header{
 
 	${msg}
 	<a href="salesWrite.go">판매글 등록</a>
+	<a href="salesList.do?biz_id=b01">b01판매글 보기</a>
+	<a href="salesList.do?biz_id=b02">b02판매글 보기</a>
 	<a href="galleryWrite.go">갤러리 등록</a>
-	<a href="salesList.do">판매글 보기</a>
-	<a href="galleryList.do">판매글 보기</a>
+	<a href="galleryList.do">갤러리보기</a>
 
 <br>
 <br>
