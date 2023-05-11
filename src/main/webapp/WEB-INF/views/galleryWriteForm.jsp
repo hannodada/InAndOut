@@ -35,15 +35,30 @@
 			</tr>
 			<tr>
 				<th>상호명</th>
-				<td><input type="text" name="store_name"/></td>
+				<td>
+					<input type="text" name="store_name" id="store_name" maxlength="29" onkeyup="counter(event, '30')"/>
+					<div>
+						<span id="reCount">0 / 30</span>
+					</div>
+				</td>
 			</tr>
 			<tr>
 				<th>제목</th>
-				<td><input type="text" name="gallery_subject" maxlength="30"/></td>
+				<td>
+					<input type="text" name="gallery_subject" id="gallery_subject" maxlength="29" onkeyup="counter(event, '30')"/>
+					<div>
+						<span id="reCount">0 / 30</span>
+					</div>
+				</td>
 			</tr>
 			<tr>
 				<th>내용</th>
-				<td><textarea name="gallery_content" maxlength="500"></textarea></td>
+				<td>
+					<textarea name="gallery_content" id="gallery_content" maxlength="499" onkeyup="counter(event, '500')"></textarea>
+					<div>
+						<span id="reCount">0 / 500</span>
+					</div>
+				</td>
 			</tr>
 			<tr>
 				<th>사진</th>
@@ -159,5 +174,17 @@
 	    }
 	  }
 	)('att_zone', 'btnAtt')
+	
+	function counter(event, limit){
+		var val = event.target.value.length;
+		var elem = $(event.target).siblings().find('span');
+		console.log(val);
+		console.log(limit);
+		console.log(elem);
+		if(val<=limit){
+			elem.html(val + " / " + limit);
+		}
+		
+	}
 </script>
 </html>

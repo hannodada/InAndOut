@@ -159,7 +159,7 @@ img{ /* 이미지 배율 증가 시 부드럽게 */
 					<input type="button" onclick="openSalesReportForm(${detailData.sales_no})" value="신고하기"/>
 				</c:if>
 				<c:if test="${sessionScope.loginId eq detailData.user_id}">
-					<input type="button" onclick="location.href='./salesUpdate.go?sales_no=${detailData.sales_no}'" value="수정"/>
+					<input type="button" onclick="location.href='./salesUpdate.go?sales_no=${detailData.sales_no}&user_id=${detailData.user_id }'" value="수정"/>
 				</c:if>
 				<c:if test="${sessionScope.loginId eq detailData.user_id}">
 					<input type="button" onclick="location.href='./salesDelete.do?sales_no=${detailData.sales_no}&user_id=${detailData.user_id }'" value="삭제"/>

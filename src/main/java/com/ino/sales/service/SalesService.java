@@ -1,5 +1,6 @@
 package com.ino.sales.service;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -29,57 +30,22 @@ public class SalesService {
 	public ArrayList<SalesDTO> salesList(HttpSession session, HashMap<String, String> userParams) {
 		
 		logger.info("salesList 진입");
-		String sido = null;
-		String sigungu = null;
+		
+		if(session.getAttribute("loginId")!=null) {
+			String loginId = (String) session.getAttribute("loginId");
+			String sido = dao.getUserSido(loginId);
+			String sigungu = dao.getUserSigungu(loginId);
+			userParams.put("sido", sido);
+			userParams.put("sigungu", sigungu);
+		}
 		
 		ArrayList<SalesDTO> list = new ArrayList<SalesDTO>();
-
-		if(session.getAttribute("loginId")!=null) {//로그인 상태일때
-			String loginId = (String) session.getAttribute("loginId");
-			logger.info("salesList  if 세션 진입 : "+loginId);
-			
-			if(userParams.get("sido")!=null) {
-				if(userParams.get("sido").length()>0) {//로그인 상태 && 뷰에서 시도 선택했을 때
-					logger.info("sido :"+userParams.get("sido"));
-					
-					sido = userParams.get("sido");
-					logger.info("login sigungu"+userParams.get("sigungu"));
-					sigungu = userParams.get("sigungu");
-					userParams.put("sido", sido);
-					userParams.put("sigungu", sigungu);
-				}
-			}else {//로그인 상태 && 처음 판매글 들어왔을 떄
-				sido = dao.getUserSido(loginId);
-				sigungu = dao.getUserSigungu(loginId);
-				userParams.put("sido", dao.getUserSido(loginId));
-				userParams.put("sigungu", dao.getUserSigungu(loginId));
-			}
-
-		
-		}else {// 로그인 상태 아닐때
-			
-
-			if(userParams.get("sido")!=null) {
-				if(userParams.get("sido").length()>0) {//로그인 상태x && 뷰에서 시도 선택했을 때
-					logger.info("sido login x :"+userParams.get("sido"));
-
-					sido = userParams.get("sido");
-					sigungu = userParams.get("sigungu");
-
-					userParams.put("sido", sido);
-					userParams.put("sigungu", sigungu);
-				}
-			}else {//로그인 상태x && 처음 판매글 들어왔을 때
-//				userParams.put("sido", "전체");
-//				userParams.put("sigungu", "전체");
-			}
-		}
 		
 		list = dao.salesList(userParams);		
 		
 		return list;
 	}
-	
+
 	public String getBiz_name(String biz_id) {
 
 		return dao.getBiz_name(biz_id);
@@ -192,28 +158,6 @@ public class SalesService {
 		logger.info("sigungu :"+userParams.get("sigungu"));
 		logger.info("minPrice :"+userParams.get("minPrice"));
 		logger.info("maxPrice :"+userParams.get("maxPrice"));
-		
-		
-		if(userParams.get("sido")!=null) {
-			if(userParams.get("sido").equals("시/도 선택")) {
-				userParams.remove("sido");
-			}
-		}		
-		if(userParams.get("sigungu")!=null) {
-			if(userParams.get("sigungu").length()==0) {
-				userParams.remove("sigungu");
-			}
-		}		
-		if(userParams.get("minPrice")!=null) {
-			if(userParams.get("minPrice").length()==0) {
-				userParams.remove("minPrice");
-			}
-		}		
-		if(userParams.get("maxPrice")!=null) {
-			if(userParams.get("maxPrice").length()==0) {
-				userParams.remove("maxPrice");
-			}
-		}
 
 		list = dao.salesList(userParams);
 		
@@ -221,6 +165,9 @@ public class SalesService {
 	}
 
 	public void salesDelete(String sales_no) {
+		
+		logger.info("sales_no"+sales_no);
+
 		dao.salesDelete(sales_no);
 	}
 
@@ -239,16 +186,68 @@ public class SalesService {
 		dao.removeSalesAttention(sales_no);
 	}
 
+	public ArrayList<BizDTO> bizCall() {
+		
+		return dao.getBizList();
+	}
 
+	public int salesUpdate(MultipartFile[] photos, HashMap<String, String> params, ArrayList<String> removeFileName) {
+		
+		logger.info("params :"+params);
+		
+		if(params.get("postcode")!=null) {
+			String left_addr = params.get("roadAddress").substring(params.get("sido").length()+params.get("sigungu").length()+2)+", "+params.get("detailAddress")+params.get("extraAddress");
+			params.put("left_addr", left_addr);
+		}
+		if(params.get("biz")!=null) {
+			String biz_id = params.get("biz");
+			String goods_id = params.get("goods");
+			params.put("biz_id", biz_id);
+			params.put("goods_id", goods_id);
+		}
+		
+		int row = dao.salesUpdate(params);// 아무것도 안건들었을 때, 주소만 수정, 카테고리 수정
+		int sales_no = 0;
+		logger.info("updated row : "+row);
+		
+		if(row>0) {//판매글 글을 업데이트 시켰다면
 
+			if(removeFileName.size()>1) {//삭제할 파일 리스트의 길이가 0보다 크다면
+				fileDelete(removeFileName); //파일 삭제하고 photo 테이블의 파일도 삭제함.
+			}
+			
+			sales_no = Integer.parseInt(params.get("sales_no"));
+			
+			for (MultipartFile photo : photos) {
+				logger.info("photo 있으면 false, 없으면 true :"+photo.isEmpty());
+				if(photo.isEmpty()==false) {
+					
+					fileSave(sales_no, photo);
+					
+					try {
+						Thread.sleep(1);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					
+				}
+			}
+		}
+		
+		return sales_no;
+	}
 
+	private void fileDelete(ArrayList<String> newFileName) {
+		// 실제 파일도 제거해주고, DB photo 테이블 row도 제거해드립니다.
+		for (String FileName : newFileName) {// for 문으로 하나씩 담아서 
+			logger.info(FileName);
+			File file = new File("C:/img/upload/"+FileName);// file 객체 생성 후 
+			if(file.exists()) {// 파일이 존재하면 
+				file.delete();// 파일을 삭제함
+			}
+			dao.removeFileName(FileName);
+		}
+		
+	}
 
-
-
-
-
-
-
-
-	
 }
