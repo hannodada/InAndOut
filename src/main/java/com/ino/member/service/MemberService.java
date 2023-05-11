@@ -15,8 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+
 import com.ino.member.dao.MemberDAO;
 import com.ino.member.dto.MemberDTO;
+
 
 
 
@@ -40,6 +42,12 @@ public class MemberService {
 		// 같은 닉네임이 있는가? 있으면 1 없으면 0
 		map.put("overlay2", dao.overlay2(nickname));		
 		return map;
+	}
+	
+	
+	public ArrayList<MemberDTO> normalTopList() {
+		
+		return dao.normalTopList();
 	}
 	
 	
@@ -199,7 +207,7 @@ public class MemberService {
 		logger.info(oriFileName+" => " + newFileName);
 		try {
 			byte[] bytes= file.getBytes();
-			Path path = Paths.get("D:\\STUDY\\SPRING\\inAndOutLast\\src\\main\\webapp\\resources\\photo\\"+newFileName);
+			Path path = Paths.get("D:\\STUDY\\SPRING\\inAndOutLast오류고친거(현재)\\src\\main\\webapp\\resources\\photo\\"+newFileName);
 			Files.write(path, bytes);
 			logger.info(newFileName+"save OK");
 			String cate_no = "p001";
@@ -218,7 +226,7 @@ public class MemberService {
 		logger.info(oriFileName+" => " + newFileName);
 		try {
 			byte[] bytes= bizprofile.getBytes();
-			Path path = Paths.get("D:\\STUDY\\SPRING\\inAndOutLast\\src\\main\\webapp\\resources\\photo\\"+newFileName);
+			Path path = Paths.get("D:\\STUDY\\SPRING\\inAndOutLast오류고친거(현재)\\src\\main\\webapp\\resources\\photo\\"+newFileName);
 			Files.write(path, bytes);
 			logger.info(newFileName +" : bizsave OK ");
 			String cate_no = "p002";
@@ -234,6 +242,36 @@ public class MemberService {
 	public String userCategory(String user_id) {
 		
 		return dao.userCategory(user_id);
+	}
+
+	public String interest_biz_id(String user_id) {
+		
+		return dao.interest_biz_id(user_id);
+	}
+
+	public ArrayList<MemberDTO> memberAttentionTopList(String interest_biz_id) {
+		
+		return dao.memberAttentionTopList(interest_biz_id);
+	}
+
+	public String sigungu(String user_id) {
+		
+		return dao.sigungu(user_id);
+	}
+
+	public ArrayList<MemberDTO> sigunguTopList(String sigungu) {
+		
+		return dao.sigunguTopList(sigungu);
+	}
+
+	public ArrayList<MemberDTO> hitGallery() {
+		
+		return dao.hitGallery();
+	}
+
+	public ArrayList<MemberDTO> attentionTopList() {
+		
+		return dao.attentionTopList();
 	}
 
 	

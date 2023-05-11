@@ -61,7 +61,7 @@
 									 		      </div>
 										 		      <div id="etc">
 														       <div id="location">
-																				            거주  지역
+																				            ${sessionScope.sigungu}
 															            <button  class="test_btn1">활동지역 인증</button>
 												           		 	
 														      	</div>
@@ -119,7 +119,7 @@
 									 		      </div>
 										 		      <div id="etc">
 														       <div id="location">
-																				            거주  지역
+																				            ${sessionScope.sigungu}
 															            <button  class="test_btn1">활동지역 인증</button>
 												           		 	
 														      	</div>

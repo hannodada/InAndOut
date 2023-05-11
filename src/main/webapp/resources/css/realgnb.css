@@ -140,17 +140,7 @@ header{
     margin-right: 9px;     
             
 }
-#profileUser{
-	width: 55px;
-	cursor:pointer;
-	border-top-left-radius: 15px;
-            border-bottom-left-radius: 15px;
-            border-top-right-radius: 15px;
-            border-bottom-right-radius: 15px; 
-            
-    margin-right: 9px;     
-            
-}
+
 
 #chating{
 	width: 35px;

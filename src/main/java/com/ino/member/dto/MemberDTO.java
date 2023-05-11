@@ -14,6 +14,22 @@ public class MemberDTO {
  	private String sido;
  	private String sigungu;
  	private String user_div_name;
+ 	private String subject;
+	private int price;
+	private String sales_sido;
+	private String content;
+	private String sales_state;
+	private String blind;
+	private int  hit;
+	private int attention;
+	private String date;
+	private String biz_id;
+ 	private String goods_id;
+	private String gallery_subject;
+	private String gallery_date;
+	private int  gallery_hit;
+ 	
+
  	
  	
  	public String getNew_photo_name() {
@@ -98,6 +114,90 @@ public class MemberDTO {
 	}
 	public void setUser_div_name(String user_div_name) {
 		this.user_div_name = user_div_name;
+	}
+	public String getSubject() {
+		return subject;
+	}
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}
+	public String getSales_sido() {
+		return sales_sido;
+	}
+	public void setSales_sido(String sales_sido) {
+		this.sales_sido = sales_sido;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public String getSales_state() {
+		return sales_state;
+	}
+	public void setSales_state(String sales_state) {
+		this.sales_state = sales_state;
+	}
+	public String getBlind() {
+		return blind;
+	}
+	public void setBlind(String blind) {
+		this.blind = blind;
+	}
+	public int getHit() {
+		return hit;
+	}
+	public void setHit(int hit) {
+		this.hit = hit;
+	}
+	public int getAttention() {
+		return attention;
+	}
+	public void setAttention(int attention) {
+		this.attention = attention;
+	}
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
+	public String getBiz_id() {
+		return biz_id;
+	}
+	public void setBiz_id(String biz_id) {
+		this.biz_id = biz_id;
+	}
+	public String getGoods_id() {
+		return goods_id;
+	}
+	public void setGoods_id(String goods_id) {
+		this.goods_id = goods_id;
+	}
+	public String getGallery_subject() {
+		return gallery_subject;
+	}
+	public void setGallery_subject(String gallery_subject) {
+		this.gallery_subject = gallery_subject;
+	}
+	public String getGallery_date() {
+		return gallery_date;
+	}
+	public void setGallery_date(String gallery_date) {
+		this.gallery_date = gallery_date;
+	}
+	public int getGallery_hit() {
+		return gallery_hit;
+	}
+	public void setGallery_hit(int gallery_hit) {
+		this.gallery_hit = gallery_hit;
 	}
  
  	

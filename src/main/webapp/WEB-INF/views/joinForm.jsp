@@ -325,7 +325,7 @@ function join(){
 		var $phone_num = $('#phone_num');
 		var $email = $('#email');
 		var $interest_biz_id = $('#interest_biz_id');
-		
+		/* var $file = ${'#file'}; */
 		
 		
 		if($user_id.val()==''){
@@ -350,9 +350,12 @@ function join(){
 		}else if($interest_biz_id.val() == '.'){
 			alert('관심업종을 선택해 주세요!');
 		}else{
+			/* 이게 뭐지??? 일단은 남겨둠
+					
 			var param = {};
 			param.interest_biz_id = $interest_biz_id.val();
 			console.log(param);
+			*/
 			/*
 			var param = {};
 			param.user_id = $user_id.val();
@@ -365,6 +368,11 @@ function join(){
 			param.interest_biz_id = $interest_biz_id.val();
 			
 			console.log(param);
+			
+			var formData = new FormData();
+			
+			formData.append("photo",file.files[0]);
+			
 			
 			 
 			$.ajax({
@@ -386,9 +394,9 @@ function join(){
 					alert('회원가입에 실패 했습니다.\r\n 다시 시도해 주세요!');
 				}
 			});
-			*/
+			
+		*/
 		}
-		
 		
 	}else{
 		alert('아이디 중복 체크와 비밀번호 확인을 해 주세요');

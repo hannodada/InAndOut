@@ -25,6 +25,8 @@ import com.ino.main.service.HomeService;
 
 
 
+
+
 @Controller
 public class HomeController {
 	
@@ -42,7 +44,18 @@ public class HomeController {
 		HomeDTO dto = new HomeDTO();
 		logger.info(dto.getUser_id());
 		
+		//조회수 높은 판매글
 		
+		ArrayList<HomeDTO> attentionTopList = service.attentionTopList();
+		model.addAttribute("attentionTopList",attentionTopList);
+		
+		
+		
+		//조회수 순으로 갤러리(4개) 호출
+				ArrayList<HomeDTO> hitGallery = service.hitGallery();
+				model.addAttribute("hitGallery",hitGallery);
+				
+
 		
 		
 		return "home";

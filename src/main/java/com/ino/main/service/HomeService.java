@@ -21,6 +21,7 @@ import com.ino.main.dto.HomeDTO;
 
 
 
+
 @Service
 public class HomeService {
 	
@@ -38,7 +39,15 @@ public class HomeService {
 		return dao.findTopPhoto(top1,top2,top3,top4,top5);
 	}
 
-	
+	public ArrayList<HomeDTO> hitGallery() {
+		
+		return dao.hitGallery();
+	}
+
+	public ArrayList<HomeDTO> attentionTopList() {
+		
+		return dao.attentionTopList();
+	}
 
 	
 

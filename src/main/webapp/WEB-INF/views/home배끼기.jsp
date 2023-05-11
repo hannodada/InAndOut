@@ -51,7 +51,7 @@
     }
     
     #profileUser{
-	width: 53px;
+	width: 73px;
 	cursor:pointer;
 	border-top-left-radius: 15px;
             border-bottom-left-radius: 15px;
@@ -100,7 +100,7 @@
     
     
     table,tr,td {
-    	 /*    border: 1px solid black;    */
+    	    border: 1px solid black;   
     	 border-collapse: collapse;
     }
     table{
@@ -249,17 +249,7 @@
 						<br>	
 			</c:if>
 			
-			
-			
-			
-			
-		
-		
 			<c:if test="${attentionTopList ne null}">
-							
-		
-		
-		
 						<br>
 						<hr>
 						<br>
@@ -281,7 +271,7 @@
 					     		 	<c:if test="${topSeller.new_photo_name ne null}">
 						    			<td>	
 							     		 		<br>
-							     		 		<img src="resources/photo/${topSeller.new_photo_name}" id="hitSeller" onclick="location.href='profile.go'">
+							     		 		<img src="resources/photo/${attentiontop.new_photo_name}" id="hitSeller" onclick="location.href='profile.go'">
 						    					<br>
 						    					<a>${topSeller.subject }</a>
 						    					<br>
@@ -292,7 +282,7 @@
 	     		 		</tr>
 	     		 	</table>
 	   		 </c:if>
-		
+			
 			
 			
 			
@@ -365,124 +355,141 @@
 	
 <c:if test="${sessionScope.loginId ne null}">
 	
-			
-			
-			
-			
-			
-			
-			
 			<c:if test="${sigunguTopList eq null}">
 				시군구 지역 프로필 출력 못함
 			</c:if>
 			
-
-			
 			<c:if test="${sigunguTopList ne null}">
+			
 			<br>
 			<br>
 			<hr>
-			<br>
 			<h2>${sessionScope.loginId }님 주위에 가장 많이 판매하는 사람 top 5</h2>
 			<br>
-					<table>
-						<tr>
-				   		 <c:forEach items="${sigunguTopList }" var="sigungu">
-			     		  	<c:if test="${sigungu.new_photo_name eq null}">
-								<td>
-							     		  		<br>
-							     		 		<img src="resources/photo/프로필 기본.png" id="sellerProfile" onclick="location.href='profile.go'">
-				    							<br>
-						    					<a>${sigungu.user_id }</a>
-				    			</td>
-	   						</c:if>
-	     		 			<c:if test="${sigungu.new_photo_name ne null}">
-				    			<td>	
-							     		 		<br>
-							     		 		<img src="resources/photo/${sigungu.new_photo_name}" id="sellerProfile" onclick="location.href='profile.go'">
-				    							<br>
-						    					<a>${sigungu.user_id }</a>
-								</td>
-	    					</c:if>
-						</c:forEach>
-						</tr>
-					</table>
+	
+					
+					<div id="topSeller">
+			   		 <c:forEach items="${sigunguTopList }" var="sigungu">
+					     		  	<c:if test="${sigungu.new_photo_name eq null}">
+					     		 		<img src="resources/photo/프로필 기본.png" id="profileUser" onclick="location.href='profile.go'">
+				    				</c:if>
+					     		 	<c:if test="${sigungu.new_photo_name ne null}">
+					     		 		<img src="resources/photo/${sigungu.new_photo_name}" id="profileUser" onclick="location.href='profile.go'">
+				    				</c:if>
+					</c:forEach>
+					</div>
+					
+					
+					<div id="topSeller">
+					<c:forEach items="${sigunguTopList }" var="sigungu">
+							     	<a>${sigungu.user_id }</a>		 
+					</c:forEach>
+					</div>
+					
+					
+					<div>
+							<c:if test="${sigunguTopList eq null}">
+				     		 	<img src="resources/photo/프로필 기본.png" id="profileNomal" onclick="location.href='profile.go'">
+				     		 </c:if>
+				     		 
+				     		 <c:if test="${sigunguTopList ne null}">
+				     		 	
+				     		 </c:if>
+					</div>
 			</c:if>
 		
 		
-			 <c:if test="${memberAttentionTopList eq null}">
+			<c:if test="${memberAttentionTopList eq null}">
 					<br>
 					<hr>
 					<h2>(null나옴) 관심업종 중 조회수 순으로 판매글(4개) 호출된 모습</h2>
 					<br>
 		     		 	<img src="resources/photo/프로필 기본.png" id="profileNomal" onclick="location.href='profile.go'">
 	   		 </c:if>
-	   		 
-
-	   		 <c:if test="${memberAttentionTopList ne null}">
-						<br>
-						<hr>
-						<br>
-						<h2> ${sessionScope.loginId }님 관심업종 중 조회수 순으로 판매글(4개) 호출</h2>
-						<br>
-		     		 <table>
-	     		 		<tr>
+     		 			<br>
+	     		 
+     		 <c:if test="${memberAttentionTopList ne null}">
+					<br>
+					<hr>
+					<h2>${sessionScope.loginId }님 관심업종 중 조회수 순으로 판매글(4개) 호출</h2>
+					<br>
+	     		 <table>
+     		 		<tr>
+	     		 		<td>
 		     		 		<c:forEach items="${memberAttentionTopList }" var="attentiontop">
-					     		  	<c:if test="${attentiontop.new_photo_name eq null}">
-					     		 		<td>
-						     		 		<br>
-						     		 		<img src="resources/photo/자전거.png" id="hitSeller" onclick="location.href='profile.go'">
-					    					<br>
-					    					<a>${attentiontop.subject }</a>
-					    					<br>
-					    					<a>${attentiontop.price }원</a>
-						    			</td>
-				    				</c:if>
-					     		 	<c:if test="${attentiontop.new_photo_name ne null}">
-						    			<td>	
-							     		 		<br>
-							     		 		<img src="resources/photo/${attentiontop.new_photo_name}" id="hitSeller" onclick="location.href='profile.go'">
-						    					<br>
-						    					<a>${attentiontop.subject }</a>
-						    					<br>
-						    					<a>${attentiontop.price }원</a>
-					     		 		</td>
-			    					</c:if>
+				     		  	<c:if test="${attentiontop.new_photo_name eq null}">
+				     		 		<img src="resources/photo/1682833860491.png" id="profileUser" onclick="location.href='profile.go'">
+			    				</c:if>
+				     		 	<c:if test="${attentiontop.new_photo_name ne null}">
+				     		 		<img src="resources/photo/${attentiontop.new_photo_name}" id="profileUser" onclick="location.href='profile.go'">
+			    				</c:if>
 							</c:forEach>
-	     		 		</tr>
-	     		 	</table>
+	     		 		<td>
+     		 		</tr>
+     		 		<tr>
+     		 			<td>
+     		 				<c:forEach items="${memberAttentionTopList }" var="attentiontop">
+				     		  	
+				     		 	<c:if test="${attentiontop.subject ne null}">
+				     		 			${attentiontop.subject }
+			     		 		</c:if>
+							</c:forEach>
+     		 			</td>
+     		 		</tr>
+     		 		<tr>
+     		 			<td>
+     		 				<c:forEach items="${memberAttentionTopList }" var="attentiontop">
+				     		  	
+				     		 	<c:if test="${attentiontop.price ne null}">
+				     		 		${attentiontop.price }
+			     		 		</c:if>
+							</c:forEach>
+     		 			</td>
+     		 		</tr>
+     		 	</table>
+     		 </c:if>
+     		 
+     		 
+     		 <c:if test="${hitGallery eq null}">
+					<br>
+					<hr>
+					<h2>(null나옴) 조회수 순으로 갤러리 호출</h2>
+					<br>
+		     		 	<img src="resources/photo/프로필 기본.png" id="profileNomal" onclick="location.href='profile.go'">
 	   		 </c:if>
-     		 
-     		 
+     		 			<br>
+	     		 
      		 <c:if test="${hitGallery ne null}">
-						<br>
-						<hr>
-						<br>
-						<h2>조회수 순으로 갤러리 호출</h2>
-						<br>
-		     		 <table>
-	     		 		<tr>
+					<br>
+					<hr>
+					<h2>조회수 순으로 갤러리 호출</h2>
+					<br>
+	     		 <table>
+     		 		<tr>
+	     		 		<td>
 		     		 		<c:forEach items="${hitGallery }" var="hGallery">
 				     		  	<c:if test="${hGallery.new_photo_name eq null}">
-			     		 			<td>
-				     		 			<br>
-				     		 			<img src="resources/photo/오늘의집.png" id="gallery" onclick="location.href='profile.go'">
-			    						<br>
-			    						<a>${hGallery.gallery_subject }</a>	
-			    					</td>
+				     		 		<img src="resources/photo/1682833860491.png" id="profileUser" onclick="location.href='profile.go'">
 			    				</c:if>
 				     		 	<c:if test="${hGallery.new_photo_name ne null}">
-					     		 	<td>	
-					     		 		<br>
-					     		 		<img src="resources/photo/${hGallery.new_photo_name}" id="profileUser" onclick="location.href='profile.go'">
-				    					<br>
-			    						<a>${hGallery.gallery_subject }</a>
-			    					</td>
+				     		 		<img src="resources/photo/${hGallery.new_photo_name}" id="profileUser" onclick="location.href='profile.go'">
 			    				</c:if>
 							</c:forEach>
-	     		 		</tr>
-	     		 	</table>
-	   		 </c:if>
+	     		 		<td>
+     		 		</tr>
+     		 		<tr>
+     		 			<td>
+     		 				<c:forEach items="${hitGallery }" var="hGallery">
+				     		  	
+				     		 	<c:if test="${hGallery.gallery_subject ne null}">
+				     		 			${hGallery.gallery_subject }
+			     		 		</c:if>
+							</c:forEach>
+     		 			</td>
+     		 		</tr>
+     		 		
+     		 	</table>
+     		 </c:if>
      		 
      		 
 	
@@ -551,11 +558,5 @@
 	
 </body>
 <script>
-
-
-
-
-
-
 </script>
 </html>
