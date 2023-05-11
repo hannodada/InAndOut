@@ -135,17 +135,11 @@ public class MemberController {
 		//dto.setUser_div_name(user_div_name);
 		session.setAttribute("user_div", user_div);
 		
-		
-		/*
+
+		model.addAttribute("dto",dto);
+	
 	 
-		//여기는 음 그 탑 리스트 뽑는거!!
-		ArrayList<MemberDTO> list = service.normalTopList();
-		logger.info("topList:" + list.size());
-		model.addAttribute("list", list);
-		MemberDTO dto2 = new MemberDTO(); // 이건 왜 해주는거지?? 아마 확인해보고 싶어서?
-		logger.info("아이디 나온거 확인,, 아마 안나올듯 :"+dto2.getUser_id());
-		
-		*/
+
 		
 		
 		
@@ -197,9 +191,7 @@ public class MemberController {
 			model.addAttribute("list", list);
 			MemberDTO dto3 = new MemberDTO();
 			logger.info(dto3.getUser_id());
-			
-			
-			
+			/*
 			//조회수 높은 판매글
 			
 			ArrayList<MemberDTO> attentionTopList = service.attentionTopList();
@@ -211,8 +203,7 @@ public class MemberController {
 					ArrayList<MemberDTO> hitGallery = service.hitGallery();
 					model.addAttribute("hitGallery",hitGallery);
 			
-		   
-		   
+		   */
 		   
 	      return "home";
 	   }   

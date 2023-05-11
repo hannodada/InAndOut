@@ -8,11 +8,11 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <style>
-	table, th, td{
-		border: 1px black solid;
-		border-collapse: collapse;
-		padding: 5px 10px;	
-	}
+table, th, td{
+	border: 1px black solid;
+	border-collapse: collapse;
+	padding: 5px 10px;	
+}
 *{
     box-sizing: border-box;
 }
@@ -155,15 +155,37 @@ img{ /* 이미지 배율 증가 시 부드럽게 */
 		</tr>
 		<tr>
 			<th colspan="2">
-			<input type="button" onclick="location.href='./salesReport.go?sales_no=${detailData.sales_no}'" value="신고하기"/>
-				<input type="button" onclick="location.href='./salesUpdate.go?sales_no=${detailData.sales_no}'" value="수정"/>
+				<c:if test="${sessionScope.loginId != null}">
+					<input type="button" onclick="openSalesReportForm(${detailData.sales_no})" value="신고하기"/>
+				</c:if>
+				<c:if test="${sessionScope.loginId eq detailData.user_id}">
+					<input type="button" onclick="location.href='./salesUpdate.go?sales_no=${detailData.sales_no}'" value="수정"/>
+				</c:if>
+				<c:if test="${sessionScope.loginId eq detailData.user_id}">
+					<input type="button" onclick="location.href='./salesDelete.do?sales_no=${detailData.sales_no}&user_id=${detailData.user_id }'" value="삭제"/>
+				</c:if>
+				<c:if test="${sessionScope.loginId != null}">
+					<input type="button" onclick="location.href='./chat.go?sales_no=${detailData.sales_no}&user_id=${detailData.user_id }'" value="채팅하기"/>
+				</c:if>
+				<!-- 판매자-구매자간 채팅. 판매자가 클릭하는 경우 alert 출력 -->
+				<input type="button" onclick="saleChat()" value="채팅"/>
 				<input type="button" onclick="location.href='./salesList.do'" value="리스트"/>
-				관심여부 : <input type="checkbox"/>
+				<c:if test="${sessionScope.loginId ne null}">
+					관심여부 : <input type="checkbox" onclick="attention(this)" <c:if test="${attentionCheck==1 }">checked</c:if>/>
+				</c:if>
 			</th>
 		</tr>
 	</table>
 </body>
 <script>
+function saleChat() {
+	if("${sessionScope.loginId}" == "${detailData.user_id}"){
+		alert("자신의 판매글에는 채팅 연결을 할 수 없습니다.");
+	} else{
+		location.href="./saleChatOpen.do?sales_no=${detailData.sales_no}&user_id=${detailData.user_id}";
+	}
+}
+
 const imgs = document.querySelectorAll('img');
 let click = false; // 클릭 여부
 let zoomLayer = 100; // 줌 배율 기본 값
@@ -268,5 +290,56 @@ imgs.forEach(img=>{ // 이미지 마다 설정하기
         }
     });
 });
+
+function attention(box){
+	
+	var sales_no = ${detailData.sales_no };
+	
+	if(box.checked){
+		
+		console.log('나 체크됨');
+		console.log(sales_no);
+		
+		$.ajax({
+			type: 'get',
+			url: 'addSalesAttention.ajax',
+			data: {
+				'sales_no':sales_no
+			},
+			dataType: 'json',
+			success: function(data){
+				console.log(data);
+			},
+			error: function(e){
+				console.log(e);
+			}
+		});
+		
+	}else{
+		console.log('나 체크 안됨');
+		
+		$.ajax({
+			type: 'get',
+			url: 'removeSalesAttention.ajax',
+			data: {
+				'sales_no':sales_no
+			},
+			dataType: 'json',
+			success: function(data){
+				console.log(data);
+			},
+			error: function(e){
+				console.log(e);
+			}
+		});
+	}
+	
+}
+
+function openSalesReportForm(sales_no){
+	
+	window.name = "salesDetail";
+	openWin = window.open("salesReport.go?sales_no=${detailData.sales_no }", "salesReportForm", "width=570, height=350, resizable = no, scrollbars = no");
+}
 </script>
 </html>

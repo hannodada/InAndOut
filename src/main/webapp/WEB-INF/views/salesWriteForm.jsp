@@ -8,11 +8,11 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <style>
-	table, th, td{
-		border: 1px black solid;
-		border-collapse: collapse;
-		padding: 5px 10px;	
-	}
+table, th, td{
+	border: 1px black solid;
+	border-collapse: collapse;
+	padding: 5px 10px;	
+}
 #att_zone{
 	width: 660px;
 	min-height:150px;

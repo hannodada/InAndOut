@@ -72,14 +72,14 @@
 														     		 
 														     		  
 																	<img src="resources/photo/logout.png" id="logout" onclick="location.href='logout.do'">
-																	<img src="resources/photo/free-icon-letter-1250663.png" id="chating" onclick="location.href='chatlist.go'">
+																	<img src="resources/photo/free-icon-letter-1250663.png" id="chating" onclick="location.href='chat.go'">
 															 
 															 		 <c:if test="${sessionScope.new_photo_name eq null}">
-														     		 <img src="resources/photo/프로필 기본.png" id="profileNomal" onclick="location.href='profile.go'">
+														     		 <img src="resources/photo/프로필 기본.png" id="profileNomal" onclick="location.href='myPage.go'">
 														     		 </c:if>
 														     		 
 														     		 <c:if test="${sessionScope.new_photo_name ne null}">
-														     		 <img src="resources/photo/${sessionScope.new_photo_name}" id="profileUser" onclick="location.href='profile.go'">
+														     		 <img src="resources/photo/${sessionScope.new_photo_name}" id="profileUser" onclick="location.href='myPage.go'">
 														     		 </c:if>
 															 
 															 		  <div class="dropdown">
@@ -130,14 +130,14 @@
 														     		 
 														     		  
 																	<img src="resources/photo/logout.png" id="logout" onclick="location.href='logout.do'">
-																	<img src="resources/photo/free-icon-letter-1250663.png" id="chating" onclick="location.href='chatlist.go'">
+																	<img src="resources/photo/free-icon-letter-1250663.png" id="chating" onclick="location.href='chat.go'">
 															 
 															 		 <c:if test="${sessionScope.new_photo_name eq null}">
-														     		 <img src="resources/photo/프로필 기본.png" id="profileNomal" onclick="location.href='profile.go'">
+														     		 <img src="resources/photo/프로필 기본.png" id="profileNomal" onclick="location.href='myPage.go'">
 														     		 </c:if>
 														     		 
 														     		 <c:if test="${sessionScope.new_photo_name ne null}">
-														     		 <img src="resources/photo/${sessionScope.new_photo_name}" id="profileUser" onclick="location.href='profile.go'">
+														     		 <img src="resources/photo/${sessionScope.new_photo_name}" id="profileUser" onclick="location.href='myPage.go'">
 														     		 </c:if>
 															 
 															 		  <div class="dropdown">
@@ -189,15 +189,15 @@
 														     		 
 														     		  
 																	<img src="resources/photo/logout.png" id="logout" onclick="location.href='logout.do'">
-																	<img src="resources/photo/free-icon-letter-1250663.png" id="chating" onclick="location.href='chatlist.go'">
+																	<img src="resources/photo/free-icon-letter-1250663.png" id="chating" onclick="location.href='chat.go'">
 															 
 															 
 															 		 <c:if test="${sessionScope.new_photo_name eq null}">
-														     		 <img src="resources/photo/프로필 기본.png" id="profileNomal" onclick="location.href='profile.go'">
+														     		 <img src="resources/photo/프로필 기본.png" id="profileNomal" onclick="location.href='riderPage.go'">
 														     		 </c:if>
 														     		 
 														     		 <c:if test="${sessionScope.new_photo_name ne null}">
-														     		 <img src="resources/photo/${sessionScope.new_photo_name}" id="profileUser" onclick="location.href='profile.go'">
+														     		 <img src="resources/photo/${sessionScope.new_photo_name}" id="profileUser" onclick="location.href='riderPage.go'">
 														     		 </c:if>
 															 
 															 
