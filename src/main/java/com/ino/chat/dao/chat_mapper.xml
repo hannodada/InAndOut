@@ -9,9 +9,14 @@
 		(select roomid from roomuser where id = #{param1}) order by recent_no desc
 	</select>
 	
+	<select id="riderlist" resultType="com.ino.member.dto.MemberDTO">
+		select * from user u LEFT JOIN photo p ON p.photo_div = u.user_id and p.cate_no = 'p001'
+		where sigungu = (select sigungu from user where user_id = #{param1}) and user_div = 'c'
+	</select>
+	
 	<select id="msglist" resultType="com.ino.chat.dto.MsgDTO">
 		select * from chatmsg c LEFT JOIN photo p ON p.photo_div = c.msg_no and p.cate_no = 'p004'
-		where roomid = #{param1}
+		where roomid = #{param1} order by msg_no
 	</select>
 	
 	<select id="userlist" resultType="String">
@@ -41,7 +46,7 @@
 	
 	<insert id="newchat" parameterType="String">
 		insert into chatroom(roomname, msg_div, msg_div_no, recent_msg, recent_no)
-			values(#{param2},"판매",#{param1}, "", 9999999999);
+			values(#{param2},"판매",#{param1}, "", 999999999);
 	</insert>
 	
 	<select id="lastroom" resultType="Int">

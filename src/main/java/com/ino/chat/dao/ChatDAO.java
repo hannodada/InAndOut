@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import com.ino.chat.dto.ChatDTO;
 import com.ino.chat.dto.MsgDTO;
+import com.ino.member.dto.MemberDTO;
 import com.ino.sales.dto.SalesDTO;
 
 public interface ChatDAO {
@@ -47,4 +48,6 @@ public interface ChatDAO {
 	String findroomuser(String user_id, String sales_no);
 
 	void chatmsgsend(MsgDTO dto);
+
+	ArrayList<MemberDTO> riderlist(String loginId);
 }

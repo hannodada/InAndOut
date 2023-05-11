@@ -21,6 +21,7 @@ import com.ino.chat.dto.ChatDTO;
 import com.ino.chat.dto.ImgChatDTO;
 import com.ino.chat.dto.MsgDTO;
 import com.ino.chat.service.ChatService;
+import com.ino.member.dto.MemberDTO;
 import com.ino.sales.dto.SalesDTO;
 
 @Controller
@@ -185,5 +186,34 @@ public class ChatController {
 		
 		//return "redirect:/salesDetail.do?sales_no=" + modalsaleid;
 		return "redirect:/chat.go";
+	}
+	
+	@RequestMapping(value = "chatriderList.ajax")
+	@ResponseBody
+	public HashMap<String, Object> chatriderList(HttpSession session){
+		logger.info("chatList 실행.");
+		boolean login = false;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		if(session.getAttribute("loginId") != null) {
+			login = true;
+			String loginId = (String) session.getAttribute("loginId");
+			logger.info("loginId = " + loginId);
+			ArrayList<MemberDTO> chatriderlist = service.riderlist(loginId);
+			
+			for (MemberDTO args : chatriderlist) {
+				logger.info("ridername: " + args.getNickname());
+				logger.info("ridername: " + args.getNickname());
+				logger.info("ridername: " + args.getNickname());
+				logger.info("ridername: " + args.getNickname());
+				logger.info("ridername: " + args.getNickname());
+				logger.info("ridername: " + args.getNickname());
+			}
+			
+			map.put("chatriderlist", chatriderlist);
+		}
+		
+		return map;
+		
 	}
 }
