@@ -1,5 +1,6 @@
 package com.ino.gallery.service;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -47,7 +48,7 @@ public class GalleryService {
 		logger.info("방금 insert한 idx : "+idx);
 		
 		for (MultipartFile photo : photos) {
-			logger.info("photo 여부 :"+photo.isEmpty());
+			logger.info("photo 있으면 false, 없으면 true :"+photo.isEmpty());
 			if(photo.isEmpty()==false) {
 				
 				fileSave(idx, photo);
@@ -120,8 +121,31 @@ public class GalleryService {
 	}
 
 	public void galleryDelete(String gallery_no) {
+		logger.info("gallery_no :"+gallery_no);
+
+		ArrayList<String> newFileName = dao.galleryHasFile(gallery_no);//DB photo테이블에 관련 파일명이 몇개 있는지 찾고
+
+		if(newFileName.size()>0) {// photo 테이블에 파일명이 있다면 일단 담는다. 
+			int row = dao.galleryDelete(gallery_no);// gallery 테이블에서 데이터를 지움
+			  
+			if(row>0) {//지운 행이 1 이상이면
+				fileDelete(newFileName);
+			}
+		}	
 		
-		dao.galleryDelete(gallery_no);
+	}
+
+	private void fileDelete(ArrayList<String> newFileName) {
+		// 실제 파일도 제거해주고, DB photo 테이블 row도 제거해드립니다.
+		for (String FileName : newFileName) {// for 문으로 하나씩 담아서 
+			logger.info(FileName);
+			File file = new File("C:/img/upload/"+FileName);// file 객체 생성 후 
+			if(file.exists()) {// 파일이 존재하면 
+				file.delete();// 파일을 삭제함
+			}
+			dao.removeFileName(FileName);
+		}
+		
 	}
 
 	public ArrayList<GalleryDTO> filtering(String filterName) {
@@ -133,6 +157,41 @@ public class GalleryService {
 		list = dao.galleryFilteringList(filterName);
 		
 		return list;
+	}
+
+	public int galleryUpdate(MultipartFile[] photos, HashMap<String, String> params, ArrayList<String> removeFileName) {
+		
+		logger.info("params :"+params);
+
+		int row = dao.galleryUpdate(params);
+		int gallery_no = 0;
+		logger.info("updated row : "+row);
+		
+		if(row>0) {//갤러리 글을 업데이트 시켰다면
+
+			if(removeFileName.size()>1) {//삭제할 파일 리스트의 길이가 0보다 크다면
+				fileDelete(removeFileName); //파일 삭제하고 photo 테이블의 파일도 삭제함.
+			}
+			
+			gallery_no = Integer.parseInt(params.get("gallery_no"));
+			
+			for (MultipartFile photo : photos) {
+				logger.info("photo 있으면 false, 없으면 true :"+photo.isEmpty());
+				if(photo.isEmpty()==false) {
+					
+					fileSave(gallery_no, photo);
+					
+					try {
+						Thread.sleep(1);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					
+				}
+			}
+		}
+		
+		return gallery_no;
 	}
 
 

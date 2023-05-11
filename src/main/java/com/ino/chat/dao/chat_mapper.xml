@@ -46,7 +46,7 @@
 	
 	<insert id="newchat" parameterType="String">
 		insert into chatroom(roomname, msg_div, msg_div_no, recent_msg, recent_no)
-			values(#{param2},"판매",#{param1}, "", 999999999);
+			values(#{param2},"판매",#{param1}, "", 999999999)
 	</insert>
 	
 	<select id="lastroom" resultType="Int">

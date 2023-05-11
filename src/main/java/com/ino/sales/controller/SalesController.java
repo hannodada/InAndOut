@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ino.sales.dto.BizDTO;
 import com.ino.sales.dto.SalesDTO;
@@ -32,12 +31,9 @@ public class SalesController {
 	public String salesList(Model model, HttpSession session, @RequestParam HashMap<String, String> userParams) {
 		
 		logger.info("salesList call");
-		// 세가지 변수 선언, 시도-시군구는 서비스에서 선언
-		String biz_id = null;
-		String minPrice = null;
-		String maxPrice = null;
 		
-		// 뷰에서 받아온 biz_id 있으면?
+		String biz_id = null;
+		
 		if(userParams.get("biz_id")!=null) {
 			biz_id = userParams.get("biz_id");
 			if(userParams.get("biz_id").length()>0) {
@@ -51,44 +47,11 @@ public class SalesController {
 				model.addAttribute("biz_name", service.getBiz_name(biz_id));
 			}
 		}
-		// 뷰에서 받아온 최소가격이 있으면?
-		if(userParams.get("minPrice")!=null) {
-			if(userParams.get("minPrice").length()>0) {
-				minPrice = userParams.get("minPrice");
-				//쿼리문에 추가하기 위해 userParams에 추가
-				userParams.put("minPrice", minPrice);
-				//화면에 보여주기 위해 model에 저장
-				model.addAttribute("minPrice", minPrice);
-				logger.info("minPrice : "+minPrice);
-			}else{// 뷰에서 받아온 최소가격이 없으면?
-				minPrice = "default";
-				//쿼리문에 추가하기 위해 userParams에 default라는 임의의 값을 추가
-				userParams.put("minPrice", minPrice);
-				logger.info("minPrice : "+minPrice);
-			}
-		}
-		// 뷰에서 받아온 최대가격이 있으면?
-		if(userParams.get("maxPrice")!=null) {
-			if(userParams.get("maxPrice").length()>0) {
-				maxPrice = userParams.get("maxPrice");
-				//쿼리문에 추가하기 위해 userParams에 추가
-				userParams.put("maxPrice", maxPrice);
-				//화면에 보여주기 위해 model에 저장
-				model.addAttribute("maxPrice", maxPrice);
-			}else {
-				maxPrice = "default";
-				//쿼리문에 추가하기 위해 userParams에 default라는 임의의 값을 추가
-				userParams.put("maxPrice", maxPrice);
-			}
-		}
 		
 		ArrayList<SalesDTO> list = service.salesList(session, userParams);
 		
 		model.addAttribute("list", list);
-		
-//		model.addAttribute("sido", userParams.get("sido"));
-//		model.addAttribute("sigungu", userParams.get("sigungu"));
-		
+
 		return "salesList";
 	}
 	
@@ -105,7 +68,7 @@ public class SalesController {
 
 		return map;
 	}
-	
+
 	@RequestMapping(value = "/salesWrite.go", method = RequestMethod.GET)
 	public String salesWriteForm(Model model, HttpSession session) {
 		
@@ -228,6 +191,7 @@ public class SalesController {
 				logger.info("같대요");
 				String sales_no = params.get("sales_no");
 				service.salesDelete(sales_no);
+				page = "redirect:/salesList.do";
 			}else {// 작성자와 세션 아이디가 다를때
 				logger.info("틀려요");
 			}
@@ -236,13 +200,69 @@ public class SalesController {
 	}
 
 	@RequestMapping(value = "/salesUpdate.go", method = RequestMethod.GET)
-	public String salesUpdateForm(Model model, HttpSession session, @RequestParam String sales_no) {
+	public String salesUpdateForm(@RequestParam String sales_no, @RequestParam String user_id,
+			HttpSession session, Model model) {
 		
-		String page = "redirect:/home";
-	
+		String page = "redirect:/salesList.do";
+		String loginId = null;
 
-	
+		if(session.getAttribute("loginId")!=null) {//로그인 상태이고 글 작성자와 동일하면
+			loginId = (String) session.getAttribute("loginId");
+			if(loginId.equals(user_id)) {
+				
+				logger.info("작성자와 세션아이디 일치함");
+				SalesDTO detailData = service.salesDetail(Integer.parseInt(sales_no), "update");
+				
+				if(detailData != null) {
+					ArrayList<String> detailPhoto = service.salesDetailPhoto(Integer.parseInt(sales_no));
+					
+					model.addAttribute("detailData", detailData);
+					model.addAttribute("detailPhoto", detailPhoto);
+					page = "salesUpdateForm";
+				}
+			}
+		}	
+		
 		return page;
 	}
 	
+	@RequestMapping(value = "/bizCall.ajax")
+	@ResponseBody
+	public HashMap<String, Object> bizCall(){
+		
+		logger.info("bizCall !");
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		ArrayList<BizDTO> bizList = service.bizCall();
+		
+		logger.info("bizList : "+bizList);
+		
+		map.put("bizList", bizList);
+		
+		return map;
+	}
+	
+	@RequestMapping(value = "/salesUpdate.do")
+	public String salesUpdate(MultipartFile[] photo, @RequestParam HashMap<String, String> params, 
+			@RequestParam(value="removeFileName",required=true) ArrayList<String> removeFileName,
+			HttpSession session, Model model) {
+		
+		String page = "redirect:/salesList.do";
+		String loginId = null;
+		int idx;
+
+		if(session.getAttribute("loginId")!=null) {//로그인 상태이고 글 작성자와 동일하면
+			loginId = (String) session.getAttribute("loginId");
+			if(loginId.equals(params.get("user_id"))) {
+				logger.info("params : "+params);
+				logger.info("fileName : "+photo);
+				logger.info("removeFileName : "+removeFileName);
+				idx = service.salesUpdate(photo, params, removeFileName);
+				page = "redirect:/salesDetail.do?sales_no="+idx;
+			}
+		}
+		
+		return page;
+	}
 }

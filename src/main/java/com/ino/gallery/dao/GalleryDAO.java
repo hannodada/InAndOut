@@ -1,6 +1,7 @@
 package com.ino.gallery.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.ino.gallery.dto.GalleryDTO;
 
@@ -28,8 +29,17 @@ public interface GalleryDAO {
 
 	void removeGalleryAttention(String gallery_no);
 
-	void galleryDelete(String gallery_no);
+	int galleryDelete(String gallery_no);
 
 	ArrayList<GalleryDTO> galleryFilteringList(String filterName);
+
+	ArrayList<String> hasFile(String gallery_no);
+
+	ArrayList<String> galleryHasFile(String gallery_no);
+
+	void removeFileName(String fileName);
+
+	int galleryUpdate(HashMap<String, String> params);
+
 
 }

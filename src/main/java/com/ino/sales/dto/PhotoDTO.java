@@ -1,7 +1,5 @@
 package com.ino.sales.dto;
 
-import java.sql.Date;
-
 public class PhotoDTO {
 	
 	private int photo_no;
