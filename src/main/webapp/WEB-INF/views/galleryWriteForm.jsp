@@ -27,6 +27,7 @@
 </style>
 </head>
 <body>
+	<jsp:include page="realGnb.jsp"/>
 	<form action="galleryWrite.do" method="post" enctype="Multipart/form-data">
 		<table>
 			<tr>

@@ -73,6 +73,7 @@ img{ /* 이미지 배율 증가 시 부드럽게 */
 </style>
 </head>
 <body>
+	<jsp:include page="realGnb.jsp"/>
 	<table>
 		<tr>
 			<th>갤러리번호</th>
