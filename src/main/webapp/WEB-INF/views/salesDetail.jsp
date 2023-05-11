@@ -167,6 +167,8 @@ img{ /* 이미지 배율 증가 시 부드럽게 */
 				<c:if test="${sessionScope.loginId != null}">
 					<input type="button" onclick="location.href='./chat.go?sales_no=${detailData.sales_no}&user_id=${detailData.user_id }'" value="채팅하기"/>
 				</c:if>
+				<!-- 판매자-구매자간 채팅. 판매자가 클릭하는 경우 alert 출력 -->
+				<input type="button" onclick="saleChat()" value="채팅"/>
 				<input type="button" onclick="location.href='./salesList.do'" value="리스트"/>
 				<c:if test="${sessionScope.loginId ne null}">
 					관심여부 : <input type="checkbox" onclick="attention(this)" <c:if test="${attentionCheck==1 }">checked</c:if>/>
@@ -176,6 +178,14 @@ img{ /* 이미지 배율 증가 시 부드럽게 */
 	</table>
 </body>
 <script>
+function saleChat() {
+	if("${sessionScope.loginId}" == "${detailData.user_id}"){
+		alert("자신의 판매글에는 채팅 연결을 할 수 없습니다.");
+	} else{
+		location.href="./saleChatOpen.do?sales_no=${detailData.sales_no}&user_id=${detailData.user_id}";
+	}
+}
+
 const imgs = document.querySelectorAll('img');
 let click = false; // 클릭 여부
 let zoomLayer = 100; // 줌 배율 기본 값
