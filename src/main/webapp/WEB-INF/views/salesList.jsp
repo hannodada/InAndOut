@@ -16,28 +16,31 @@ table, th, td{
 </style>
 </head>
 <body>
-	<form action="salesList.do" method="get">
-		<input type="text" id="biz_id" name="biz_id" value="${biz_id}" hidden="true"/>
-		<input type="text" id="biz_name" value="${biz_name}" readonly="readonly"/>
-		<select name="goods_id" id="goods_id">
-			<c:forEach items="${goodsList}" var="i">
-				<option value="${i.goods_id }">${i.goods_name }</option>
-			</c:forEach>
-		</select>
+		<c:if test="${biz_id ne null}">
+			<input type="text" id="biz_id" name="biz_id" value="${biz_id}" hidden="true"/>
+			<input type="text" id="biz_name" value="${biz_name}" readonly="readonly"/>
+			<select name="goods_id" id="goods_id" onchange="filtering()">
+				<c:forEach items="${goodsList}" var="i">
+					<option value="${i.goods_id }">${i.goods_name }</option>
+				</c:forEach>
+			</select>
+		</c:if>
+		<c:if test="${biz_id eq null}">
+			<input type="text" id="biz_id" name="biz_id" value="default" hidden="true"/>
+			<input type="text" id="biz_name" value="전체" readonly="readonly"/>
+			<input type="text" id="goods_id" name="goods_id" value="default" hidden="true"/>
+		</c:if>
 		<br>
 		<select name="sido" id="sido">
 		</select>
-		<select name="sigungu" id="sigungu">
+		<select name="sigungu" id="sigungu" onchange="filtering()">
 		</select>
 		<br>
-		<input type="text" name="minPrice" id="minPrice" value="${minPrice}"/>~
-		<input type="text" name="maxPrice" id="maxPrice" value="${maxPrice}"/>
-		<input type="submit" value="검색"/>
+		<input type="text" name="minPrice" id="minPrice" value="" onblur="filtering()"/>~
+		<input type="text" name="maxPrice" id="maxPrice" value="" onblur="filtering()"/>
 		<br>
-	</form>
-	
 	<select name="filter" id="filter" onchange="filtering()">
-		<option value="sales_no">등록일 순</option>
+		<option value="sales_no">최신 순</option>
 		<option value="hit">조회수 순</option>
 	</select>
 	<table>
@@ -144,13 +147,35 @@ $('document').ready(function() {
 		console.log('change');
 
 		var filterName = document.getElementById('filter').value;
-		var biz_id = document.getElementById('biz_id').value;
-		var goods_id = document.getElementById('goods_id').value;
-		var sido = document.getElementById('sido').value;
-		var sigungu = document.getElementById('sigungu').value;
-		var minPrice = document.getElementById('minPrice').value;
-		var maxPrice = document.getElementById('maxPrice').value;
 		console.log(filterName);
+		var biz_id = document.getElementById('biz_id').value;
+		console.log(biz_id);
+		var goods_id = document.getElementById('goods_id').value;
+		console.log(goods_id);
+		var sido = document.getElementById('sido').value;
+		console.log(sido);
+		if(sido=='시/도 선택'){
+			sido = 'default';
+			console.log(sido);
+		}
+		var sigungu = document.getElementById('sigungu').value;
+		console.log(sigungu);
+		if(sigungu==''){
+			sigungu = 'default';
+			console.log(sigungu);
+		}
+		var minPrice = document.getElementById('minPrice').value;
+		console.log(minPrice);
+		if(minPrice==''){
+			minPrice = 'default';
+			console.log(minPrice);
+		}
+		var maxPrice = document.getElementById('maxPrice').value;
+		console.log(maxPrice);
+		if(maxPrice==''){
+			maxPrice = 'default';
+			console.log(maxPrice);
+		}
 		
 		$.ajax({
 			type: 'get',

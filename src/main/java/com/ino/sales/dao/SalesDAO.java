@@ -43,6 +43,11 @@ public interface SalesDAO {
 
 	void removeSalesAttention(String sales_no);
 
+	int salesUpdate(HashMap<String, String> params);
+
+	void removeFileName(String fileName);
+
+
 
 
 

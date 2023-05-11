@@ -6,21 +6,21 @@
 <mapper namespace="com.ino.sales.dao.SalesDAO">
 		
 	<select id="getUserSido" parameterType="String" resultType="String">
-		SELECT u.sido FROM user u WHERE u.user_id = #{loginId}
+		SELECT verified_sido FROM verified_area va WHERE va.user_id = #{loginId}
 	</select>
 	
 	<select id="getUserSigungu" parameterType="String" resultType="String">
-			SELECT u.sigungu FROM user u WHERE u.user_id = #{loginId}
+		SELECT verified_sigungu FROM verified_area va WHERE va.user_id = #{loginId}
 	</select>
 	
 	<select id="salesList" resultType="com.ino.sales.dto.SalesDTO" parameterType="HashMap">
 		SELECT s.sales_no, s.sales_state, s.subject, s.price, s.sales_sido, s.sigungu, s.hit, s.user_id, u.nickname, s.date, p.new_photo_name, s.biz_id, b.biz_name, s.goods_id, g.goods_name
 			FROM sales s 
 			LEFT JOIN user u ON s.user_id = u.user_id
-			LEFT JOIN photo p ON p.photo_div = s.sales_no
+			LEFT JOIN photo p ON p.photo_div = s.sales_no AND p.cate_no = 'p005'
 			LEFT JOIN biz b ON s.biz_id = b.biz_id 
 			LEFT JOIN goods g ON s.goods_id = g.goods_id 
-			WHERE p.cate_no = 'p005' AND s.blind = '0' AND (s.sales_state = '판매중' OR s.sales_state = '판매완료')
+			WHERE s.blind = '0' AND (s.sales_state = '판매중' OR s.sales_state = '판매완료')
 		<if test='sido != null  and !sido.equals("default")'>
 			AND s.sales_sido = #{sido}
 		</if>
@@ -30,7 +30,7 @@
 		<if test='biz_id != null  and !biz_id.equals("default")'>
 			AND s.biz_id = #{biz_id}
 		</if>
-		<if test='goods_id != null'>
+		<if test='goods_id != null and !goods_id.equals("default")'>
 			AND s.goods_id = #{goods_id}
 		</if>
 		<if test='minPrice != null  and !minPrice.equals("default")'>
@@ -70,8 +70,8 @@
 		keyProperty="sales_no"
 		id="salesWrite" parameterType="com.ino.sales.dto.SalesDTO"
 	>
-		INSERT INTO sales(user_id, subject, price, post_num, sales_sido, sigungu, left_addr, content, sales_state, blind, biz_id, goods_id)
-			VALUES(#{user_id}, #{subject}, #{price}, #{post_num}, #{sales_sido}, #{sigungu}, #{left_addr}, #{content}, #{sales_state}, #{blind}, #{biz_id}, #{goods_id})
+		INSERT INTO sales(user_id, subject, price, post_num, sales_sido, sigungu, left_addr, content, sales_state, blind, biz_id, goods_id, hit, attention)
+			VALUES(#{user_id}, #{subject}, #{price}, #{post_num}, #{sales_sido}, #{sigungu}, #{left_addr}, #{content}, #{sales_state}, #{blind}, #{biz_id}, #{goods_id}, 0, 0)
 	</insert>
 	
 	<insert id="fileWrite">
@@ -84,10 +84,11 @@
 	</update>
 
 	<select id="salesDetail" parameterType="Integer" resultType="com.ino.sales.dto.SalesDTO">
-		select s.*, b.biz_name, g.goods_name, u.nickname from sales s 
-			inner join biz b on b.biz_id = s.biz_id 
-			inner join goods g on g.goods_id = s.goods_id 
-		inner join `user` u on u.user_id = s.user_id and s.sales_no = #{sales_no}
+		SELECT s.*, b.biz_id, b.biz_name, g.goods_id, g.goods_name, u.nickname FROM sales s 
+			LEFT JOIN biz b ON b.biz_id = s.biz_id 
+			LEFT JOIN goods g ON g.goods_id = s.goods_id 
+			LEFT JOIN `user` u ON u.user_id = s.user_id
+		WHERE s.sales_no = #{sales_no}
 	</select>
 
 	<select id="salesDetailPhoto" parameterType="Integer" resultType="String">
@@ -119,4 +120,26 @@
 	<update id="removeSalesAttention">
 		UPDATE sales SET attention = attention - 1 WHERE sales_no = #{param1}
 	</update>
+
+	<delete id="removeFileName" parameterType="String">
+		DELETE FROM photo WHERE new_photo_name = #{fileName} AND cate_no = 'p005'
+	</delete>
+	
+	<update id="salesUpdate" parameterType="HashMap">
+		UPDATE sales SET subject = #{subject}
+			,price = #{price}
+			,content = #{content}
+		<if test='postcode != null  and !postcode.equals("default")'>
+			,post_num = #{postcode}
+			,sales_sido = #{sido}
+			,sigungu = #{sigungu}
+			,left_addr = #{left_addr}
+		</if>
+		<if test='biz_id != null  and !biz_id.equals("default")'>
+			,biz_id = #{biz_id}
+			,goods_id = #{goods_id}
+		</if>
+		WHERE sales_no = #{sales_no}
+	</update>
+	
 </mapper>

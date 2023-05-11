@@ -109,12 +109,6 @@ img{ /* 이미지 배율 증가 시 부드럽게 */
 			</td>
 		</tr>
 		<tr>
-			<th>위치</th>
-			<td>
-				위치
-			</td>
-		</tr>
-		<tr>
 			<th>내용</th>
 			<td>${detailData.gallery_content }</td>
 		</tr>

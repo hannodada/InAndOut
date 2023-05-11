@@ -161,18 +161,49 @@ public class GalleryController {
 	public String galleryUpdateForm(@RequestParam String gallery_no, @RequestParam String user_id,
 			HttpSession session, Model model) {
 		
-		String page = "";
+		String page = "redirect:/galleryList.do";
 		String loginId = null;
 		
-		if(session.getAttribute("loginId")!=null) {
+		if(session.getAttribute("loginId")!=null) {//로그인 상태이고 글 작성자와 동일하면
 			loginId = (String) session.getAttribute("loginId");
 			if(loginId.equals(user_id)) {
 				
 				logger.info("작성자와 세션아이디 일치함");
+				GalleryDTO detailData = service.galleryDetail(Integer.parseInt(gallery_no), "detail");
 				
+				if(detailData != null) {
+					ArrayList<String> detailPhoto = service.galleryDetailPhoto(Integer.parseInt(gallery_no));
+					
+					model.addAttribute("detailData", detailData);
+					model.addAttribute("detailPhoto", detailPhoto);
+					page = "galleryUpdateForm";
+				}
 			}
 		}
 		
-		return null;
+		return page;
+	}
+	
+	@RequestMapping(value = "/galleryUpdate.do")
+	public String galleryUpdate(MultipartFile[] photo, @RequestParam HashMap<String, String> params, 
+			@RequestParam(value="removeFileName",required=true) ArrayList<String> removeFileName,
+			HttpSession session, Model model) {
+		
+		String page = "redirect:/galleryList.do";
+		String loginId = null;
+		int idx;
+
+		if(session.getAttribute("loginId")!=null) {//로그인 상태이고 글 작성자와 동일하면
+			loginId = (String) session.getAttribute("loginId");
+			if(loginId.equals(params.get("user_id"))) {
+				logger.info("params : "+params);
+				logger.info("fileName : "+photo);
+				logger.info("removeFileName : "+removeFileName);
+				idx = service.galleryUpdate(photo, params, removeFileName);
+				page = "redirect:/galleryDetail.do?gallery_no="+idx;
+			}
+		}
+		
+		return page;
 	}
 }

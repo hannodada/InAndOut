@@ -9,8 +9,7 @@
 		SELECT g.gallery_no, g.gallery_subject, g.gallery_hit, g.user_id, u.nickname, g.gallery_date, p.new_photo_name
 			FROM gallery g 
 			LEFT JOIN user u ON g.user_id = u.user_id
-			LEFT JOIN photo p ON p.photo_div = g.gallery_no
-			WHERE p.cate_no = 'p006'
+			LEFT JOIN photo p ON p.photo_div = g.gallery_no AND p.cate_no = 'p006'
 		GROUP BY g.gallery_no ORDER BY g.gallery_no DESC
 	</select>
 	
@@ -18,8 +17,7 @@
 		SELECT g.gallery_no, g.gallery_subject, g.gallery_hit, g.user_id, u.nickname, g.gallery_date, p.new_photo_name
 			FROM gallery g 
 			LEFT JOIN user u ON g.user_id = u.user_id
-			LEFT JOIN photo p ON p.photo_div = g.gallery_no
-			WHERE p.cate_no = 'p006'
+			LEFT JOIN photo p ON p.photo_div = g.gallery_no AND p.cate_no = 'p006'
 		<choose>
 			<when test="_parameter == 'gallery_no'">
 		GROUP BY g.gallery_no ORDER BY g.gallery_no DESC
@@ -33,30 +31,14 @@
 		</choose>
 	</select>
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	<insert 
 		useGeneratedKeys="true"
 		keyColumn="gallery_no"
 		keyProperty="gallery_no"
 		id="galleryWrite" parameterType="com.ino.gallery.dto.GalleryDTO"
 	>
-		INSERT INTO gallery(user_id, store_name, gallery_subject, gallery_content)
-			VALUES(#{user_id}, #{store_name}, #{gallery_subject}, #{gallery_content})
+		INSERT INTO gallery(user_id, store_name, gallery_subject, gallery_content, gallery_hit, gallery_jjim)
+			VALUES(#{user_id}, #{store_name}, #{gallery_subject}, #{gallery_content}, 0, 0)
 	</insert>
 	
 	<insert id="fileWrite">
@@ -102,5 +84,22 @@
 	<delete id="galleryDelete">
 		DELETE FROM gallery WHERE gallery_no = #{param1}
 	</delete>
+	
+	<select id="galleryHasFile" parameterType="String" resultType="String">
+		SELECT p.new_photo_name FROM photo p
+			LEFT JOIN gallery g ON p.photo_div = g.gallery_no 
+		WHERE p.cate_no ='p006' AND p.photo_div = #{gallery_no}
+	</select>
+	
+	<delete id="removeFileName" parameterType="String">
+		DELETE FROM photo WHERE new_photo_name = #{fileName} AND cate_no = 'p006'
+	</delete>
+	
+	<update id="galleryUpdate" parameterType="HashMap">
+		UPDATE gallery SET gallery_subject = #{gallery_subject}
+			,store_name = #{store_name}
+			,gallery_content = #{gallery_content}
+		WHERE gallery_no = #{gallery_no}
+	</update>
 	
 </mapper>

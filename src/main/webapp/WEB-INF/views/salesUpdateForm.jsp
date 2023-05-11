@@ -13,260 +13,410 @@
 		border-collapse: collapse;
 		padding: 5px 10px;	
 	}
-*{
-    box-sizing: border-box;
+#att_zone{
+	width: 660px;
+	min-height:150px;
+	padding:10px;
+	border:1px dotted #00f;
 }
-
-body.noScroll{ /* 이미지 팝업 시 이중 스크롤 방지 */
-    overflow: hidden;
-}
-
-.wrap{ /* 이미지 사이즈 */
-    overflow: hidden;
-    width: 300px;
-    height: 200px;
-    display: inline-flex;
-    align-items: center;
-}
-
-.wrap>img{ /* 커서 모양 바꿈 */
-    cursor: pointer;
-}
-
-img{ /* 이미지 배율 증가 시 부드럽게 */
-    width: 200%;
-    object-position: center;
-    object-fit: contain;
-    transition: .3s;
-    -webkit-transition: .3s;
-    -moz-transition: .3s;
-    -ms-transition: .3s;
-    -o-transition: .3s;
-}
-
-.popup{ /* 팝업 배경 */
-    background-color: rgba(0, 0, 0, 0.877);
-    width: 100%;
-    height: 100vh;
-    overflow: auto;
-    position: fixed;
-    opacity: 0;
-    top: 0;
-    left: 0;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 2rem 0;
-    transition: .3s;
-    -webkit-transition: .3s;
-    -moz-transition: .3s;
-    -ms-transition: .3s;
-    -o-transition: .3s;
-    opacity: 0;
-    pointer-events: none;
-}
-
-.popup.show{ /* 팝업 보이기 */
-    opacity: 1;
-    pointer-events: unset;
+#att_zone:empty:before{
+	content : attr(data-placeholder);
+	color : #999;
+	font-size:.9em;
 }
 </style>
 </head>
 <body>
-	<table>
-		<tr>
-			<th>판매글번호</th>
-			<td>${detailData.sales_no }</td>
-		</tr>
-		<tr>
-			<th>판매상태</th>
-			<td>${detailData.sales_state }</td>
-		</tr>
-		<tr>
-			<th>아이디</th>
-			<td>${detailData.user_id }</td>
-		</tr>
-		<tr>
-			<th>닉네임</th>
-			<td>${detailData.nickname }</td>
-		</tr>
-		<tr>
-			<th>제목</th>
-			<td>${detailData.subject }</td>
-		</tr>
-		<tr>
-			<th>사진</th>
-			<td>
-				<c:if test="${detailPhoto.size() == 0 }">
-					<div class="default">
-						<span class="wrap">
-							<img src="/photo/default.png">
-					 	</span>
+	<form action="salesUpdate.do" method="post" enctype="Multipart/form-data">
+		<input type="text" name="sales_no" value="${detailData.sales_no }" hidden="true"/>
+		<table>
+			<tr>
+				<th>아이디</th>
+				<td><input type="text" name="user_id" value="${detailData.user_id }" readonly="readonly"/></td>
+			</tr>
+			<tr>
+				<th>닉네임</th>
+				<td><input type="text" name="nickname" value="${detailData.nickname }" readonly="readonly"/></td>
+			</tr>
+			<tr>
+				<th>제목</th>
+				<td><input type="text" name="subject" value="${detailData.subject }" maxlength="30"/></td>
+			</tr>
+			<tr>
+				<th>새로운 사진</th>
+				<td>
+					<input type="file" id="btnAtt" multiple="multiple" name="photo"/>
+					<div id="att_zone" data-placeholder="파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요"></div>
+				</td>
+			</tr>
+			<tr>
+				<th>기존 사진</th>
+				<td>
+					<div hidden="true" id="list">
+						<input type="text" name="removeFileName" value="default"/>
 					</div>
-				</c:if>
-				<c:if test="${detailPhoto.size() > 0 }">
-					<c:forEach items="${detailPhoto }" var="i">
-							<div class="container text-center d-flex flex-wrap">
-							    <span class="wrap">
-							        <img src="/photo/${i }" alt="test">
-							    </span>
+					<c:if test="${detailPhoto.size() > 0}">
+						<c:forEach items="${detailPhoto}" var="i">
+							<div style="display:inline-block;position:relative;width:150px;height:120px;margin:5px;border:1px solid #00f;z-index:1">
+								<img style="width:100%;height:100%;z-index:none" src="/photo/${i}"/>
+								<div hidden="true">${i}</div>
+								<input type="button" value="x" style="width:30px;height:30px;position:absolute;font-size:24px;right:0px;bottom:0px;z-index:999;background-color:rgba(255,255,255,0.1);color:#f00" onclick="remove(event, this)">
 							</div>
-					</c:forEach>
-				</c:if>
-			</td>
-		</tr>
-		<tr>
-			<th>가격</th>
-			<td>${detailData.price }</td>
-		</tr>
-		<tr>
-			<th>거래지역</th>
-			<td>
-				${detailData.sales_sido } ${detailData.sigungu }
-			</td>
-		</tr>
-		<tr>
-			<th>1차 카테고리</th>
-			<td>
-				${detailData.biz_name }
-			</td>
-		</tr>
-		<tr>
-			<th>2차 카테고리</th>
-			<td>
-				${detailData.goods_name }
-			</td>
-		</tr>
-		<tr>
-			<th>내용</th>
-			<td>${detailData.content }</td>
-		</tr>
-		<tr>
-			<th>조회수</th>
-			<td>${detailData.hit }</td>
-		</tr>
-		<tr>
-			<th>관심수</th>
-			<td>${detailData.attention }</td>
-		</tr>
-		<tr>
-			<th>등록일자</th>
-			<td>${detailData.date }</td>
-		</tr>
-		<tr>
-			<th colspan="2">
-			<input type="button" onclick="location.href='./salesReport.go?sales_no=${detailData.sales_no}'" value="신고하기"/>
-				<input type="button" onclick="location.href='./salesUpdate.go?sales_no=${detailData.sales_no}'" value="수정"/>
-				<input type="button" onclick="location.href='./salesList.do'" value="리스트"/>
-				관심여부 : <input type="checkbox"/>
-			</th>
-		</tr>
-	</table>
+						</c:forEach>
+					</c:if>
+				</td>
+			</tr>
+			<tr>
+				<th>가격</th>
+				<td><input type="text" name="price" value="${detailData.price }"/></td>
+			</tr>
+			<tr>
+				<th>거래지역</th>
+				<td>
+					<div id="oldAddr">
+					${detailData.sales_sido } ${detailData.sigungu } ${detailData.left_addr }
+						<input type="button" id="change" value="변경" onclick="addrChange()">
+					</div>
+					<div id="newAddr"></div>
+				</td>
+			</tr>
+			<tr>
+				<th>1차 카테고리</th>
+				<td>
+					<div id="oldBiz">
+					${detailData.biz_name }
+						<input type="button" value="변경" onclick="bizChange()">
+					</div>
+					<div id="newBiz"></div>
+				</td>
+			</tr>
+			<tr>
+				<th>2차 카테고리</th>
+				<td>
+					<div id="oldGoods">
+					${detailData.goods_name }
+					</div>
+					<div id="newGoods"></div>
+				</td>
+			</tr>
+			<tr>
+				<th>내용</th>
+				<td><textarea name="content" maxlength="500">${detailData.content }</textarea></td>
+			</tr>
+			<tr>
+				<th colspan="2">
+					<input type="submit" value="등록"/>
+					<input type="button" onclick="location.href='./salesList.do'" value="리스트"/>
+				</th>
+			</tr>
+		</table>
+	</form>
 </body>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
-const imgs = document.querySelectorAll('img');
-let click = false; // 클릭 여부
-let zoomLayer = 100; // 줌 배율 기본 값
-let moved; // 움직임 여부
-let moving = false; // 움직이는 중인지 여부
-let click_position_X = 0; // 이미지 클릭한 위치
-let click_position_Y = 0; // 이미지 클릭한 위치
-let originX = 0; // 클릭한 이미지의 현재 left 값
-let originY = 0; // 클릭한 이미지의 현재 top 값
+( /* att_zone : 이미지들이 들어갈 위치 id, btn : file tag id */
+		  imageView = function imageView(att_zone, btn){
 
-let downListener = (ev)=>{ // 클릭 시
-    moved = true;
-    moving = false;
+		    var attZone = document.getElementById(att_zone);
+		    var btnAtt = document.getElementById(btn)
+		    var sel_files = [];
+		    
+		    // 이미지와 체크 박스를 감싸고 있는 div 속성
+		    var div_style = 'display:inline-block;position:relative;'
+		                  + 'width:150px;height:120px;margin:5px;border:1px solid #00f;z-index:1';
+		    // 미리보기 이미지 속성
+		    var img_style = 'width:100%;height:100%;z-index:none';
+		    // 이미지안에 표시되는 체크박스의 속성
+		    var chk_style = 'width:30px;height:30px;position:absolute;font-size:24px;'
+		                  + 'right:0px;bottom:0px;z-index:999;background-color:rgba(255,255,255,0.1);color:#f00';
+		  
+		    btnAtt.onchange = function(e){
+		      var files = e.target.files;
+		      var fileArr = Array.prototype.slice.call(files)
+		      for(f of fileArr){
+		        imageLoader(f);
+		      }
+		    }  
+		    
+		  
+		    // 탐색기에서 드래그앤 드롭 사용
+		    attZone.addEventListener('dragenter', function(e){
+		      e.preventDefault();
+		      e.stopPropagation();
+		    }, false)
+		    
+		    attZone.addEventListener('dragover', function(e){
+		      e.preventDefault();
+		      e.stopPropagation();
+		      
+		    }, false)
+		  
+		    attZone.addEventListener('drop', function(e){
+		      var files = {};
+		      e.preventDefault();
+		      e.stopPropagation();
+		      var dt = e.dataTransfer;
+		      files = dt.files;
+		      for(f of files){
+		        imageLoader(f);
+		      }
+		      
+		    }, false)
+		    
+		    /*첨부된 이미리즐을 배열에 넣고 미리보기 */
+		    imageLoader = function(file){
+		      sel_files.push(file);
+		      var reader = new FileReader();
+		      reader.onload = function(ee){
+		        let img = document.createElement('img')
+		        img.setAttribute('style', img_style)
+		        img.src = ee.target.result;
+		        attZone.appendChild(makeDiv(img, file));
+		      }
+		      
+		      reader.readAsDataURL(file);
+		    }
+		    
+		    /*첨부된 파일이 있는 경우 checkbox와 함께 attZone에 추가할 div를 만들어 반환 */
+		    makeDiv = function(img, file){
+		      var div = document.createElement('div')
+		      div.setAttribute('style', div_style)
+		      
+		      var btn = document.createElement('input')
+		      btn.setAttribute('type', 'button')
+		      btn.setAttribute('value', 'x')
+		      btn.setAttribute('delFile', file.name);
+		      btn.setAttribute('style', chk_style);
+		      btn.onclick = function(ev){
+		        var ele = ev.srcElement;
+		        var delFile = ele.getAttribute('delFile');
+		        for(var i=0 ;i<sel_files.length; i++){
+		          if(delFile== sel_files[i].name){
+		            sel_files.splice(i, 1);      
+		          }
+		        }
+		        
+		        dt = new DataTransfer();
+		        for(f in sel_files) {
+		          var file = sel_files[f];
+		          dt.items.add(file);
+		        }
+		        btnAtt.files = dt.files;
+		        var p = ele.parentNode;
+		        attZone.removeChild(p)
+		      }
+		      div.appendChild(img)
+		      div.appendChild(btn)
+		      return div
+		    }
+		  }
+		)('att_zone', 'btnAtt')
+		
+function remove(evt, elem){
+	
+	console.log(elem);
+	
+	var fileName = $(elem).siblings('div').html();
+	console.log(fileName);
 
-    originX = parseInt(getComputedStyle(ev.target)['left'].slice(0,-2));
-    originY = parseInt(getComputedStyle(ev.target)['top'].slice(0,-2));
-    click_position_X = ev.clientX;
-    click_position_Y = ev.clientY;
+	var content = '';
+	content = '<input type="text" name="removeFileName" value="'+fileName+'"/>';
+	$('#list').append(content);
+	$(elem).closest('div').remove();
 }
 
-let upListener = () => { // 마우스는 떼면 움직임 멈춤
-    moved = false;
+function addrChange(){
+
+	$('#oldAddr').empty();
+	
+	var content = '';
+	
+	content += '<input type="text" id="postcode" name="postcode" placeholder="우편번호">';
+	content += '<input type="button" onclick="DaumPostcode()" value="우편번호 찾기"><input type="button" id="back" value="취소" onclick="addrBack()">';
+	content += '<br>';
+	content += '<input type="text" id="roadAddress" name="roadAddress" placeholder="도로명주소">';
+	content += '<br>';
+	content += '<input type="text" id="jibunAddress" name="jibunAddress" placeholder="지번주소">';
+	content += '<br>';
+	content += '<input type="text" id="sido" name="sido" placeholder="시도" hidden="true">';
+	content += '<br>';
+	content += '<input type="text" id="sigungu" name="sigungu" placeholder="시군구" hidden="true">';
+	content += '<br>';
+	content += '<span id="guide" style="color:#999;display:none"></span>';
+	content += '<input type="text" id="detailAddress" name="detailAddress" placeholder="상세주소">';
+	content += '<br>';
+	content += '<input type="text" id="extraAddress" name="extraAddress" placeholder="참고항목">';
+		
+	$('#newAddr').append(content);
 }
 
-imgs.forEach(img=>{ // 이미지 마다 설정하기
-    img.draggable = false; // 이미지 드래그 방지
-    img.addEventListener('click', (ev)=>{
-        document.body.classList.add("noScroll");
-        if(!click){
-            let copy = img.cloneNode();
-            let pop = document.createElement('div');
-            let zoom = document.createElement('div');
-            let btn = document.createElement('button');
-            copy.classList.add("zoomIn");
-            pop.id = "pop";
-            pop.classList.add("popup");
-            pop.prepend(zoom);
-            zoom.classList.add('zoom');
-            zoom.prepend(copy);
-            zoom.prepend(btn);
-            btn.innerHTML = "&times;";
-            btn.classList.add('btn','btn-danger', 'close');
+function addrBack(){
+	
+	$('#newAddr').empty();
+	
+	var content = '';
+	content += '${detailData.sales_sido } ${detailData.sigungu } ${detailData.left_addr }';
+	content += '<input type="button" id="change" value="변경" onclick="addrChange()">';
+	
+	$('#oldAddr').append(content);
+}
 
-            btn.addEventListener('click', ()=>{
-                pop.classList.remove("show");
-                setTimeout(()=>{
-                    pop.remove();
-                    click = false;
-                    document.body.classList.remove("noScroll");
-                }, 300);
-            });
+function DaumPostcode() {
+    new daum.Postcode({
+        oncomplete: function(data) {
+            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
-            copy.addEventListener('click', (evt)=>{
-                if(!moved && !moving){
-                    if(copy.classList.contains("zoomOut")){
-                        copy.classList.replace("zoomOut","zoomIn");
-                    }
-                    let zoomIn = evt.target;
-                    zoomIn.style.cssText = `
-                        width: ${zoomLayer}%;
-                        top: ${evt.target.style.top};
-                        left: ${evt.target.style.left};
-                    `;
-                    if(zoomLayer == 150){
-                        copy.classList.replace("zoomIn","zoomOut");
-                    }
-                    if(zoomLayer>150){
-                        zoomLayer = 100;
-                        zoomIn.style.cssText = `
-                            width: ${zoomLayer}%;
-                            top: 0;
-                            left: 0;
-                        `;
-                    }
-                    zoomLayer+=10;
-                }
-            });
+            // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+            var roadAddr = data.roadAddress; // 도로명 주소 변수
+            var extraRoadAddr = ''; // 참고 항목 변수
 
-            copy.addEventListener('mousedown', downListener);
-            copy.addEventListener('mousemove', evt=>{
-                if (moved) {
-                    moving = true;
-                    let oX = evt.clientX;
-                    let oY = evt.clientY;
-                    evt.target.style.cssText = `
-                        top: ${originY + (oY-click_position_Y)}px;
-                        left: ${originX + (oX-click_position_X)}px;
-                        width: ${evt.target.style.width};
-                    `;
-                } else {
-                    moving = false;
-                    moved = false;
-                }
-            });
-            window.addEventListener('mouseup', upListener);
+            // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+            // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+            if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                extraRoadAddr += data.bname;
+            }
+            // 건물명이 있고, 공동주택일 경우 추가한다.
+            if(data.buildingName !== '' && data.apartment === 'Y'){
+               extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+            }
+            // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+            if(extraRoadAddr !== ''){
+                extraRoadAddr = ' (' + extraRoadAddr + ')';
+            }
 
-            document.body.prepend(pop);
-            setTimeout(()=>{
-                pop.classList.add('show');
-            }, 300);
-            click = true;
+            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+            document.getElementById('postcode').value = data.zonecode;
+            document.getElementById('roadAddress').value = roadAddr;
+            document.getElementById('jibunAddress').value = data.jibunAddress;
+            
+            //커스텀
+            document.getElementById('sido').value = data.sido;
+            document.getElementById('sigungu').value = data.sigungu;            
+            // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+            if(roadAddr !== ''){
+                document.getElementById('extraAddress').value = extraRoadAddr;
+            } else {
+                document.getElementById('extraAddress').value = '';
+            }
+
+            var guideTextBox = document.getElementById("guide");
+            // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+            if(data.autoRoadAddress) {
+                var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+                guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+                guideTextBox.style.display = 'block';
+
+            } else if(data.autoJibunAddress) {
+                var expJibunAddr = data.autoJibunAddress;
+                guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+                guideTextBox.style.display = 'block';
+            } else {
+                guideTextBox.innerHTML = '';
+                guideTextBox.style.display = 'none';
+            }
         }
-    });
-});
+    }).open();
+}
+
+function bizChange(){
+	$('#oldBiz').empty();
+	$('#oldGoods').empty();
+	
+	$.ajax({
+		type: 'get',
+		url: 'bizCall.ajax',
+		data: {},
+		dataType: 'json',
+		success: function(data){
+			console.log(data.bizList);
+			if(data!=null){
+				bizListDraw(data.bizList);
+			}
+		},
+		error: function(e){
+			console.log(e);
+		}
+	});
+
+}
+
+function bizListDraw(bizList){
+	
+	var content = '';
+	var content = '';
+	
+
+	content += '<select name="biz" id="biz" onchange="goodsCall()">';
+	content += '<option value="default">--</option>';
+	
+	bizList.forEach(function(item, index){
+		content += '<option value="'+item.biz_id+'">'+item.biz_name+'</option>';
+	});
+	
+	content += '</select>';
+	content += '<input type="button" id="back" value="취소" onclick="bizBack()">';
+	
+	$('#newBiz').append(content);
+}
+
+function goodsCall(){
+	console.log('change');
+	$('#newGoods').empty();
+	
+	var elem = document.getElementById('biz');
+	console.log(elem);
+	var val = elem.value;
+	console.log(val);
+	
+	$.ajax({
+		type: 'get',
+		url: 'goodsCall.ajax',
+		data: {
+			biz_id:val
+		},
+		dataType: 'json',
+		success: function(data){
+			console.log(data.goodsList);
+			if(data!=null){
+				goodsListDraw(data.goodsList);
+			}
+		},
+		error: function(e){
+			console.log(e);
+		}
+	});
+}
+
+function goodsListDraw(goodsList){
+	
+	var content = '';
+	
+	content += '<select name="goods" id="goods">';
+
+	goodsList.forEach(function(item, index){
+		content += '<option value="'+item.goods_id+'">'+item.goods_name+'</option>';
+	});
+
+	content += '</select>';
+	
+	$('#newGoods').append(content);
+	
+}
+
+function bizBack(){
+	$('#newBiz').empty();
+	$('#newGoods').empty();
+	
+	var bizContent = '';
+	bizContent += '${detailData.biz_name }';
+	bizContent += '<input type="button" value="변경" onclick="bizChange()">';
+	
+	var goodsContent = '';
+	goodsContent += '${detailData.goods_name }';
+	
+	$('#oldBiz').append(bizContent);
+	$('#oldGoods').append(goodsContent);
+}
 </script>
 </html>
