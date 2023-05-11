@@ -10,7 +10,8 @@
 	</select>
 	
 	<select id="msglist" resultType="com.ino.chat.dto.MsgDTO">
-		select * from chatmsg where roomid = #{param1}
+		select * from chatmsg c LEFT JOIN photo p ON p.photo_div = c.msg_no and p.cate_no = 'p004'
+		where roomid = #{param1}
 	</select>
 	
 	<select id="userlist" resultType="String">
@@ -88,4 +89,16 @@
 	<select id="findroomuser" resultType="String">
 		select roomid from roomuser where id = #{param1} and roomid in (select roomid from chatroom where msg_div='판매' and msg_div_no = #{param2});
 	</select>
+	
+	<insert
+		useGeneratedKeys="true"
+		keyColumn="msg_no"
+		keyProperty="msg_no"
+	 	id="chatmsgsend" parameterType="com.ino.chat.dto.MsgDTO"
+	 >
+	 	insert into chatmsg(from_id, msg_content, roomid)
+			values(
+				#{from_id}, #{msg_content}, #{roomid}
+			)
+	 </insert>
 </mapper>

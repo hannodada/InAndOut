@@ -279,7 +279,11 @@ function msgDraw(list,sale,salephoto,user,userphoto){
 	list.forEach(function(item, index){
 		if(item.from_id == "${loginId}"){
 			content += '<div class="outgoing_msg"><div class="sent_msg" style="margin-right: 5px">';
-			content += '<p>' + item.msg_content + '</p>';
+			if(item.new_photo_name != null){
+				content += '<img style="max-width: 200px;max-height: 200px" src="/photo/' + item.new_photo_name + '" alt="sunil">'
+			}else{
+				content += '<p>' + item.msg_content + '</p>';
+			}
 			content += '<span class="time_date">' + item.from_time + '</span> </div>';
 		}else{
 			content += '<div class="incoming_msg"><div class="incoming_msg_img" style="margin-left: 10px;">';
@@ -289,7 +293,11 @@ function msgDraw(list,sale,salephoto,user,userphoto){
 				content += '<img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>';
 			}
 			content += '<div class="received_msg"><div class="received_withd_msg">';
-			content += '<p>' + item.msg_content + '</p>';
+			if(item.new_photo_name != null){
+				content += '<img style="max-width: 200px;max-height: 200px" src="/photo/' + item.new_photo_name + '" alt="sunil">'
+			}else{
+				content += '<p>' + item.msg_content + '</p>';
+			}
 			content += '<span class="time_date">' + item.from_time + '</span> </div> </div>';
 			
 		}
@@ -422,7 +430,8 @@ function sendimg(){
 		data:formData,
 		dataType: 'json',
 		success: function(rtn){
-			console.log("rtn: ", rtn)
+			list();
+			$('#msglistbox').scrollTop($('#msglistbox')[0].scrollHeight);
 		},
 		error: function(e) {
 			console.log(e);

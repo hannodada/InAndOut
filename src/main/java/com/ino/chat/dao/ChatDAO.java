@@ -12,15 +12,15 @@ public interface ChatDAO {
 
 	ArrayList<MsgDTO> msglist(int id);
 
-	void msgsend(HashMap<String, Object> params);
+	void msgsend(HashMap<String, String> params);
 
 	ArrayList<String> userlist(int roomid);
 
-	void recentmsg(HashMap<String, Object> params);
+	void recentmsg(HashMap<String, String> params);
 
-	void recentmsgno(HashMap<String, Object> params);
+	void recentmsgno(HashMap<String, String> params);
 
-	void recentmsgtime(HashMap<String, Object> params);
+	void recentmsgtime(HashMap<String, String> params);
 
 	void newchat(String saleno, String username);
 
@@ -45,4 +45,6 @@ public interface ChatDAO {
 	void chatsaledone(String modalsaleid);
 
 	String findroomuser(String user_id, String sales_no);
+
+	void chatmsgsend(MsgDTO dto);
 }

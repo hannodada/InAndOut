@@ -1,5 +1,9 @@
 package com.ino.chat.service;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -7,16 +11,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ino.chat.dao.ChatDAO;
 import com.ino.chat.dto.ChatDTO;
 import com.ino.chat.dto.MsgDTO;
 import com.ino.sales.dto.SalesDTO;
+import com.ino.sales.dao.*;
 
 @Service
 public class ChatService {
 	
 	@Autowired ChatDAO dao;
+	@Autowired SalesDAO dao2;
 	
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
@@ -35,20 +42,20 @@ public class ChatService {
 		return dao.userlist(roomid);
 	}
 
-	public void msgsend(HashMap<String, Object> params) {
+	public void msgsend(HashMap<String, String> params) {
 		logger.info("service msgsend: " + params);
 		dao.msgsend(params);
 	}
 
-	public void recentmsg(HashMap<String, Object> params) {
+	public void recentmsg(HashMap<String, String> params) {
 		dao.recentmsg(params);
 	}
 	
-	public void recentmsgno(HashMap<String, Object> params) {
+	public void recentmsgno(HashMap<String, String> params) {
 		dao.recentmsgno(params);
 	}
 	
-	public void recentmsgtime(HashMap<String, Object> params) {
+	public void recentmsgtime(HashMap<String, String> params) {
 		dao.recentmsgtime(params);
 	}
 
@@ -106,6 +113,57 @@ public class ChatService {
 	public String findroomuser(String user_id, String sales_no) {
 		// TODO Auto-generated method stub
 		return dao.findroomuser(user_id, sales_no);
+	}
+
+	public void imgmsgsend(HashMap<String, String> params, MultipartFile[] uploadFile) {
+		MsgDTO dto = new MsgDTO();
+		dto.setFrom_id(params.get("id"));
+		dto.setRoomid(Integer.parseInt(params.get("roomid")));
+		dto.setMsg_content(params.get("msg"));
+		
+		dao.chatmsgsend(dto);
+		dao.recentmsg(params);
+		dao.recentmsgno(params);
+		dao.recentmsgtime(params);
+		
+		int idx = dto.getMsg_no();
+		
+		for (MultipartFile photo : uploadFile) {
+			logger.info("photo 여부 :"+photo.isEmpty());
+			if(photo.isEmpty()==false) {
+				
+				chatFileSave(idx, photo);
+				
+				try {
+					Thread.sleep(1);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				
+			}
+		}
+	}
+	
+	private void chatFileSave(int idx, MultipartFile photo) {
+		// TODO Auto-generated method stub
+		String ori_photo_name = photo.getOriginalFilename();
+		String ext = ori_photo_name.substring(ori_photo_name.lastIndexOf("."));
+		String cate_no = "p004";
+		String new_photo_name = System.currentTimeMillis() + ext;
+		logger.info(ori_photo_name+"=>"+new_photo_name);
+		
+		try {
+			byte[] bytes = photo.getBytes();
+			
+			Path path = Paths.get("C:/img/upload/"+new_photo_name);
+			Files.write(path, bytes);
+			logger.info(new_photo_name+" save OK");
+			
+			dao2.fileWrite(ori_photo_name, new_photo_name, idx, cate_no);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -41,6 +41,12 @@ public class MsgDTO {
 	public void setRoomid(int roomid) {
 		this.roomid = roomid;
 	}
+	public String getNew_photo_name() {
+		return new_photo_name;
+	}
+	public void setNew_photo_name(String new_photo_name) {
+		this.new_photo_name = new_photo_name;
+	}
 	
 	
 }

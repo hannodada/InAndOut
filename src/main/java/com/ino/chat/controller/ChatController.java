@@ -128,10 +128,10 @@ public class ChatController {
 	@RequestMapping(value = "msgSend.ajax")
 	@ResponseBody
 	public void msgSend(
-			@RequestParam HashMap<String, Object> params, HttpSession session) {
+			@RequestParam HashMap<String, String> params, HttpSession session) {
 		logger.info("msgSend 실행.");
 		boolean login = false;
-		HashMap<String, Object> map = new HashMap<String, Object>();
+		HashMap<String, String> map = new HashMap<String, String>();
 		
 		if(session.getAttribute("loginId") != null) {
 			login = true;
@@ -142,7 +142,6 @@ public class ChatController {
 			service.recentmsgtime(params);
 		}
 		
-		map.put("login", login);
 	}
 	
 	@RequestMapping(value = "saleChatOpen.do")
@@ -176,7 +175,7 @@ public class ChatController {
 		params.put("roomid", imgDTO.getRoomid());
 		params.put("msg", "이미지 전송");
 		
-		//service.imgmsgsend(params, imgDTO.getUploadFile());
+		service.imgmsgsend(params, imgDTO.getUploadFile());
 	}
 	
 	@RequestMapping(value = "chatsaledone.do")
