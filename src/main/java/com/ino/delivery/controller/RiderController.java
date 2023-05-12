@@ -61,7 +61,7 @@ public class RiderController {
 		if(user_id != null) {
 		
 		RiderDTO dto = service.dtoUO(user_id);
-		logger.info("user_id =  " + dto);
+		logger.info("user_id =  " + dto.getUser_id());
 		model.addAttribute("dto", dto);
 	
 		}

@@ -110,10 +110,8 @@
       	<p></p>
       	<form action="chatsaledone.do" method="post">
       	<div class="input-group mb-3" style="display:none">
-		  <div class="input-group-prepend">
-		    <span class="input-group-text" id="basic-addon1">@</span>
-		  </div>
-		  <input type="text" id="modalsaleid" name="modalsaleid" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+		  <input type="text" id="modalsaleid" name="modalsaleid">
+		  <input type="text" id="modalroomid" name="modalroomid">
 		</div>
       	<hr/>
       
@@ -206,20 +204,6 @@
 	        </div>
 	        <div class="mesgs" style="width:60%; padding:0">
 	          <div id="sale_def"  class="dropdown2" style="width:100%;height:100px;background-color: #F0F0F0;display:none;padding:16px 20px">
-	          		<div>
-	          			<h3>&nbsp;pepe</h3>
-	          		</div>
-	          		<div style="width:100%; text-align: right; padding: 5px 5px">
-	          			<h4>RTX 4070 TI</h4>
-	          			<h5 style>1000,000원</h5>
-	          		</div>
-	          		<div style="width:20px"></div>
-	          		<div>
-	          			<img src="/photo/1683508729270.png" style="max-height:80px">
-	          		</div>
-	          		<div class="dropdown-content2" id="saledonediv"> 
-			          	<a href="#" id="saledone">판매 완료 변경</a>
-			        </div>
 	          </div>
 	          <div id="sale_def2" style="display:none;width:100%;height:2px;background-color: #E6E6E6;text-align: center">
 	          
@@ -486,6 +470,7 @@ function msgDraw(list,sale,salephoto,user,userphoto){
 	$('#sale_def').append(content);
 	$('#modal_text').text(sale.subject);
 	$('#modalsaleid').val(sale.sales_no);
+	$('#modalroomid').val(selectedRoom);
 	
 	$("#send_msg").mouseenter(function name() {
 		$('#msglistbox').scrollTop($('#msglistbox')[0].scrollHeight);

@@ -111,7 +111,7 @@
            </c:when>
         </c:choose>  
       </div>
-				<div><button onclick="location.href='chat.go'">보내기</button></div>
+				<div><button onclick="location.href='./riderChatOpen.do?offers_no=${dto.delivery_offer_no}'">메세지</button></div>
 			</div>
 			
 			<div> 품목명  ${dto.subject}</div>
