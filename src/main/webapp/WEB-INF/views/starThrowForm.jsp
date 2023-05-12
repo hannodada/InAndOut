@@ -19,21 +19,37 @@ table, th, td{
 	<table>
 		<tr>
 			<th>판매글 번호</th>
-			<td><input type="text" name="report_whom" id="report_whom" value="${sales_no}" readonly="readonly"/></td>
-		</tr>
-		<tr>
-			<th>신고자</th>
-			<td><input type="text" name="user_id" id="user_id" value="${loginId}" readonly="readonly"/></td>
-		</tr>
-		<tr>
-			<th>신고사유</th>
 			<td>
-				<textarea name="report_reason" id="report_reason" maxlength="199" onkeyup="counter(event, '200')"></textarea>
-				<div>
-				<span id="reCount">0 / 200</span>
-			</div>
+				<input type="text" name="star_div_no" id="star_div_no" value="${detailData.sales_no}" readonly="readonly"/>
 			</td>
 		</tr>
+		<tr>
+			<th>판매자</th>
+			<td><input type="text" name="user_id" id="user_id" value="${detailData.user_id}" readonly="readonly"/></td>
+		</tr>
+		<tr>
+			<th>구매자</th>
+			<td><input type="text" name="consumer_id" id="consumer_id" value="${loginId}" readonly="readonly"/></td>
+		</tr>
+		<c:forEach items="${starList}" var="i">
+			<tr>
+				<th>별점</th>
+				<td>
+					<input type="text" name="cate_no" value="${i.cate_no}" hidden="true"/>
+					<input type="text" name="cate_name" value="${i.cate_name}"/>
+					<input type="radio" name="${i.cate_no}_value" value="1"/> 1
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="radio" name="${i.cate_no}_value" value="2"/> 2
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="radio" name="${i.cate_no}_value" value="3"/> 3
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="radio" name="${i.cate_no}_value" value="4"/> 4
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="radio" name="${i.cate_no}_value" value="5"/> 5
+					&nbsp;&nbsp;&nbsp;&nbsp;
+				</td>
+			</tr>
+		</c:forEach>
 		 <tr>
 			<th colspan="2">
 				<input type="button" id="submit" value="제출"/>
@@ -43,22 +59,11 @@ table, th, td{
 	</table>
 </body>
 <script>
-function counter(event, limit){
-	var val = event.target.value.length;
-	var elem = $(event.target).siblings().find('span');
-	console.log(val);
-	console.log(limit);
-	console.log(elem);
-	if(val<=limit){
-		elem.html(val + " / " + limit);
-	}
-}
-
 $('#submit').click(function(){
 	
-	var report_whom = document.getElementById('report_whom').value;
+	var star_div_no = document.getElementById('star_div_no').value;
 	var user_id = document.getElementById('user_id').value;
-	var report_reason = document.getElementById('report_reason').value;
+	var consumer_id = document.getElementById('consumer_id').value;
 	
 	$.ajax({
 		type: 'post',

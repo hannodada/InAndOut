@@ -11,16 +11,15 @@
     </style>
 <body>
 <jsp:include page="realGnb.jsp"/>
-<form action="/" method="get">
+
 	<header>
-	  <nav>
-	  
+	  <nav id="nav" style="position: fixed;">
 	   <a href="myPage.go">모아보기</a>
 	   <a href="mySales.go" style="color:blue; text-decoration: underline;">판매글</a>
 	   <a href="myGallery.go">갤러리</a>
 	   <a href="mySalesJjim.go">관심판매글</a>
 	   <a href="myGalleryJjim.go">찜한갤러리</a>
-	   <a href="userAuth.go">설정</a>
+	   <a href="userAuth.go" >설정</a>
 	  </nav>
 	</header>
 
@@ -46,7 +45,7 @@
 
         </div>
     </div>
-</form>
+
 </body>    
 </head>
 </html>

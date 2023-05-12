@@ -10,15 +10,15 @@
         @import url('https://fonts.googleapis.com/css2family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@100&display=swap');
     </style>
 <body>
-<form action="/" method="get">
+<jsp:include page="realGnb.jsp"/>
 	<header>
-	  <nav>
-	   <a href="myPage.go">모아보기</a>
+	   <nav id="nav" >
+	   <a href="myPage.go" >모아보기</a>
 	   <a href="mySales.go">판매글</a>
 	   <a href="myGallery.go">갤러리</a>
 	   <a href="mySalesJjim.go" style="color:blue; text-decoration: underline;">관심판매글</a>
-	   <a href="myGalleryJjim.go">찜한갤러리</a>
-	   <a href="userAuth.go">설정</a>
+	   <a href="myGalleryJjim.go" >찜한갤러리</a>
+	   <a href="userAuth.go" >설정</a>
 	  </nav>
 	</header>
 
@@ -44,7 +44,6 @@
 
         </div>
     </div>
-</form>
 </body>    
 </head>
 </html>
