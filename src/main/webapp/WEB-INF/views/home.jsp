@@ -48,6 +48,7 @@
 	<a href="galleryList.do">갤러리 보기</a>
 	<a href="myPage.go">마이페이지 보기</a>
 	<a href="riderPage">라이더페이지 보기</a>
+	<a href="riderList.go">라이더리스트</a>
 	
 	
 	
