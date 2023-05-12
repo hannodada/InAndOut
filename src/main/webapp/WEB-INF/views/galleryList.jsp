@@ -17,7 +17,6 @@
 </head>
 <body>
 	<jsp:include page="realGnb.jsp"/>
-<jsp:include page="realGnb.jsp"/>
 	<select name="filter" id="filter" onchange="filtering()">
 		<option value="gallery_no">최신 순</option>
 		<option value="gallery_hit">조회수 순</option>
