@@ -59,7 +59,7 @@
 				<option value="배송완료" ><c:if test="${ds.delivery_state eq '배송완료'}">disabled</c:if>배송완료</option>
 				<option value="배송실패" ><c:if test="${ds.delivery_state eq '배송실패'}">disabled</c:if>배송실패</option>
 			</select>
-		<button onclick="location.href='chat.go">채팅</button>
+		<button onclick="location.href='./riderChatOpen.do?offers_no=${ds.delivery_offer_no}'">채팅</button>
 		</div>		
 	</div>
 	

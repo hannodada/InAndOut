@@ -86,7 +86,7 @@
 			ON s.goods_id = g.goods_id 
 			LEFT JOIN photo p 
 			ON s.user_id = p.photo_div 
-		WHERE s.sales_no = 1 OR p.new_photo_name = 'p005';
+		WHERE s.sales_no = 4 OR p.new_photo_name = 'p005';
 	</select>
 	
 	<insert id="select" parameterType="hashmap">

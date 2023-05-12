@@ -44,7 +44,7 @@
 		</div>
 		<div>${rl.sido} ${rl.sigungu} / ${rl.store_time}</div>
 		<div class="button-box">		
-			<button onclick="location.href='userOffer.do?user_id=${rl.user_id}&sales_no=1'">견적신청</button>
+			<button onclick="location.href='userOffer.do?user_id=${rl.user_id}&sales_no=4'">견적신청</button>
 		</div>
 	</div>
 </c:forEach>

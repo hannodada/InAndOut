@@ -12,7 +12,7 @@ public interface MypageDAO {
 
 	MypageDTO mypage(String id);
 
-	int mystar(String starid);
+	Integer mystar(String starid);
 
 	MypageDTO myrider(String riderid);
 
