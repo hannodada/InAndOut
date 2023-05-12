@@ -11,7 +11,8 @@
 	</select>
 
 	<select id="mystar" resultType="Integer">
-		select AVG(star_score) from star_test_paper
+		SELECT AVG(star_score) FROM star_test_paper
+		WHERE star_no IN (SELECT star_no FROM star s2 WHERE star_to_id=#{param1})
 		<!-- 로그인 기능 넣으면 여기에 where절 넣어서 수정해야함 -->
 	</select>
 	
@@ -91,7 +92,7 @@
 		,post_num=#{post_num}
 		,sigungu=#{sigungu}
 		,sido=#{sido}
-		,left_addr=#{roadAddress}
+		,left_addr=#{left_addr}
 		WHERE user_id=#{user_id}
 	</update>
 	
@@ -111,5 +112,9 @@
 
 	<select id="getPhotoName" resultType="String">
 		SELECT p.new_photo_name FROM photo p WHERE p.photo_div = #{param1} AND cate_no=#{param2}
+	</select>
+	
+	<select id="userdiv" resultType="String">
+		SELECT user_div FROM user WHERE user_id=#{param1}
 	</select>
 </mapper>

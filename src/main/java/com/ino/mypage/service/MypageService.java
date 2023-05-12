@@ -102,7 +102,7 @@ Logger logger = LoggerFactory.getLogger(getClass());
 	}
 
 	public HashMap<String, String> riderSettingdo(MultipartFile photo,HashMap<String, String> params, HttpSession session) {
-		String page = "redirect:/riderPage";
+		
 		String user_id = (String) session.getAttribute("loginId");
 		String emailcon = params.get("email");
 		String emailcat = params.get("emailaddr");
@@ -113,12 +113,16 @@ Logger logger = LoggerFactory.getLogger(getClass());
 		int row = dao.riderSettingdo(params);
 		logger.info("업데이트한 갯수 :"+ row);
 		logger.info("업데이트한 유저 아이디 : "+user_id);
-		
+		String page = "redirect:/riderPage?user_id="+user_id;
 		
 			logger.info("photo 여부 :"+photo.isEmpty());
 			HashMap<String, String> map = new HashMap<String, String>();
 			if(photo.isEmpty()==false) {
-				
+				String userdiv = dao.userdiv(user_id);
+				if(userdiv.equals("a") || userdiv.equals("b")) {
+					map = fileSave(user_id, photo, session);
+					page = "redirect:/myPage.go?user_id="+user_id;
+				}
 				map = fileSave(user_id, photo, session);
 				
 				try {

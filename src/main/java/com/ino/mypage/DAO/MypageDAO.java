@@ -12,7 +12,7 @@ public interface MypageDAO {
 
 	MypageDTO mypage(String id);
 
-	int mystar(String starid);
+	Integer mystar(String starid);
 
 	MypageDTO myrider(String riderid);
 
@@ -49,6 +49,8 @@ public interface MypageDAO {
 	void fileWrited(String ori_photo_name, String new_photo_name, String user_id, String cate_no);
 
 	String getPhotoName(String userId, String string);
+
+	String userdiv(String user_id);
 
 	
 

@@ -41,13 +41,13 @@
 <jsp:include page="realGnb.jsp"/>
 
 
-	<img src="resources/photo/logout.png" id="logout" onclick="location.href='logout.do'">
 	<a href="salesWrite.go">판매글 등록</a>
 	<a href="galleryWrite.go">갤러리 등록</a>
 	<a href="salesList.do">판매글 보기</a>
 	<a href="galleryList.do">갤러리 보기</a>
 	<a href="myPage.go">마이페이지 보기</a>
 	<a href="riderPage">라이더페이지 보기</a>
+	<a href="riderList.go">라이더리스트</a>
 	
 	
 	
@@ -168,11 +168,11 @@
 					
 					</c:if>
 		     		 <c:forEach items="${list }" var="bbs">
-			     		  <c:if test="${bbs.new_photo_name eq null}">
+			     		  <c:if test="${new_photo_name eq null}">
 			     		 		<img src="resources/photo/프로필 기본.png" id="profileUser" onclick="location.href='profile.go'">
 	     				</c:if>
-			     		 <c:if test="${bbs.new_photo_name ne null}">
-			     		 		<img src="resources/photo/${new_photo_name}" id="profileUser" onclick="location.href='profile.go'">
+			     		 <c:if test="${new_photo_name ne null}">
+			     		 		<img src="/photo/${new_photo_name}" id="profileUser" onclick="location.href='profile.go'">
 	     				</c:if>
      				</c:forEach>
 			</td>
@@ -180,7 +180,7 @@
 		<tr>
 			<td>
 					<c:if test="${list eq null}">
-		     		 	<img src="resources/photo/프로필 기본.png" id="profileNomal" onclick="location.href='profile.go'">
+		     		 	<img src="resources/photo/프로필 기본.png" id="profileNomal" onclick="location.href='myPage.go'">
 		     		 </c:if>
 		     		 
 		     		 <c:if test="${list ne null}">

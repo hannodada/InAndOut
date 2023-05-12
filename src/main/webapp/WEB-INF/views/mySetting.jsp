@@ -10,9 +10,9 @@
         @import url('https://fonts.googleapis.com/css2family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@100&display=swap');
     </style>
 <body>
-<form action="/" method="get">
+<form action="/userAuth.do" method="get">
 	<header>
-	  <nav>
+	  <nav id="nav">
 	   <a href="myPage.go">모아보기</a>
 	   <a href="mySales.go">판매글</a>
 	   <a href="myGallery.go">갤러리</a>
@@ -20,8 +20,9 @@
 	   <a href="myGalleryJjim.go">찜한갤러리</a>
 	   <a href="userAuth.go" style="color:blue; text-decoration: underline;">설정</a>
 	  </nav>
-	</header>
 
+	</header>
+		
     <div class="main-box">
         <div class="profile-box">
             <div class="title-nickname">
