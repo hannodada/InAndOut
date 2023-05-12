@@ -35,7 +35,7 @@
 			font-weight: bold;
     }
     
-    </style>
+    </style></head>
 <body>
 
 <jsp:include page="realGnb.jsp"/>
