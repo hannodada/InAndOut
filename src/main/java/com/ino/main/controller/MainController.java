@@ -7,17 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@Controller
+
 public class MainController {
-	
-	Logger logger = LoggerFactory.getLogger(getClass());
-	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Model model) {
-		
-		model.addAttribute("msg", "this is main page.");
-		
-		return "home";
-	}
+
 	
 }

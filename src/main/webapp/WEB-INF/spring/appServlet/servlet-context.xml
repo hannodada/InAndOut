@@ -28,24 +28,23 @@
 	<!-- datasource -->
 	<beans:bean name="datasource" class="org.apache.commons.dbcp.BasicDataSource">
 		<beans:property name="driverClassName" value="org.mariadb.jdbc.Driver"/>
-		<beans:property name="url" value="jdbc:mariadb://localhost:3306/mydb"/>
+		<beans:property name="url" value="jdbc:mariadb://localhost:3306/ino"/>
 		<beans:property name="username" value="web_user"/>
 		<beans:property name="password" value="pass"/>
 	</beans:bean>
 	
 	<!-- mybatis -->
-	<beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<!-- 연결할 DB 정보 -->
-		<beans:property name="dataSource" ref="datasource"/>
-		<!-- 쿼리문이 있을 장소 -->
-		<beans:property name="mapperLocations">
-			<beans:list>
-				<beans:value>classpath:kr/co/inandout/member/dao/*.xml</beans:value>
-			</beans:list>
-		</beans:property>
-	</beans:bean>
-	
-	<!-- mybatis area -->
-	<mybatis-spring:scan base-package="kr.co.inandout.member.dao"/>
-	
+   <beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+      <!-- 연결할 DB 정보 -->
+      <beans:property name="dataSource" ref="datasource"/>
+      <!-- 쿼리문이 있을 장소 -->
+      <beans:property name="mapperLocations">
+         <beans:list>
+            <beans:value>classpath:com/ino/admin/dao/*.xml</beans:value>
+         </beans:list>
+      </beans:property>
+   </beans:bean>
+   
+   <!-- mybatis area -->
+      <mybatis-spring:scan base-package="com.ino.**.dao"/>
 </beans:beans>
