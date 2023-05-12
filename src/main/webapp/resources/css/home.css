@@ -105,10 +105,21 @@
 		#nav a:visited{
 			color:gray;
 		}
-		#nav a{
+		#nav{
 			color:gray;
 			text-decoration: none;
+
 		}
+		#userauth a:visited{
+			color:gray;
+		}
+		#userauth{
+			color:gray;
+			text-decoration: none;
+  		top: 150px;
+  		left: 450px;
+		}
+		
 		header {
 			 position: fixed;
 		  top: 80px;

@@ -50,6 +50,8 @@ public interface MypageDAO {
 
 	String getPhotoName(String userId, String string);
 
+	String userdiv(String user_id);
+
 	
 
 
