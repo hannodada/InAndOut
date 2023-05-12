@@ -11,4 +11,6 @@ public interface AdminGalleryDAO {
 
 	ArrayList<AdminGalleryDTO> list(int offset);
 
+	int gblind(String id); 
+
 }

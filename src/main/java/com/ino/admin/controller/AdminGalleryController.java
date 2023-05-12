@@ -37,4 +37,16 @@ public class AdminGalleryController {
 	       return service.list(params);
 	    }		
 	
+		@RequestMapping(value="/blind.ajax", method = RequestMethod.POST)
+		@ResponseBody
+		public HashMap<String, Object> blind(
+				 ){
+			int result = 0;
+			String checkNum = "";
+			
+			return null ;
+		}
+		
+	
+	   
 }

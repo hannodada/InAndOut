@@ -39,85 +39,34 @@
 	<div class="main-box">
 	
 		<div class="Xbutton"> 
-		<a href="#" onclick="location.href='riderOffer.do'">
+		<a href="#" onclick="location.href='riderOffer.go'">
 			<img width="30" src="resources/img2/multiply.png"/>
 		</a>
 	</div>
 	
 		<div class="left-box">
-		
 			<div class="rider-img">
-				<img  width="50" src="resources/photo/${dto.new_photo_name}"/>
-				${dto.nickname}&nbsp;님
-				<div id="star001">
-            <h2 style="color: skyblue; display:block;">내 리뷰 통계</h2>
-            <h5 style="display:inline;">물품 상태 좋아요</h5>
-            <c:choose>
-              <c:when test="${star001 eq 1}">
-              <img src="resources/img/dolphin1.png" style="width: 5px;"/>
-              </c:when>
-              <c:when test="${star001 eq 2}">
-              <img src="resources/img/dolphin2.png" style="width: 5px;"/>
-              </c:when>
-              <c:when test="${star001 eq 3}">
-              <img src="resources/img/dolphin3.png" style="width: 5px;"/>
-              </c:when>
-              <c:when test="${star001 eq 4}">
-              <img src="resources/img/dolphin4.png" style="width: 5px;"/>
-              </c:when>
-              <c:when test="${star001 eq 5}">
-              <img src="resources/img/dolphin5.png" style="width: 5px;"/>
-              </c:when>
-           </c:choose>
-         </div>
-         
-      <div id="star002">
-      <h5 style="display:inline;">시간 잘 지켜요&nbsp;&nbsp;</h5>
-         <c:choose>
-           <c:when test="${star002 eq 1}">
-           <img src="resources/img/dolphin1.png" style="width: 60px;"/>
-           </c:when>
-           <c:when test="${star002 eq 2}">
-           <img src="resources/img/dolphin2.png" style="width: 60px;"/>
-           </c:when>
-           <c:when test="${star002 eq 3}">
-           <img src="resources/img/dolphin3.png" style="width: 60px;"/>
-           </c:when>
-           <c:when test="${star002 eq 4}">
-           <img src="resources/img/dolphin4.png" style="width: 60px;"/>
-           </c:when>
-           <c:when test="${star002 eq 5}">
-           <img src="resources/img/dolphin5.png" style="width: 60px;"/>
-           </c:when>
-        </c:choose>  
-      </div>
-      <div id="star003">
-      <h5 style="display:inline;">친절해요</h5>
-         <c:choose>
-           <c:when test="${star003 eq 1}">
-           <img src="resources/img/dolphin1.png" style="width: 60px;"/>
-           </c:when>
-           <c:when test="${star003 eq 2}">
-           <img src="resources/img/dolphin2.png" style="width: 60px;"/>
-           </c:when>
-           <c:when test="${star003 eq 3}">
-           <img src="resources/img/dolphin3.png" style="width: 60px;"/>
-           </c:when>
-           <c:when test="${star003 eq 4}">
-           <img src="resources/img/dolphin4.png" style="width: 60px;"/>
-           </c:when>
-           <c:when test="${star003 eq 5}">
-           <img src="resources/img/dolphin5.png" style="width: 60px;"/>
-           </c:when>
-        </c:choose>  
-      </div>
-				<div><button onclick="location.href='./riderChatOpen.do?offers_no=${dto.delivery_offer_no}'">메세지</button></div>
+				<c:if test="${dto.new_photo_name eq null}">
+					<img  width="50" src="resources/photo/프로필 기본.png"/>${dto.nickname}&nbsp;님
+				</c:if>
+				<c:if test="${dto.new_photo_name ne null}">
+					<img  width="50" src="resources/photo/${dto.new_photo_name}"/>${dto.nickname}&nbsp;님
+				</c:if>
+				<div><button onclick="location.href='chat.go'">보내기</button></div>
 			</div>
 			
 			<div> 품목명  ${dto.subject}</div>
 			<div>카테고리 ${dto.biz_name} > ${dto.goods_name}</div>
 			<div>판매내용 ${dto.content}</div>
-			<div><img  width="50" src="/photo/"/>${dto.new_photo_name}</div>
+			
+			<div>
+				<c:if test="${dto.new_photo_name eq null}">
+					<img  width="50" src="resources/photo/defaultIMG.png"/>
+				</c:if>
+				<c:if test="${dto.new_photo_name ne null}">
+					<img  width="50" src="resources/photo/${dto.new_photo_name}"/>
+				</c:if>
+			</div>
 		</div> 
 		
 		<div class="right-box">

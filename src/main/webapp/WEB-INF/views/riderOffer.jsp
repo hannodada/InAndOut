@@ -23,9 +23,13 @@
 	.tag_top{
 		margin-left: 10px;
 	}
+	img{
+		
+	}
 </style>
 </head>
 <body>
+<%-- <img  width="50" src="resources/photo/${ro.new_photo_name}"/> --%>
 
 	<jsp:include page="realGnb.jsp"/>
 
@@ -34,8 +38,14 @@
 	<c:forEach items="${riderOffer}" var="ro" varStatus="status">
 	<div class="main-box"> 
 		<div>
-			<img  width="50" src="resources/photo/${ro.new_photo_name}"/>
-			<a href="riderOfferDetail?idx=${ro.delivery_offer_no}">${ro.nickname}님</a>
+			<a href="riderOfferDetail?delivery_offer_no=${ro.delivery_offer_no}">
+				<c:if test="${ro.new_photo_name eq null}">
+					<img  width="50" src="resources/photo/프로필 기본.png"/>${ro.nickname}&nbsp;님
+				</c:if>
+				<c:if test="${ro.new_photo_name ne null}">
+					<img  width="50" src="resources/photo/${ro.new_photo_name}"/>${ro.nickname}&nbsp;님
+				</c:if>
+			</a>
 		</div>
 		<div>${ro.subject}</div>
 		<div>배송제안번호 : ${ro.delivery_offer_no}</div>

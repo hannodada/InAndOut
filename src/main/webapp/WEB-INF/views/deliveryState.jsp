@@ -22,6 +22,9 @@
 	.tag_top{
 		margin-left: 10px;
 	}
+	img{
+		border-radius: 10px;
+	}
 </style>
 </head>
 <body>
@@ -34,8 +37,12 @@
 	<div class="main-box" >
 	<%-- ${status.index+1}	 --%>
 		<div>
-			<img  width="500" src="resources/photo/${ds.new_photo_name}"/>
-			${ds.nickname}님
+			<c:if test="${ds.new_photo_name eq null}">
+				<img  width="50" src="resources/photo/프로필 기본.png"/>${ds.nickname}&nbsp;님
+			</c:if>
+			<c:if test="${ds.new_photo_name ne null}">
+				<img  width="50" src="resources/photo/${ds.new_photo_name}"/>${ds.nickname}&nbsp;님
+			</c:if>
 		</div>
 		
 		배송번호 : <span>${ds.delivery_offer_no}</span>

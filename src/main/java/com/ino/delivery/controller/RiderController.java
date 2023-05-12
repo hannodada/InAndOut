@@ -83,13 +83,14 @@ public class RiderController {
 	 */
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	@RequestMapping(value = "/riderOfferDetail") // 라이더에게 제한한 사용자 물품 상세보기
-	public String riderOfferDetail(@RequestParam String idx, Model model) {
+	public String riderOfferDetail(@RequestParam String delivery_offer_no, Model model) {
 		
 		// select 
-		logger.info("riderOfferDetail : " + idx);
+		logger.info("riderOfferDetail : " + delivery_offer_no);
+		//logger.info("sales_no : " + sales_no);
 		String page = "riderOffer";
 		
-		RiderDTO dtoROD = service.dtoROD(idx);
+		RiderDTO dtoROD = service.dtoROD(delivery_offer_no);
 		
 		if(dtoROD != null) {
 			page = "riderOfferDetail";
@@ -180,11 +181,7 @@ public class RiderController {
 		return map;
 	}
 	*/
-	
-	
-	
-	
-	
+
 	//-----------------------------------------------------------------------------------------------------------
 	
 	/*@RequestMapping(value = "/select.do")

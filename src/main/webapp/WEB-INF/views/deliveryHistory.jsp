@@ -23,6 +23,9 @@
 	.tag_top{
 		margin-left: 10px;
 	}
+	img{
+		border-radius: 10px;	
+	}
 </style>
 </head>
 <body>
@@ -36,8 +39,12 @@
 	
 		<div class="main-box">
 			<div>
-				<img  width="500" src="resources/photo/${dh.new_photo_name}"/>
-				${dh.nickname} 님
+				<c:if test="${dh.new_photo_name eq null}">
+					<img  width="50" src="resources/photo/프로필 기본.png"/>${dh.nickname}&nbsp;님
+				</c:if>
+				<c:if test="${dh.new_photo_name ne null}">
+					<img  width="50" src="resources/photo/${dh.new_photo_name}"/>${dh.nickname}&nbsp;님
+				</c:if>
 			</div>
 			
 			<div>${dh.subject}</div>

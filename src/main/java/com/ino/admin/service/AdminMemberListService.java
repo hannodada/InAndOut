@@ -26,9 +26,7 @@ public class AdminMemberListService {
 	    String userstate = String.valueOf(params.get("userstate"));
 	    String userId = String.valueOf(params.get("userid"));
 	    String search = String.valueOf(params.get("search"));
-	    logger.info(page + "�� ���õ� ȸ���з���" + userdiv +"���� ������");
-	    logger.info(page + "�� ���õ� ȸ�����°�" + userstate +"���� ������");
-	    logger.info("���������� " + 5 +"���� ������ �� ");
+
 		
 	    HashMap<String, Object> map = new HashMap<String, Object>();
 	    

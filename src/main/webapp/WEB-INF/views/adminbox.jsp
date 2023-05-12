@@ -28,7 +28,7 @@
   line-height: 44px;
   float: left;
   flex: 1;
-  padding: 24px;
+  padding: 80px 70px;
 }
 	article {
    width:1000px;
