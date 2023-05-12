@@ -157,9 +157,9 @@
 											      		<img src="resources/photo/로고2.png" onclick="location.href='home'" >
 											      </div >
 											      <div id="banner">
-														<a href="#">제안 확인</a>
-														<a href="$">배송상태 관리</a>
-														<a href="$">배송 이력</a>
+														<a href="riderOffer.go">제안 확인</a>
+														<a href="deliveryState.go">배송상태 관리</a>
+														<a href="deliveryHistory.go">배송 이력</a>
 													</div>	
 											       <div class="nbsp">		     
 									 		      </div>
