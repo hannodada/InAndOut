@@ -19,16 +19,16 @@
 	</select>
 
 	<select id="dtoROD" resultType="com.ino.delivery.dto.RiderDTO">
-		select s.sales_no, s.subject, s.content, s.blind, u.nickname, do.from_addr, do.to_addr, do.offer_date, do.delivery_offer_no, b.biz_name, g.goods_name from sales s 
+		select s.sales_no, s.subject, s.content, s.blind, u.nickname, b.biz_name, g.goods_name, do.delivery_offer_no, concat(s.sales_sido,' ' , s.sigungu,' ' , s.left_addr) as from_addr from sales s
 			left join `user` u 
 			on s.user_id = u.user_id
-			left join delivery_offer do 
-			on s.user_id = do.user_id 
 			left join biz b 
-			on s.biz_id = b.biz_id 
+			on s.biz_id = b.biz_id
 			left join goods g 
-			on s.goods_id = g.goods_id 
-		where do.delivery_offer_no = #{param1}
+			on s.goods_id = g.goods_id
+			left join delivery_offer do 
+			on s.user_id = do.user_id
+		where s.sales_no = 1 and do.delivery_offer_no = #{param1}
 	</select>
 	
 	<select id="listDH" resultType="com.ino.delivery.dto.RiderDTO">
