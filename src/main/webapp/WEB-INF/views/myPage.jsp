@@ -15,39 +15,49 @@
 	<header>
 	  <nav>
 	   <a href="myPage.go" style="color:blue; text-decoration: underline;">모아보기</a>
-	   <a href="mySales">판매글</a>
-	   <a href="myGallery">갤러리</a>
-	   <a href="mySalesJjim">관심판매글</a>
-	   <a href="myGalleryJjim">찜한갤러리</a>
-	   <a href="mySetting">설정</a>
+	   <a href="mySales.go">판매글</a>
+	   <a href="myGallery.go">갤러리</a>
+	   <a href="mySalesJjim.go">관심판매글</a>
+	   <a href="myGalleryJjim.go">찜한갤러리</a>
+	   <a href="userAuth.go">설정</a>
 	   
 	  </nav>
 	  
 	</header>
 	<div id="userdetailsales">
-	<h4 style="font-size:15px; color:skyblue;line-height: 300%;">내가 올린 판매글</h4>
+	<h4 style="font-size:15px; color:skyblue; line-height: 300%;">
+	내가 올린 판매글</h4>
+	<h6 style="float:right; margin-right:100px; display:inline;">
+	<a href="mySales">전체보기 ></a></h6>
 	<c:forEach items="${saleslist}" var="sl">
 	<div style="float:left; margin-right:10px; display:inline;">
-		<img width="500" src="/photo/${sl.new_photo_name}"/>
-		<h5>${sl.subject}</h5>
-		<h5 align="center">${sl.price}</h5>
+		<a href="salesDetail.do?sales_no=${sl.sales_no}">
+			<img style="max-width: 200px; height: auto;" src="/photo/${sl.new_photo_name}"/>
+		</a>
+			<h5 align="center">${sl.subject}</h5>
+			<h5 align="center">${sl.price}</h5>
 	</div>
 	</c:forEach>
 	</div>
 	
 	<div id="userdetailgallery">
-	<h4 style="font-size:15px; color:skyblue;line-height: 300%;">내가 올린 갤러리</h4>
+	<h4 style="font-size:15px; color:skyblue;line-height: 300%;">
+	내가 올린 갤러리</h4>
+	<h6 style="float:right; margin-right:100px; display:inline;">
+	<a href="myGallery">전체보기 ></a></h6>
 	<c:forEach items="${galleryList}" var="gl">
 	<div style="float:left; margin-right:10px; display:inline;">
-		<img width="500" src="/photo/${gl.new_photo_name}"/>
-		<h5>${gl.gallery_subject}</h5>
+		<a href="galleryDetail.do?gallery_no=${gl.sales_no}">
+			<img style="max-width: 300px; height: auto; object-fit: cover;" src="/photo/${gl.new_photo_name}"/>
+			<h5 align="center">${gl.gallery_subject}</h5>
+		</a>
 	</div>
 	</c:forEach>
 	</div>
 	<hr>
     <div class="main-box">
         <div class="profile-box">
-        <img src="resources/img/default profile.jpg" style="width: 130px;">
+        <img src="/photo/${new_photo_name}" style="width: 130px;">
             <div class="title-nickname">
             <h2>${dto.nickname}</h2>
             </div>
@@ -76,8 +86,8 @@
 		        <div class="pthird">나의 관심</div>
 		    </div>
 		    <div class="child">
-		        <div class="cfirst">5</div>
-		        <div class="csecond">3</div>
+		        <div class="cfirst">${countsales}</div>
+		        <div class="csecond">${countgallery}</div>
 		        <div class="cthird">1</div>
 		    </div>
 

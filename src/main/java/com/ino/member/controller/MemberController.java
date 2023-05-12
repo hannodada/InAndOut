@@ -50,6 +50,7 @@ public class MemberController {
 		
 		if(success == 1) {
 			session.setAttribute("loginId", id);
+			session.setAttribute("loginPw", pw);
 			
 		}
 		
