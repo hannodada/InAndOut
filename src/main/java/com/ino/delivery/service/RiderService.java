@@ -24,9 +24,10 @@ public class RiderService {
 		return dao.listRO();
 	}
 
-	public RiderDTO dtoROD(String idx) {
+	public RiderDTO dtoROD(String delivery_offer_no) {
 		logger.info("dtoROD 서비스 이동");
-		return dao.dtoROD(idx);
+		return dao.dtoROD(delivery_offer_no);
+		//,sales_no
 	}
 
 	public ArrayList<RiderDTO> listDH() {
@@ -131,7 +132,7 @@ public class RiderService {
 		int row = dao.writeUO(dto);
 		logger.info("insert 횟수"+row);
 		
-		page = "redirect:/";
+		page = "redirect:/deliveryState.go";
 		
 		return page;
 	}

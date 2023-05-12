@@ -20,6 +20,9 @@
 	.tag_top{
 		margin-left: 10px;
 	}
+	img{
+		border-radius: 10px;
+	}
 </style>
 </head>
 <body>
@@ -31,7 +34,12 @@
 	<div class="main-box">
 		<div>
 			<a href="#" onclick="location.href='riderForm'">
-				<img  width="50" src="resources/photo/${rl.new_photo_name}"/> ${rl.nickname}님
+				<c:if test="${rl.new_photo_name eq null}">
+					<img  width="50" src="resources/photo/프로필 기본.png"/>${rl.nickname}&nbsp;님
+				</c:if>
+				<c:if test="${rl.new_photo_name ne null}">
+					<img  width="50" src="resources/photo/${rl.new_photo_name}"/>${rl.nickname}&nbsp;님
+				</c:if>
 			</a>
 		</div>
 		<div>${rl.sido} ${rl.sigungu} / ${rl.store_time}</div>

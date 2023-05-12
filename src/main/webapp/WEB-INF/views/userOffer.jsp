@@ -56,8 +56,12 @@
 			
 			<div class="profile-box">
 				<div class="left_profile-box">
-					<img  width="50" src="resources/photo/${dto.new_photo_name}"/>
-					${dto.nickname}&nbsp;님 
+					<c:if test="${dto.new_photo_name eq null}">
+						<img  width="50" src="resources/photo/프로필 기본.png"/>${dto.nickname}&nbsp;님
+					</c:if>
+					<c:if test="${dto.new_photo_name ne null}">
+						<img  width="50" src="resources/photo/${dto.new_photo_name}"/>${dto.nickname}&nbsp;님
+					</c:if>
 				</div>
 			</div>
 
@@ -70,7 +74,14 @@
 				</div>
 				<div>카테고리  ${dtoS.biz_name} > ${dtoS.goods_name}</div>
 				<div>판매내용 ${dtoS.content}</div>
-				<div><img  width="50" src="/photo/"/>${dtoS.new_photo_name}</div>
+				<div>
+					<c:if test="${dto.new_photo_name eq null}">
+						<img  width="50" src="resources/photo/defaultIMG.png"/>
+					</c:if>
+					<c:if test="${dto.new_photo_name ne null}">
+						<img  width="50" src="resources/photo/${dto.new_photo_name}"/>
+					</c:if>
+				</div>
 			</div> 
 			
 			<div class="right-box">

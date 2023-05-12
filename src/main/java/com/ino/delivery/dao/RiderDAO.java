@@ -9,7 +9,7 @@ public interface RiderDAO {
 
 	ArrayList<RiderDTO> listRO();
 
-	RiderDTO dtoROD(String idx);
+	RiderDTO dtoROD(String delivery_offer_no);
 
 	ArrayList<RiderDTO> listDH();
 
