@@ -59,6 +59,8 @@ public interface MemberDAO {
 
 	String sigungu(String user_id);
 
+	
+	
 	ArrayList<MemberDTO> sigunguTopList(String sigungu);
 
 	ArrayList<MemberDTO> hitGallery();

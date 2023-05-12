@@ -28,8 +28,8 @@ public class MemberDTO {
 	private String gallery_subject;
 	private String gallery_date;
 	private int  gallery_hit;
- 	
-
+	private int sales_no;
+	private int gallery_no;
  	
  	
  	public String getNew_photo_name() {
@@ -198,6 +198,18 @@ public class MemberDTO {
 	}
 	public void setGallery_hit(int gallery_hit) {
 		this.gallery_hit = gallery_hit;
+	}
+	public int getSales_no() {
+		return sales_no;
+	}
+	public void setSales_no(int sales_no) {
+		this.sales_no = sales_no;
+	}
+	public int getGallery_no() {
+		return gallery_no;
+	}
+	public void setGallery_no(int gallery_no) {
+		this.gallery_no = gallery_no;
 	}
  
  	

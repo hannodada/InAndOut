@@ -60,6 +60,10 @@ public class MemberController {
 	}
 	
 	
+	
+	
+	
+	
 	@RequestMapping(value={"/afterLogin.go"})
 	public String afterhome(HttpSession session, Model model) {
 		
@@ -113,6 +117,24 @@ public class MemberController {
 
 		}
 		if(user_div.equals("c")) {
+			if(new_photo_name != null) {
+				
+				session.setAttribute("new_photo_name", new_photo_name);
+				//dto.setNew_photo_name(new_photo_name);
+				String new_photo_name2 =  (String) session.getAttribute("new_photo_name");
+				logger.info("(세션에저장된)라이더!!dtot사진!! 나온거!!! :  " +new_photo_name2);
+				
+				
+			}
+			if(new_photo_name == null) {
+				//session.setAttribute("user_id", user_id);
+				//dto.setUser_id(user_id);
+				logger.info("제발dto 유저 아이디좀 해줘 : "+user_id);
+				
+			}
+			
+		}
+		if(user_div.equals("d")) {
 			if(new_photo_name != null) {
 				
 				session.setAttribute("new_photo_name", new_photo_name);
@@ -186,32 +208,56 @@ public class MemberController {
 		   logger.info((String) session.getAttribute("new_photo_name"));
 		   logger.info((String) session.getAttribute("user_div_name"));
 	     
+		   
+		   //
+		   /*
 		   ArrayList<MemberDTO> list = service.normalTopList();
 			logger.info("topList:" + list.size());
 			model.addAttribute("list", list);
 			MemberDTO dto3 = new MemberDTO();
 			logger.info(dto3.getUser_id());
-			/*
+			*/
 			//조회수 높은 판매글
 			
+		   /*
 			ArrayList<MemberDTO> attentionTopList = service.attentionTopList();
 			model.addAttribute("attentionTopList",attentionTopList);
-			
+			*/
 			
 			
 			//조회수 순으로 갤러리(4개) 호출
 					ArrayList<MemberDTO> hitGallery = service.hitGallery();
 					model.addAttribute("hitGallery",hitGallery);
 			
-		   */
+		   
 		   
 	      return "home";
 	   }   
 	
 	
+	@RequestMapping(value="/join.ajax")
+	@ResponseBody
+	public HashMap<String, Object> join(
+	 @RequestParam("file1") MultipartFile file1,
+	    @RequestParam("file2") MultipartFile file2,
+		@RequestParam HashMap<String, String> params){
+		logger.info("params : {}",params);
+		 logger.info("file1 name : {}", file1.getOriginalFilename());
+		    logger.info("file2 name : {}", file2.getOriginalFilename());
+		// 파일 처리 로직
+		
+		
+		logger.info(" 파람 왓따! params : "+params);
+		MemberDTO dto = new MemberDTO();
+		logger.info("profile도 왔음 !! ㄷㄷ; : "+file1);
+		/* logger.info("bizprofile도 도착 : "+bizprofile); */
+		return  service.userRegist(file1, params, file2);
 	
 	
 	
+	}
+	
+	/*
 	@RequestMapping(value="/userRegist.do",method = RequestMethod.POST)
 		public String write(MultipartFile profile,  MultipartFile bizprofile,
 				@RequestParam HashMap<String, String> params) {
@@ -222,6 +268,7 @@ public class MemberController {
 		logger.info("bizprofile도 도착 : "+bizprofile);
 		return service.userRegist(profile, params,bizprofile);
 	}
+	*/
 	
 	@RequestMapping(value="/riderRegist.do",method = RequestMethod.POST)
 	public String riderwrite(MultipartFile profile,  MultipartFile bizprofile,

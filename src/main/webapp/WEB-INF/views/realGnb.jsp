@@ -7,6 +7,19 @@
 <link href="resources/css/realgnb.css" rel="stylesheet">
 <style>
 
+.popup {
+  position: absolute;
+  display: none;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  font-size: 14px;
+}
+
+.popup p {
+  margin: 0;
+}
+
 </style>
 <head>
 
@@ -62,8 +75,11 @@
 										 		      <div id="etc">
 														       <div id="location">
 																				            ${sessionScope.sigungu}
-															            <button  class="test_btn1">활동지역 인증</button>
-												           		 	
+															            <button class="test_btn1" onmouseover="showPopup()" onmouseout="hidePopup()">활동지역 인증</button>
+
+																			<div id="popup" class="popup">
+																			  <p>활동지역 인증 후 메인페이지로 이동합니다</p>
+																			</div>
 														      	</div>
 													  </div>    	
 														      
@@ -121,7 +137,7 @@
 														       <div id="location">
 																				            ${sessionScope.sigungu}
 															            <button  class="test_btn1">활동지역 인증</button>
-												           		 	
+												           		 			
 														      	</div>
 													  </div>    	
 														      
@@ -229,9 +245,12 @@
 											      <div class="logo">
 											      		<img src="resources/photo/로고2.png" onclick="location.href='logout.do'" >
 											      </div>
-														<a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-														<a href="$">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-														<a href="$">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+													<div id="banner">
+														<a href="#">관리자페이지 열기</a>
+														<a href="$">#</a>
+														<a href="$">#</a>
+													</div>			
+																									       
 											       <div class="nbsp">		     
 									 		      </div>
 										 		      <div id="etc">
@@ -376,6 +395,21 @@ function login(){
 	});
 
 }
+
+//활동지역  팝업
+function showPopup() {
+  var popup = document.getElementById("popup");
+  popup.style.display = "block";
+}
+
+function hidePopup() {
+  var popup = document.getElementById("popup");
+  popup.style.display = "none";
+}
+
+
+
+
 
 
 

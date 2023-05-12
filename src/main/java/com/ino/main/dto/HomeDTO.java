@@ -28,6 +28,14 @@ public class HomeDTO {
 	private String gallery_subject;
 	private String gallery_date;
 	private int  gallery_hit;
+	private int gallery_no;
+	private int sales_no;
+	
+	
+	//연습
+	
+	
+	
 	
  	public String getUser_id() {
 		return user_id;
@@ -184,6 +192,18 @@ public class HomeDTO {
 	}
 	public void setGallery_hit(int gallery_hit) {
 		this.gallery_hit = gallery_hit;
+	}
+	public int getGallery_no() {
+		return gallery_no;
+	}
+	public void setGallery_no(int gallery_no) {
+		this.gallery_no = gallery_no;
+	}
+	public int getSales_no() {
+		return sales_no;
+	}
+	public void setSales_no(int sales_no) {
+		this.sales_no = sales_no;
 	}
  	
  	

@@ -52,9 +52,10 @@ public class MemberService {
 	
 	
 	
-	public String userRegist(MultipartFile profile, HashMap<String, String> params, 
-			MultipartFile bizprofile) {
-		String page = "joinForm";
+	public HashMap<String, Object> userRegist(MultipartFile file1, HashMap<String, String> params, 
+			MultipartFile file2) {
+		
+		HashMap<String, Object> map = new HashMap<>();
 		
 		MemberDTO dto = new MemberDTO();
 		dto.setUser_id(params.get("user_id"));
@@ -72,9 +73,9 @@ public class MemberService {
 		
 
 		
-		if(!profile.getOriginalFilename().equals("")) {
+		if(!file1.getOriginalFilename().equals("")) {
 			logger.info("profile파일 업로드 작업");
-			fileSave(user_id, profile);
+			fileSave(user_id, file1);
 		}
 		//****  만약인증사용자 추가 정보가 들어오면 실행되는 구문
 		if(!params.get("store_name").equals("")) {
@@ -101,11 +102,12 @@ public class MemberService {
 		
 		
 		
-		if(!bizprofile.getOriginalFilename().equals("")) {
+		if(!file2.getOriginalFilename().equals("")) {
 			logger.info("bizprofile파일 업로드 작업");
-			bizfileSave(user_id, bizprofile);
+			bizfileSave(user_id, file2);
 		}
-		return page;
+		/* map.put("success", dao.join(params)); */
+		return map;
 	}
 	
 	

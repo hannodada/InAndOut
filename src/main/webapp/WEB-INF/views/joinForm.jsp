@@ -8,6 +8,13 @@
 <link rel="stylesheet" href="resources/css/joinform.css" type="text/css">
 <style>
 
+.file-preview-container img {
+  max-width: 300px;
+  max-height: 255px;
+}
+
+
+
 
 </style>
 <head>
@@ -32,7 +39,7 @@
 	<br>
 	
 	
-	<form action="userRegist.do" method="post" enctype="multipart/form-data">
+	<form action="userRegist.do" method="post" enctype="multipart/form-data"> 
 	<table>
 	
 	
@@ -68,10 +75,6 @@
 			</td>
 		</tr>
 		
-		<tr>
-			<th>*주소</th>
-			<td>
-			
 			<!-- <input type="text" name="post_num" id="post_num"/>
 			<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 				<script>
@@ -82,8 +85,12 @@
 				        }
 				    }).open();
 				</script> -->
-				<input type="text" id="sample6_postcode" name="post_num" placeholder="우편번호">
-				<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" id="findPost"><br>
+		<tr>
+			<th>*주소</th>
+			<td>
+			
+				<input type="text" id="sample6_postcode" name="post_num" placeholder="우편번호" pattern="[0-9]*" disabled>
+				<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" id="findPost">
 				
 				
 			
@@ -91,17 +98,17 @@
 		</tr>
 		<tr>
 		<td></td>
-		<td><input type="text" id="sample6_address" placeholder="주소" name="left_addr"><br></td>
+		<td><input type="text" id="sample6_address" placeholder="주소" name="left_addr" disabled><br></td>
 		</tr>
 		
 		
 		<tr>
 		
-			<th>*상세주소</th>
+			<th>상세주소</th>
 			<td>
 			<!-- <input type="text" name="left_addr" id="left_addr"/> -->
-			<input type="text" id="sample6_detailAddress"  placeholder="상세주소">
-			<input type="text" id="sample6_extraAddress" placeholder="참고항목">
+			<input type="text" id="sample6_detailAddress"  placeholder="상세주소" >
+			<input type="text" id="sample6_extraAddress" placeholder="참고항목" disabled>
 			<input type="hidden" id="sido" name="sido">
 			<input type="hidden" id="sigungu" name="sigungu">
 			</td>
@@ -109,17 +116,19 @@
 		
 		
 		<tr>
-			<th>*전화번호</th>
-			<td>
-			<select name="phone_num" id="phone_num">
-				    <option value="010">010</option>
-				    <option value="011">011</option>
-				    <option value="012">012</option>
-		  	</select>
-			<input name="phone_num" type="text" id="phone_num"/>
-			<input name="phone_num" type="text" id="phone_num"/>
-			</td>
-		</tr>
+			  <th>*전화번호</th>
+			  <td>
+			    <select name="phone_num1" id="phone_num1">
+			      <option value="010">010</option>
+			      <option value="011">011</option>
+			      <option value="012">012</option>
+			    </select>
+			    -
+			    <input name="phone_num2" type="text" id="phone_num2" maxlength="4"/>
+			    -
+			    <input name="phone_num3" type="text" id="phone_num3" maxlength="4"/>
+			  </td>
+			</tr>
 		<tr>
 			<th>*이메일</th>
 			<td><input type="text" name="email" id="email"/> 
@@ -190,7 +199,7 @@
 				    <button type="button">
 				    <div id="preview"><img id="preview" src="resources/photo/프로필 기본.png"/></div>
 				    
-				    <input type="file" name="profile" id="file" class="upload-box upload-plus" accept="image/*">
+				    <input type="file" name="profile" id="file1" class="upload-box upload-plus" accept="image/*">
 				    <div class="file-edit-icon">
 				    
 				      <!-- <a href="#" class="preview-edit">수정</a> -->
@@ -265,18 +274,21 @@
 		</tr>
 		
 		<tr>
-				<th>사업자등록증</th>
-				<td>
-					
-				 	<input type="file" onchange="workURL(this);" name="bizprofile"  >
-				 	<br>
-				 	<img id="previeww" />		
-			
-					<h6 id="des">※ 참고할 수 있는 파일을 10MB 용량 이하의 이미지, ZIP, PDF 등의 파일 형태로 첨부해주세요.
-					<br>
-					첨부파일 관련 URL주소가 있다면 상품 소개 입력창에 남겨주세요.
-					</h6>
-				</td>
+		  <th>사업자등록증</th>
+		  <td>
+		    <div class="file-preview-container">
+		      <input type="file" onchange="workURL(this);" name="bizprofile" id="file2">
+		      <br>
+		      <img id="previeww" />
+		      <button type="button" class="btn btn-sm btn-danger delete-file-button" style="display: none;">
+		        <i class="fas fa-trash-alt"></i>
+		      </button>
+		    </div>
+		    <h6 id="des">※ 참고할 수 있는 파일을 10MB 용량 이하의 이미지, ZIP, PDF 등의 파일 형태로 첨부해주세요.
+		      <br>
+		      첨부파일 관련 URL주소가 있다면 상품 소개 입력창에 남겨주세요.
+		    </h6>
+		  </td>
 		</tr>
 		<tr>
 			<td><br><br></td>
@@ -290,8 +302,8 @@
 		
 		<tr>
 			<th colspan="2">
-				<button type="button" class="test_btn2" onclick="join()">입력확인</button>
-				<button class="test_btn2" >등록</button>
+				<button type="button" class="test_btn2" onclick="join()">입력확인</button> 
+				<button class="test_btn2" onclick="join()">등록</button>
 				
 				<button type="button" onclick="location.href='./'" class="test_btn2">돌아가기</button>
 			</th>
@@ -302,8 +314,11 @@
 	<br>
 	<br>
 	<br>
-	</form>
+	 </form> 
 </body>
+
+
+
 <!--다음 주소 api  -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
@@ -313,95 +328,111 @@ var pweq = false;
 var overlayChk = false;
 var overlayChk2 = false;
 
-function join(){
-	
-	if(pweq && overlayChk && overlayChk2){
-		
-		var $user_id = $('#user_id');
-		var $user_pw = $('#user_pw');
-		var $user_name = $('#user_name');
-		var $nickname = $('#nickname');
-		var $post_num = $('#post_num');
-		var $phone_num = $('#phone_num');
-		var $email = $('#email');
-		var $interest_biz_id = $('#interest_biz_id');
-		/* var $file = ${'#file'}; */
-		
-		
-		if($user_id.val()==''){
-			alert('아이디를 입력해 주세요!');
-			$user_id.focus();
-		}else if($user_pw.val()==''){
-			alert('비밀번호를 입력해 주세요!');
-			$user_pw.focus();
-		}else if($user_name.val() == ''){
-			alert('이름을 입력해 주세요!');
-			$user_name.focus();
-		}else if($nickname.val() == ''){
-			alert('닉네임을 입력해 주세요!');
-			$nickname.focus();
-		}else if($post_num.val() == null){
-			alert('우편번호를 입력해 주세요!');
-		}else if($phone_num.val() == null){
-			alert('전화번호를 입력해 주세요!');
-		}else if($email.val() == ''){
-			alert('이메일 입력해 주세요!');
-			$email.focus();
-		}else if($interest_biz_id.val() == '.'){
-			alert('관심업종을 선택해 주세요!');
-		}else{
-			/* 이게 뭐지??? 일단은 남겨둠
-					
-			var param = {};
-			param.interest_biz_id = $interest_biz_id.val();
-			console.log(param);
-			*/
-			/*
-			var param = {};
-			param.user_id = $user_id.val();
-			param.user_pw = $user_pw.val();
-			param.user_name = $user_name.val();
-			param.nickname = $nickname.val();
-			param.post_num = $post_num.val();
-			param.phone_num = $phone_num.val();
-			param.email = $email.val();
-			param.interest_biz_id = $interest_biz_id.val();
-			
-			console.log(param);
-			
-			var formData = new FormData();
-			
-			formData.append("photo",file.files[0]);
-			
-			
-			 
-			$.ajax({
-				type:'post',
-				url:'join.ajax',
-				data:param,
-				dataType:'json',
-				success:function(data){
-					console.log(data);
-					if(data.success == 1){
-						alert('회원가입이 완료 되었습니다.');
-						location.href = './';
-					}else{
-						alert('회원가입에 실패 했습니다.\r\n 다시 시도해 주세요!');
-					}
-				},
-				error:function(e){
-					console.log(e);
-					alert('회원가입에 실패 했습니다.\r\n 다시 시도해 주세요!');
-				}
-			});
-			
-		*/
+function join() {
+	  if /* (pweq && overlayChk && overlayChk2) */(true) {
+	    var $user_id = $('#user_id');
+	    var $user_pw = $('#user_pw');
+	    var $user_name = $('#user_name');
+	    var $nickname = $('#nickname');
+	    var $post_num = $('#post_num');
+	    /* var $phone_num = $('#phone_num'); */
+	    var $email = $('#email');
+	    var $interest_biz_id = $('#interest_biz_id');
+	    var file1 = $('#file1')[0].files[0]; // 파일 업로드를 위한 input 태그
+	    var file2 = $('#file2')[0].files[0];
+	    
+	    
+	    var phone_num1 = $('#phone_num1').val();
+	    var phone_num2 = $('#phone_num2').val();
+	    var phone_num3 = $('#phone_num3').val();
+	    
+	    console.log(phone_num)
+
+	  
+	    console.log('phone_num')
+	      console.log(phone_num.val())
+	      
+	    
+	   var $post_numTest = $('#sample6_postcode');
+	    
+	    
+	    if ($user_id.val() == '') {
+	      alert('아이디를 입력해 주세요!');
+	      $user_id.focus();
+	    }/*  else if ($user_pw.val() == '') {
+	      alert('비밀번호를 입력해 주세요!');
+	      $user_pw.focus();
+	    } else if ($user_name.val() == '') {
+	      alert('이름을 입력해 주세요!');
+	      $user_name.focus();
+	    } else if ($nickname.val() == '') {
+	      alert('닉네임을 입력해 주세요!');
+	      $nickname.focus();
+	    }else if ($phone_num.val() == null) {
+	      alert('전화번호를 입력해 주세요!');
+	    } else if ($email.val() == '') {
+	      alert('이메일 입력해 주세요!');
+	      $email.focus();
+	    } else if ($interest_biz_id.val() == '.') {
+	      alert('관심업종을 선택해 주세요!');
+	    } */else {
+	    	
+	    	
+	      // FormData 객체 생성
+	      var formData = new FormData();
+	      formData.append('user_id', $user_id.val());
+	      formData.append('user_pw', $user_pw.val());
+	      formData.append('user_name', $user_name.val());
+	      formData.append('nickname', $nickname.val());
+	      formData.append('post_num', $post_num.val());
+	     /*  formData.append('phone_num', $phone_num.val()); */
+	      formData.append('email', $email.val());
+	      formData.append('interest_biz_id', $interest_biz_id.val());
+	      formData.append('file1', file1);
+	      formData.append('file2', file2);
+	      formData.append('phone_num1', phone_num1);
+	      formData.append('phone_num2', phone_num2);
+	      formData.append('phone_num3', phone_num3);
+	      
+	      
+	      console.log(formData);
+
+	      // ajax 요청
+	      $.ajax({
+	        url: 'join.ajax', // 파일을 업로드할 php 파일 경로
+	        type: 'POST',
+	        data: formData,
+	        processData: false,
+	        contentType: false,
+	        success: function (data) {
+	          console.log(data);
+	        },
+	        error: function (xhr, status, error) {
+	          console.log(xhr.responseText);
+	        }
+	        
+	      });
+	      
 		}
 		
 	}else{
 		alert('아이디 중복 체크와 비밀번호 확인을 해 주세요');
 	}	
 }
+$(function() {
+    // 주소 입력값이 한글인 경우 숫자로 입력해달라는 안내 메시지를 띄우는 함수
+    function checkAddress() {
+      var address = $('#sample6_address').val();
+      if (/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(address)) {
+        $('#address_alert').show();
+      } else {
+        $('#address_alert').hide();
+      }
+    }
+    
+    // 주소 입력값이 변경될 때마다 checkAddress 함수를 실행
+    $('#sample6_address').on('input', checkAddress);
+  });
 
 
 $('#overlay').on('click',function(e){	
@@ -467,6 +498,103 @@ $('#confirm').on('keyup',function(e){
 });
 
 
+
+
+function sample6_execDaumPostcode() {
+	  // 우편번호 찾기 실행
+	  new daum.Postcode({
+	    oncomplete: function(data) {
+	      // 우편번호 입력란에 값 할당
+	      document.getElementById('sample6_postcode').value = data.zonecode;
+	      // 주소 입력란에 값 할당
+	      document.getElementById('sample6_address').value = data.address;
+	      // 상세주소 입력란 활성화
+	      document.getElementById('sample6_detailAddress').disabled = false;
+	      document.getElementById('sample6_extraAddress').disabled = false;
+	      // 시/도, 시/군/구 정보 입력란에 값 할당
+	      document.getElementById('sido').value = data.sido;
+	      document.getElementById('sigungu').value = data.sigungu;
+	    }
+	  }).open();
+	}
+	
+/*  
+//api 입력하고 나서 상세주소를 입력할 수 있도록
+function execDaumPostcode() {
+  new daum.Postcode({
+    oncomplete: function(data) {
+      var fullAddr = ''; 
+      var extraAddr = '';
+
+      if (data.userSelectedType === 'R') {
+        fullAddr = data.roadAddress;
+      } else {
+        fullAddr = data.jibunAddress;
+      }
+
+      if (data.userSelectedType === 'R') {
+        if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+          extraAddr += data.bname;
+        }
+
+        if (data.buildingName !== '' && data.apartment === 'Y') {
+          extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+        }
+
+        if (extraAddr !== '') {
+          extraAddr = ' (' + extraAddr + ')';
+        }
+
+        document.getElementById('sample6_extraAddress').value = extraAddr;
+      } else {
+        document.getElementById('sample6_extraAddress').value = '';
+      }
+
+      document.getElementById('sample6_postcode').value = data.zonecode;
+      document.getElementById('sample6_address').value = fullAddr;
+      document.getElementById('sample6_detailAddress').value = '';
+      document.getElementById('sample6_detailAddress').readOnly = false;
+      document.getElementById('sample6_detailAddress').focus();
+    }
+  }).open();
+}
+
+document.getElementById('sample6_detailAddress').readOnly = true;
+
+*/	
+
+
+
+//사업자 등록증 삭제 기능
+
+function handleFileSelect(event) {
+  var input = this;
+  if (input.files && input.files.length) {
+    var reader = new FileReader();
+    var $previewContainer = $(input).closest('.file-preview-container');
+    var $previewImage = $previewContainer.find('img');
+    var $deleteButton = $previewContainer.find('.delete-file-button');
+    
+    $deleteButton.show();
+    $deleteButton.off('click');
+    $deleteButton.on('click', function() {
+      $previewContainer.find('img').attr('src', '');
+      $(input).val('');
+      $deleteButton.hide();
+    });
+    
+    reader.onload = (function (e) {
+      $previewImage.attr('src', e.target.result);
+    });
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+$(document).ready(function() {
+  $('#file1').change(handleFileSelect);
+});
+
+
 //파일 미리보기!
 console.log()
 function handleFileSelect(event) {
@@ -482,14 +610,69 @@ function handleFileSelect(event) {
         reader.readAsDataURL(input.files[0]);
     }
 }
-$('#file').change(handleFileSelect);
+$('#file1').change(handleFileSelect);
 $('.file-edit-icon').on('click', '.preview-de', function () {
     $("#preview").empty()
-    $("#file").val("");
+    $("#file1").val("");
 });
 $('.preview-edit').click( function() {
-  $("#file").click();
+  $("#file1").click();
 } );
+
+//원하는 크기로
+
+function handleFileSelect(event) {
+    var input = this;
+    console.log(input.files)
+    if (input.files && input.files.length) {
+        var reader = new FileReader();
+        this.enabled = false
+        reader.onload = (function (e) {
+            var img = new Image();
+            img.onload = function() {
+                var canvas = document.createElement("canvas");
+                var ctx = canvas.getContext("2d");
+                var MAX_WIDTH = 300; // 변경할 가로 크기
+                var MAX_HEIGHT = 300; // 변경할 세로 크기
+                var width = img.width;
+                var height = img.height;
+
+                if (width > height) {
+                    if (width > MAX_WIDTH) {
+                        height *= MAX_WIDTH / width;
+                        width = MAX_WIDTH;
+                    }
+                } else {
+                    if (height > MAX_HEIGHT) {
+                        width *= MAX_HEIGHT / height;
+                        height = MAX_HEIGHT;
+                    }
+                }
+
+                canvas.width = width;
+                canvas.height = height;
+                ctx.drawImage(img, 0, 0, width, height);
+                var dataurl = canvas.toDataURL("image/jpeg"); // 이미지를 JPEG 형식으로 변환
+                $("#preview").html(['<img class="thumb" src="', dataurl, '" title="', escape(e.name), '"/>'].join(''));
+            }
+            img.src = e.target.result;
+        });
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+$('#file1').change(handleFileSelect);
+$('.file-edit-icon').on('click', '.preview-de', function () {
+    $("#preview").empty()
+    $("#file1").val("");
+});
+
+$('.preview-edit').click( function() {
+    $("#file1").click();
+});
+
+//사업자 등록증 미리보기 및 삭제 코드
+
 
 
 // 사업자 등록증!	

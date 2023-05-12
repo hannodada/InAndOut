@@ -152,7 +152,7 @@
 	
 	<!--  조회수 높은 판매글-->
 	<select id="attentionTopList" 
-	resultType="com.ino.main.dto.HomeDTO">
+	resultType="com.ino.member.dao.MemberDAO">
 	SELECT s.sales_no, s.sales_state, s.subject, s.price, s.sales_sido, s.sigungu, s.hit, s.user_id, u.nickname, s.date, p.new_photo_name, s.biz_id, b.biz_name, s.goods_id, g.goods_name
       FROM sales s 
       LEFT JOIN sales s2 ON s2.blind = '0'

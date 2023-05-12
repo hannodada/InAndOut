@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.ino.main.dao.HomeDAO;
 import com.ino.main.dto.HomeDTO;
+import com.ino.member.dto.MemberDTO;
 
 
 
@@ -34,10 +35,6 @@ public class HomeService {
 		return dao.normalTopList();
 	}
 
-	public ArrayList<String> findTopPhoto(String top1, String top2, String top3, String top4, String top5) {
-		
-		return dao.findTopPhoto(top1,top2,top3,top4,top5);
-	}
 
 	public ArrayList<HomeDTO> hitGallery() {
 		
@@ -48,6 +45,41 @@ public class HomeService {
 		
 		return dao.attentionTopList();
 	}
+
+	
+	//home연습
+	
+	public String afterList(String user_id) {
+		
+		return dao.afterList(user_id);
+	}
+	
+	
+public String userCategory(String user_id) {
+		
+		return dao.userCategory(user_id);
+	}
+
+	public String interest_biz_id(String user_id) {
+		
+		return dao.interest_biz_id(user_id);
+	}
+
+	public ArrayList<HomeDTO> memberAttentionTopList(String interest_biz_id) {
+		
+		return dao.memberAttentionTopList(interest_biz_id);
+	}
+
+	public String sigungu(String user_id) {
+		
+		return dao.sigungu(user_id);
+	}
+
+	public ArrayList<HomeDTO> sigunguTopList(String sigungu) {
+		
+		return dao.sigunguTopList(sigungu);
+	}
+
 
 	
 
