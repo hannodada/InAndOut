@@ -15,14 +15,28 @@
  </head>
 
 <form action="userAuth.do" method="post">
+	
 <input type="hidden" name="user_id" value="${riderSetting.user_id}"/>
 <input type="hidden" name="user_pw" value="${riderSetting.user_pw}"/>
 	<header>
-	  <nav id="nav">
-	   <a href="riderPage" >프로필</a>
-	   <a href="riderSetting.do" style="color:blue; text-decoration: underline;">회원정보수정</a>
+	  <nav id="nav" style="position: fixed;">
+	   <a href="myPage.go">모아보기</a>
+	   <a href="mySales.go">판매글</a>
+	   <a href="myGallery.go">갤러리</a>
+	   <a href="mySalesJjim.go">관심판매글</a>
+	   <a href="myGalleryJjim.go">찜한갤러리</a>
+	   <a href="userAuth.go" style="color:blue; text-decoration: underline;">설정</a>
+	   
+	   
 	  </nav>
+	  	<nav id="userauth" style="position: fixed;">
+		<a href="userAuth.go" style="color:blue; text-decoration: underline;">회원정보수정</a>
+		<a href="userBiz.go">인증판매자등록</a>
+		</nav>
 	</header>
+
+	
+	
 	<h2 id="rdupdate" style="color: skyblue; display:block;">비밀번호 인증</h2>
 	
 	<div style="float:left; margin-right:10px;">
@@ -33,7 +47,7 @@
 		</div>
 		
 	<div id="riderupdatebutton2">
-	<input type="button" onclick="location.href='./riderPage'" value="돌아가기"/>
+	<input type="button" onclick="location.href='./myPage.go'" value="돌아가기"/>
 	<button>저장</button>
 	</div>
 	</form>
