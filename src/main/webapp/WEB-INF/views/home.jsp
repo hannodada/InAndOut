@@ -172,7 +172,7 @@
 			     		 		<img src="resources/photo/프로필 기본.png" id="profileUser" onclick="location.href='profile.go'">
 	     				</c:if>
 			     		 <c:if test="${bbs.new_photo_name ne null}">
-			     		 		<img src="resources/photo/${bbs.new_photo_name}" id="profileUser" onclick="location.href='profile.go'">
+			     		 		<img src="resources/photo/${new_photo_name}" id="profileUser" onclick="location.href='profile.go'">
 	     				</c:if>
      				</c:forEach>
 			</td>

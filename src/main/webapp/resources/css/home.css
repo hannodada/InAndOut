@@ -102,10 +102,10 @@
     box-sizing: border-box;
 	}
 	
-		a:visited{
+		#nav a:visited{
 			color:gray;
 		}
-		a{
+		#nav a{
 			color:gray;
 			text-decoration: none;
 		}
@@ -129,7 +129,7 @@
 		position: absolute;
 		height: 70%;
 		width: 70%;
-		margin: -150px 0px 0px -200px;
+		margin: -100px 0px 0px -200px;
 		top: 50%;
 		left: 40%;
 		padding: 5px;
@@ -139,7 +139,7 @@
 		position: absolute;
 		height: 70%;
 		width: 70%;
-		margin: -150px 0px 0px -200px;
+		margin: -100px 0px 0px -200px;
 		top: 50%;
 		left: 70%;
 		padding: 5px;
@@ -149,8 +149,8 @@
 		position: absolute;
 		height: 70%;
 		width: 70%;
-		margin: -150px 0px 0px -200px;
-		top: 70%;
+		margin: -90px 0px 0px -200px;
+		top: 60%;
 		left: 40%;
 		padding: 5px;
 		}
@@ -159,8 +159,8 @@
 		position: absolute;
 		height: 70%;
 		width: 70%;
-		margin: -150px 0px 0px -200px;
-		top: 90%;
+		margin: -90px 0px 0px -200px;
+		top: 70%;
 		left: 40%;
 		padding: 5px;
 		}
@@ -169,7 +169,7 @@
 		position: absolute;
 		height: 70%;
 		width: 70%;
-		margin: -150px 0px 0px -200px;
+		margin: -140px 0px 0px -200px;
 		top: 50%;
 		left: 40%;
 		padding: 5px;
@@ -179,8 +179,142 @@
 		position: absolute;
 		height: 70%;
 		width: 70%;
-		margin: -150px 0px 0px -200px;
-		top: 80%;
+		margin: -100px 0px 0px -200px;
+		top: 100%;
 		left: 40%;
 		padding: 5px;
 		}
+
+		#star001{
+		position: absolute;
+		height: 70%;
+		width: 70%;
+		margin: 0px 0px 0px -200px;
+		top: 70%;
+		left: 40%;
+		padding: 5px;
+		}
+		#star002{
+		position: absolute;
+		height: 70%;
+		width: 70%;
+		margin: 90px 0px 0px -200px;
+		top: 70%;
+		left: 40%;
+		padding: 5px;
+		}
+		#star003{
+		position: absolute;
+		height: 70%;
+		width: 70%;
+		margin: 150px 0px 0px -200px;
+		top: 70%;
+		left: 40%;
+		padding: 5px;
+		}
+
+		input.updatebutton {
+		top: 60%;
+		left:70%;
+		position: absolute;
+    color: white;
+    background: #4C8FFB;
+    border: 1px #3079ED solid;
+    box-shadow: inset 0 1px 0 #80B0FB;
+		}
+		
+		input.updatebutton:hover {
+		    border: 1px #2F5BB7 solid;
+		    box-shadow: 0 1px 1px #EAEAEA, inset 0 1px 0 #5A94F1;
+		    background: #3F83F1;
+		}
+		
+		button.updatebutton:active {
+		    box-shadow: inset 0 2px 5px #2370FE;   
+		}
+		
+		#rdupdate{
+			position: absolute;
+			top: 30%;
+			left: 53%;
+		}
+		#rdidupdate{
+			position: absolute;
+			top: 45%;
+			left: 50%;
+		}
+		#rdnnupdate{
+			position: absolute;
+			top: 50%;
+			left: 50%;
+		}
+		#riderAuth{
+			position: absolute;
+			top: 40%;
+			left: 51%;
+		}
+		#oripassword{
+			position: absolute;
+			top: 45%;
+			left: 52%;
+		}
+		#rdpwupdate{
+			position: absolute;
+			top: 60%;
+			left: 50%;
+		}
+		#rdpwupdatecheck{
+			position: absolute;
+			top: 65%;
+			left: 50%;
+		}
+		#rdaddrupdate{
+			position: absolute;
+			top: 70%;
+			left: 50%;
+		}
+		#rdsaddrupdate{
+			position: absolute;
+			top: 75%;
+			left: 50%;
+		}
+		#rdemailupdate{
+			position: absolute;
+			top: 85%;
+			left: 50%;
+		}
+		#rdphupdate{
+			position: absolute;
+			top: 90%;
+			left: 50%;
+		}
+		#rdinterestupdate{
+			position: absolute;
+			top: 95%;
+			left: 50%;
+		}
+		#rdphotoupdate{
+		position: absolute;
+			top: 100%;
+			left: 50%;
+		}
+		
+	#riderupdatebutton{
+	position: absolute;
+			top: 60%;
+			left: 70%;
+	}
+	#riderupdatebutton2{
+		position: absolute;
+			top: 60%;
+			left: 55%;
+	}
+	#riderupdatebutton3{
+		position: absolute;
+			top: 105%;
+			left: 57%;
+	}
+	#star001pic{
+	width: 100px;
+	}
+	

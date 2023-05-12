@@ -16,6 +16,7 @@ table, th, td{
 </style>
 </head>
 <body>
+	<jsp:include page="realGnb.jsp"/>
 		<c:if test="${biz_id ne null}">
 			<input type="text" id="biz_id" name="biz_id" value="${biz_id}" hidden="true"/>
 			<input type="text" id="biz_name" value="${biz_name}" readonly="readonly"/>

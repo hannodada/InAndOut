@@ -38,11 +38,15 @@ public class MypageDTO {
 	   private String biz_name;
 	   private String goods_name;
 	   private String gallery_subject;
+	   private int photo_no;
+		private String ori_photo_name;
+		private String photo_div;
+		private String cate_no;
 
 	
 	
 	
-	
+
 	
 	public String getUser_id() {
 		return user_id;
@@ -102,7 +106,7 @@ public class MypageDTO {
 		return email;
 	}
 	public void setEmail(String email) {
-		this.email = email;
+		this.email = email.substring(0, email.indexOf("@"));
 	}
 	public String getUser_state() {
 		return user_state;
@@ -241,6 +245,30 @@ public class MypageDTO {
 	}
 	public void setGallery_subject(String gallery_subject) {
 		this.gallery_subject = gallery_subject;
+	}
+	public int getPhoto_no() {
+		return photo_no;
+	}
+	public void setPhoto_no(int photo_no) {
+		this.photo_no = photo_no;
+	}
+	public String getOri_photo_name() {
+		return ori_photo_name;
+	}
+	public void setOri_photo_name(String ori_photo_name) {
+		this.ori_photo_name = ori_photo_name;
+	}
+	public String getPhoto_div() {
+		return photo_div;
+	}
+	public void setPhoto_div(String photo_div) {
+		this.photo_div = photo_div;
+	}
+	public String getCate_no() {
+		return cate_no;
+	}
+	public void setCate_no(String cate_no) {
+		this.cate_no = cate_no;
 	}
 	
 	

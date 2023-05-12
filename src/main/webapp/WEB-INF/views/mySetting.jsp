@@ -13,12 +13,12 @@
 <form action="/" method="get">
 	<header>
 	  <nav>
-	   <a href="/">모아보기</a>
-	   <a href="mySales">판매글</a>
-	   <a href="myGallery">갤러리</a>
-	   <a href="mySalesJjim">관심판매글</a>
-	   <a href="myGalleryJjim">찜한갤러리</a>
-	   <a href="mySetting" style="color:blue; text-decoration: underline;">설정</a>
+	   <a href="myPage.go">모아보기</a>
+	   <a href="mySales.go">판매글</a>
+	   <a href="myGallery.go">갤러리</a>
+	   <a href="mySalesJjim.go">관심판매글</a>
+	   <a href="myGalleryJjim.go">찜한갤러리</a>
+	   <a href="userAuth.go" style="color:blue; text-decoration: underline;">설정</a>
 	  </nav>
 	</header>
 

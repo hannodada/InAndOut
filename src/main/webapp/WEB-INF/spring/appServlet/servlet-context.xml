@@ -51,7 +51,5 @@
 	<!-- mybatis area -->
 
 	<mybatis-spring:scan base-package="com.ino.**.DAO"/>
-
 	<mybatis-spring:scan base-package="com.ino.**.dao"/>
-	
 </beans:beans>

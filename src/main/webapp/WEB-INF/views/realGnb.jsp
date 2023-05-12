@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
   <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -63,47 +62,32 @@
 														       <div id="location">
 																				            거주  지역
 															            <button  class="test_btn1">활동지역 인증</button>
-												           		 	
 														      	</div>
 													  </div>    	
-														      
 														     	<div  id="lol">
-														     		
-														     		 
-														     		  
 																	<img src="resources/photo/logout.png" id="logout" onclick="location.href='logout.do'">
 																	<img src="resources/photo/free-icon-letter-1250663.png" id="chating" onclick="location.href='chat.go'">
 															 
 															 		 <c:if test="${sessionScope.new_photo_name eq null}">
-														     		 <img src="resources/photo/프로필 기본.png" id="profileNomal" onclick="location.href='myPage.go'">
+
+														     		 <img src="resources/photo/프로필 기본.png" id="profileNomal" onclick="location.href='myPage.go?loginId=${sessionScope.loginId}'">
 														     		 </c:if>
 														     		 
 														     		 <c:if test="${sessionScope.new_photo_name ne null}">
-														     		 <img src="resources/photo/${sessionScope.new_photo_name}" id="profileUser" onclick="location.href='myPage.go'">
+														     		 <img src="resources/photo/${sessionScope.new_photo_name}" id="profileUser" onclick="location.href='myPage.go?loginId=${sessionScope.loginId}'">
 														     		 </c:if>
 															 
 															 		  <div class="dropdown">
 																    <button  class="test_btn1">글쓰기</button>
 																    <div class="dropdown-content">
 																      <a href="salesWrite.go" id="drop">판매글 등록</a>
-																      <a href="galleryWrite.go"  id="drop">갤러리 등록</a>
-																      
-																      
-																      
+																      <a href="galleryWrite.go"  id="drop">갤러리 등록</a>		      
 																    </div>
-																  </div>
-															 
-															 
-															 
+																  </div>													 
 															 </div>
-															 
-															 			
-																    
-															 
-															 
+			 
 													 </div>
-												
-										</nav>
+													 </nav>
 									</c:if>
 								</c:if>
 								<c:if test="${sessionScope.user_div eq \"b\" }">
@@ -133,11 +117,12 @@
 																	<img src="resources/photo/free-icon-letter-1250663.png" id="chating" onclick="location.href='chat.go'">
 															 
 															 		 <c:if test="${sessionScope.new_photo_name eq null}">
-														     		 <img src="resources/photo/프로필 기본.png" id="profileNomal" onclick="location.href='myPage.go'">
+														     		 <img src="resources/photo/프로필 기본.png" id="profileNomal" onclick="location.href='myPage.go?loginId=${sessionScope.loginId}'">
 														     		 </c:if>
 														     		 
 														     		 <c:if test="${sessionScope.new_photo_name ne null}">
-														     		 <img src="resources/photo/${sessionScope.new_photo_name}" id="profileUser" onclick="location.href='myPage.go'">
+														     		 
+														     		 <img src="resources/photo/${sessionScope.new_photo_name}" id="profileUser" onclick="location.href='myPage.go?loginId=${sessionScope.loginId}'">
 														     		 </c:if>
 															 
 															 		  <div class="dropdown">
@@ -193,30 +178,20 @@
 															 
 															 
 															 		 <c:if test="${sessionScope.new_photo_name eq null}">
-														     		 <img src="resources/photo/프로필 기본.png" id="profileNomal" onclick="location.href='riderPage.go'">
+														     		 <img src="resources/photo/프로필 기본.png" id="profileNomal" onclick="location.href='riderPage?loginId=${sessionScope.loginId}'">
 														     		 </c:if>
 														     		 
 														     		 <c:if test="${sessionScope.new_photo_name ne null}">
-														     		 <img src="resources/photo/${sessionScope.new_photo_name}" id="profileUser" onclick="location.href='riderPage.go'">
+														     		 <img src="resources/photo/${sessionScope.new_photo_name}" id="profileUser" onclick="location.href='riderPage?loginId=${sessionScope.loginId}'">
 														     		 </c:if>
-															 
-															 
-															 
 															 </div>
-															 
-															 
-															 
 																      <div class="dropdown">
 																   
 																      
 																      
 																      
 																    </div>
-																  </div>
-															 
-															 
-													 </div>
-												
+																  </div>												
 										</nav>
 									</c:if>
 								 

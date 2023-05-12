@@ -353,40 +353,6 @@ function join(){
 			var param = {};
 			param.interest_biz_id = $interest_biz_id.val();
 			console.log(param);
-			/*
-			var param = {};
-			param.user_id = $user_id.val();
-			param.user_pw = $user_pw.val();
-			param.user_name = $user_name.val();
-			param.nickname = $nickname.val();
-			param.post_num = $post_num.val();
-			param.phone_num = $phone_num.val();
-			param.email = $email.val();
-			param.interest_biz_id = $interest_biz_id.val();
-			
-			console.log(param);
-			
-			 
-			$.ajax({
-				type:'post',
-				url:'join.ajax',
-				data:param,
-				dataType:'json',
-				success:function(data){
-					console.log(data);
-					if(data.success == 1){
-						alert('회원가입이 완료 되었습니다.');
-						location.href = './';
-					}else{
-						alert('회원가입에 실패 했습니다.\r\n 다시 시도해 주세요!');
-					}
-				},
-				error:function(e){
-					console.log(e);
-					alert('회원가입에 실패 했습니다.\r\n 다시 시도해 주세요!');
-				}
-			});
-			*/
 		}
 		
 		
@@ -448,6 +414,8 @@ $('#overlay2').on('click',function(e){
 });
 
 $('#confirm').on('keyup',function(e){
+	console.log('confirm_password: '+$('#confirm'));
+	console.log('newpassword: '+$('#user_pw'));
 	if($('#user_pw').val() == $(this).val()){
 		$('#msg').css({'font-size': '10px', 'color': 'darkgreen'});
 		$('#msg').html('비밀번호가 일치 합니다.');
