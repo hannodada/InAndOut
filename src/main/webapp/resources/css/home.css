@@ -1,0 +1,320 @@
+@charset "UTF-8";
+
+*{
+    margin: 0;
+    padding: 0;
+}
+.main-box {
+    width: 100%;
+    height: 1000px;
+    background-color:white;
+}
+.profile-box {
+    margin-top: 20px;
+    text-align: center;
+    top: 150px;
+}
+.title-name,.title-nickname {
+		
+    margin: 20px;
+    text-align: center;
+    font-family: "Noto Sans Kr"
+    top: 80px;
+}
+.content {
+/*    margin: 20px;*/
+    position: absolute;
+    top: 320px;
+    left: 50px;
+    line-height: 1.5;
+    text-align: justify;
+}
+.content>p{
+    margin-top: 5px;
+    font-family: "Noto Sans Kr";
+    font-size: 18px;
+}
+.content>img{
+		position: relative;
+    margin-top: 5px;
+    font-family: "Noto Sans Kr";
+    font-size: 18px;
+    left: 60px;
+}
+.profile-box {
+    width: 18%;
+    height: 430px;
+    position: absolute;
+    left: 30px;
+    top: 100px;
+    border: 2px gray solid;
+}
+.parent{
+	    width: 90%;
+	    margin: 10px auto;
+	}
+
+	.pfirst {
+	    float: left;
+	    width:70px;
+	    box-sizing: border-box;
+	}
+	
+	.psecond{
+	    float: left;
+	    margin-left: 5%;
+	    width:70px;
+	    box-sizing: border-box;
+	}
+
+	.pthird{
+	    float: right;
+	    width:50%;
+	    box-sizing: border-box;
+	    margin-right: -35px;
+	}
+	
+	.child{
+	    width: 90%;
+	    margin: 10px auto;
+	    top: 50px;
+	}
+
+	.cfirst {
+	    float: left;
+	    margin-left: 10%;
+	    width:60px;
+	    box-sizing: border-box;
+	}
+	
+	.csecond {
+    float: left;
+    margin-left: 7%;
+    width:60px;
+    box-sizing: border-box;
+    
+	}
+
+	.cthird {
+    float: right;
+    margin-right: -20%;
+    width: 30%;
+    box-sizing: border-box;
+	}
+	
+		#nav a:visited{
+			color:gray;
+		}
+		#nav a{
+			color:gray;
+			text-decoration: none;
+		}
+		header {
+			 position: fixed;
+		  top: 80px;
+		  /* width: 100% */
+		  left: 350px;
+		  right: 0;
+		  height: 75px;
+		  padding: 1rem;
+		  color: white;
+		  font-weight: bold;
+		  display: flex;
+		  justify-content: space-between;
+		  align-items: center;
+		  word-spacing: 20px;
+		}
+		
+		#runtime{
+		position: absolute;
+		height: 70%;
+		width: 70%;
+		margin: -100px 0px 0px -200px;
+		top: 50%;
+		left: 40%;
+		padding: 5px;
+		}
+		
+		#location{
+		position: absolute;
+		height: 70%;
+		width: 70%;
+		margin: -100px 0px 0px -200px;
+		top: 50%;
+		left: 70%;
+		padding: 5px;
+		}
+		
+		#intro{
+		position: absolute;
+		height: 70%;
+		width: 70%;
+		margin: -90px 0px 0px -200px;
+		top: 60%;
+		left: 40%;
+		padding: 5px;
+		}
+		
+		#news{
+		position: absolute;
+		height: 70%;
+		width: 70%;
+		margin: -90px 0px 0px -200px;
+		top: 70%;
+		left: 40%;
+		padding: 5px;
+		}
+		
+		#userdetailsales{
+		position: absolute;
+		height: 70%;
+		width: 70%;
+		margin: -140px 0px 0px -200px;
+		top: 50%;
+		left: 40%;
+		padding: 5px;
+		}
+		
+		#userdetailgallery{
+		position: absolute;
+		height: 70%;
+		width: 70%;
+		margin: -100px 0px 0px -200px;
+		top: 100%;
+		left: 40%;
+		padding: 5px;
+		}
+
+		#star001{
+		position: absolute;
+		height: 70%;
+		width: 70%;
+		margin: 0px 0px 0px -200px;
+		top: 70%;
+		left: 40%;
+		padding: 5px;
+		}
+		#star002{
+		position: absolute;
+		height: 70%;
+		width: 70%;
+		margin: 90px 0px 0px -200px;
+		top: 70%;
+		left: 40%;
+		padding: 5px;
+		}
+		#star003{
+		position: absolute;
+		height: 70%;
+		width: 70%;
+		margin: 150px 0px 0px -200px;
+		top: 70%;
+		left: 40%;
+		padding: 5px;
+		}
+
+		input.updatebutton {
+		top: 60%;
+		left:70%;
+		position: absolute;
+    color: white;
+    background: #4C8FFB;
+    border: 1px #3079ED solid;
+    box-shadow: inset 0 1px 0 #80B0FB;
+		}
+		
+		input.updatebutton:hover {
+		    border: 1px #2F5BB7 solid;
+		    box-shadow: 0 1px 1px #EAEAEA, inset 0 1px 0 #5A94F1;
+		    background: #3F83F1;
+		}
+		
+		button.updatebutton:active {
+		    box-shadow: inset 0 2px 5px #2370FE;   
+		}
+		
+		#rdupdate{
+			position: absolute;
+			top: 30%;
+			left: 53%;
+		}
+		#rdidupdate{
+			position: absolute;
+			top: 45%;
+			left: 50%;
+		}
+		#rdnnupdate{
+			position: absolute;
+			top: 50%;
+			left: 50%;
+		}
+		#riderAuth{
+			position: absolute;
+			top: 40%;
+			left: 51%;
+		}
+		#oripassword{
+			position: absolute;
+			top: 45%;
+			left: 52%;
+		}
+		#rdpwupdate{
+			position: absolute;
+			top: 60%;
+			left: 50%;
+		}
+		#rdpwupdatecheck{
+			position: absolute;
+			top: 65%;
+			left: 50%;
+		}
+		#rdaddrupdate{
+			position: absolute;
+			top: 70%;
+			left: 50%;
+		}
+		#rdsaddrupdate{
+			position: absolute;
+			top: 75%;
+			left: 50%;
+		}
+		#rdemailupdate{
+			position: absolute;
+			top: 85%;
+			left: 50%;
+		}
+		#rdphupdate{
+			position: absolute;
+			top: 90%;
+			left: 50%;
+		}
+		#rdinterestupdate{
+			position: absolute;
+			top: 95%;
+			left: 50%;
+		}
+		#rdphotoupdate{
+		position: absolute;
+			top: 100%;
+			left: 50%;
+		}
+		
+	#riderupdatebutton{
+	position: absolute;
+			top: 60%;
+			left: 70%;
+	}
+	#riderupdatebutton2{
+		position: absolute;
+			top: 60%;
+			left: 55%;
+	}
+	#riderupdatebutton3{
+		position: absolute;
+			top: 105%;
+			left: 57%;
+	}
+	#star001pic{
+	width: 100px;
+	}
+	

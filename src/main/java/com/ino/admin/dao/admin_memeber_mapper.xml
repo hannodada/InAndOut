@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC   "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+
+<mapper namespace="com.ino.admin.dao.AdminMemberListDAO">
+
+	<select id="totalCount" parameterType="String" resultType ="int">
+		SELECT COUNT (u.user_id) FROM user u
+	</select>
+
+	<select id="totalCountUserdiv" parameterType="hashmap" resultType ="int">
+		SELECT COUNT (u.user_id) FROM user u 
+		left join user_div ud on u.user_div = ud.user_div
+		WHERE ud.user_div_name = #{user_div_name}
+	</select>
+	
+	<select id="totalCountUserstate" parameterType="hashmap" resultType ="int">
+		SELECT COUNT (u.user_id) FROM user u WHERE u.user_state = #{user_state}
+	</select>
+	
+	<select id="totalCountAll" parameterType="hashmap" resultType ="int">
+		SELECT COUNT (u.user_id) 
+		FROM user u
+		LEFT JOIN user_div ud ON u.user_div = ud.user_div 
+		WHERE ud.user_div_name = #{user_div_name} AND u.user_state = #{user_state}
+	</select>	
+	
+	<select id="totalCountSearch" parameterType="String" resultType ="int">
+		SELECT COUNT (u.user_id) FROM user u WHERE u.user_id = #{user_id} OR u.nickname = #{nickname}
+	</select>	
+	
+<!-- 회원 리스트 -->
+	<select id="list" resultType="com.ino.admin.dto.AdminMemberDTO">
+		SELECT u.user_id, u.nickname, ud.user_div_name, u.user_state
+		FROM user u 
+		JOIN user_div ud ON u.user_div = ud.user_div
+		LIMIT 10 OFFSET #{offset}
+	</select>	
+
+<!-- 회원 분류만 선택 된 경우  -->
+	<select id="listUserdiv" parameterType="hashmap" resultType ="String">
+		SELECT u.user_id, u.nickname, ud.user_div_name, u.user_state
+		FROM user u 
+		JOIN user_div ud ON u.user_div = ud.user_div
+		WHERE ud.user_div_name = #{user_div_name}
+		LIMIT 5 OFFSET #{offset}
+	</select>	
+
+<!-- 회원 상태만 선택 된 경우  -->
+	<select id="listUserstate" parameterType="hashmap" resultType ="String">
+		SELECT u.user_id, u.nickname, d.user_div_name, u.user_state
+		FROM user u 
+		JOIN user_div d ON u.user_div = d.user_div
+		WHERE u.user_state = #{user_state}
+		LIMIT 5 OFFSET #{offset}
+	</select>	
+
+<!-- 회원 분류, 상태 둘 다 선택한 경우 -->
+	<select id="listAll" parameterType="hashmap" resultType ="String">
+		SELECT u.user_id, u.nickname, d.user_div_name, u.user_state
+		FROM user u 
+		JOIN user_div d ON u.user_div = d.user_div
+		WHERE d.user_div_name = #{user_div_name} AND u.user_state = #{user_state}
+		LIMIT 5 OFFSET #{offset}
+	</select>	
+
+	<select id="listSearch" parameterType="hashmap" resultType ="String">
+		SELECT u.user_id, u.nickname, d.user_div_name, u.user_state
+		FROM user u 
+		JOIN user_div d ON u.user_div = d.user_div
+		WHERE user_id = #{user_id} OR nickname = #{nickname}
+		LIMIT 5 OFFSET #{offset}
+	</select>	
+	
+	
+<!-- 회원정보 상세보기 -->
+<select id="viewdetail" resultType="com.ino.admin.dto.AdminMemberDTO">
+	SELECT u.user_id, u.user_name, u.nickname, u.post_num, u.sido, u.sigungu, u.left_addr, u.phone_num, u.email, u.user_state, d.user_div_name, b.biz_name
+	FROM user u
+	JOIN user_div d ON u.user_div = d.user_div
+	JOIN biz b ON u.interest_biz_id = b.biz_id
+	where u.user_id = #{user_id}
+</select>
+
+<!-- 회원 추가 정보  -->
+<select id="viewdetailextra" resultType="com.ino.admin.dto.AdminMemberDTO">
+	select u.user_id, u.nickname, ae.biz_num, ae.biz, ae.store_name, ae.state, d.user_div_name,p.new_photo_name  
+	from user u 
+	left join user_div d on u.user_div = d.user_div 
+	left join auth_extra ae on u.user_id = ae.user_id 
+	left join photo p on p.photo_div = ae.user_id
+	where u.user_id = #{user_id}
+</select>	
+
+<!-- 회원 히스토리 리스트 -->
+<select id="userhistory" resultType="com.ino.admin.dto.AdminMemberDTO">
+	select uh.user_state ,uh.state_time, u.user_id ,u.nickname 
+	from user_history uh 
+	left join user u on uh.user_id = u.user_id
+	where u.user_id = #{user_id}
+</select>
+
+<!-- 인증사용자 리스트 -->
+<select id="authuserlist" resultType="com.ino.admin.dto.AdminMemberDTO">
+	SELECT u.user_id , u.nickname , ud.user_div_name, u.user_state 
+	FROM user u 
+	left join user_div ud on u.user_div = ud.user_div
+	left join auth_extra ae on u.user_id = ae.user_id
+	where u.user_div = 'a' and ae.state = '인증대기' 
+	AND ae.biz_num IS NOT NULL
+  AND ae.biz IS NOT NULL
+  AND ae.store_name IS NOT NULL
+	LIMIT 10 OFFSET #{offset}
+</select>
+
+<select id="atotalCount" parameterType="String" resultType ="int">
+	SELECT COUNT (u.user_id) 
+	FROM user u 
+	left join user_div ud on u.user_div = ud.user_div
+	left join auth_extra ae on u.user_id = ae.user_id
+	where u.user_div = 'a' and ae.state = '인증대기' 
+	AND ae.biz_num IS NOT NULL
+  AND ae.biz IS NOT NULL
+  AND ae.store_name IS NOT NULL
+</select>
+<!-- 인증사용자/일반으로 변경 -->
+<update id="userchange" parameterType="String">
+UPDATE user SET user_div = 
+  CASE
+    WHEN user_div = 'a' THEN 'b'
+    WHEN user_div = 'b' THEN 'a'
+    ELSE user_div
+  END
+WHERE user_id = #{user_id} AND (user_div = 'a' OR user_div = 'b')
+</update>
+
+
+<!-- 회원 상태변경 시 사유 작성 -->
+<insert id="updateUserState" parameterType="hashmap">
+		INSERT INTO user_history(user_id,admin_id,user_state,user_content)
+			VALUES(#{user_id},#{admin_id},#{user_state},#{user_content})
+</insert>
+
+<!-- 회원 상태변경 -->
+<update id="userStatechange" parameterType="String">
+    UPDATE user
+    SET user_state = #{param2}
+    WHERE user_id = #{param1}
+</update>
+
+
+<!-- 일반에서 인증사용자로 변경 시 히스토리 작성 -->
+<insert id="history_userstate" parameterType="hashmap">
+		INSERT INTO user_history(user_id,admin_id,user_content)
+			VALUES(#{user_id},#{admin_id},#{user_content})
+</insert>
+
+<!-- -->
+<select id="uhistorydetail" resultType="com.ino.admin.dto.AdminMemberDTO">
+select uh.user_state ,uh.state_time, u.user_id ,u.nickname , uh.user_state, uh.admin_id ,uh.user_content 
+from user_history uh 
+left join user u on uh.user_id = u.user_id
+where u.user_id = #{user_id} and uh.user_state =#{user_state} and uh.state_time =#{state_time}
+</select>
+	
+	
+	
+<!-- 라이더 -->	
+	
+
+<!-- 라이더 인증/반려 리스트 -->	
+<select id="riderlist" resultType="com.ino.admin.dto.AdminMemberDTO">
+	SELECT u.user_id, u.nickname, d.user_div_name, u.user_state
+	FROM user u 
+	join user_div d on u.user_div = d.user_div
+	WHERE d.user_div = 'c' AND user_state = '가입대기'
+	LIMIT 10 OFFSET #{offset}
+
+</select>		
+
+
+	<select id="rtotalCount" parameterType="String" resultType ="int">
+		SELECT COUNT (u.user_id) FROM user u 
+		join user_div d on u.user_div = d.user_div
+		WHERE d.user_div = 'c' AND user_state = '가입대기'
+	</select>
+	
+<!-- 라이더 상세보기 -->
+<select id="riderdetail" resultType="com.ino.admin.dto.AdminMemberDTO">
+	SELECT u.user_id, u.user_name, u.nickname, u.post_num, u.sido, u.sigungu, u.left_addr, u.phone_num, u.email, u.user_state, d.user_div_name
+	FROM user u
+	JOIN user_div d ON u.user_div = d.user_div
+	where u.user_id = #{user_id}
+
+</select>
+
+<!-- 라이더 추가정보 -->
+<select id="riderdetailextra" resultType="com.ino.admin.dto.AdminMemberDTO">
+	select u.user_id , u.nickname ,re.store_name, d.user_div_name , re.biz_num, p.new_photo_name 
+	from user u
+	left join user_div d on u.user_div = d.user_div 
+	left join rider_extra re on re.user_id = u.user_id
+	left join photo p on p.photo_div = re.user_id
+	where u.user_id= #{user_id}
+</select>	
+
+<!-- 가입대기에서 라이더로 변경 -->
+<update id="riderchange" parameterType="String">
+update user set user_state = '정상' where user_state ='가입대기' and user_id = #{user_id}
+</update>
+
+<!-- 가입대기에서 라이더로 변경 시 히스토리 작성 -->
+<insert id="history_riderstate" parameterType="hashmap">
+		INSERT INTO user_history(admin_id,user_id,user_content)
+			VALUES(#{admin_id},#{user_id},#{user_content})
+</insert>	
+
+<!-- 가입반려 클릭시 히스토리 작성 -->
+<insert id="history_riderstate2" parameterType="hashmap">
+		INSERT INTO user_history(admin_id,user_id,user_content)
+			VALUES(#{admin_id},#{user_id},#{user_content})
+</insert>	
+</mapper>
