@@ -83,9 +83,6 @@ $('#submit').click(function(){
 		}
 	});
 	
-	
-	
 });
-
 </script>
 </html>

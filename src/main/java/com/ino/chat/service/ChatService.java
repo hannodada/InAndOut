@@ -107,7 +107,6 @@ public class ChatService {
 
 	public void chatsaledone(String modalsaleid) {
 		dao.chatsaledone(modalsaleid);
-		
 	}
 
 	public String findroomuser(String user_id, String sales_no) {

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC   "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+
+<mapper namespace="com.ino.admin.dao.AdminReportDAO">
+
+
+	<select id="utotalCount" parameterType="String" resultType ="int">
+		SELECT COUNT (report_no) FROM report
+		where report_no IS NOT null and cate_no = 's003'
+	</select>
+
+
+	<select id="ulist" resultType="com.ino.admin.dto.AdminReportDTO">
+		select u2.user_id, u2.nickname, d.user_div_name, u2.user_state, r.report_no, u2.nickname
+		from user u 
+		left join report r on u.user_id = r.user_id
+		left join `user` u2 on u2.user_id = r.report_whom
+		left join user_div d on u2.user_div = d.user_div
+		where r.report_no IS NOT null and r.cate_no = 's003'
+		LIMIT 10 OFFSET #{offset}
+	</select>
+
+	<select id="stotalCount" parameterType="String" resultType ="int">
+		SELECT COUNT (report_no) FROM report
+		where report_no IS NOT null and cate_no = 's002'
+	</select>
+
+
+	<select id="slist" resultType="com.ino.admin.dto.AdminReportDTO">
+		select r.report_no , s.subject , s.user_id , r.user_id , r.report_date
+		from sales s 
+		left join report r on s.sales_no = r.report_whom 
+		where r.report_no IS NOT null and r.cate_no = 's002'
+		LIMIT 10 OFFSET #{offset}
+	</select>
+	
+<select id="ureportdetail" resultType="com.ino.admin.dto.AdminReportDTO">
+		select r.report_whom, u2.nickname,r.user_id,r.report_date,r.report_reason 
+		from user u 
+		left join report r on u.user_id = r.user_id
+		left join `user` u2 on u2.user_id = r.report_whom
+		where r.report_no =#{report_no}
+</select>
+
+
+
+
+</mapper>

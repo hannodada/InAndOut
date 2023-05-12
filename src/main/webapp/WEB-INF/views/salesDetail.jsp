@@ -45,7 +45,6 @@ img{ /* 이미지 배율 증가 시 부드럽게 */
 }
 
 .popup{ /* 팝업 배경 */
-    background-color: rgba(0, 0, 0, 0.877);
     width: 100%;
     height: 100vh;
     overflow: auto;
@@ -69,6 +68,7 @@ img{ /* 이미지 배율 증가 시 부드럽게 */
 .popup.show{ /* 팝업 보이기 */
     opacity: 1;
     pointer-events: unset;
+    top: 20%;
 }
 </style>
 </head>
@@ -101,7 +101,7 @@ img{ /* 이미지 배율 증가 시 부드럽게 */
 				<c:if test="${detailPhoto.size() == 0 }">
 					<div class="default">
 						<span class="wrap">
-							<img src="/photo/default.png">
+							<img src="resources/img/defaultIMG.png">
 					 	</span>
 					</div>
 				</c:if>
