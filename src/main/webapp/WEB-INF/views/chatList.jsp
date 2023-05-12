@@ -89,6 +89,15 @@
 
         transform: translateX(-50%) translateY(-50%);
       }
+      
+      .th {
+      	padding: 10px 10px;
+      	
+      }
+      .tr {
+      	padding: 10px 10px;
+      	
+      }
 </style>
 </head>
 <body style="height:100%">
@@ -115,51 +124,28 @@
       <div class="modal_body2">
     		<h4>내 주변 라이더 목록</h4>
     		<p></p>
-    		<div id="modalRider" style="max-height:350px; padding: 10px 10px; overflow-y: scroll;">
-    			<div style="border:1px solid silver; padding: 10px 10px; display:flex; align-items: center; position: relative">
-    				<div><img src="http://bootsnipp.com/apple-touch-icon-114x114-precomposed.png" style="max-width:80px;max-height:80px"></div>
-    				<div style="padding: 10px 20px"><h6>테스트라이더</h6></div>
-    				<div style="width: 2px; height: 50px; background-color: silver; margin: 5px 5px"></div>
-    				<div style="padding: 10px 20px"><h6>서울시 광진구</h6></div>
-    				<div style="width: 2px; height: 50px; background-color: silver; margin: 5px 5px"></div>
-    				<div style="padding: 10px 20px"><h6>Am 7:00 ~ Pm 7:00</h6></div>
-    				<button class="btn btn-primary" style="position: absolute; right:20px">견적신청</button>
-    			</div>
-    			<div style="border:1px solid silver; padding: 10px 10px; display:flex; align-items: center; position: relative">
-    				<div><img src="http://bootsnipp.com/apple-touch-icon-114x114-precomposed.png" style="max-width:80px;max-height:80px"></div>
-    				<div style="padding: 10px 20px"><h6>테스트라이더</h6></div>
-    				<div style="width: 2px; height: 50px; background-color: silver; margin: 5px 5px"></div>
-    				<div style="padding: 10px 20px"><h6>서울시 광진구</h6></div>
-    				<div style="width: 2px; height: 50px; background-color: silver; margin: 5px 5px"></div>
-    				<div style="padding: 10px 20px"><h6>Am 7:00 ~ Pm 7:00</h6></div>
-    				<button class="btn btn-primary" style="position: absolute; right:20px">견적신청</button>
-    			</div>
-    			<div style="border:1px solid silver; padding: 10px 10px; display:flex; align-items: center; position: relative">
-    				<div><img src="http://bootsnipp.com/apple-touch-icon-114x114-precomposed.png" style="max-width:80px;max-height:80px"></div>
-    				<div style="padding: 10px 20px"><h6>테스트라이더</h6></div>
-    				<div style="width: 2px; height: 50px; background-color: silver; margin: 5px 5px"></div>
-    				<div style="padding: 10px 20px"><h6>서울시 광진구</h6></div>
-    				<div style="width: 2px; height: 50px; background-color: silver; margin: 5px 5px"></div>
-    				<div style="padding: 10px 20px"><h6>Am 7:00 ~ Pm 7:00</h6></div>
-    				<button class="btn btn-primary" style="position: absolute; right:20px">견적신청</button>
-    			</div>
-    			<div style="border:1px solid silver; padding: 10px 10px; display:flex; align-items: center; position: relative">
-    				<div><img src="http://bootsnipp.com/apple-touch-icon-114x114-precomposed.png" style="max-width:80px;max-height:80px"></div>
-    				<div style="padding: 10px 20px"><h6>테스트라이더</h6></div>
-    				<div style="width: 2px; height: 50px; background-color: silver; margin: 5px 5px"></div>
-    				<div style="padding: 10px 20px"><h6>서울시 광진구</h6></div>
-    				<div style="width: 2px; height: 50px; background-color: silver; margin: 5px 5px"></div>
-    				<div style="padding: 10px 20px"><h6>Am 7:00 ~ Pm 7:00</h6></div>
-    				<button class="btn btn-primary" style="position: absolute; right:20px">견적신청</button>
-    			</div>
-    			<div style="border:1px solid silver; padding: 10px 10px; display:flex; align-items: center; position: relative">
-    				<div><img src="http://bootsnipp.com/apple-touch-icon-114x114-precomposed.png" style="max-width:80px;max-height:80px"></div>
-    				<div style="padding: 10px 20px"><h6>테스트라이더</h6></div>
-    				<div style="width: 2px; height: 50px; background-color: silver; margin: 5px 5px"></div>
-    				<div style="padding: 10px 20px"><h6>서울시 광진구</h6></div>
-    				<div style="width: 2px; height: 50px; background-color: silver; margin: 5px 5px"></div>
-    				<div style="padding: 10px 20px"><h6>Am 7:00 ~ Pm 7:00</h6></div>
-    				<button class="btn btn-primary" style="position: absolute; right:20px">견적신청</button>
+    		<div>
+    			<div style="border:1px solid silver; display:flex; align-items: center; position: relative">
+    				<table style="width: 100%; padding: 10px 10px">
+    					<thead style="padding-top: 20px;padding-bottom: 20px;background: #0D92FA">
+    						<tr>
+    							<th>이미지</th>
+    							<th>라이더명</th>
+    							<th>위치</th>
+    							<th>영업시간</th>
+    							<th>견적신청</th>
+    						</tr>
+    					</thead>
+    					<tbody id="modalRider" style="max-height:350px; padding: 10px 10px; overflow-y: scroll;">
+    						<tr style="height: 100px">
+    							<th><img src="http://bootsnipp.com/apple-touch-icon-114x114-precomposed.png" style="max-width:80px;max-height:80px"></th>
+    							<th>테스트라이더</th>
+    							<th>서울시 광진구</th>
+    							<th>A.M. 7:00 ~ P.M. 7:00</th>
+    							<th><button class="btn btn-primary">견적신청</button></th>
+    						</tr>
+    					</tbody>
+    				</table>
     			</div>
     		</div>
     		<hr/>
@@ -352,21 +338,27 @@ function riderList(){
 		},
 		error: function(e) {
 		}
-	})	
+	})
 }
 
 function riderListDraw(list){
 	var content = '';
 	console.log(list);
 	list.forEach(function(item, index){
-		content += '<div style="border:1px solid silver; padding: 10px 10px; display:flex; align-items: center; position: relative">';
+		/* content += '<div style="border:1px solid silver; padding: 10px 10px; display:flex; align-items: center; position: relative">';
 		content += '<div><img src="resources/photo/' + item.new_photo_name + '" style="max-width:80px;max-height:80px"></div>';
 		content += '<div style="padding: 10px 20px; width: 200px"><h6>' + item.user_name + '</h6></div>';
 		content += '<div style="width: 2px; height: 50px; background-color: silver; margin: 5px 5px"></div>';
 		content += '<div style="padding: 10px 20px"><h6>' + item.sigungu + '</h6></div>';
 		content += '<div style="width: 2px; height: 50px; background-color: silver; margin: 5px 5px"></div>';
 		content += '<div style="padding: 10px 20px"><h6>' + 'A.M. 7:00 ~ P.M. 7:00' + '</h6></div>';
-		content += '<button class="btn btn-primary" style="position: absolute; right:20px">견적신청</button></div>';
+		content += '<button class="btn btn-primary" style="position: absolute; right:20px">견적신청</button></div>'; */
+		content += '<tr style="height: 100px">';
+		content += '<th><img src="resources/photo/' + item.new_photo_name + '" style="max-width:80px;max-height:80px"></th>';
+		content += '<th>' + item.user_name + '</th>';
+		content += '<th>' + item.sigungu + '</th>';
+		content += '<th>' + 'A.M. 7:00 ~ P.M. 7:00' + '</th>';
+		content += '<th><button class="btn btn-primary">견적신청</button></th></tr>'
 	});
 	
 	$('#modalRider').empty();
