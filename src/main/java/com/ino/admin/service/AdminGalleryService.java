@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ino.admin.dao.AdminGalleryDAO;
 import com.ino.admin.dto.AdminGalleryDTO;
@@ -63,6 +64,25 @@ public class AdminGalleryService {
 		
 		
 	}
+
+	public HashMap<String, Object> gblind(ArrayList<String> blindList) {
+		HashMap<String, Object> map = new HashMap<String,Object>();
+		
+		int blindSize = blindList.size(); 
+		
+		int successCnt = 0; // 총 몇개지울건지
+		for(String id: blindList) {
+			successCnt += dao.gblind(id);// delete 하면 한개의 업데이트 로우가 생기니까 증가시켜서 확인  
+		}
+		
+		map.put("msg", blindSize+ "요청중"+successCnt+" 개 블라인드 했습니다.");
+		
+		map.put("success",true );
+		return map;
+	}
+
+
+
 
 
 }

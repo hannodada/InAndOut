@@ -37,4 +37,15 @@ public class AdminGalleryController {
 	       return service.list(params);
 	    }		
 	
+		@RequestMapping(value="/blind.ajax", method = RequestMethod.POST)
+		@ResponseBody
+		public HashMap<String, Object> blind(
+				@RequestParam(value="checkBoxArr[]") List<String> checkBoxArr ){
+			
+			logger.info("blindList : "+blindList);
+			return service.gblind(blindList);
+		}
+		
+	
+	   
 }

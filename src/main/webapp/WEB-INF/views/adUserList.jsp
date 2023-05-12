@@ -11,6 +11,7 @@
 
 <body>
 <jsp:include page="adminbox.jsp"/>
+<jsp:include page="realGnb.jsp"/>
 <article>
 	
 

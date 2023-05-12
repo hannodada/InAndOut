@@ -13,8 +13,14 @@
 
 
 	<select id="list" resultType="com.ino.admin.dto.AdminGalleryDTO">
-		SELECT gallery_no, gallery_subject, store_name, user_id, gallery_date
+		SELECT gallery_no, gallery_subject, store_name, user_id, gallery_date, blind
 		FROM gallery
 		LIMIT 10 OFFSET #{offset}
 	</select>	
+	
+
+	<update id= "gblind" parameterType="hashmap">
+		UPDATE gallery SET blind = 1 where blind = 0 and gallery_no = #{param1};
+	</update>
+	
 </mapper>

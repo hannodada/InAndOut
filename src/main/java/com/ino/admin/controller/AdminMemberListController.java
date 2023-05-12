@@ -3,6 +3,8 @@ package com.ino.admin.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,17 +31,24 @@ public class AdminMemberListController {
 	Logger logger  = LoggerFactory.getLogger(this.getClass());
 
     @RequestMapping(value="/ad.userlist.do")
-    public String userlist() {
-    	logger.info("ȸ�� ����Ʈ ��û");
-        return "adUserList";
+    public String userlist(HttpSession session) {
+    	
+    	String page = "redirect:/";
+    
+		if(session.getAttribute("loginId") != null) {
+			logger.info("로그인 여부 확인");
+			page = "adUserList";
+		}
+		
+        return page;
     }
     
     @RequestMapping(value="/list.ajax", method = RequestMethod.POST)
     @ResponseBody
-    public HashMap<String, Object> list( @RequestParam HashMap<String, Object> params
+    public HashMap<String, Object> list(HttpSession session, @RequestParam HashMap<String, Object> params
  		  		
     		){
-    	logger.info("����Ʈ �ҷ�������");
+    	
        return service.list(params);
     }
     

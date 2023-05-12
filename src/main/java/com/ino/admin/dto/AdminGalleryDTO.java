@@ -13,6 +13,14 @@ public class AdminGalleryDTO {
 	private Date gallery_date;
 	private int gallery_hit;
 	private int gallery_jjim;
+	private boolean blind;
+	
+	public boolean isBlind() {
+		return blind;
+	}
+	public void setBlind(boolean blind) {
+		this.blind = blind;
+	}
 	public int getGallery_no() {
 		return gallery_no;
 	}
