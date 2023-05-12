@@ -116,7 +116,7 @@ public class ChatService {
 		return dao.msguser(id, loginId);
 	}
 
-	public String username(String msguser) {
+	public MemberDTO username(String msguser) {
 		// TODO Auto-generated method stub
 		return dao.username(msguser);
 	}

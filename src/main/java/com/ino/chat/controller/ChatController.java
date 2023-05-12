@@ -53,7 +53,7 @@ public class ChatController {
 			String loginId = (String) session.getAttribute("loginId");
 			logger.info("loginId = " + loginId);
 			ArrayList<ChatDTO> chatlist = service.list(loginId);
-			ArrayList<String> userlist = new ArrayList<String>();
+			ArrayList<MemberDTO> userlist = new ArrayList<MemberDTO>();
 			ArrayList<String> salephotolist = new ArrayList<String>();
 			ArrayList<String> userphotolist = new ArrayList<String>();
 			for (ChatDTO args: chatlist) {
@@ -116,7 +116,7 @@ public class ChatController {
 			map.put("list", msglist);
 			
 			String msguser = service.msguser(id, (String)session.getAttribute("loginId"));
-			String username = service.username(msguser);
+			MemberDTO username = service.username(msguser);
 			String userphoto = service.userphoto(msguser);
 			map.put("user", username);
 			map.put("userphoto", userphoto);

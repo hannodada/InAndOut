@@ -45,7 +45,7 @@ public interface ChatDAO {
 
 	String msguser(int id, String loginId);
 
-	String username(String msguser);
+	MemberDTO username(String msguser);
 
 	void chatsaledone(String modalsaleid);
 

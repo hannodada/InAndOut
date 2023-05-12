@@ -354,9 +354,7 @@ function listDraw(list, userlist, salephotolist, userphotolist) {
 	console.log(userlist);
 	list.forEach(function(item, index){
 		var salephoto = "";
-		if(salephotolist[index]!="rider"){
-			salephoto = salephotolist[index];
-		}
+		salephoto = salephotolist[index];
 		if(selectedDst==item.roomid){
 			content += '<div class="chat_list active_chat">';
 		}else{
@@ -369,7 +367,7 @@ function listDraw(list, userlist, salephotolist, userphotolist) {
 			content += '<div class="chat_img"> <img src="resources/photo/' + userphotolist[index] + '" alt="sunil"> </div>';
 		}
 		content += '<div class="chat_ib"><h5>';
-		content += userlist[index] + ' <span class="chat_date">' + item.recent_time + '&nbsp;&nbsp;</span></h5>';
+		content += userlist[index].user_name + ' <span class="chat_date">' + item.recent_time + '&nbsp;&nbsp;</span></h5>';
 		content += '<p>'+item.recent_msg+'</p>';
 		content += '</div>';
 		if(salephotolist[index]!="rider"){
@@ -446,7 +444,7 @@ function msgDraw(list,sale,salephoto,user,userphoto){
 	$('#type_msg').css("display","block");
 	
 	content = '';
-	content += '<h3 style="min-width: 100px; width: auto">&nbsp;' + user + '&nbsp;님</h3></div>';
+	content += '<h3 style="min-width: 100px; width: auto">&nbsp;' + user.user_name + '&nbsp;님</h3></div>';
 	content += '<div style="display:flex;width:100%" onclick="location.href=\'salesDetail.do?sales_no=' + sale.sales_no + '\'">'
 	content += '<div style="width:100%; display:block; padding: 5px 5px">';
 	content += '<div style="float:right"><div style="display:flex">';
