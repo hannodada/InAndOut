@@ -47,4 +47,5 @@ public interface ChatDAO {
 	String findroomuser(String user_id, String sales_no);
 
 	void chatmsgsend(MsgDTO dto);
+
 }

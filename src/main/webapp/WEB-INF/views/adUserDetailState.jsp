@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 </head>
 <script>
-/function confirmSubmit() {
+function confirmSubmit() {
 	var r= confirm("정말로 회원 상태를 변경하시겠습니까?");
     if (r == true) {
       return true;  
@@ -25,7 +25,7 @@
 <article>
 <h2 style="color: #708090;">회원 상태변경</h2>
 	<hr style="border-top-width:2px; border-color:#b0cbd6;">
-	<form action="ad.updateUserState" id="myForm" method="post" onsumit ="return confirmSubmit()">
+	<form action="ad.updateUserState" id="myForm" method="post" onsubmit ="return confirmSubmit()">
 	<table class = "mokrok">
 
 			<tr>
