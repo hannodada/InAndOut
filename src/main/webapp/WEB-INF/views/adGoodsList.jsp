@@ -11,20 +11,19 @@
 <body>
 <jsp:include page="adminbox.jsp"/>
 	<article>
-<h2 style="color: #708090;">카테고리 목록</h2>
+<h2 style="color: #708090;">카테고리 목록 - 물품별</h2>
 	<hr style="border-top-width:2px; border-color:#b0cbd6;">					
 	
 		<section class="wrapper">
 		<!-- 검색 -->
-			<form>
-	      <label for="search-word">   
-	      카테고리 모아보기
-	      </label>
-	      &nbsp&nbsp&nbsp
-<button onclick="location.href='ad.goodslist.do'">업종별 카테고리</button>			
-<button onclick="location.href='ad.catewrite.go'">물품별 카테고리</button>			
 
- 
+		<form action="ad.search.do" method="get">
+		    <label for="search-word">카테고리</label>
+		    &nbsp&nbsp&nbsp
+		    <input type="radio" name="category" value="업종별"/> 업종별
+		    <input type="radio" name="category" value="물품별"/> 물품별
+		
+		    <button type="submit">검색</button>
 		</form>
     
    <!-- 표 -->
@@ -91,7 +90,7 @@ listCall(showPage);
 function listCall(page){
 	   $.ajax({
 	      type:'post',
-	      url:'category.ajax',
+	      url:'goods.ajax',
 	      data:{
 	         'page':page,
 
