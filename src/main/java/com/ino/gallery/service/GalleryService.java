@@ -194,6 +194,43 @@ public class GalleryService {
 		return gallery_no;
 	}
 
+	public HashMap<String, Object> filtered(HashMap<String, String> userParams) {
+		
+		int page = Integer.parseInt(userParams.get("page"));
+		int cnt = Integer.parseInt(userParams.get("cnt"));
+		String filterName = userParams.get("filterName");
+		
+		logger.info(page+" 페이지 보여줘");
+		logger.info("한 페이지에 "+cnt+"개씩 보여줄거야");
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		//1 page = offset : 0
+		//2 page = offset : 5
+		//3 page = offset : 10
+		// cnt 5개씩 page 1페이지
+		
+		int offset = cnt*(page-1);
+		
+		// paginatin plugin totalpages에 총 페이지 수를 계산해서 넘겨줘야 한다.
+		// 만들 수 있는 총 페이지 수 = 전체 게시물 / 페이지당 보여줄 수
+		int total = dao.GalleryTotalCount();
+		int range = total%cnt == 0 ? total/cnt : (total/cnt)+1;
+		logger.info("전체 게시물 수 :"+total);
+		logger.info("총 페이지 수 :"+range);
+		
+		// 게시물 갯수를 변경했을 때 현재 페이지 상태에서 바뀐 게시물 갯수를 반영하지 못할 수 있음.
+		// 조건문을 걸어서 range 보다 page가 크면 그 값을 range로 바꾼다.
+		page = page > range ? range : page;
+		
+		map.put("currPage", page);
+		map.put("pages", range);
+		
+		ArrayList<GalleryDTO> list = dao.list(cnt, offset, filterName);		
+		map.put("filteredList", list);
+		return map;
+	}
+
 
 
 }

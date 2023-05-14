@@ -28,10 +28,10 @@ public class GalleryController {
 	@RequestMapping(value = "/galleryList.do", method = RequestMethod.GET)
 	public String galleryList(Model model) {
 		
-		logger.info("galleryList call");
-		ArrayList<GalleryDTO> list = service.galleryList();
+//		logger.info("galleryList call");
+//		ArrayList<GalleryDTO> list = service.galleryList();
 		
-		model.addAttribute("list", list);
+//		model.addAttribute("list", list);
 		
 		return "galleryList";
 	}
@@ -155,6 +155,22 @@ public class GalleryController {
 		map.put("filteredList", filteredList);
 
 		return map;
+	}
+	
+	@RequestMapping(value = "/galleryList.ajax")
+	@ResponseBody
+	public HashMap<String, Object> list(Model model, @RequestParam HashMap<String, String> userParams) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String filterName = userParams.get("filterName");
+		logger.info("filterName :"+filterName);
+//		ArrayList<GalleryDTO> filteredList = service.filtered(userParams);
+		
+//		logger.info("filteredList :"+filteredList);
+		
+//		map.put("filteredList", filteredList);
+
+		return service.filtered(userParams);
 	}
 	
 	@RequestMapping(value = "/galleryUpdate.go")

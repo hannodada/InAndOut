@@ -41,5 +41,9 @@ public interface GalleryDAO {
 
 	int galleryUpdate(HashMap<String, String> params);
 
+	int GalleryTotalCount();
+
+	ArrayList<GalleryDTO> list(int cnt, int offset, String filterName);
+
 
 }

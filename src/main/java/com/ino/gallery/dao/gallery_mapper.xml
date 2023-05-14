@@ -102,4 +102,26 @@
 		WHERE gallery_no = #{gallery_no}
 	</update>
 	
+	<select id="GalleryTotalCount" resultType="Integer">
+		SELECT count(g.gallery_no) FROM gallery g WHERE g.blind ='0'
+	</select>
+	
+		<select id="list" resultType="com.ino.gallery.dto.GalleryDTO">
+		SELECT g.gallery_no, g.gallery_subject, g.gallery_hit, g.user_id, u.nickname, g.gallery_date, p.new_photo_name
+			FROM gallery g 
+			LEFT JOIN user u ON g.user_id = u.user_id
+			LEFT JOIN photo p ON p.photo_div = g.gallery_no AND p.cate_no = 'p006'
+		<choose>
+			<when test="param3 == 'gallery_no'">
+		GROUP BY g.gallery_no ORDER BY g.gallery_no DESC
+			</when>
+			<when test="param3 == 'gallery_hit'">
+		GROUP BY g.gallery_no ORDER BY g.gallery_hit DESC
+			</when>
+			<otherwise>
+		GROUP BY g.gallery_no ORDER BY g.gallery_no DESC
+			</otherwise>
+		</choose>
+		LIMIT #{param1} OFFSET #{param2}
+	</select>
 </mapper>
