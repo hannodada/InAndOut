@@ -23,7 +23,7 @@ public class AdminSalesListService {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 	    int page = Integer.parseInt(String.valueOf(params.get("page")));
 
-	    int offset = 5*(page-1);	    
+	    int offset = 10*(page-1);	    
 		
 	    logger.info("offset : " + offset);
 	    
@@ -32,7 +32,7 @@ public class AdminSalesListService {
 		
 	    total = dao.stotalCount();
 		
-	    int range = total%5  == 0 ? total/5 : total/5+1;
+	    int range = total%10  == 0 ? total/10 : total/10+1;
 	    
 
 	      
@@ -55,5 +55,11 @@ public class AdminSalesListService {
 		
 		
 	}
+
+	public void sblind(String sales_no) {
+	    dao.sblind(sales_no);
+	}
+
+
 	
 }

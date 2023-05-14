@@ -11,4 +11,6 @@ public interface AdminSalesDAO {
 
 	ArrayList<AdminSalesDTO> slist(int offset);
 
+	boolean sblind(String sales_no);
+
 }

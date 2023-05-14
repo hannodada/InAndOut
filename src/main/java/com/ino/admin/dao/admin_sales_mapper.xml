@@ -19,5 +19,7 @@
 		LIMIT 10 OFFSET #{offset}
 	</select>	
 	
-	
+	<update id="sblind" parameterType="java.lang.String">
+		update sales set blind = 1 where blind = 0 and sales_no = #{sales_no}
+	</update>
 </mapper>

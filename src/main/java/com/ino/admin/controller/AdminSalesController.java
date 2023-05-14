@@ -3,6 +3,8 @@ package com.ino.admin.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +42,23 @@ public class AdminSalesController {
 	    }		
 	
 
-		
+	    @RequestMapping(value = "/ad.sblind", method = RequestMethod.GET)
+	    public String postdelete(String no) throws Exception {
+	    	service.sblind(no);
+	       return "redirect:/adsaleslist.do";
+	    }
+	    //게시물 선택 블라인드
+	    @RequestMapping(value = "/ad.sblind")
+	    public String ajaxTest(HttpServletRequest request) throws Exception {
+
+	        String[] ajaxMsg = request.getParameterValues("valueArr");
+	        int size = ajaxMsg.length;
+	       
+	        for(int i=0; i<size; i++) {
+	        	service.sblind(ajaxMsg[i]);
+	        }
+	        return "redirect:/adsaleslist.do";
+	    }		
 	
 	
 }
