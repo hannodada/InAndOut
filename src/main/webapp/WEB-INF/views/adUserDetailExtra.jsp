@@ -54,8 +54,8 @@
 			  	<form action="ad.userlist.do" method = "post">
 			    <div class="modal-header">
 			      <span class="close">&times;</span>
-			      <h2>처리자 ${user.admin_id}</h2> <!-- 세션체크해서 로그인 한 놈 출력 -->
-			      <input type = "text" name="admin_id" value="${user.admin_id}"/>
+			      <h2>처리자 ${loginId}</h2> <!-- 세션체크해서 로그인 한 놈 출력 -->
+			      <input type = "text" name="admin_id" value="${loginId}" hidden/>
 			    </div>
 			    <div class="modal-body">
 						<h2>사용자 ${user.user_id}</h2>
