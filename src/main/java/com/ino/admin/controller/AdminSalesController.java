@@ -15,25 +15,32 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ino.admin.dto.AdminGalleryDTO;
 import com.ino.admin.service.AdminGalleryService;
+import com.ino.admin.service.AdminSalesListService;
+import com.ino.sales.service.SalesService;
 
 @Controller
 public class AdminSalesController {
 	
-	
+	@Autowired AdminSalesListService service;
 	Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	@RequestMapping(value="/adsaleslist.do")
-	public String userlist(Model model) {
+	public String adSaleslist(Model model) {
 	
 	    return "adSalesList";
 	}
 
-	/*
-	 * @RequestMapping(value="/asales.ajax", method = RequestMethod.POST)
-	 * 
-	 * @ResponseBody public HashMap<String, Object> list( @RequestParam
-	 * HashMap<String, Object> params
-	 * 
-	 * ){ logger.info("����Ʈ �ҷ�������"); return service.list(params); }
-	 */		
+	   @RequestMapping(value="/adsales.ajax", method = RequestMethod.POST)
+	    @ResponseBody
+	    public HashMap<String, Object> list( @RequestParam HashMap<String, Object> params
+	 		  		
+	    		){
+	    	logger.info("판매글 목록 리스트 요청");
+	       return service.slist(params);
+	    }		
+	
+
+		
+	
 	
 }

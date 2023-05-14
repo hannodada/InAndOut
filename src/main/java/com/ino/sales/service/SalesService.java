@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ino.admin.dto.AdminGalleryDTO;
 import com.ino.sales.dao.SalesDAO;
 import com.ino.sales.dto.BizDTO;
 import com.ino.sales.dto.SalesDTO;
@@ -249,5 +250,7 @@ public class SalesService {
 		}
 		
 	}
+
+	
 
 }

@@ -33,7 +33,7 @@ public class AdminGalleryController {
 	    public HashMap<String, Object> list( @RequestParam HashMap<String, Object> params
 	 		  		
 	    		){
-	    	logger.info("����Ʈ �ҷ�������");
+	    	logger.info("갤러리 목록 리스트 요청");
 	       return service.list(params);
 	    }		
 	
