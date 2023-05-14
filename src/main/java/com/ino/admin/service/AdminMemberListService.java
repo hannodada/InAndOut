@@ -185,11 +185,6 @@ public class AdminMemberListService {
 
 
 
-	public AdminMemberDTO uhistorydetail(String user_id, String user_state, String state_time) {
-		
-		return dao.uhistorydetail(user_id,user_state,state_time);
-	}
-
 	public HashMap<String, Object> riderlist(HashMap<String, Object> params) {
 	   
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -274,9 +269,13 @@ public class AdminMemberListService {
 		return result; 
 	}
 
+	public AdminMemberDTO uhistorydetail(String user_state) {
+		logger.info("히스토리 디테일 요청"+user_state);
+		return dao.uhistorydetail(user_state);
+	}
 
 
-	// ����ó�� �� �����丮 �ۼ� 
+
 
 
 

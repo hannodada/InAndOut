@@ -123,7 +123,7 @@ public class AdminMemberListController {
 		return "adUserDetail";
 	}		
 	
-	// ȸ�� �����丮 ����
+	// 회원히스토리 이동
     @RequestMapping(value="/user.history.go", method = RequestMethod.GET)
     public String userhistory(Model model, @RequestParam (required=false, value="user_id")String user_id) {
     	logger.info("����Ʈ��û");
@@ -134,16 +134,17 @@ public class AdminMemberListController {
         return "adUserHistory";
     }
 	
-    // ȸ�� �����丮 ó������ ����
-	@RequestMapping(value="/ad.history.detail.do")
-	public String uhistorydetail(Model model, @RequestParam (required=false, value="user_id")String user_id, @RequestParam String user_state, @RequestParam String state_time) {
-		/* �α��� 
-		String page ="redirect:/ad.userlist.do";
-		*/
+    // 회원 히스토리 디테일로 이동
+	@RequestMapping(value="/ad.uhistory.detail.do")
+	public String uhistorydetail(Model model,@RequestParam String user_state
+	
+			) {
+
 		
-		logger.info("�󼼺��� ��û"+user_id,user_state,state_time);
-		AdminMemberDTO dto = service.uhistorydetail(user_id,user_state,state_time);
-		logger.info("dto : ",dto);
+		logger.info("유저아이디,상태"+user_state);
+		AdminMemberDTO dto = service.uhistorydetail(user_state);
+		
+		logger.info("히스토리 디테일 dto"+dto);
 		model.addAttribute("user", dto);
 
 		
