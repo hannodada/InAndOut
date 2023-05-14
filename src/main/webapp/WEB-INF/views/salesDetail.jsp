@@ -171,6 +171,9 @@ img{ /* 이미지 배율 증가 시 부드럽게 */
 				<c:if test="${sessionScope.loginId ne null}">
 					관심여부 : <input type="checkbox" onclick="attention(this)" <c:if test="${attentionCheck==1 }">checked</c:if>/>
 				</c:if>
+				<c:if test="${detailData.sales_state == '판매완료'}">
+					<input type="button" onclick="openStarThrowForm()" value="별점주기"/>
+				</c:if>
 			</th>
 		</tr>
 	</table>
@@ -338,6 +341,40 @@ function openSalesReportForm(sales_no){
 	
 	window.name = "salesDetail";
 	openWin = window.open("salesReport.go?sales_no=${detailData.sales_no }", "salesReportForm", "width=570, height=350, resizable = no, scrollbars = no");
+}
+
+function openStarThrowForm(){
+	
+
+	if("${sessionScope.loginId}" == ""){
+		alert("로그인 상태에서 별점을 남길 수 있습니다.");
+	}else if("${sessionScope.loginId}" == "${detailData.user_id }"){
+		alert("자신의 판매글에는 별점을 남길 수 없습니다.");
+	}else{
+		
+		var sales_no = "${detailData.sales_no}";
+		var user_id = "${detailData.user_id}";
+		
+		$.ajax({
+			type: 'get',
+			url: 'areYouBuyer.ajax',
+			data: {
+				'sales_no':sales_no,
+				'user_id':user_id
+			},
+			dataType: 'json',
+			success: function(data){
+				console.log(data);
+				window.name = "salesDetail";
+				openWin = window.open("starThrow.go?sales_no=${detailData.sales_no }&user_id=${detailData.user_id}", "salesReportForm", "width=570, height=350, resizable = no, scrollbars = no");
+			},
+			error: function(e){
+				console.log(e);
+			}
+		});
+		
+	}
+	
 }
 </script>
 </html>
