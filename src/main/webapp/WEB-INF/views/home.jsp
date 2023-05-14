@@ -41,10 +41,6 @@
 <jsp:include page="realGnb.jsp"/>
 
 
-	<a href="salesWrite.go">판매글 등록</a>
-	<a href="galleryWrite.go">갤러리 등록</a>
-	<a href="salesList.do">판매글 보기</a>
-	<a href="galleryList.do">갤러리 보기</a>
 	<a href="myPage.go">마이페이지 보기</a>
 	<a href="riderPage">라이더페이지 보기</a>
 	<a href="riderList.go">라이더리스트</a>
@@ -61,42 +57,42 @@
 		<tr>
 			<td>
 			<!--  onclick="location.href='profile.go?idx'""-->
-				<a href="catagory.go?biz_id=b001" id="catagorybox">
+				<a href="salesList.do?biz_id=b001" id="catagorybox">
 				<img src="resources/photo/free-icon-coffee-4062363.png" id="profileNomal" >
 				<br>
 				<a>카페</a>
 				</a>
 			</td>
 			<td>
-				<a href="catagory.go?biz_id=b002" id="catagorybox">
+				<a href="salesList.do?biz_id=b002" id="catagorybox">
 				<img src="resources/photo/food.png" id="profileNomal" >
 				<br>
 				<a>음식점</a>
 				</a>
 			</td>
 			<td>
-				<a href="catagory.go?biz_id=b003" id="catagorybox">
+				<a href="salesList.do?biz_id=b003" id="catagorybox">
 				<img src="resources/photo/free-icon-park-4299072.png" id="profileNomal" >
 				<br>
 				<a>여가오락</a>
 				</a>
 			</td>
 			<td>
-				<a href="catagory.go?biz_id=b004" id="catagorybox">
+				<a href="salesList.do?biz_id=b004" id="catagorybox">
 				<img src="resources/photo/free-icon-teach-4696727.png" id="profileNomal" >
 				<br>
 				<a>교육</a>
 				</a>
 			</td>
 			<td>
-				<a href="catagory.go?biz_id=b005" id="catagorybox">
+				<a href="salesList.do?biz_id=b005" id="catagorybox">
 				<img src="resources/photo/free-icon-exercise-2833390.png" id="profileNomal" >
 				<br>
 				<a>운동</a>
 				</a>
 			</td>
 			<td>
-				<a href="catagory.go?biz_id=b006" id="catagorybox">
+				<a href="salesList.do?biz_id=b006" id="catagorybox">
 				<img src="resources/photo/free-icon-pet-grooming-6317238.png" id="profileNomal" >
 				<br>
 				<a>미용</a>
@@ -106,42 +102,42 @@
 		</tr>
 		<tr>
 			<td>
-				<a href="catagory.go?biz_id=b007" id="catagorybox">
+				<a href="salesList.do?biz_id=b007" id="catagorybox">
 				<img src="resources/photo/free-icon-resort-5273329.png" id="profileNomal" >
 				<br>
 				<a>숙박업</a>
 				</a>
 			</td>
 			<td>
-				<a href="catagory.go?biz_id=b008" id="catagorybox">
+				<a href="salesList.do?biz_id=b008" id="catagorybox">
 				<img src="resources/photo/animal-shelter.png" id="profileNomal" >
 				<br>
 				<a>반려동물</a>
 				</a>
 			</td>
 			<td>
-				<a href="catagory.go?biz_id=b009" id="catagorybox">
+				<a href="salesList.do?biz_id=b009" id="catagorybox">
 				<img src="resources/photo/washing-machine.png" id="profileNomal" >
 				<br>
 				<a>세탁업</a>
 				</a>
 			</td>
 			<td>
-				<a href="catagory.go?biz_id=b010" id="catagorybox">
+				<a href="salesList.do?biz_id=b010" id="catagorybox">
 				<img src="resources/photo/mart.png" id="profileNomal" >
 				<br>
 				<a>도소매</a>
 				</a>
 			</td>
 			<td>
-				<a href="catagory.go?biz_id=b011" id="catagorybox">
+				<a href="salesList.do?biz_id=b011" id="catagorybox">
 				<img src="resources/photo/ellipsis.png" id="profileNomal" >
 				<br>
 				<a>기타</a>
 				</a>
 			</td>
 			<td>
-				<a href="catagory.go?biz_id" id="catagorybox">
+				<a href="salesList.do" id="catagorybox">
 				<img src="resources/photo/select-all.png" id="profileNomal" >
 				<br>
 				<a>모든상품</a>
