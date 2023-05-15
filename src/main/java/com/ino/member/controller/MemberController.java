@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.ino.main.dto.HomeDTO;
 import com.ino.member.dto.MemberDTO;
-
 import com.ino.member.service.MemberService;
 
 
@@ -50,6 +48,7 @@ public class MemberController {
 		
 		if(success == 1) {
 			session.setAttribute("loginId", id);
+			session.setAttribute("loginPw", pw);
 			
 		}
 		

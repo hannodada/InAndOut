@@ -328,6 +328,7 @@ var pweq = false;
 var overlayChk = false;
 var overlayChk2 = false;
 
+
 function join() {
 	  if /* (pweq && overlayChk && overlayChk2) */(true) {
 	    var $user_id = $('#user_id');
@@ -413,6 +414,7 @@ function join() {
 	        
 	      });
 	      
+
 		}
 		
 	}else{
@@ -487,6 +489,8 @@ $('#overlay2').on('click',function(e){
 });
 
 $('#confirm').on('keyup',function(e){
+	console.log('confirm_password: '+$('#confirm'));
+	console.log('newpassword: '+$('#user_pw'));
 	if($('#user_pw').val() == $(this).val()){
 		$('#msg').css({'font-size': '10px', 'color': 'darkgreen'});
 		$('#msg').html('비밀번호가 일치 합니다.');

@@ -17,7 +17,6 @@
 </head>
 <body>
 	<jsp:include page="realGnb.jsp"/>
-<jsp:include page="realGnb.jsp"/>
 	<select name="filter" id="filter" onchange="filtering()">
 		<option value="gallery_no">최신 순</option>
 		<option value="gallery_hit">조회수 순</option>
@@ -49,7 +48,7 @@
 							<th><img src="/photo/${i.new_photo_name }"/></th>
 						</c:if>
 						<c:if test="${i.new_photo_name eq null }">
-							<th><img src="/photo/default.png"/></th>
+							<th><img src="resources/img/defaultIMG.png"/></th>
 						</c:if>
 						<th><a href="galleryDetail.do?gallery_no=${i.gallery_no}">${i.gallery_subject }</a></th>
 						<th>${i.gallery_hit }</th>
@@ -101,12 +100,12 @@ function filterListDraw(list){
 		content += '<tr>';
 		content += '<th>'+item.gallery_no+'</th>';
 
-		content += '<th><img src="/photo/';
 
+		
 		if(item.new_photo_name == null){
-			content += 'default.png';
+			content += '<th><img src="resources/img/defaultIMG.png';
 		}else{
-			content += item.new_photo_name;
+			content += '<th><img src="/photo/'+item.new_photo_name;
 		}
 		
 		content += '"/></th>';

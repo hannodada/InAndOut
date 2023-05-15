@@ -24,9 +24,25 @@
         display: none;
 
         background-color: rgba(0, 0, 0, 0.4);
-      }
+	}
+	
+	.modal2 {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        height: 100%;
+
+        display: none; 
+
+        background-color: rgba(0, 0, 0, 0.4);
+	}
 
       .modal.show {
+        display: block;
+      }
+      .modal2.show {
         display: block;
       }
 
@@ -46,8 +62,41 @@
         background-color: rgb(255, 255, 255);
         border-radius: 10px;
         box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+        
+        display: none;
 
         transform: translateX(-50%) translateY(-50%);
+      }
+      
+      .modal_body2 {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+
+        width: 800px;
+        height: auto;
+        min-height: 200px;
+
+        padding: 40px;
+
+        text-align: center;
+
+        background-color: rgb(255, 255, 255);
+        border-radius: 10px;
+        box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+        
+        display: none;
+
+        transform: translateX(-50%) translateY(-50%);
+      }
+      
+      .th {
+      	padding: 10px 10px;
+      	
+      }
+      .tr {
+      	padding: 10px 10px;
+      	
       }
 </style>
 </head>
@@ -61,10 +110,8 @@
       	<p></p>
       	<form action="chatsaledone.do" method="post">
       	<div class="input-group mb-3" style="display:none">
-		  <div class="input-group-prepend">
-		    <span class="input-group-text" id="basic-addon1">@</span>
-		  </div>
-		  <input type="text" id="modalsaleid" name="modalsaleid" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+		  <input type="text" id="modalsaleid" name="modalsaleid">
+		  <input type="text" id="modalroomid" name="modalroomid">
 		</div>
       	<hr/>
       
@@ -72,6 +119,40 @@
 		<button type="button" class="btn btn-secondary" id="modalClose">취소</button>
 		</form>
       </div>
+      <div class="modal_body2">
+    		<h4>내 주변 라이더 목록</h4>
+    		<p></p>
+    		<div>
+    			<div style="border:1px solid silver; display:flex; align-items: center; position: relative">
+    				<table style="width: 100%; padding: 10px 10px">
+    					<thead style="padding-top: 20px;padding-bottom: 20px;background: #0D92FA">
+    						<tr>
+    							<th>이미지</th>
+    							<th>라이더명</th>
+    							<th>위치</th>
+    							<th>영업시간</th>
+    							<th>견적신청</th>
+    						</tr>
+    					</thead>
+    					<tbody id="modalRider" style="max-height:350px; padding: 10px 10px; overflow-y: scroll;">
+    						<tr style="height: 100px">
+    							<th><img src="http://bootsnipp.com/apple-touch-icon-114x114-precomposed.png" style="max-width:80px;max-height:80px"></th>
+    							<th>테스트라이더</th>
+    							<th>서울시 광진구</th>
+    							<th>A.M. 7:00 ~ P.M. 7:00</th>
+    							<th><button class="btn btn-primary">견적신청</button></th>
+    						</tr>
+    					</tbody>
+    				</table>
+    			</div>
+    		</div>
+    		<hr/>
+    		<button type="button" class="btn btn-secondary" id="modalClose2">닫기</button>
+    	</div>
+    </div>
+    
+    <div class="modal2">
+    	
     </div>
 	
 	<jsp:include page="realGnb.jsp"/>
@@ -123,20 +204,6 @@
 	        </div>
 	        <div class="mesgs" style="width:60%; padding:0">
 	          <div id="sale_def"  class="dropdown2" style="width:100%;height:100px;background-color: #F0F0F0;display:none;padding:16px 20px">
-	          		<div>
-	          			<h3>&nbsp;pepe</h3>
-	          		</div>
-	          		<div style="width:100%; text-align: right; padding: 5px 5px">
-	          			<h4>RTX 4070 TI</h4>
-	          			<h5 style>1000,000원</h5>
-	          		</div>
-	          		<div style="width:20px"></div>
-	          		<div>
-	          			<img src="/photo/1683508729270.png" style="max-height:80px">
-	          		</div>
-	          		<div class="dropdown-content2" id="saledonediv"> 
-			          	<a href="#" id="saledone">판매 완료 변경</a>
-			        </div>
 	          </div>
 	          <div id="sale_def2" style="display:none;width:100%;height:2px;background-color: #E6E6E6;text-align: center">
 	          
@@ -153,6 +220,7 @@
 	              <button onclick="inputFile()" id="btnsendimg" class="msg_send_btn" type="button" style="right:40px; background:#000000"><i class="fa fa-regular fa-image"></i></button>
 	              <input type="file" onchange="sendimg()" id="input-file" style="display:none"/>
 	              </form>
+	              <button id="btncallrider" class="msg_send_btn" type="button" onclick="showModal2()" style="right:80px; background:#0D92FA"><i class="fa fa-regular fa-truck"></i></button>
 	              <button class="msg_send_btn" type="button" onclick="sendmsg()"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
 	            </div>
 	          </div>
@@ -165,6 +233,7 @@
 <script>
 const body = document.querySelector('body');
 const modal = document.querySelector('.modal');
+const modal2 = document.querySelector('.modal2');
 
 function inputFile(){
 	$('#input-file').click();
@@ -173,6 +242,8 @@ function inputFile(){
 function showModal() {
 	event.stopPropagation();
 	modal.classList.toggle('show');
+	
+	$('.modal_body').css("display", "block");
 
     if (modal.classList.contains('show')) {
       body.style.overflow = 'hidden';
@@ -181,6 +252,31 @@ function showModal() {
 
 $('#modalClose').click(function () {
 	modal.classList.toggle('show');
+	
+	$('.modal_body').css("display", "none");
+
+    if (modal.classList.contains('show')) {
+		body.style.overflow = 'hidden';
+    } else {
+    	body.style.overflow = 'scroll';
+    }
+});
+
+function showModal2(){
+	event.stopPropagation();
+	modal.classList.toggle('show');
+	
+	$('.modal_body2').css("display", "block");
+
+    body.style.overflow = 'hidden';
+    
+    riderList();
+}
+
+$('#modalClose2').click(function () {
+	modal.classList.toggle('show');
+	
+	$('.modal_body2').css("display", "none");
 
     if (modal.classList.contains('show')) {
 		body.style.overflow = 'hidden';
@@ -213,6 +309,44 @@ function list(){
 			console.log(e);
 		}
 	})	
+}
+
+function riderList(){
+	$.ajax({
+		type: 'get',
+		url: 'chatriderList.ajax',
+		data: {},
+		dataType: 'json',
+		success: function(data){
+			riderListDraw(data.chatriderlist);
+		},
+		error: function(e) {
+		}
+	})
+}
+
+function riderListDraw(list){
+	var content = '';
+	console.log(list);
+	list.forEach(function(item, index){
+		/* content += '<div style="border:1px solid silver; padding: 10px 10px; display:flex; align-items: center; position: relative">';
+		content += '<div><img src="resources/photo/' + item.new_photo_name + '" style="max-width:80px;max-height:80px"></div>';
+		content += '<div style="padding: 10px 20px; width: 200px"><h6>' + item.user_name + '</h6></div>';
+		content += '<div style="width: 2px; height: 50px; background-color: silver; margin: 5px 5px"></div>';
+		content += '<div style="padding: 10px 20px"><h6>' + item.sigungu + '</h6></div>';
+		content += '<div style="width: 2px; height: 50px; background-color: silver; margin: 5px 5px"></div>';
+		content += '<div style="padding: 10px 20px"><h6>' + 'A.M. 7:00 ~ P.M. 7:00' + '</h6></div>';
+		content += '<button class="btn btn-primary" style="position: absolute; right:20px">견적신청</button></div>'; */
+		content += '<tr style="height: 100px">';
+		content += '<th><img src="resources/photo/' + item.new_photo_name + '" style="max-width:80px;max-height:80px"></th>';
+		content += '<th>' + item.user_name + '</th>';
+		content += '<th>' + item.sigungu + '</th>';
+		content += '<th>' + 'A.M. 7:00 ~ P.M. 7:00' + '</th>';
+		content += '<th><button class="btn btn-primary">견적신청</button></th></tr>'
+	});
+	
+	$('#modalRider').empty();
+	$('#modalRider').append(content);
 }
 
 function listDraw(list, userlist, salephotolist, userphotolist) {
@@ -336,6 +470,7 @@ function msgDraw(list,sale,salephoto,user,userphoto){
 	$('#sale_def').append(content);
 	$('#modal_text').text(sale.subject);
 	$('#modalsaleid').val(sale.sales_no);
+	$('#modalroomid').val(selectedRoom);
 	
 	$("#send_msg").mouseenter(function name() {
 		$('#msglistbox').scrollTop($('#msglistbox')[0].scrollHeight);

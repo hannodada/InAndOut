@@ -27,6 +27,7 @@
 </style>
 </head>
 <body>
+	<jsp:include page="realGnb.jsp"/>
 	<form action="galleryUpdate.do" method="post" enctype="Multipart/form-data">
 		<input type="text" name="gallery_no" value="${detailData.gallery_no }" hidden="true"/>
 		<table>

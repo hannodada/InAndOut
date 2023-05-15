@@ -50,6 +50,7 @@
     
     }
     
+
     #topCategery{
 	width: 43px;
 	cursor:pointer;
@@ -475,10 +476,21 @@ padding:10px;
     
 </style>
 
+
 <body>
 
 <jsp:include page="realGnb.jsp"/>
 
+
+
+	<a href="salesWrite.go">판매글 등록</a>
+	<a href="galleryWrite.go">갤러리 등록</a>
+	<a href="salesList.do">판매글 보기</a>
+	<a href="galleryList.do">갤러리 보기</a>
+	<a href="myPage.go">마이페이지 보기</a>
+	<a href="riderPage">라이더페이지 보기</a>
+	<a href="riderList.go">라이더리스트</a>
+	
 
 	
 	<br>
@@ -588,6 +600,7 @@ padding:10px;
 <c:if test="${sessionScope.loginId eq null}">
 			<c:if test="${list eq null}">
 		
+
 						<br>
 						<br>
 						<hr>
@@ -857,6 +870,7 @@ padding:10px;
 
 	
 	   				
+
 	<br>
 	
 	<br>

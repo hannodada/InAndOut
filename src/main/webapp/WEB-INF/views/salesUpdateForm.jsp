@@ -27,6 +27,7 @@
 </style>
 </head>
 <body>
+	<jsp:include page="realGnb.jsp"/>
 	<form action="salesUpdate.do" method="post" enctype="Multipart/form-data">
 		<input type="text" name="sales_no" value="${detailData.sales_no }" hidden="true"/>
 		<table>

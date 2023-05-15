@@ -23,23 +23,15 @@
 
     body {
       font-family: 'Noto Sans KR', sans-serif;
-      
-      
-      
- 
     }
-
-
-
 
     a:link {
       text-decoration: none;
-      
     }
 
     a:visited {
       
-}
+		}
 
     a:hover {
       color: #21325D;

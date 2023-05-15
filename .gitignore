@@ -3,4 +3,6 @@
 .springBeans
 target/
 .settings/
-/.metadata/
+src/test/
+.metadata/
+

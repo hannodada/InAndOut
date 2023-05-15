@@ -27,6 +27,7 @@ table, th, td{
 </style>
 </head>
 <body>
+	<jsp:include page="realGnb.jsp"/>
 	<form action="salesWrite.do" method="post" enctype="multipart/form-data">
 		<table>
 			<tr>

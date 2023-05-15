@@ -45,7 +45,6 @@ img{ /* 이미지 배율 증가 시 부드럽게 */
 }
 
 .popup{ /* 팝업 배경 */
-    background-color: rgba(0, 0, 0, 0.877);
     width: 100%;
     height: 100vh;
     overflow: auto;
@@ -69,10 +68,12 @@ img{ /* 이미지 배율 증가 시 부드럽게 */
 .popup.show{ /* 팝업 보이기 */
     opacity: 1;
     pointer-events: unset;
+    top: 20%;
 }
 </style>
 </head>
 <body>
+	<jsp:include page="realGnb.jsp"/>
 	<table>
 		<tr>
 			<th>갤러리번호</th>
@@ -97,15 +98,22 @@ img{ /* 이미지 배율 증가 시 부드럽게 */
 		<tr>
 			<th>사진</th>
 			<td>
-				<c:forEach items="${detailPhoto }" var="i">
-					<c:if test="${i ne null }">
+				<c:if test="${detailPhoto.size() == 0 }">
+					<div class="container text-center d-flex flex-wrap">
+						<span class="wrap">
+							<img src="resources/img/defaultIMG.png">
+						</span>
+					</div>
+				</c:if>
+				<c:if test="${detailPhoto.size() > 0 }">
+					<c:forEach items="${detailPhoto }" var="i">
 						<div class="container text-center d-flex flex-wrap">
 						    <span class="wrap">
 						        <img src="/photo/${i }" alt="test">
 						    </span>
 						</div>
-					</c:if>
-				</c:forEach>
+					</c:forEach>
+				</c:if>
 			</td>
 		</tr>
 		<tr>

@@ -16,6 +16,7 @@ table, th, td{
 </style>
 </head>
 <body>
+	<jsp:include page="realGnb.jsp"/>
 		<c:if test="${biz_id ne null}">
 			<input type="text" id="biz_id" name="biz_id" value="${biz_id}" hidden="true"/>
 			<input type="text" id="biz_name" value="${biz_name}" readonly="readonly"/>
@@ -76,7 +77,7 @@ table, th, td{
 							<th><img src="/photo/${i.new_photo_name }"/></th>
 						</c:if>
 						<c:if test="${i.new_photo_name eq null }">
-							<th><img src="/photo/default.png"/></th>
+							<th><img src="resources/img/defaultIMG.png"/></th>
 						</c:if>
 						<th><a href="salesDetail.do?sales_no=${i.sales_no}">${i.subject }</a></th>
 						<th>${i.price }</th>
@@ -213,12 +214,10 @@ $('document').ready(function() {
 			content += '<th>'+item.sales_no+'</th>';
 			content += '<th>'+item.sales_state+'</th>';
 
-			content += '<th><img src="/photo/';
-
 			if(item.new_photo_name == null){
-				content += 'default.png';
+				content += '<th><img src="resources/img/defaultIMG.png';
 			}else{
-				content += item.new_photo_name;
+				content += '<th><img src="/photo/'+item.new_photo_name;
 			}
 			
 			content += '"/></th>';
