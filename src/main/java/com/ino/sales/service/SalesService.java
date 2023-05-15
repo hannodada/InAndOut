@@ -27,25 +27,6 @@ public class SalesService {
 
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired SalesDAO dao;
-	
-	public ArrayList<SalesDTO> salesList(HttpSession session, HashMap<String, String> userParams) {
-		
-		logger.info("salesList 진입");
-		
-		if(session.getAttribute("loginId")!=null) {
-			String loginId = (String) session.getAttribute("loginId");
-			String sido = dao.getUserSido(loginId);
-			String sigungu = dao.getUserSigungu(loginId);
-			userParams.put("sido", sido);
-			userParams.put("sigungu", sigungu);
-		}
-		
-		ArrayList<SalesDTO> list = new ArrayList<SalesDTO>();
-		
-		list = dao.salesList(userParams);		
-		
-		return list;
-	}
 
 	public String getBiz_name(String biz_id) {
 
@@ -147,9 +128,21 @@ public class SalesService {
 		return dao.salesDetailPhoto(sales_no);
 	}
 
-	public ArrayList<SalesDTO> filtering(HashMap<String, String> userParams) {
+	public HashMap<String, Object> filtering(HttpSession session, HashMap<String, String> userParams) {
 		
-		ArrayList<SalesDTO> list = new ArrayList<SalesDTO>();
+		if(session.getAttribute("loginId")!=null) {
+			String loginId = (String) session.getAttribute("loginId");
+			String flag = userParams.get("flag");
+			logger.info("flag"+flag);
+			
+			if(flag.equals("first")) {
+				String sido = dao.getUserSido(loginId);
+				String sigungu = dao.getUserSigungu(loginId);
+				userParams.put("sido", sido);
+				userParams.put("sigungu", sigungu);
+			}
+		}
+		
 		String filterName = userParams.get("filterName");
 		
 		logger.info("filterName :"+filterName);
@@ -159,10 +152,49 @@ public class SalesService {
 		logger.info("sigungu :"+userParams.get("sigungu"));
 		logger.info("minPrice :"+userParams.get("minPrice"));
 		logger.info("maxPrice :"+userParams.get("maxPrice"));
-
-		list = dao.salesList(userParams);
 		
-		return list;
+		int page = Integer.parseInt(userParams.get("page"));
+		int cnt = Integer.parseInt(userParams.get("cnt"));
+		
+		logger.info(page+" 페이지 보여줘");
+		logger.info("한 페이지에 "+cnt+"개씩 보여줄거야");
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		//1 page = offset : 0
+		//2 page = offset : 5
+		//3 page = offset : 10
+		// cnt 5개씩 page 1페이지
+		
+		int offset = cnt*(page-1);
+		
+		// paginatin plugin totalpages에 총 페이지 수를 계산해서 넘겨줘야 한다.
+		// 만들 수 있는 총 페이지 수 = 전체 게시물 / 페이지당 보여줄 수		
+		
+
+		
+		int total = dao.salesTotalCount(userParams);
+		int range = total%cnt == 0 ? total/cnt : (total/cnt)+1;
+		logger.info("전체 게시물 수 :"+total);
+		logger.info("총 페이지 수 :"+range);
+		
+		// 게시물 갯수를 변경했을 때 현재 페이지 상태에서 바뀐 게시물 갯수를 반영하지 못할 수 있음.
+		// 조건문을 걸어서 range 보다 page가 크면 그 값을 range로 바꾼다.
+		page = page > range ? range : page;
+		
+		map.put("currPage", page);
+		map.put("pages", range);
+		
+		userParams.put("cnt", userParams.get("cnt"));
+		userParams.put("offset", Integer.toString(offset));
+		
+		logger.info("총 cnt 수 :"+Integer.toString(cnt));
+		logger.info("총 offset 수 :"+Integer.toString(offset));
+		
+		ArrayList<SalesDTO> list = dao.salesList(userParams);
+		map.put("filteredList", list);
+		
+		return map;
 	}
 
 	public void salesDelete(String sales_no) {

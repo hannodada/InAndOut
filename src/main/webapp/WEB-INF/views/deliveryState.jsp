@@ -5,7 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>배송 상태 변경</title>
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
 <style>
 	.main-box{
 		border: 1px solid black;
@@ -29,60 +32,101 @@
 </head>
 <body>
 
-	<jsp:include page="realGnb.jsp"/>
-
-	<h2 class="tag_top">총 <div id="m"></div>건의 배송을 진행중이에요.</h2>
-	<c:forEach items="${deliveryState}" var="ds" varStatus="status">
+	<div id="list"> 
 	
-	<div class="main-box" >
-	<%-- ${status.index+1}	 --%>
-		<div>
-			<c:if test="${ds.new_photo_name eq null}">
-				<img  width="50" src="resources/photo/프로필 기본.png"/>${ds.nickname}&nbsp;님
-			</c:if>
-			<c:if test="${ds.new_photo_name ne null}">
-				<img  width="50" src="resources/photo/${ds.new_photo_name}"/>${ds.nickname}&nbsp;님
-			</c:if>
-		</div>
-		
-		배송번호 : <span>${ds.delivery_offer_no}</span>
-		
-	
-		<div>IN ${ds.from_addr}</div>
-		<div>OUT ${ds.to_addr}</div>
-		
-			
-		<div class="box">
-			<select class="dv-list" id="dv-ln" onchange="myfunction(this)">
-				<option value="배송접수"><c:if test="${ds.delivery_state eq '배송접수'}">disabled</c:if>배송접수</option>
-				<option value="배송중" ><c:if test="${ds.delivery_state eq '배송중'}">disabled</c:if>배송중</option>
-				<option value="배송완료" ><c:if test="${ds.delivery_state eq '배송완료'}">disabled</c:if>배송완료</option>
-				<option value="배송실패" ><c:if test="${ds.delivery_state eq '배송실패'}">disabled</c:if>배송실패</option>
-			</select>
-		<button onclick="location.href='./riderChatOpen.do?offers_no=${ds.delivery_offer_no}'">채팅</button>
-		</div>		
 	</div>
-	
-	</c:forEach>
+	<div class="container">                           
+		<nav aria-label="Page navigation">
+			<ul class="pagination" id="pagination"></ul>
+		</nav>               
+	</div>
 </body>
 <script>
-	var cnt = document.getElementsByClassName("main-box").length;
-	document.getElementById( "m" ).innerText = cnt ;
-	console.log(cnt);
+
+	var myrouteshowPage = 1;
+	var cnt = 5;
+	myroutlistCall(myrouteshowPage);
+	function myroutlistCall(page){
+	   $.ajax({
+	      type:'post',
+	      url:'deliveryState.ajax',
+	      data:{
+	         'page':page,
+	         'cnt':cnt
+	      },
+	      dataType:'json',
+	      success:function(data){
+	         console.log(data);
+	         console.log("성공");
+	         myroutlistPrint(data.list);
+	         
+	         // 총 페이지 수
+	         // 현재 페이지
+	         
+	         //paging plugin
+	         $('#pagination').twbsPagination({
+	            startPage:data.currPage,      // 시작페이지
+	            totalPages:data.pages,   // 총 페이지 수
+	            visiblePages:5,   // 보여줄 페이지[1][2][3][4][5]
+	            onPageClick:function(event,page){// 페이지 클릭시 동작되는 함수(콜백)
+	               console.log(page, myrouteshowPage);
+	               if (page != myrouteshowPage) {
+	                  myrouteshowPage = page;
+	                  myroutlistCall(page);
+	                  }               
+	            }
+	         });
+	      },
+	      error:function(e){
+	         console.log(e);
+	         console.log("왜실패>?");
+	      }
+	   });
+	}
+function myroutlistPrint(list,idx){
+var content='';
+console.log(list.length);
+	content +='<h2 class="tag_top">'+'총 '+list.length+'건의 배송을 진행중이에요.'+'</h2>';
+// java.sql.Date 는 js 에서 읽지 못해 밀리세컨드로 반환한다.
+// 해결방법 1. DTO 에서 Date 를 String 으로 반환
+// 해결방법 2. js 에서 변환
+list.forEach(function(item, idx){
+	content += '<div class="main-box" >';
+	content += '<div>';
+	if (item.new_photo_name == null) {
+	  content += '<img  width="50" src="resources/photo/프로필 기본.png"/>' + item.nickname + '&nbsp;님';
+	} else {
+	  content += '<img  width="50" src="resources/photo/' + item.new_photo_name + '"/>' + item.nickname + '&nbsp;님';
+	}
+	content += '</div>';
+	content += '배송번호 : <span>' + item.delivery_offer_no + '</span>';
+	content += '<div>IN ' + item.from_addr + '</div>';
+	content += '<div>OUT ' + item.to_addr + '</div>';
+	content += '<div>' + item.delivery_state + '</div>';
+	content += '<div class="box">';
+	content += '<select class="dv-list" id="dv-ln" onchange="myfunction(this)">';
+	content += '<option value="배송접수" ' + (item.delivery_state == '배송접수' ? 'selected' : '') + '>배송접수</option>';
+	content += '<option value="배송중" ' + (item.delivery_state == '배송중' ? 'selected' : '') + '>배송중</option>';
+	content += '<option value="배송완료" ' + (item.delivery_state == '배송완료' ? 'selected' : '') + '>배송완료</option>';
+	content += '<option value="배송실패" ' + (item.delivery_state == '배송실패' ? 'selected' : '') + '>배송실패</option>';
+	content += '</select>';
+	content += '<button onclick="location.href=\'./riderChatOpen.do?offers_no=' + item.delivery_offer_no + '\'">채팅</button>';
+	content += '</div>';
+	content += '</div>';
+	});
+	$('#list').empty();
+	$('#list').append(content);
+}
 	
 	function myfunction(e){
 		console.log($(e).val());
 		var val = $(e).val();
-		var val2 = $(e).parents(".main-box").find("span").text();
-		console.log(val2);
 		if(confirm("변경하시겠습니까?")){
-			
 			$.ajax({
 				type: 'post',
-				url: 'select.ajax',
+				url: 'filtering.ajax',
 				data: {
 					delivery_state:val,
-					delivery_offer_no:val2
 				},
 				dataType: 'json',
 				success: function(data){
@@ -90,11 +134,10 @@
 				},
 				error: function(e){
 					console.log(e);
-					console.log("실패");
+					location.href="deliveryHistory.go";
 				}
 			});
 		}
-		
 	}
 </script>
 </html>

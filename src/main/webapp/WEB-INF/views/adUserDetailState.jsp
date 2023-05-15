@@ -35,8 +35,8 @@ function confirmSubmit() {
 			</tr>	
 			<tr>
 				<td>처리자</td>
-				<td>	${user.admin_id} <!-- session -->
-  			<input type="text" name="admin_id" value="${user.admin_id}" hidden> </td>
+				<td>	${loginId} <!-- session -->
+  			<input type="text" name="admin_id" value="${loginId}" hidden> </td>
 			</tr>					
 			<tr>
 				<td>회원상태</td>

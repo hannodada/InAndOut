@@ -9,6 +9,7 @@
 <script type="text/javascript" src="resources/js/jquery.twbsPagination.min.js"></script>
 </head>
 <body>
+<jsp:include page="adModal.jsp"/>
 <jsp:include page="adminbox.jsp"/>
 	
 <article>
@@ -40,14 +41,6 @@
       </select>       
     </form>
     
- 		<form>
- 			<label>판매상태</label> &nbsp&nbsp
-      <input type="checkbox" name="user-state" value="all">전체
-      <input type="checkbox" name="user-state" value="waiting">판매중
-      <input type="checkbox" name="user-state" value="normal">판매완료
-      <input type="checkbox" name="user-state" value="blocked">삭제
-    </form>  
-
     <form>
       <label for="search-word">검색어:</label>
       &nbsp&nbsp&nbsp
@@ -63,7 +56,7 @@
 		<table class = "mokrok">
 		<thead>
 			<tr>
-				<th><input type="checkbox" id="all"/></th>
+				<th><input type="checkbox" name="allCheck"/></th>
 				<th>번호</th>
 				<th>제목</th>
 				<th>아이디</th>
@@ -89,11 +82,34 @@
              </div>
            </th>
          </tr>				
-	
+	   <button onclick="deleteValue()" id="blindBtn">블라인드</button>
+    <button onclick="noblind()">블라인드 해제</button>
 
+
+			<div id="myModal" class="modal">
+		  <div class="modal-content">
+			  	<form action="ad.sblindhistory.do" method = "post">
+			    <div class="modal-header">
+			      <span class="close">&times;</span>
+			      <h2>처리자 ${loginId}</h2> <!-- 세션체크해서 로그인 한 놈 출력 -->
+			      <input type = "text" name="report_id" value="${loginId}" hidden/>
+			    </div>
+			    <div class="modal-body">		    
+				   		<input type = "text" name="sales_no" value="${user.sales_no}" hidden/>
+				   		<input type = "text" name="report_time" value="${user.report_time}" hidden/>
+			    	<p>처리사유</p>
+			      <p><textarea name="report_content">${user.report_content}</textarea></p>
+			
+			    </div>
+			    <div class="modal-footer">
+					 <button onclick="changeuser" id="updateBtn" type="submit" class="btn btn-success">완료</button>
+			    </div>
+			  </div>
+				</form>
+			</div>		
   		</tbody> 			 	 		
 			</table>
-		</div>	
+
 			
 	
 	</article>
@@ -147,7 +163,8 @@ function listPrint(list){
 	      
 	      // 배열 요소들 반복문 실행 -> 행 구성 + 데이터 추가 
 	      content +='<tr>';
-	      content +='<td><input type="checkbox" name="check"></td>';
+	      content += '<td class="checkbox"><input type="checkbox" name="Rowcheck" value="' + item.sales_no + '"></td>';
+
 	      content +='<td>'+item.sales_no+'</td>';
 	      content +='<td id="userdiv"><a href="salesDetail.do?sales_no='+ item.sales_no +'">' + truncateString(item.subject, 16) + '</a></td>';
 	      content +='<td>'+item.user_id+'</td>';
@@ -161,7 +178,7 @@ function listPrint(list){
 	    	}
 
 	      content +='<td>'+item.date+'</td>';
-	      content +='<td id="subject"><a href="history.go?gallery_no='+ item.gallery_no +'">' + "상세보기" + '</a></td>';
+	      content +='<td id="subject"><a href="shistory.go?sales_no='+ item.sales_no +'">' + "상세보기" + '</a></td>';
 
 	      content +='</tr>';
 	      
@@ -171,18 +188,102 @@ function listPrint(list){
 	   $('#list').empty();
 	   $('#list').append(content);
 	}
-$('#all').click(function(e){
-var $chk = $('input[type="checkbox"]');
-	
-if($(this).is(':checked')){
-   $chk.prop('checked',true);
-}else{
-   $chk.prop('checked',false);
+
+$(function(){
+	var chkObj = $("input[name='Rowcheck']");
+	var rowCnt = chkObj.length;
+
+	  
+	  $("input[name='allCheck']").click(function(){
+	    var chk_listArr = $("input[name='Rowcheck']"); // 체크박스의 name 속성을 "Rowcheck"로 수정
+	    for (var i=0; i<chk_listArr.length; i++){
+	      chk_listArr[i].checked = this.checked;
+	    }
+	  });
+	  $("input[name='Rowcheck']").click(function(){
+	    if($("input[name='Rowcheck']:checked").length == rowCnt){ // 체크박스의 name 속성을 "Rowcheck"로 수정
+	      $("input[name='allCheck']")[0].checked = true;
+	    }
+	    else{
+	      $("input[name='allCheck']")[0].checked = false;
+	    }
+	  });
+	});
+
+
+
+
+
+function deleteValue(){
+   // Controller로 보내고자 하는 URL (.dh부분은 자신이 설정한 값으로 변경해야됨)
+	  var valueArr = []; // 빈 배열로 초기화
+
+	  var slist = $("input[name='Rowcheck']:checked"); // 선택된 체크박스 요소들을 가져옴
+
+	  if (slist.length === 0) {
+	    alert("선택된 글이 없습니다.");
+	    return; // 함수 종료
+	  }
+    else{
+		var chk = confirm("정말 블라인드 처리하시겠습니까?");	
+		
+	    // 선택된 체크박스의 값을 valueArr 배열에 추가
+	    slist.each(function () {
+	      valueArr.push($(this).val());
+	    });
+		
+		$.ajax({
+		    url :'ad.sblind',                    // 전송 URL
+		    type : 'POST',                // GET or POST 방식
+		    traditional : true,
+		    data : {
+		    	valueArr : valueArr        // 보내고자 하는 data 변수 설정
+		    },
+            success: function(jdata){
+                if(jdata = 1) {
+                    alert("블라인드 처리 완료");
+                    location.replace("adsaleslist.do")
+                }
+                else{
+                    alert("블라인드 처리 실패");
+                }
+            }
+		});
+		
+
+		
+	}
 }
-	console.log($chk);
+	
+	
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("blindBtn");
 
 
-});
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal	
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+	
+}
 
 
 function truncateString(str, maxLength) {
@@ -192,6 +293,6 @@ function truncateString(str, maxLength) {
 	    return str;
 	}
    
-	   	   
+	    
 			</script>
 </html>

@@ -21,8 +21,87 @@ public class AdminSalesDTO {
 	private String biz_id;
 	private String goods_id;
 	private String nickname;
+	private int report_no;
+	private String cate_no;
+	private String report_reason;
+	private String report_date;
+	private String report_state;
+	private String report_whom;
+	private String new_photo_name;
+
+	private String report_time;
+	private String report_content;
+	private String report_id;
 	
 	
+	
+	
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+	public int getReport_no() {
+		return report_no;
+	}
+	public void setReport_no(int report_no) {
+		this.report_no = report_no;
+	}
+	public String getCate_no() {
+		return cate_no;
+	}
+	public void setCate_no(String cate_no) {
+		this.cate_no = cate_no;
+	}
+	public String getReport_reason() {
+		return report_reason;
+	}
+	public void setReport_reason(String report_reason) {
+		this.report_reason = report_reason;
+	}
+	public String getReport_date() {
+		return report_date;
+	}
+	public void setReport_date(String report_date) {
+		this.report_date = report_date;
+	}
+	public String getReport_state() {
+		return report_state;
+	}
+	public void setReport_state(String report_state) {
+		this.report_state = report_state;
+	}
+	public String getReport_whom() {
+		return report_whom;
+	}
+	public void setReport_whom(String report_whom) {
+		this.report_whom = report_whom;
+	}
+	public String getNew_photo_name() {
+		return new_photo_name;
+	}
+	public void setNew_photo_name(String new_photo_name) {
+		this.new_photo_name = new_photo_name;
+	}
+	public String getReport_time() {
+		return report_time;
+	}
+	public void setReport_time(String report_time) {
+		this.report_time = report_time;
+	}
+	public String getReport_content() {
+		return report_content;
+	}
+	public void setReport_content(String report_content) {
+		this.report_content = report_content;
+	}
+	public String getReport_id() {
+		return report_id;
+	}
+	public void setReport_id(String report_id) {
+		this.report_id = report_id;
+	}
 	public int getSales_no() {
 		return sales_no;
 	}

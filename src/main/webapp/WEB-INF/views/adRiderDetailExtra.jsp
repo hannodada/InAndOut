@@ -96,9 +96,6 @@
 	
 		<script>
 
-		function updateRole(${rider.user_state}){
-			
-		}
 		
 		// Get the modal
 		var modal = document.getElementById("myModal");

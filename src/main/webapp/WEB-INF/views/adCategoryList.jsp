@@ -11,32 +11,27 @@
 <body>
 <jsp:include page="adminbox.jsp"/>
 	<article>
-<h2 style="color: #708090;">카테고리 목록</h2>
+<h2 style="color: #708090;">카테고리 목록 - 업종별</h2>
 	<hr style="border-top-width:2px; border-color:#b0cbd6;">					
 	
 		<section class="wrapper">
 		<!-- 검색 -->
-			<form>
-	      <label for="search-word">   
-	      카테고리 
-	      </label>
-	      &nbsp&nbsp&nbsp
-				<input type="radio" name = "category" value= '업종별'/> 업종별
-				<input type="radio" name = "category"  value= '업종별'/> 물품별
-    
-
-    <button onclick="">검색</button>
- 
+		<form action="ad.search.do" method="get">
+		    <label for="search-word">카테고리</label>
+		    &nbsp&nbsp&nbsp
+		    <input type="radio" name="category" value="업종별"/> 업종별
+		    <input type="radio" name="category" value="물품별"/> 물품별
+		
+		    <button type="submit">검색</button>
 		</form>
-    
+
+    <br/>
    <!-- 표 -->
    <div>
 		<table>
 			<thead>
 				<tr>
 					<th>업종별 기호</th>
-					<th>카테고리명</th>
-					<th>물품별 기호</th>
 					<th>카테고리명</th>
 					<th>비고</th>
 
@@ -65,7 +60,7 @@
 		  	</tbody>
 		
          <tr>
-           <th colspan="6" id="paging">  
+           <th colspan="5" id="paging">  
              <div class="container">                  
                <nav aria-label="Page navigation">
                  <ul class="pagination justify-content-center" id="pagination"></ul>
@@ -137,8 +132,6 @@ function listPrint(list){
 	      content +='<tr>';
 	      content +='<td>'+item.biz_id+'</td>';
 	      content +='<td id="userdiv">'+item.biz_name+'</td>';
-	      content +='<td>'+item.goods_id+'</td>';
-	      content +='<td id="userdiv">'+item.goods_name+'</td>';	  
 	      content +='<td id="subject"><a href="ad.goodsupdate.go?goods_id='+ item.goods_id +'">' + "수정" + '</a></td>';
 	      content +='</tr>';
 	      
@@ -148,6 +141,9 @@ function listPrint(list){
 	   $('#list').empty();
 	   $('#list').append(content);
 	}
+	
+	
+
 
 </script>
 

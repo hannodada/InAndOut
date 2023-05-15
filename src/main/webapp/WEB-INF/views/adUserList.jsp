@@ -11,7 +11,7 @@
 
 <body>
 <jsp:include page="adminbox.jsp"/>
-<jsp:include page="realGnb.jsp"/>
+<%--  <jsp:include page="realGnb.jsp"/>--%>
 <article>
 	
 
@@ -39,11 +39,11 @@
  
     <br/>
     
-    <label for="search-word">검색어:</label> &nbsp&nbsp&nbsp
-   	<input type="text" id="searchInput" placeholder="아이디 또는 닉네임을 입력">
-   	<button id="searchButton">검색</button>
-   --> 
+   <input type="text" id="searchInput" placeholder="제목 또는 작성자를 입력">
+   <button id="searchButton">검색</button>
 
+
+ 
 		<table class = "mokrok">
 			<thead>
 				<tr>
@@ -100,6 +100,7 @@ $('#searchButton').click(function(){
    searchText = 'default';
    $('#pagination').twbsPagination('destroy');
 });
+
 
 //회원분류에 따른 출력 
 $('input[name="user_div"]').click(function(){
