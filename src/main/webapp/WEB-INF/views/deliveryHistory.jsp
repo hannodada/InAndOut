@@ -121,7 +121,7 @@ function myroutlistPrint(list,idx){
 	}
 	
 	
-	/* function myfunction(e){
+	function myfunction(e){
 		console.log($(e).val());
 		var val = $(e).val();
 		$.ajax({
@@ -139,6 +139,6 @@ function myroutlistPrint(list,idx){
 			}
 		});
 	} 
-	*/
+	
 </script>
 </html>

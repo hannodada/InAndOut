@@ -277,20 +277,20 @@ public class RiderController {
 		return service.deliveryHistroyAjax(Integer.parseInt(page),Integer.parseInt(cnt));	
 	}
 	
-	@RequestMapping(value = "/select.ajax", method = RequestMethod.POST)
-	@ResponseBody
-	public HashMap<String, Object> selectAjax(Model model, @RequestParam HashMap<String, String> params) {
+	//@RequestMapping(value = "/select.ajax", method = RequestMethod.POST)
+	//@ResponseBody
+	//public HashMap<String, Object> selectAjax(Model model, @RequestParam HashMap<String, String> params) {
 
-		logger.info("delivery_state :"+params.get("delivery_state"));
-		logger.info("delivery_offer_no :"+params.get("delivery_offer_no"));
+	//	logger.info("delivery_state :"+params.get("delivery_state"));
+	//	logger.info("delivery_offer_no :"+params.get("delivery_offer_no"));
 //		ArrayList<RiderDTO> selectList = service.select(delivery_state, delivery_offer_no);
 		
 //		logger.info("delivery_state : " + delivery_state,delivery_offer_no);
 		
 //		map.put("delivery_state", selectList);
 		
-		return service.select(params);
-	}
+	//	return service.select(params);
+	// }
 	
 	@RequestMapping(value = "filtering.ajax")
 	@ResponseBody

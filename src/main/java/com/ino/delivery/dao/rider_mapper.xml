@@ -139,8 +139,8 @@
 			ON s.user_id = p.photo_div 
 			left join chatroom c
 			on c.msg_div_no = s.sales_no
-		WHERE (c.msg_div_no = #{param1} and p.new_photo_name is null)
-		or (c.msg_div_no = #{param1} and p.new_photo_name is not null)
+		WHERE (s.sales_no = #{param1} and p.new_photo_name is null)
+		or (s.sales_no = #{param1} and p.new_photo_name is not null)
 	</select>
 	
 	<insert id="select" parameterType="hashmap">
