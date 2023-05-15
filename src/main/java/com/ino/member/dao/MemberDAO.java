@@ -8,11 +8,15 @@ import com.ino.member.dto.MemberDTO;
 
 
 
+
 public interface MemberDAO {
 
 	int overlay(String user_id);
 	
 	int overlay2(String nickname);
+	
+	ArrayList<MemberDTO> normalTopList();
+	
 
 	int join(HashMap<String, String> params);
 
@@ -26,8 +30,10 @@ public interface MemberDAO {
 
 	
 	
-
+	
 	int userRegist(HashMap<String, String> params);
+	
+	
 
 	void fileWrite(String oriFileName, String newFileName, String user_id, String cate_no);
 
@@ -48,6 +54,20 @@ public interface MemberDAO {
 	String userCategory(String user_id);
 
 	int userChange(String user_id, String user_div2);
+
+	String interest_biz_id(String user_id);
+
+	ArrayList<MemberDTO> memberAttentionTopList(String interest_biz_id);
+
+	String sigungu(String user_id);
+
+	
+	
+	ArrayList<MemberDTO> sigunguTopList(String sigungu);
+
+	ArrayList<MemberDTO> hitGallery();
+
+	ArrayList<MemberDTO> attentionTopList();
 
 	
 	
