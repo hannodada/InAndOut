@@ -100,7 +100,7 @@
       }
 </style>
 </head>
-<body style="height:100%">
+<body style="height:100%" id="body">
 	<div class="modal">
       <div class="modal_body">
       	<h4>판매 상태 변경하기</h4>
@@ -366,8 +366,15 @@ function listDraw(list, userlist, salephotolist, userphotolist) {
 		} else{
 			content += '<div class="chat_img"> <img src="resources/photo/' + userphotolist[index] + '" alt="sunil"> </div>';
 		}
-		content += '<div class="chat_ib"><h5>';
-		content += userlist[index].user_name + ' <span class="chat_date">' + item.recent_time + '&nbsp;&nbsp;</span></h5>';
+		content += '<div class="chat_ib"><div style="display:flex"><div style="width:100%; display:flex"><div style="width:auto"><h5>';
+		content += userlist[index].user_name + '&nbsp;&nbsp; </h5></div>';
+		console.log("user_div : " + userlist[index]);
+		if(userlist[index].user_div == "b"){
+			content += '<div class="chat_img"> <img style="position:relative;top:-5px" src="resources/photo/badge.png" alt="sunil"> </div>';
+		}else if (userlist[index].user_div == "c"){
+			content += '<div class="chat_img"> <img style="position:relative;top:-5px" src="resources/photo/icon-rider.png" alt="sunil"> </div>';
+		}
+		content += '</div><div style="width:270px;text-align:right"><h5><span class="chat_date">' + item.recent_time + '&nbsp;&nbsp;</span></h5></div></div>';
 		content += '<p>'+item.recent_msg+'</p>';
 		content += '</div>';
 		if(salephotolist[index]!="rider"){
@@ -396,7 +403,7 @@ function msgList(dst){
 		dataType: 'json',
 		success: function(data){
 			console.log(data.list);
-			msgDraw(data.list,data.sale,data.salephoto,data.user,data.userphoto);
+			msgDraw(data.list,data.sale,data.salephoto,data.user,data.userphoto,data.delivery);
 		},
 		error: function(e) {
 		}
@@ -405,8 +412,9 @@ function msgList(dst){
 
 var enter = false;
 
-function msgDraw(list,sale,salephoto,user,userphoto){
+function msgDraw(list,sale,salephoto,user,userphoto,delivery){
 	
+	console.log(delivery)
 	var content = '';
 	list.forEach(function(item, index){
 		if(item.from_id == "${loginId}"){
@@ -444,21 +452,38 @@ function msgDraw(list,sale,salephoto,user,userphoto){
 	$('#type_msg').css("display","block");
 	
 	content = '';
-	content += '<h3 style="min-width: 100px; width: auto">&nbsp;' + user.user_name + '&nbsp;님</h3></div>';
-	content += '<div style="display:flex;width:100%" onclick="location.href=\'salesDetail.do?sales_no=' + sale.sales_no + '\'">'
+	
+	content += '<div style="width:40%; display:flex">';
+	content += '<div style="width:auto"><h3>&nbsp;' + user.user_name + '&nbsp;님&nbsp;&nbsp;</h3></div>';
+	if(user.user_div == "b"){
+		content += '<div class="chat_img"> <img src="resources/photo/badge.png" alt="sunil"> </div>';
+	}else if (user.user_div == "c"){
+		content += '<div class="chat_img"> <img src="resources/photo/icon-rider.png" alt="sunil"> </div>';
+	}
+	content += '</div>';
+	content += '<div style="display:flex;width:60%" onclick="location.href=\'salesDetail.do?sales_no=' + sale.sales_no + '\'">'
 	content += '<div style="width:100%; display:block; padding: 5px 5px">';
 	content += '<div style="float:right"><div style="display:flex">';
-	if(sale.sales_state == "판매중"){
-		if(sale.user_id == "${loginId}"){
-			content += '<button class="btn btn-primary" id="saledonebtn" onclick="showModal()">판매중</button>';
-		} else{
-			content += '<button class="btn btn-primary">판매중</button>';
+	if(user.user_div != "c"){
+		if(sale.sales_state == "판매중"){
+			if(sale.user_id == "${loginId}"){
+				content += '<button class="btn btn-primary" id="saledonebtn" onclick="showModal()">판매중</button>';
+			} else{
+				content += '<button class="btn btn-primary">판매중</button>';
+			}
+		}else if(sale.sales_state == "판매중단"){
+			content += '<button class="btn btn-secondary">판매중단</button>';
+		}else{
+			content += '<button class="btn btn-secondary">판매완료</button>';
 		}
-	}else if(sale.sales_state == "판매중단"){
-		content += '<button class="btn btn-secondary">판매중단</button>';
-	}else{
-		content += '<button class="btn btn-secondary">판매완료</button>';
+	} else {
+		if(delivery.delivery_state == "배송완료" | delivery.delivery_state == "배송실패"){
+			content += '<button class="btn btn-secondary">'+ delivery.delivery_state +'</button>';
+		} else {
+			content += '<button class="btn btn-primary">'+ delivery.delivery_state +'</button>';
+		}
 	}
+	
 	content += '&nbsp;&nbsp;<h4>' + sale.subject + '</h4></div>';
 	content += '<div style="text-align:right"><h5>' + "₩ " + sale.price + '</h5></div></div></div><div style="width:20px"></div><div>';
 	content += '<img src="/photo/' + salephoto + '" style="max-height:80px"></div></div>';
@@ -468,7 +493,7 @@ function msgDraw(list,sale,salephoto,user,userphoto){
 	$('#sale_def').append(content);
 	$('#modal_text').text(sale.subject);
 	$('#modalsaleid').val(sale.sales_no);
-	$('#modalroomid').val(selectedRoom);
+	$('#modalroomid').val(selectedDst);
 	
 	$("#send_msg").mouseenter(function name() {
 		$('#msglistbox').scrollTop($('#msglistbox')[0].scrollHeight);
