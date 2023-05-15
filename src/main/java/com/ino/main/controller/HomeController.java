@@ -18,7 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.ino.main.dto.HomeDTO;
 import com.ino.main.service.HomeService;
-
+import com.ino.member.dto.MemberDTO;
 
 
 
@@ -59,7 +59,7 @@ public class HomeController {
 				model.addAttribute("hitGallery",hitGallery);
 				
 				
-		/*
+		
 				
 		//home ,root 연습	
 
@@ -152,13 +152,13 @@ public class HomeController {
 				
 				
 				logger.info("지금 시군구이거에 정보 있는건가? : " +sigunguTopList.size() );
-				logger.info("지금 아이티오에 사진이 들어 있는거임? :"+sigunguTopList.get(1) );
+				//logger.info("지금 아이티오에 사진이 들어 있는거임? :"+sigunguTopList.get(1) );
 						
 				
 				
 
 		}
-		*/		
+			
 		
 		return "home";
 	}

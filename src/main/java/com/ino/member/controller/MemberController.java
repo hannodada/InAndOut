@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ino.main.dto.HomeDTO;
 import com.ino.member.dto.MemberDTO;
+
 import com.ino.member.service.MemberService;
 
 
@@ -79,7 +81,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="/afterLogin.do")
-	public String afterList(Model model , HttpSession session) {		
+	public String afterLogin(Model model , HttpSession session) {		
 		logger.info("afterList call!!"); // 컨트롤러가 도착 했는지? (파라메터는 제대로 들어 왔는지?)
 		
 		String page = "home";
@@ -172,7 +174,11 @@ public class MemberController {
 		logger.info("interest_biz_id : "+interest_biz_id);
 		ArrayList<MemberDTO> memberAttentionTopList = service.memberAttentionTopList(interest_biz_id);
 		model.addAttribute("memberAttentionTopList",memberAttentionTopList);
+		logger.info("멤버 탑 리스트에는 그럼 뭐가 들어가 잇는건가..? : " +memberAttentionTopList.size() );
 		
+		for (MemberDTO dto4 : memberAttentionTopList) {
+		    logger.info("memberAttentionTopList: " + dto4.getNew_photo_name() + "사진이름 " + dto.getUser_id());
+		}
 		
 		
 		//사용자 주변 판매글 많은 사람 프로필 뽑아주기
@@ -183,7 +189,16 @@ public class MemberController {
 		
 		
 		logger.info("지금 시군구이거에 정보 있는건가? : " +sigunguTopList.size() );
-		logger.info("지금 아이티오에 사진이 들어 있는거임? :"+sigunguTopList.get(1) );
+
+		
+		
+		/*
+		 * for (MemberDTO dto4 : sigunguTopList) { logger.info("user_id: " +
+		 * dto4.getNew_photo_name() + "사진이름 " + dto.getUser_id()); }
+		 */
+
+		//logger.info("지금 아이티오에 사진이 들어 있는거임? :"+sigunguTopList.get(1) );
+		
 		
 		
 		//조회수 순으로 갤러리(4개) 호출
@@ -234,6 +249,9 @@ public class MemberController {
 	   }   
 	
 	
+	/*
+	//아작스 로그인 연습
+	
 	@RequestMapping(value="/join.ajax")
 	@ResponseBody
 	public HashMap<String, Object> join(
@@ -249,14 +267,14 @@ public class MemberController {
 		logger.info(" 파람 왓따! params : "+params);
 		MemberDTO dto = new MemberDTO();
 		logger.info("profile도 왔음 !! ㄷㄷ; : "+file1);
-		/* logger.info("bizprofile도 도착 : "+bizprofile); */
-		return  service.userRegist(file1, params, file2);
-	
+		// logger.info("bizprofile도 도착 : "+bizprofile); 
+		return  service.ajaxUserRegist(file1, params, file2);
 	
 	
 	}
+	*/
+
 	
-	/*
 	@RequestMapping(value="/userRegist.do",method = RequestMethod.POST)
 		public String write(MultipartFile profile,  MultipartFile bizprofile,
 				@RequestParam HashMap<String, String> params) {
@@ -267,7 +285,7 @@ public class MemberController {
 		logger.info("bizprofile도 도착 : "+bizprofile);
 		return service.userRegist(profile, params,bizprofile);
 	}
-	*/
+	
 	
 	@RequestMapping(value="/riderRegist.do",method = RequestMethod.POST)
 	public String riderwrite(MultipartFile profile,  MultipartFile bizprofile,

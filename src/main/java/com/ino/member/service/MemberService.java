@@ -50,9 +50,10 @@ public class MemberService {
 		return dao.normalTopList();
 	}
 	
+	/*
+	//아작스 로그인 
 	
-	
-	public HashMap<String, Object> userRegist(MultipartFile file1, HashMap<String, String> params, 
+	public HashMap<String, Object> ajaxUserRegist(MultipartFile file1, HashMap<String, String> params, 
 			MultipartFile file2) {
 		
 		HashMap<String, Object> map = new HashMap<>();
@@ -68,12 +69,13 @@ public class MemberService {
 		//**이거 idx 값으로 해서 dto로 넣어야 할까?? 고민중..,,,
 		String user_div = "a";
 		params.put("user_div", user_div);
-		int userRegistrow = dao.userRegist(params);
-		logger.info("userRegistrow변경되면 이거 나옴!!: "+userRegistrow);
+		//int userRegistrow = dao.userRegist(params);
+		map.put("success",dao.userRegist(params));
+		//logger.info("userRegistrow변경되면 이거 나옴!!: "+userRegistrow);
 		
 
 		
-		if(!file1.getOriginalFilename().equals("")) {
+		if(!file1.getOriginalFilename().equals(""))  {
 			logger.info("profile파일 업로드 작업");
 			fileSave(user_id, file1);
 		}
@@ -106,8 +108,68 @@ public class MemberService {
 			logger.info("bizprofile파일 업로드 작업");
 			bizfileSave(user_id, file2);
 		}
-		/* map.put("success", dao.join(params)); */
+		 // map.put("success", dao.join(params)); 
 		return map;
+	}
+	
+	*/
+	
+	
+	
+	public String userRegist(MultipartFile profile, HashMap<String, String> params, 
+			MultipartFile bizprofile) {
+		String page = "joinForm";
+		
+		MemberDTO dto = new MemberDTO();
+		dto.setUser_id(params.get("user_id"));
+		
+		
+		String user_id = dto.getUser_id();
+		logger.info("if문 밖에는 있나???"+user_id);
+		
+		//
+		//**이거 idx 값으로 해서 dto로 넣어야 할까?? 고민중..,,,
+		String user_div = "a";
+		params.put("user_div", user_div);
+		int userRegistrow = dao.userRegist(params);
+		logger.info("userRegistrow변경되면 이거 나옴!!: "+userRegistrow);
+		
+
+		
+		if(!profile.getOriginalFilename().equals("")) {
+			logger.info("profile파일 업로드 작업");
+			fileSave(user_id, profile);
+		}
+		//****  만약인증사용자 추가 정보가 들어오면 실행되는 구문
+		if(!params.get("store_name").equals("")) {
+			
+			String user_div2 = "b";
+			params.put("user_div2", user_div2);
+			int userChangerow = dao.userChange(user_id,user_div2);
+			logger.info("인증사용자로 변경되면 나오는 row : " +userChangerow);
+			
+			int biz_num = Integer.parseInt((params.get("biz_num")));
+			String biz = params.get("biz");
+			String store_name =  params.get("store_name");
+			String state = "인증대기";
+			logger.info(user_id+biz_num+biz+store_name+state);
+			int bizregistrow = dao.bizregist(user_id,biz_num,biz,store_name,state);
+			logger.info("이거 안들어가나??"+user_id);
+			logger.info("bizregistrow변경되면 이거 나옴!!: "+bizregistrow);
+		
+			//dao.user_div(user_div2, user_id, user_div_name2);
+			
+			
+		}
+		
+		
+		
+		
+		if(!bizprofile.getOriginalFilename().equals("")) {
+			logger.info("bizprofile파일 업로드 작업");
+			bizfileSave(user_id, bizprofile);
+		}
+		return page;
 	}
 	
 	
@@ -209,7 +271,7 @@ public class MemberService {
 		logger.info(oriFileName+" => " + newFileName);
 		try {
 			byte[] bytes= file.getBytes();
-			Path path = Paths.get("D:\\STUDY\\SPRING\\inAndOut\\src\\main\\webapp\\resources\\photo\\"+newFileName);
+			Path path = Paths.get("D:\\SPRING\\사진\\"+newFileName);
 			Files.write(path, bytes);
 			logger.info(newFileName+"save OK");
 			String cate_no = "p001";
@@ -228,7 +290,7 @@ public class MemberService {
 		logger.info(oriFileName+" => " + newFileName);
 		try {
 			byte[] bytes= bizprofile.getBytes();
-			Path path = Paths.get("D:\\STUDY\\SPRING\\inAndOut\\src\\main\\webapp\\resources\\photo\\"+newFileName);
+			Path path = Paths.get("D:\\SPRING\\사진\\"+newFileName);
 			Files.write(path, bytes);
 			logger.info(newFileName +" : bizsave OK ");
 			String cate_no = "p002";

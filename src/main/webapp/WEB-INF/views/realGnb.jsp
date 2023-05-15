@@ -80,8 +80,15 @@
 																			<div id="popup" class="popup">
 																			  <p>활동지역 인증 후 메인페이지로 이동합니다</p>
 																			</div>
-
+																		<button class="test_btn1" onclick="getLocation()">활동지역 인증</button>
+  																		<span id="sigungu"></span>	
+  																		
+																		 
+																		
+	
 														      	</div>
+														      
+																														      	
 													  </div>    	
 														     	<div  id="lol">
 																	<img src="resources/photo/logout.png" id="logout" onclick="location.href='logout.do'">
@@ -292,6 +299,11 @@
 
 
 </body>
+
+
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e434e3b05b4f1c7f078a8511ceaaab79&libraries=services"></script>
+
+
 <script>
 /*
 var prevScrollpos = window.pageYOffset; 
@@ -387,6 +399,121 @@ function hidePopup() {
 
 
 
+
+
+//버튼 클릭 이벤트 핸들러
+$(".test_btn1").on("click", function () {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      // 위치 정보 가져오기에 성공했을 때 호출되는 success 콜백 함수
+      function (position) {
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+        $("#location").html("현재 위치: " + latitude + ", " + longitude);
+      },
+      // 위치 정보 가져오기에 실패했을 때 호출되는 error 콜백 함수
+      function (error) {
+        console.log(error);
+        $("#location").html("위치 정보를 가져올 수 없습니다.");
+      }
+    );
+  } else {
+    $("#location").html("위치 정보를 지원하지 않는 브라우저입니다.");
+  }
+});
+
+
+
+
+//두번째
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      const lat = position.coords.latitude;
+      const lng = position.coords.longitude;
+      reverseGeocoding(lat, lng);  // 좌표를 이용하여 sigungu 정보를 찾아 출력합니다
+    });
+  } else {
+    document.getElementById("location").innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function reverseGeocoding(lat, lng) {
+	  const geocoder = new daum.maps.services.Geocoder();
+	  let sigungu = '';
+
+	  // 좌표로 행정동 주소 정보를 요청합니다
+	  geocoder.coord2RegionCode(lng, lat, function(result, status) {
+	    if (status === daum.maps.services.Status.OK) {
+	      for (let i = 0; i < result.length; i++) {
+	        // 행정동 주소 중 구와 동 정보만 추출합니다
+	        if (result[i].regionType === 'H' || result[i].regionType === 'B') {
+	          sigungu += result[i].regionName;
+	        }
+	      }
+	      // 추출한 구와 동 정보를 출력합니다
+	      document.getElementById("location").innerHTML = `현재 위치: ${lat}, ${lng}, ${sigungu}`;
+	    }
+	  });
+	}
+	
+//버튼 클릭 이벤트 핸들러
+$(".test_btn1").on("click", function () {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      // 위치 정보 가져오기에 성공했을 때 호출되는 success 콜백 함수
+      function (position) {
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+        reverseGeocoding(latitude, longitude); // 좌표를 이용하여 sigungu 정보를 찾아 출력합니다
+      },
+      // 위치 정보 가져오기에 실패했을 때 호출되는 error 콜백 함수
+      function (error) {
+        console.log(error);
+        $("#location").html("위치 정보를 가져올 수 없습니다.");
+      }
+    );
+  } else {
+    $("#location").html("위치 정보를 지원하지 않는 브라우저입니다.");
+  }
+});
+
+
+
+//새로 넣으래
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      const lat = position.coords.latitude;
+      const lng = position.coords.longitude;
+      daum.maps.load(function() {
+        reverseGeocoding(lat, lng);  // 좌표를 이용하여 sigungu 정보를 찾아 출력합니다
+      });
+    });
+  } else {
+    document.getElementById("location").innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function reverseGeocoding(lat, lng) {
+  const geocoder = new daum.maps.services.Geocoder();
+  let sigungu = '';
+
+  // 좌표로 행정동 주소 정보를 요청합니다
+  geocoder.coord2RegionCode(lng, lat, function(result, status) {
+    if (status === daum.maps.services.Status.OK) {
+      for (let i = 0; i < result.length; i++) {
+        // 행정동 주소 중 구와 동 정보만 추출합니다
+        if (result[i].regionType === 'H' || result[i].regionType === 'B') {
+          sigungu += result[i].regionName;
+        }
+      }
+      // 추출한 구와 동 정보를 출력합니다
+      document.getElementById("location").innerHTML = `현재 위치: ${lat}, ${lng}, ${sigungu}`;
+    }
+  });
+}
 
 
 

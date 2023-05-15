@@ -30,8 +30,10 @@ public interface MemberDAO {
 
 	
 	
-
+	
 	int userRegist(HashMap<String, String> params);
+	
+	
 
 	void fileWrite(String oriFileName, String newFileName, String user_id, String cate_no);
 

@@ -7,472 +7,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <!-- <link href="resources/css/home.css" rel="stylesheet"> -->
+    <link href="resources/css/home(경영).css" rel="stylesheet">  
     <style>
         /* @import url('https://fonts.googleapis.com/css2family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@100&display=swap'); */
     
-    #catagorybox{
-    
-    	/* text-align: center; */
-    	color: black;
-    /* 	display: flex; */
-		/*  align-items: center; */
-		/* justify-content: flex-star; */
-		font-family: 'Noto Sans KR', sans-serif;
-		width: 173px;
-		font-weight: bold;
-		/* border: 1px solid black; */
-    }
-    #topSeller{
-    
-	    text-align: center;
-	    	color: black;
-	    	display: flex;
-			/*  align-items: center; */
-			justify-content: flex-star;
-			font-family: 'Noto Sans KR', sans-serif;
-			width: 420px;
-			font-weight: bold;
-			border: 1px soild black;
-			
-			
-    }
-    #mom{
-    	 text-align: center;
-	    	color: black;
-	    	display: flex;
-			/*  align-items: center; */
-			justify-content: flex-star;
-			font-family: 'Noto Sans KR', sans-serif;
-			width: 173px;
-			font-weight: bold;
-			
-    
-    }
-    
-
-    #topCategery{
-	width: 43px;
-	cursor:pointer;
-	border-top-left-radius: 15px;
-            border-bottom-left-radius: 15px;
-            border-top-right-radius: 15px;
-            border-bottom-right-radius: 15px; 
-            
-    margin-right: 9px;     
-            
-	}
-    
-    #hitSeller{
-    	width: 250px;
-		cursor:pointer;
-		border-top-left-radius: 15px;
-	            border-bottom-left-radius: 15px;
-	            border-top-right-radius: 15px;
-	            border-bottom-right-radius: 15px; 
-	            
-	    margin-right: 9px;     
-    
-    
-    }
-    
-    #sellerProfile{
-    	width: 150px;
-		cursor:pointer;
-		border-top-left-radius: 75px;
-	            border-bottom-left-radius: 75px;
-	            border-top-right-radius: 75px;
-	            border-bottom-right-radius: 75px; 
-	            
-	    margin-right: 9px;     
-    
-    }
-    
-    #gallery{
-    		width: 320px;
-			cursor:pointer;
-			border-top-left-radius: 15px;
-            border-bottom-left-radius: 15px;
-            border-top-right-radius: 15px;
-            border-bottom-right-radius: 15px; 
-    		margin-right: 9px; 
-    
-    }
-    
-    
-    table,tr,td {
-    	     /* border: 1px solid black;     */
-    	 border-collapse: collapse;
-    }
-    table{
-    	
-    	text-align: center;
-    	 display: flex;
- 		 justify-content: center;
-  		align-items: center;
-    }
-    
-    tr,td{
-    	padding: 50px;
-    
-    }
-    tr{
-    	
-    
-    }
-    td{
-    
-    
-    }
-    
-    h2{
-    	margin-left: 13%;
-    	margin-top: 2%;
-    
-    }
-    
-    
-    button2 {
-      font-size: 1rem;
-      padding: 10px 30px;
-      background: none;
-      color: #fff;
-      border: 1px solid #fff;
-      font-weight: bold;
-      transition: 0.3s;
-      margin:2rem 0;
-    }
-
-
-
-    button2:hover {
-      background: #222;
-      color: #fff;
-      border: 1px solid #222;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    .hit{
-    	color: gray;
-    }
-    
-    
- 
-
-    
-    
-.swiper-container {
-    width:100%;
-    height:750px;
-  overflow: hidden;
-}
-.swiper-slide {
-  width:100%; 
-  height:500px;
-  
-}
-
-
-
-.swiper-wrapper>:nth-child(1){
-  /* background: url('https://www.giordano.co.kr/_data/banner/fed616381318d0738a6374015d126cd4.jpg') no-repeat;
-  */ background-size: cover;
-  background-position: center;
-  position: relative;
-  filter:brightness(80%);
-}
-
-.swiper-wrapper>:nth-child(2){
- /*  background: url('https://www.giordano.co.kr/_data/banner/98acc476a923f7c4753a3fb0daf6b994.jpg') no-repeat;
-  */ background-size: cover;
-  background-position: center;
-  position: relative;
-  filter:brightness(80%);
-}
-
-.swiper-wrapper>:nth-child(3){
-  /* background: url('https://www.giordano.co.kr/_data/banner/5e48273587f8ae1ee45f151f67e9d186.jpg') no-repeat;
-  */ background-size: cover;
-  background-position: center;
-  position: relative;
-  filter:brightness(90%);
-}
-
-.swiper-slide img{
-  width:100%;
-  height: 255px;
-  border-top-left-radius: 15px;
-  border-bottom-left-radius: 15px;
-  border-top-right-radius: 15px;
-  border-bottom-right-radius: 15px; 
-}
-
-.mword{
-  position: absolute;
-  top: 50%;
-  left:50%;
-  transform: translate(-50%, -50%);
-  z-index:10;
-   text-align:center;
-}
 
 
 
 
-.swiper-container {
-    width:100%;
-    height:750px;
-  overflow: hidden;
-}
-.swiper-slide {
-  width:100%; 
-  height:500px;
-}
-
-.swiper-wrapper>:nth-child(1){
- /*  background: url('resources/photo/백그2.png') no-repeat; */
-  background-size: cover;
-  background-position: center;
-  position: relative;
-  filter:brightness(80%);
-}
-
-.swiper-wrapper>:nth-child(2){
-  /* background: url('resources/photo/백그3.png') no-repeat; */
-  background-size: cover;
-  background-position: center;
-  position: relative;
-  filter:brightness(80%);
-}
-
-.swiper-wrapper>:nth-child(3){
-  /* background: url('resources/photo/오늘의집백그라운드1.png') no-repeat; */
-  background-size: cover;
-  background-position: center;
-  position: relative;
-  filter:brightness(90%);
-}
-
-.swiper-slide img{
-  width:100%;
-}
-
-.mword{
-  position: absolute;
-  top: 50%;
-  left:50%;
-  transform: translate(-50%, -50%);
-  z-index:10;
-   text-align:center;
-}
-
-
-main p{
-  font-size: 1rem;
-   color: #fff;
-  line-height: 2rem;
-  padding-top:1rem;
-  
-}
-
-.swiper-button-next0{
-  color:#fff;
-  font-size: 5rem;
-  position: absolute;
-  top: 50%;
-  right: 5%;
-  z-index:99;
-  font-weight:200;
-}
-
-.swiper-button-prev0{
-  color:#fff;
-  font-size: 5rem;
-  position: absolute;
-  top: 50%;
-  left: 5%;
-  z-index:99;
-  font-weight:200;
-}
-
-
-  .top {
-  position: fixed;
-  right: 3%;
-  bottom: 8%;
-  cursor:pointer;
-  z-index:20;
-    color:#fff;
-padding:10px;
-    background:#444;
-    
-}
-
-
-
-.one{
-  clear:both;
-  width:1000px;
-  padding: 9rem 0;
-  margin:0 auto;
-}
-
-.one p {
-  text-align:center;
-}
-
-.one>:nth-child(3){
-  display:flex;
-  justify-content:space-between;
-  margin-top: 2rem;
-}
-
-.one section{
-  width:48.5%;
-  height:300px;
-  cursor:pointer;
-}
-
-.one>:nth-child(3)>:first-child{
-  /*  background: url('https://www.giordano.co.kr/_data/attach/202005/04/91d016c37b5ed809a3b70e92b4c62a58.jpg#addimg') no-repeat;
-  */ background-size: cover;
-  background-position: top center;
-  position: relative;
-}
-
-.one>:nth-child(3)>:last-child{
-  /*  background: url('https://www.giordano.co.kr/_data/attach/202003/24/8306a84bc34b06be90b2dcbd5c3f3a3e.jpg#addimg') no-repeat;
-   */background-size: cover;
-  background-position: top center;
-  position: relative;
-}
-
-.one section div{
-  width:100%;
-  height:300px;
-  opacity:0;
-}
-
-.one section div:hover{
-  opacity:0.9;
-  background:rgba(0,0,0,0.5)
-}
-
-.one h3{
-  text-align:center;
-  line-height: 17rem;
-  color:#fff;
-  font-size: 2rem;
-}
-
-.two{
-  clear:both;
-   background:#eee; 
-}
-
-.two>:first-child{
-  width:1600px;
-  margin:0 auto;
-  height:650px;
-  display:flex;
-  padding: 9rem 2rem 50px 0rem;
-  
-  
-}
-
-.two>:first-child>:first-child{
-  width:18%;
-  padding: 2rem 1rem;
-  text-align:center;
-  position:relative;
-}
-
-.two>:first-child>:last-child{
-  width:75%;
-  
-}
-
-.swiper-container1 {
-	height:360px;
-  overflow:hidden;
-}
-.swiper-slide {
-	text-align:center;
-	display:flex; 
-	justify-content:center; /* 좌우 기준 중앙정렬 */
-  cursor:pointer;
-  height:85%;
-  
-}
-
-.swiper-slide:hover{
-  opacity:1;
-}
-
-.swiper-slide img {
-	width:77%;
-  height:280px;
-  position:relative;
-}
-
-
-
-.word{
-  width:200px;
-  position:absolute;
-  left:50%;
-  transform: translate(-50%, 0%);
-  bottom: 5%;
-  padding:0 5px;
-  text-align:center;
-}
-
-
-
-.swiper-button-next1{
-  color:#333;
-  font-size:1.8rem;
-  border:1px solid silver;
-  width:60px;
-  height:60px;
-  line-height:3.3rem;
-  position:absolute;
-  top:40%;
-  right:25.5%;
-  cursor:pointer;
-}
-
-.swiper-button-prev1{
-  color:#333;
-  font-size:1.8rem;
-  border:1px solid silver;
-  width:60px;
-  height:60px;
-  line-height:3.3rem;
-  position:absolute;
-  top:40%;
-  left:25.5%;
-  cursor:pointer;
-}
-
-#topCategery:hover {
-  animation: moveUp 0.3s ease-in-out;
-}
-
-@keyframes moveUp {
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-5px);
-  }
-  100% {
-    transform: translateY(0);
-  }
-}
-
-
-    
+   
     
 </style>
 
@@ -490,6 +33,7 @@ padding:10px;
 	<a href="myPage.go">마이페이지 보기</a>
 	<a href="riderPage">라이더페이지 보기</a>
 	<a href="riderList.go">라이더리스트</a>
+	
 	
 
 	
@@ -764,6 +308,12 @@ padding:10px;
 					<table>
 						<tr>
 				   		 <c:forEach items="${sigunguTopList }" var="sigungu">
+				   		 
+				   		 <!-- 지금 값이 없는대도 불구하고 group by 구문에서만 이상하게 null 말고 다른 어떤 이상한게 나옴.... 그래서 뭔가 잇는데 null은 아닌상태?? 가 되서
+				   		 자꾸 오류가 나는 상황.
+				   		 일단 만약 강남구라면 강남구 사람은 나오는데 강북구 이면 오류가 발생하는 상황이 나옴.. 해결방법을 알 수 없음. null 인데 null은 아닌 이상한 상황. 
+				   		 일단은 가려놓고, 오류 해결 해야 할듯.
+				   		 
 			     		  	<c:if test="${sigungu.new_photo_name eq null}">
 								<td>
 							     		  		<br>
@@ -772,19 +322,20 @@ padding:10px;
 						    					<a>${sigungu.user_id }</a>
 				    			</td>
 	   						</c:if>
-	     		 			<c:if test="${sigungu.new_photo_name ne null}">
+	     		 			 <c:if test="${sigungu.new_photo_name ne null}">
 				    			<td>	
 							     		 		<br>
 							     		 		<img src="resources/photo/${sigungu.new_photo_name}" id="sellerProfile" onclick="location.href='myPage.go?user_id=${sigungu.user_id}'">
 				    							<br>
 						    					<a>${sigungu.user_id }</a>
 								</td>
-	    					</c:if>
+	    					</c:if> 
+	    				  -->	
 						</c:forEach>
 						</tr>
 					</table>
 			</c:if>
-		
+			 
 		
 			 <c:if test="${memberAttentionTopList eq null}">
 					<br>
@@ -929,6 +480,9 @@ padding:10px;
 	
 	
 </body>
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=03ca3b7a211dd9cbb0616b7b121983de"></script>
+	
 <script>
 
 
@@ -1012,6 +566,16 @@ new Swiper('.swiper-container1', {
 });
 
 
+
+//지도 api
+
+var container = document.getElementById('map');
+		var options = {
+			center: new kakao.maps.LatLng(33.450701, 126.570667),
+			level: 3
+		};
+
+		var map = new kakao.maps.Map(container, options);
 
 
 
