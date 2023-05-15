@@ -25,31 +25,31 @@ b{
 </style>
 </head>
 <body>
-		<c:if test="${biz_id ne null}">
-			<input type="text" id="flag" name="flag" value="${flag}" hidden="true"/>
-			<input type="text" id="biz_id" name="biz_id" value="${biz_id}" hidden="true"/>
-			<input type="text" id="biz_name" value="${biz_name}" readonly="readonly"/>
-			<select name="goods_id" id="goods_id" onchange="filtering()">
-				<c:forEach items="${goodsList}" var="i">
-					<option value="${i.goods_id }">${i.goods_name }</option>
-				</c:forEach>
-			</select>
-		</c:if>
-		<c:if test="${biz_id eq null}">
-			<input type="text" id="flag" name="flag" value="${flag}" hidden="true"/>
-			<input type="text" id="biz_id" name="biz_id" value="default" hidden="true"/>
-			<input type="text" id="biz_name" value="전체" readonly="readonly"/>
-			<input type="text" id="goods_id" name="goods_id" value="default" hidden="true"/>
-		</c:if>
-		<br>
-		<select name="sido" id="sido">
+	<c:if test="${biz_id ne null}">
+		<input type="text" id="flag" name="flag" value="${flag}" hidden="true"/>
+		<input type="text" id="biz_id" name="biz_id" value="${biz_id}" hidden="true"/>
+		<input type="text" id="biz_name" value="${biz_name}" readonly="readonly"/>
+		<select name="goods_id" id="goods_id" onchange="filtering()">
+			<c:forEach items="${goodsList}" var="i">
+				<option value="${i.goods_id }">${i.goods_name }</option>
+			</c:forEach>
 		</select>
-		<select name="sigungu" id="sigungu" onchange="filtering()">
-		</select>
-		<br>
-		<input type="text" name="minPrice" id="minPrice" value="" onblur="filtering()"/>~
-		<input type="text" name="maxPrice" id="maxPrice" value="" onblur="filtering()"/>
-		<br>
+	</c:if>
+	<c:if test="${biz_id eq null}">
+		<input type="text" id="flag" name="flag" value="${flag}" hidden="true"/>
+		<input type="text" id="biz_id" name="biz_id" value="default" hidden="true"/>
+		<input type="text" id="biz_name" value="전체" readonly="readonly"/>
+		<input type="text" id="goods_id" name="goods_id" value="default" hidden="true"/>
+	</c:if>
+	<br>
+	<select name="sido" id="sido">
+	</select>
+	<select name="sigungu" id="sigungu" onchange="filtering()">
+	</select>
+	<br>
+	<input type="text" name="minPrice" id="minPrice" value="" onblur="filtering()"/>~
+	<input type="text" name="maxPrice" id="maxPrice" value="" onblur="filtering()"/>
+	<br>
 	<select name="filter" id="filter" onchange="filtering()">
 		<option value="sales_no">최신 순</option>
 		<option value="hit">조회수 순</option>
@@ -161,265 +161,167 @@ $('document').ready(function() {
 				$gugun.append("<option value='"+this+"'>"+this+"</option>");
 			});
 		}
-		filtering();
+		filtering(); //시도 체인지할때도 필터링 함수 작동
 	});
 
 });
-/*
-	function filtering(){
-		
-		console.log('change');
 
-		var filterName = document.getElementById('filter').value;
-		console.log(filterName);
-		var biz_id = document.getElementById('biz_id').value;
-		console.log(biz_id);
-		var goods_id = document.getElementById('goods_id').value;
-		console.log(goods_id);
-		var sido = document.getElementById('sido').value;
+//기본값으로 1번 페이지를 설정한다.
+var showPage = 1;
+
+listCall(showPage);
+
+// 게시물 갯수를 5 - 10 - 15 - ... 변경될 때마다 listCall을 해줘야 함.
+function filtering(){
+	$('#flag').val('second');  
+	listCall(showPage);	
+	// 페이지 총 갯수가 이미 만들어져 있어서 pagePerNum이 변경되면 수정이 안되는 문제가 있다.
+	// 그래서 pagePerNum이 변경되면 부수고 다시 만들어야 한다.
+	// 밑에 만들어진 paging plugin을 부수기
+	$('#pagination').twbsPagination('destroy');
+};
+
+function listCall(page){
+	var filterName = document.getElementById('filter').value;
+	var biz_id = document.getElementById('biz_id').value;
+	console.log(biz_id);
+	var goods_id = document.getElementById('goods_id').value;
+	console.log(goods_id);
+	var sido = document.getElementById('sido').value;
+	console.log(sido);
+	var flag = document.getElementById('flag').value;
+	
+	if(sido=='시/도 선택'||sido==''){
+		sido = 'default';
 		console.log(sido);
-		if(sido=='시/도 선택'){
-			sido = 'default';
-			console.log(sido);
-		}
-		var sigungu = document.getElementById('sigungu').value;
+	}
+	var sigungu = document.getElementById('sigungu').value;
+	console.log(sigungu);
+	if(sigungu=='전체'||sigungu==''){
+		sigungu = 'default';
 		console.log(sigungu);
-		if(sigungu=='전체'||sigungu==''){
-			sigungu = 'default';
-			console.log(sigungu);
-		}
-		var minPrice = document.getElementById('minPrice').value;
+	}
+	var minPrice = document.getElementById('minPrice').value;
+	console.log(minPrice);
+	if(minPrice==''){
+		minPrice = 'default';
 		console.log(minPrice);
-		if(minPrice==''){
-			minPrice = 'default';
-			console.log(minPrice);
-		}
-		var maxPrice = document.getElementById('maxPrice').value;
+	}
+	var maxPrice = document.getElementById('maxPrice').value;
+	console.log(maxPrice);
+	if(maxPrice==''){
+		maxPrice = 'default';
 		console.log(maxPrice);
-		if(maxPrice==''){
-			maxPrice = 'default';
-			console.log(maxPrice);
-		}
-		
-		$.ajax({
-			type: 'get',
-			url: 'salesFiltering.ajax',
-			data: {
-				'filterName':filterName,
-				'biz_id':biz_id,
-				'goods_id':goods_id,
-				'sido':sido,
-				'sigungu':sigungu,
-				'minPrice':minPrice,
-				'maxPrice':maxPrice
-			},
-			dataType: 'json',
-			success: function(data){
-				console.log(data.filteredList);
-				if(data!=null){
-					filterListDraw(data.filteredList);
-				}
-			},
-			error: function(e){
-				console.log(e);
-			}
-		});
-		
+	}
+	if(flag!='first'){
+		flag = 'second';
+		console.log(flag);
 	}
 	
-	function filterListDraw(list){
+	$.ajax({
 		
-		var content = '';
-		
-		list.forEach(function(item, index){
+		type: 'post',
+		url: 'salesList.ajax',
+		data: {
+			'page':page,
+			'cnt':15,
+			'filterName':filterName,
+			'biz_id':biz_id,
+			'goods_id':goods_id,
+			'sido':sido,
+			'sigungu':sigungu,
+			'minPrice':minPrice,
+			'maxPrice':maxPrice,
+			'flag':flag
+		},
+		dataType: 'json',
+		success:function(data){
+			console.log(data);
+			listPrint(data.filteredList);
 			
-			content += '<tr>';
-			content += '<th>'+item.sales_no+'</th>';
-			content += '<th>'+item.sales_state+'</th>';
-
-			if(item.new_photo_name == null){
-				content += '<th><img src="resources/img/defaultIMG.png';
-			}else{
-				content += '<th><img src="/photo/'+item.new_photo_name;
-			}
+			// 페이징을 구현하기 위해 알아야 되는 것(단순 플러그인만 쓰면 페이징 제대로 안됨)
+			// 총 페이지 수, 현재 페이지
 			
-			content += '"/></th>';
-			
-			content += '<th><a href="salesDetail.do?sales_no='+item.sales_no+'">'+item.subject+'</a></th>';
-			content += '<th>'+item.price+'</th>';
-			content += '<th>'+item.sales_sido+'</th>';
-			content += '<th>'+item.sigungu+'</th>';
-			content += '<th>'+item.biz_name+'</th>';
-			content += '<th>'+item.goods_name+'</th>';
-			content += '<th>'+item.hit+'</th>';
-			content += '<th>'+item.user_id+'</th>';
-			content += '<th>'+item.nickname+'</th>';
-			
-			let milliseconds = item.date;
-			let date = getFormatDate(new Date(milliseconds));
-
-			content += '<th>'+date+'</th>';
-			content += '</tr>';
-		});
-		
-		$('#list').empty();
-		$('#list').append(content);
-		
-	}
-	*/
-	//기본값으로 1번 페이지를 설정한다.
-	var showPage = 1;
-
-	listCall(showPage);
-
-	// 게시물 갯수를 5 - 10 - 15 - ... 변경될 때마다 listCall을 해줘야 함.
-	function filtering(){
-		$('#flag').val('second');  
-		listCall(showPage);	
-		// 페이지 총 갯수가 이미 만들어져 있어서 pagePerNum이 변경되면 수정이 안되는 문제가 있다.
-		// 그래서 pagePerNum이 변경되면 부수고 다시 만들어야 한다.
-		// 밑에 만들어진 paging plugin을 부수기
-		$('#pagination').twbsPagination('destroy');
-	};
-
-	function listCall(page){
-		var filterName = document.getElementById('filter').value;
-		var biz_id = document.getElementById('biz_id').value;
-		console.log(biz_id);
-		var goods_id = document.getElementById('goods_id').value;
-		console.log(goods_id);
-		var sido = document.getElementById('sido').value;
-		console.log(sido);
-		var flag = document.getElementById('flag').value;
-		
-		if(sido=='시/도 선택'){
-			sido = 'default';
-			console.log(sido);
-		}
-		var sigungu = document.getElementById('sigungu').value;
-		console.log(sigungu);
-		if(sigungu=='전체'||sigungu==''){
-			sigungu = 'default';
-			console.log(sigungu);
-		}
-		var minPrice = document.getElementById('minPrice').value;
-		console.log(minPrice);
-		if(minPrice==''){
-			minPrice = 'default';
-			console.log(minPrice);
-		}
-		var maxPrice = document.getElementById('maxPrice').value;
-		console.log(maxPrice);
-		if(maxPrice==''){
-			maxPrice = 'default';
-			console.log(maxPrice);
-		}
-		if(flag!='first'){
-			flag = 'second';
-			console.log(flag);
-		}
-		$.ajax({
-			
-			type: 'post',
-			url: 'salesList.ajax',
-			data: {
-				'page':page,
-				'cnt':15,
-				'filterName':filterName,
-				'biz_id':biz_id,
-				'goods_id':goods_id,
-				'sido':sido,
-				'sigungu':sigungu,
-				'minPrice':minPrice,
-				'maxPrice':maxPrice,
-				'flag':flag
-			},
-			dataType: 'json',
-			success:function(data){
-				console.log(data);
-				listPrint(data.filteredList);
-				
-				// 페이징을 구현하기 위해 알아야 되는 것(단순 플러그인만 쓰면 페이징 제대로 안됨)
-				// 총 페이지 수, 현재 페이지
-				
-				//paging plugin
-				$('#pagination').twbsPagination({
-					startPage:data.currPage,		//시작페이지
-					totalPages:data.pages,	//총 페이지 수
-					visiblePages:5,		//보여줄 페이지 [1][2][3][4][5]
-					onPageClick:function(event,page){//페이지 클릭 시 동작되는 콜백함수
-						console.log(event,showPage);
-						//중간정도 페이지에서 게시물 갯수를 변경하면 1페이지로 초기화되는 문제가 있다.
-						//listCall 시에 초기값 1로 설정해 둔 showPage를 현재 페이지로 변경한다.
-						
-						if(page != showPage){
-							showPage = page;
-							listCall(page);
-						}
+			//paging plugin
+			$('#pagination').twbsPagination({
+				startPage:data.currPage,		//시작페이지
+				totalPages:data.pages,	//총 페이지 수
+				visiblePages:5,		//보여줄 페이지 [1][2][3][4][5]
+				onPageClick:function(event,page){//페이지 클릭 시 동작되는 콜백함수
+					console.log(event,showPage);
+					//중간정도 페이지에서 게시물 갯수를 변경하면 1페이지로 초기화되는 문제가 있다.
+					//listCall 시에 초기값 1로 설정해 둔 showPage를 현재 페이지로 변경한다.
+					
+					if(page != showPage){
+						showPage = page;
+						listCall(page);
 					}
-				});
-				
-			},
-			error:function(e){
-				console.log(e);
-			}
+				}
+			});
 			
-		});
+		},
+		error:function(e){
+			console.log(e);
+		}
 		
-	}
-	function listPrint(list){
-		// 제이쿼리 셀렉터는 each를 쓰고, JS는 forEach 씀
-		// JS는 인덱스 생략이 가능하기 때문에 item, idx 중에 안받을 수도 있는데
-		// each는 다 받아야 됨.
-		var content = '';
-		
-		//java.sql.Date는 js에서 읽지 못해 밀리세컨드로 반환한다.
-		//해결방법 1. DTO에서 Date를 toString으로 변환하는 방법(JAVA)
-		//해결방법 2. JS에서 변환하는 방법
-		list.forEach(function(item, idx){
-			
-			content += '<tr>';
-			content += '<th>'+item.sales_no+'</th>';
-			content += '<th>'+item.sales_state+'</th>';
+	});
+	
+}
 
-			if(item.new_photo_name == null){
-				content += '<th><img src="resources/img/defaultIMG.png';
-			}else{
-				content += '<th><img src="/photo/'+item.new_photo_name;
-			}
-			
-			content += '"/></th>';
-			
-			content += '<th><a href="salesDetail.do?sales_no='+item.sales_no+'">'+item.subject+'</a></th>';
-			content += '<th>'+item.price+'</th>';
-			content += '<th>'+item.sales_sido+'</th>';
-			content += '<th>'+item.sigungu+'</th>';
-			content += '<th>'+item.biz_name+'</th>';
-			content += '<th>'+item.goods_name+'</th>';
-			content += '<th>'+item.hit+'</th>';
-			content += '<th>'+item.user_id+'</th>';
-			content += '<th>'+item.nickname+'</th>';
-			
-			let milliseconds = item.date;
-			let date = getFormatDate(new Date(milliseconds));
+function listPrint(list){
+	// 제이쿼리 셀렉터는 each를 쓰고, JS는 forEach 씀
+	// JS는 인덱스 생략이 가능하기 때문에 item, idx 중에 안받을 수도 있는데
+	// each는 다 받아야 됨.
+	var content = '';
+	
+	//java.sql.Date는 js에서 읽지 못해 밀리세컨드로 반환한다.
+	//해결방법 1. DTO에서 Date를 toString으로 변환하는 방법(JAVA)
+	//해결방법 2. JS에서 변환하는 방법
+	list.forEach(function(item, idx){
+		
+		content += '<tr>';
+		content += '<th>'+item.sales_no+'</th>';
+		content += '<th>'+item.sales_state+'</th>';
 
-			content += '<th>'+date+'</th>';
-			content += '</tr>';
-		});
+		if(item.new_photo_name == null){
+			content += '<th><img src="resources/img/defaultIMG.png';
+		}else{
+			content += '<th><img src="/photo/'+item.new_photo_name;
+		}
 		
-		$('#list').empty();
-		$('#list').append(content);
+		content += '"/></th>';
 		
-	}	
-	function getFormatDate(date){
+		content += '<th><a href="salesDetail.do?sales_no='+item.sales_no+'">'+item.subject+'</a></th>';
+		content += '<th>'+item.price+'</th>';
+		content += '<th>'+item.sales_sido+'</th>';
+		content += '<th>'+item.sigungu+'</th>';
+		content += '<th>'+item.biz_name+'</th>';
+		content += '<th>'+item.goods_name+'</th>';
+		content += '<th>'+item.hit+'</th>';
+		content += '<th>'+item.user_id+'</th>';
+		content += '<th>'+item.nickname+'</th>';
 		
-		var year = date.getFullYear();
-		var month = (1 + date.getMonth());
-		month = month >= 10 ? month : '0' + month;
-		var day = date.getDate();
-		day = day >= 10 ? day : '0' + day;
-		
-		return year + '-' + month + '-' +day;
-	}
+		let milliseconds = item.date;
+		let date = getFormatDate(new Date(milliseconds));
+
+		content += '<th>'+date+'</th>';
+		content += '</tr>';
+	});
+	
+	$('#list').empty();
+	$('#list').append(content);
+	
+}	
+
+function getFormatDate(date){
+	
+	var year = date.getFullYear();
+	var month = (1 + date.getMonth());
+	month = month >= 10 ? month : '0' + month;
+	var day = date.getDate();
+	day = day >= 10 ? day : '0' + day;
+	
+	return year + '-' + month + '-' +day;
+}
 </script>
 </html>

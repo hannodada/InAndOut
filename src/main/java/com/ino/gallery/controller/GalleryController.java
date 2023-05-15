@@ -28,11 +28,6 @@ public class GalleryController {
 	@RequestMapping(value = "/galleryList.do", method = RequestMethod.GET)
 	public String galleryList(Model model) {
 		
-//		logger.info("galleryList call");
-//		ArrayList<GalleryDTO> list = service.galleryList();
-		
-//		model.addAttribute("list", list);
-		
 		return "galleryList";
 	}
 	

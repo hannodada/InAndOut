@@ -6,10 +6,12 @@ import java.util.HashMap;
 import com.ino.gallery.dto.GalleryDTO;
 
 public interface GalleryDAO {
-	
-	ArrayList<GalleryDTO> galleryList();
 
 	int galleryWrite(GalleryDTO dto);
+
+	int GalleryTotalCount();
+
+	ArrayList<GalleryDTO> list(int cnt, int offset, String filterName);
 
 	void fileWrite(String ori_photo_name, String new_photo_name, int idx, String cate_no);
 
@@ -41,9 +43,6 @@ public interface GalleryDAO {
 
 	int galleryUpdate(HashMap<String, String> params);
 
-	int GalleryTotalCount();
-
-	ArrayList<GalleryDTO> list(int cnt, int offset, String filterName);
 
 
 }

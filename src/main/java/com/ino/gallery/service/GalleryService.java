@@ -23,11 +23,6 @@ public class GalleryService {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired GalleryDAO dao;
 	
-	public ArrayList<GalleryDTO> galleryList() {
-		// TODO Auto-generated method stub
-		return dao.galleryList();
-	}
-	
 	public String galleryWrite(MultipartFile[] photos, HashMap<String, String> params) {
 
 

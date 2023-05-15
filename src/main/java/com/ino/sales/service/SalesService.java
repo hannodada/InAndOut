@@ -26,25 +26,6 @@ public class SalesService {
 
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired SalesDAO dao;
-	
-	public ArrayList<SalesDTO> salesList(HttpSession session, HashMap<String, String> userParams) {
-		
-		logger.info("salesList 진입");
-		
-		if(session.getAttribute("loginId")!=null) {
-			String loginId = (String) session.getAttribute("loginId");
-			String sido = dao.getUserSido(loginId);
-			String sigungu = dao.getUserSigungu(loginId);
-			userParams.put("sido", sido);
-			userParams.put("sigungu", sigungu);
-		}
-		
-		ArrayList<SalesDTO> list = new ArrayList<SalesDTO>();
-		
-		list = dao.salesList(userParams);		
-		
-		return list;
-	}
 
 	public String getBiz_name(String biz_id) {
 
@@ -203,6 +184,11 @@ public class SalesService {
 		map.put("currPage", page);
 		map.put("pages", range);
 		
+		userParams.put("cnt", userParams.get("cnt"));
+		userParams.put("offset", Integer.toString(offset));
+		
+		logger.info("총 cnt 수 :"+Integer.toString(cnt));
+		logger.info("총 offset 수 :"+Integer.toString(offset));
 		
 		ArrayList<SalesDTO> list = dao.salesList(userParams);
 		map.put("filteredList", list);

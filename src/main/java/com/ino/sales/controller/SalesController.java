@@ -57,11 +57,6 @@ public class SalesController {
 			}
 		}
 		
-		
-//		ArrayList<SalesDTO> list = service.salesList(session, userParams);
-		
-//		model.addAttribute("list", list);
-
 		return "salesList";
 	}
 	
@@ -69,13 +64,6 @@ public class SalesController {
 	@ResponseBody
 	public HashMap<String, Object> filtering(HttpSession session, Model model, @RequestParam HashMap<String, String> userParams) {
 		
-//		HashMap<String, Object> map = new HashMap<String, Object>();
-//		ArrayList<SalesDTO> filteredList = service.filtering(session, userParams);
-		
-//		logger.info("filteredList :"+filteredList);
-		
-//		map.put("filteredList", filteredList);
-
 		return service.filtering(session, userParams);
 	}
 
@@ -95,11 +83,6 @@ public class SalesController {
 			model.addAttribute("bizList", bizList);
 			
 			page = "salesWriteForm";
-			
-		}else {
-			
-			session.setAttribute("msg", "로그인이 필요한 기능입니다.");
-			session.removeAttribute("msg");
 			
 		}
 

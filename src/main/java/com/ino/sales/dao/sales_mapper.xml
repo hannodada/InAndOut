@@ -50,6 +50,7 @@
 				GROUP BY s.sales_no ORDER BY s.sales_no DESC
 			</otherwise>
 		</choose>
+		LIMIT ${cnt} OFFSET ${offset}
 	</select>
 	
 	<select id="getBiz_name" parameterType="String" resultType="String">
