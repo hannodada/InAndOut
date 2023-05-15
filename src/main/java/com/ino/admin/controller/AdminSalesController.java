@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ino.admin.dto.AdminGalleryDTO;
+import com.ino.admin.dto.AdminMemberDTO;
+import com.ino.admin.dto.AdminSalesDTO;
 import com.ino.admin.service.AdminGalleryService;
 import com.ino.admin.service.AdminSalesListService;
 import com.ino.sales.service.SalesService;
@@ -27,9 +30,13 @@ public class AdminSalesController {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@RequestMapping(value="/adsaleslist.do")
-	public String adSaleslist(Model model) {
-	
-	    return "adSalesList";
+	public String adSaleslist(HttpSession session,Model model) {
+		String page = "redirect:/";
+		if(session.getAttribute("loginId") != null) {
+			logger.info("로그인 여부 확인");
+			page = "adSalesList";
+		}	
+	    return page;
 	}
 
 	   @RequestMapping(value="/adsales.ajax", method = RequestMethod.POST)
@@ -60,5 +67,39 @@ public class AdminSalesController {
 	        return "redirect:/adsaleslist.do";
 	    }		
 	
+	    // 판매글 히스토리 상세보기 
+		@RequestMapping(value="/shistory.go")
+		public String userdetail(Model model, @RequestParam (required=false, value="sales_no")String sales_no) {
+
+			
+			logger.info("판매글 히스토리 이동"+sales_no);
+			AdminSalesDTO dto = service.shistory(sales_no);
+			logger.info("dto : "+dto);
+			model.addAttribute("user", dto);
+
+			
+			return "adSaleshistory";
+		}  
 	
+		// 판매글 블라인드 히스토리 작성
+		@RequestMapping(value = "/ad.sblindhistory.do", method=RequestMethod.POST)
+		public String history_userstate(HttpServletRequest req,HttpSession session,@RequestParam HashMap<String, String> params, @RequestParam String sales_no, Model model) {
+
+			String page = "redirect:/";
+			if(session.getAttribute("loginId") != null) {
+				logger.info("로그인 여부 확인");
+				page = "adSaleshistory";
+			}
+			
+			logger.info("params : {}",params);
+			int row = service.history_sblind(params, sales_no); 
+			logger.info("insert row : "+row);
+			
+			logger.info("블라인드할 판매글번호"+sales_no);
+			AdminSalesDTO dto = service.shistory(sales_no);
+			logger.info("dto : ",dto);
+			model.addAttribute("user", dto);
+			return page;
+		}	
+	    
 }

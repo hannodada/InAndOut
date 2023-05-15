@@ -40,7 +40,8 @@ public class AdminMemberDTO {
 	private String report_time;
 	private String report_content;
 	private String report_id;
-
+	private String category;
+	private String keyword;
 	
 	private int StatusCount;
 

@@ -60,6 +60,22 @@ public class AdminSalesListService {
 	    dao.sblind(sales_no);
 	}
 
+	public AdminSalesDTO shistory(String sales_no) {
+		
+		return dao.shistory(sales_no);
+	}
 
+	public int history_sblind(HashMap<String, String> params, String sales_no) {
+		
+		return dao.history_sblind(sales_no);
+	}
+
+/*
+	public int history_sblind(HashMap<String, String> params, String sales_no) {
+		
+		return dao.history_sblind;
+	}
+
+*/
 	
 }

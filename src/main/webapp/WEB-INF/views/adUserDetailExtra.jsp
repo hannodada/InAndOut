@@ -51,7 +51,7 @@
 			</tr>	
 			<div id="myModal" class="modal">
 		  <div class="modal-content">
-			  	<form action="ad.userlist.do" method = "post">
+			  	<form action="history_userstate.do" method = "post">
 			    <div class="modal-header">
 			      <span class="close">&times;</span>
 			      <h2>처리자 ${loginId}</h2> <!-- 세션체크해서 로그인 한 놈 출력 -->
@@ -60,15 +60,16 @@
 			    <div class="modal-body">
 						<h2>사용자 ${user.user_id}</h2>
 				   		<input type = "text" name="user_id" value="${user.user_id}" hidden/>
+				   		<input type = "text" name="user_state" value="${user.user_state}"hidden/>
 			    	<p>처리사유</p>
-			      <p><textarea name="content">${user.user_content}</textarea></p>
+			      <p><textarea name="user_content">${user.user_content}</textarea></p>
 			
 			    </div>
 			    <div class="modal-footer">
 					 <button onclick="changeuser" id="updateBtn" type="submit" class="btn btn-success">완료</button>
 			    </div>
-			  </div>
 				</form>
+			  </div>
 			</div>				
 			
 			

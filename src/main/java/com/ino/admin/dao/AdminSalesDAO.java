@@ -13,4 +13,8 @@ public interface AdminSalesDAO {
 
 	boolean sblind(String sales_no);
 
+	AdminSalesDTO shistory(String sales_no);
+
+	int history_sblind(String sales_no);
+
 }

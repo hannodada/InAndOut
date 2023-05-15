@@ -22,4 +22,18 @@
 	<update id="sblind" parameterType="java.lang.String">
 		update sales set blind = 1 where blind = 0 and sales_no = #{sales_no}
 	</update>
+	
+	<select id="shistory" resultType="com.ino.admin.dto.AdminSalesDTO">
+		select *from sales s 
+		left join report r on s.sales_no = r.report_whom
+		where s.sales_no = #{sales_no}
+	</select>		
+	
+	<insert id="history_sblind" parameterType="hashmap">
+		insert into report_history(report_no,report_time, report_content,report_id)
+		VALUES (#{report_no},#{report_time},#{report_content},#{report_id})
+	
+	</insert>
+	
+	
 </mapper>
