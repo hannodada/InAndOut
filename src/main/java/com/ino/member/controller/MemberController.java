@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-
-
+import com.ino.main.dto.HomeDTO;
 import com.ino.member.dto.MemberDTO;
+
 import com.ino.member.service.MemberService;
 
 
@@ -61,8 +61,12 @@ public class MemberController {
 	}
 	
 	
+	
+	
+	
+	
 	@RequestMapping(value={"/afterLogin.go"})
-	public String afterhome(HttpSession session) {
+	public String afterhome(HttpSession session, Model model) {
 		
 		String page = "redirect:/afterLogin.do";
 		
@@ -71,11 +75,13 @@ public class MemberController {
 			logger.info("로그인 여부 확인");
 			page = "redirect:/afterLogin.do";
 		}
+		
+	
 		return page;
 	}
 	
 	@RequestMapping(value="/afterLogin.do")
-	public String afterList(Model model , HttpSession session) {		
+	public String afterLogin(Model model , HttpSession session) {		
 		logger.info("afterList call!!"); // 컨트롤러가 도착 했는지? (파라메터는 제대로 들어 왔는지?)
 		
 		String page = "home";
@@ -90,6 +96,7 @@ public class MemberController {
 		String new_photo_name  = service.afterList(user_id);
 		page = "home";
 		logger.info("유저 구분 뭔지 좀 보자!!!!!  : "+user_div );
+		
 		
 		
 
@@ -128,6 +135,24 @@ public class MemberController {
 			}
 			
 		}
+		if(user_div.equals("d")) {
+			if(new_photo_name != null) {
+				
+				session.setAttribute("new_photo_name", new_photo_name);
+				//dto.setNew_photo_name(new_photo_name);
+				String new_photo_name2 =  (String) session.getAttribute("new_photo_name");
+				logger.info("(세션에저장된)라이더!!dtot사진!! 나온거!!! :  " +new_photo_name2);
+				
+				
+			}
+			if(new_photo_name == null) {
+				//session.setAttribute("user_id", user_id);
+				//dto.setUser_id(user_id);
+				logger.info("제발dto 유저 아이디좀 해줘 : "+user_id);
+				
+			}
+			
+		}
 		logger.info("여기 까지는 오너ㅏ?");
 		
 		//dto.setUser_div_name(user_div_name);
@@ -135,69 +160,52 @@ public class MemberController {
 		
 
 		model.addAttribute("dto",dto);
+	
+	 
+
+		
+		
+		
+		//여기는 사용자ㅣ 관심업종에 따라서 조회수 높은순으로 뽑는거 + 관심업종 세션에 넣는거
+		logger.info("유져 아이디가 안오나? : "+user_id);
+		String interest_biz_id  = service.interest_biz_id(user_id);
+		session.setAttribute("interest_biz_id", interest_biz_id);
+		
+		logger.info("interest_biz_id : "+interest_biz_id);
+		ArrayList<MemberDTO> memberAttentionTopList = service.memberAttentionTopList(interest_biz_id);
+		model.addAttribute("memberAttentionTopList",memberAttentionTopList);
+		logger.info("멤버 탑 리스트에는 그럼 뭐가 들어가 잇는건가..? : " +memberAttentionTopList.size() );
+		
+		for (MemberDTO dto4 : memberAttentionTopList) {
+		    logger.info("memberAttentionTopList: " + dto4.getNew_photo_name() + "사진이름 " + dto.getUser_id());
+		}
+		
+		
+		//사용자 주변 판매글 많은 사람 프로필 뽑아주기
+		String sigungu  = service.sigungu(user_id);
+		session.setAttribute("sigungu", sigungu);
+		ArrayList<MemberDTO> sigunguTopList = service.sigunguTopList(sigungu);
+		model.addAttribute("sigunguTopList",sigunguTopList);
+		
+		
+		logger.info("지금 시군구이거에 정보 있는건가? : " +sigunguTopList.size() );
+
+		
+		
 		/*
-		ArrayList<String> list = service.normalTopList();
-		logger.info("list : "+ list.size());
-		logger.info("list : " + list.get(0));
-		logger.info("list : " + list.get(1));
-		logger.info("list : " + list.get(2));
-		String top1 = list.get(0);
-		String top2 = list.get(1);
-		String top3 = list.get(2);
-		String top4 = list.get(3);
-		String top5 = list.get(4);
-		
-		ArrayList<String> findTopPhoto = service.findTopPhoto(top1,top2, top3, top4,top5);
-		logger.info("findTopPhoto : "+ findTopPhoto.size());
+		 * for (MemberDTO dto4 : sigunguTopList) { logger.info("user_id: " +
+		 * dto4.getNew_photo_name() + "사진이름 " + dto.getUser_id()); }
+		 */
 
+		//logger.info("지금 아이티오에 사진이 들어 있는거임? :"+sigunguTopList.get(1) );
 		
-		logger.info("findTopPhoto : " + findTopPhoto.get(0));
-		logger.info("findTopPhoto : " + findTopPhoto.get(1));
-		logger.info("findTopPhoto : " + findTopPhoto.get(2));
+		
+		
+		//조회수 순으로 갤러리(4개) 호출
+		ArrayList<MemberDTO> hitGallery = service.hitGallery();
+		model.addAttribute("hitGallery",hitGallery);
 		
 
-		//model.addAttribute("findTopPhoto5",findTopPhoto5);
-		if(findTopPhoto.size() == 1) {
-			String findTopPhoto1 = findTopPhoto.get(0);
-			model.addAttribute("findTopPhoto1",findTopPhoto1);
-		}
-		if(findTopPhoto.size() == 2) {
-			String findTopPhoto1 = findTopPhoto.get(0);
-			String findTopPhoto2 = findTopPhoto.get(1);
-			model.addAttribute("findTopPhoto1",findTopPhoto1);
-			model.addAttribute("findTopPhoto2",findTopPhoto2);
-			
-		}
-		if(findTopPhoto.size() == 3) {
-			String findTopPhoto1 = findTopPhoto.get(0);
-			String findTopPhoto2 = findTopPhoto.get(1);
-			String findTopPhoto3 = findTopPhoto.get(2);
-			model.addAttribute("findTopPhoto1",findTopPhoto1);
-			model.addAttribute("findTopPhoto2",findTopPhoto2);
-			model.addAttribute("findTopPhoto3",findTopPhoto3);
-		}
-		if(findTopPhoto.size() == 4) {
-			String findTopPhoto1 = findTopPhoto.get(0);
-			String findTopPhoto2 = findTopPhoto.get(1);
-			String findTopPhoto3 = findTopPhoto.get(2);
-			String findTopPhoto4 = findTopPhoto.get(3);
-			model.addAttribute("findTopPhoto1",findTopPhoto1);
-			model.addAttribute("findTopPhoto2",findTopPhoto2);
-			model.addAttribute("findTopPhoto3",findTopPhoto3);
-			model.addAttribute("findTopPhoto4",findTopPhoto4);
-		}
-		if(findTopPhoto.size() == 5) {
-			String findTopPhoto1 = findTopPhoto.get(0);
-			String findTopPhoto2 = findTopPhoto.get(1);
-			String findTopPhoto3 = findTopPhoto.get(2);
-			String findTopPhoto4 = findTopPhoto.get(3);
-			String findTopPhoto5 = findTopPhoto.get(4);
-			model.addAttribute("findTopPhoto1",findTopPhoto1);
-			model.addAttribute("findTopPhoto2",findTopPhoto2);
-			model.addAttribute("findTopPhoto3",findTopPhoto3);
-			model.addAttribute("findTopPhoto4",findTopPhoto4);
-			model.addAttribute("findTopPhoto5",findTopPhoto5);
-		}*/
 		return page;
 	
 	}
@@ -206,82 +214,66 @@ public class MemberController {
 		   session.removeAttribute("loginId");
 		   session.removeAttribute("new_photo_name");
 		   session.removeAttribute("user_div_name");
+		   session.removeAttribute("interest_biz_id");
+		   session.removeAttribute("sigungu");
 		   
 		   logger.info("로그아웃 요청");
 		   logger.info((String) session.getAttribute("loginId"));
 		   logger.info((String) session.getAttribute("new_photo_name"));
 		   logger.info((String) session.getAttribute("user_div_name"));
 	     
+		   
+		   //
 		   /*
-		   ArrayList<String> list = service.normalTopList();
-			logger.info("list : "+ list.size());
-			logger.info("list : " + list.get(0));
-			logger.info("list : " + list.get(1));
-			logger.info("list : " + list.get(2));
-			String top1 = list.get(0);
-			String top2 = list.get(1);
-			String top3 = list.get(2);
-			String top4 = list.get(3);
-			String top5 = list.get(4);
-			
-			ArrayList<String> findTopPhoto = service.findTopPhoto(top1,top2, top3, top4,top5);
-			logger.info("findTopPhoto : "+ findTopPhoto.size());
-
-			
-			logger.info("findTopPhoto : " + findTopPhoto.get(0));
-			logger.info("findTopPhoto : " + findTopPhoto.get(1));
-			logger.info("findTopPhoto : " + findTopPhoto.get(2));
-			
-
-			//model.addAttribute("findTopPhoto5",findTopPhoto5);
-			if(findTopPhoto.size() == 1) {
-				String findTopPhoto1 = findTopPhoto.get(0);
-				model.addAttribute("findTopPhoto1",findTopPhoto1);
-			}
-			if(findTopPhoto.size() == 2) {
-				String findTopPhoto1 = findTopPhoto.get(0);
-				String findTopPhoto2 = findTopPhoto.get(1);
-				model.addAttribute("findTopPhoto1",findTopPhoto1);
-				model.addAttribute("findTopPhoto2",findTopPhoto2);
-				
-			}
-			if(findTopPhoto.size() == 3) {
-				String findTopPhoto1 = findTopPhoto.get(0);
-				String findTopPhoto2 = findTopPhoto.get(1);
-				String findTopPhoto3 = findTopPhoto.get(2);
-				model.addAttribute("findTopPhoto1",findTopPhoto1);
-				model.addAttribute("findTopPhoto2",findTopPhoto2);
-				model.addAttribute("findTopPhoto3",findTopPhoto3);
-			}
-			if(findTopPhoto.size() == 4) {
-				String findTopPhoto1 = findTopPhoto.get(0);
-				String findTopPhoto2 = findTopPhoto.get(1);
-				String findTopPhoto3 = findTopPhoto.get(2);
-				String findTopPhoto4 = findTopPhoto.get(3);
-				model.addAttribute("findTopPhoto1",findTopPhoto1);
-				model.addAttribute("findTopPhoto2",findTopPhoto2);
-				model.addAttribute("findTopPhoto3",findTopPhoto3);
-				model.addAttribute("findTopPhoto4",findTopPhoto4);
-			}
-			if(findTopPhoto.size() == 5) {
-				String findTopPhoto1 = findTopPhoto.get(0);
-				String findTopPhoto2 = findTopPhoto.get(1);
-				String findTopPhoto3 = findTopPhoto.get(2);
-				String findTopPhoto4 = findTopPhoto.get(3);
-				String findTopPhoto5 = findTopPhoto.get(4);
-				model.addAttribute("findTopPhoto1",findTopPhoto1);
-				model.addAttribute("findTopPhoto2",findTopPhoto2);
-				model.addAttribute("findTopPhoto3",findTopPhoto3);
-				model.addAttribute("findTopPhoto4",findTopPhoto4);
-				model.addAttribute("findTopPhoto5",findTopPhoto5);
-			}
+		   ArrayList<MemberDTO> list = service.normalTopList();
+			logger.info("topList:" + list.size());
+			model.addAttribute("list", list);
+			MemberDTO dto3 = new MemberDTO();
+			logger.info(dto3.getUser_id());
 			*/
+			//조회수 높은 판매글
+			
+		   /*
+			ArrayList<MemberDTO> attentionTopList = service.attentionTopList();
+			model.addAttribute("attentionTopList",attentionTopList);
+			*/
+			
+			
+			//조회수 순으로 갤러리(4개) 호출
+					ArrayList<MemberDTO> hitGallery = service.hitGallery();
+					model.addAttribute("hitGallery",hitGallery);
+			
+		   
+		   
 	      return "home";
 	   }   
 	
 	
+	/*
+	//아작스 로그인 연습
+	
+	@RequestMapping(value="/join.ajax")
+	@ResponseBody
+	public HashMap<String, Object> join(
+	 @RequestParam("file1") MultipartFile file1,
+	    @RequestParam("file2") MultipartFile file2,
+		@RequestParam HashMap<String, String> params){
+		logger.info("params : {}",params);
+		 logger.info("file1 name : {}", file1.getOriginalFilename());
+		    logger.info("file2 name : {}", file2.getOriginalFilename());
+		// 파일 처리 로직
+		
+		
+		logger.info(" 파람 왓따! params : "+params);
+		MemberDTO dto = new MemberDTO();
+		logger.info("profile도 왔음 !! ㄷㄷ; : "+file1);
+		// logger.info("bizprofile도 도착 : "+bizprofile); 
+		return  service.ajaxUserRegist(file1, params, file2);
 	
 	
+	}
+	*/
+
 	
 	@RequestMapping(value="/userRegist.do",method = RequestMethod.POST)
 		public String write(MultipartFile profile,  MultipartFile bizprofile,
@@ -293,6 +285,7 @@ public class MemberController {
 		logger.info("bizprofile도 도착 : "+bizprofile);
 		return service.userRegist(profile, params,bizprofile);
 	}
+	
 	
 	@RequestMapping(value="/riderRegist.do",method = RequestMethod.POST)
 	public String riderwrite(MultipartFile profile,  MultipartFile bizprofile,

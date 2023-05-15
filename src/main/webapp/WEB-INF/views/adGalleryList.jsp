@@ -143,7 +143,7 @@ function listPrint(list){
 	      content +='<tr>';
 	      content +='<td><input type="checkbox" name="check"></td>';
 	      content +='<td>'+item.gallery_no+'</td>';
-	      content +='<td id="userdiv"><a href="galleryDetail.do?gallery_no='+ item.gallery_no +'">' + item.gallery_subject + '</a></td>';
+	      content +='<td id="userdiv"><a href="galleryDetail.do?gallery_no='+ item.gallery_no +'">' + truncateString(item.gallery_subject, 16) + '</a></td>';
 	      content +='<td>'+item.store_name+'</td>';
 	      content +='<td>'+item.user_id+'</td>';
 	      content +='<td>'+item.gallery_date+'</td>';
@@ -206,7 +206,13 @@ function listPrint(list){
 			}			
 				 
 				 
-				 
+	   function truncateString(str, maxLength) {
+		    if (str.length > maxLength) {
+		        return str.substring(0, maxLength) + "...";
+		    }
+		    return str;
+		}
+			 
 				 
 				 
 				 

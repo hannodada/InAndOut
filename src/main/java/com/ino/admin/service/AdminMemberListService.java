@@ -164,7 +164,7 @@ public class AdminMemberListService {
 		return dao.riderdetailextra(user_id);
 	}
 
-	// ����ó�� �� �����丮 �ۼ�
+	// 라이더 회원 가입대기 -> 정상으로 변경 
 	public int history_riderstate(HashMap<String, String> params,String user_id) {
 		int result = dao.history_riderstate(params);
 		dao.riderchange(user_id);

@@ -84,7 +84,7 @@ public class AdminMemberListController {
 		return "adUserDetailExtra";
 	}  
 	
-	// ȸ�� �Ϲ� -> ������ ó�� 
+	// 회원리스트
 	@RequestMapping(value = "/ad.userlist.do", method=RequestMethod.POST)
 	public String history_userstate(@RequestParam HashMap<String, String> params, @RequestParam String user_id, Model model) {
 		
@@ -167,7 +167,7 @@ public class AdminMemberListController {
        return service.authuserlist(params);
     }		
 	
-	/* ******************���̴�********************** */
+	/* ***************라이더**************** */
 	
 	// ���̴� ����ó��
 	@RequestMapping(value = "/ad.riderlist.do", method=RequestMethod.POST)
@@ -183,8 +183,8 @@ public class AdminMemberListController {
 		model.addAttribute("rider", dto);
 		return "adRiderDetail";
 	}
-	
-	// ���̴� �ݷ�ó��
+	// 승인반려
+
 	@RequestMapping(value = "/ad.riderlist.go", method=RequestMethod.POST)
 	public String history_riderstate2(@RequestParam HashMap<String, String> params, @RequestParam String user_id, Model model) {
 		
