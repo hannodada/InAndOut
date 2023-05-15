@@ -39,7 +39,7 @@
 	<br>
 	
 	
-	<form action="userRegist.do" method="post" enctype="multipart/form-data"> 
+	<form action="userRegist.do" method="post" enctype="multipart/form-data">  
 	<table>
 	
 	
@@ -89,7 +89,7 @@
 			<th>*주소</th>
 			<td>
 			
-				<input type="text" id="sample6_postcode" name="post_num" placeholder="우편번호" pattern="[0-9]*" disabled>
+				<input type="text" id="sample6_postcode" name="post_num" placeholder="우편번호"  readonly>
 				<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" id="findPost">
 				
 				
@@ -98,7 +98,7 @@
 		</tr>
 		<tr>
 		<td></td>
-		<td><input type="text" id="sample6_address" placeholder="주소" name="left_addr" disabled><br></td>
+		<td><input type="text" id="sample6_address" placeholder="주소" name="left_addr" readonly><br></td>
 		</tr>
 		
 		
@@ -108,7 +108,7 @@
 			<td>
 			<!-- <input type="text" name="left_addr" id="left_addr"/> -->
 			<input type="text" id="sample6_detailAddress"  placeholder="상세주소" >
-			<input type="text" id="sample6_extraAddress" placeholder="참고항목" disabled>
+			<input type="text" id="sample6_extraAddress" placeholder="참고항목" readonly>
 			<input type="hidden" id="sido" name="sido">
 			<input type="hidden" id="sigungu" name="sigungu">
 			</td>
@@ -118,7 +118,7 @@
 		<tr>
 			  <th>*전화번호</th>
 			  <td>
-			    <select name="phone_num1" id="phone_num1">
+			    <select name="phone_num" id="phone_num">
 			      <option value="010">010</option>
 			      <option value="011">011</option>
 			      <option value="012">012</option>
@@ -188,39 +188,39 @@
 
 	
 	
-	<tr>
-			<th>프로필 추가</th>
-			<td>
-
-				
-				<div class="file-wrapper flie-wrapper-area">
-				  <div class="float-left">
-				    <span class="label-plus"><i class="fas fa-plus"></i></span>
-				    <button type="button">
-				    <div id="preview"><img id="preview" src="resources/photo/프로필 기본.png"/></div>
-				    
-				    <input type="file" name="profile" id="file1" class="upload-box upload-plus" accept="image/*">
-				    <div class="file-edit-icon">
-				    
-				      <!-- <a href="#" class="preview-edit">수정</a> -->
-				      <br>
-				      <br>
-				      <img href="#" class="preview-de" src="resources/photo/free-icon-cancel-8532372.png"></img>
-				      </button>
-				    </div>
-				  </div>
-				</div>
-			<br>
-					<h6 id="des">
-						※ 프로필 사진은 10MB 용량 이하의 이미지만 첨부 가능합니다
-					</h6>
-			</td>
-		</tr>
+			<tr>
+				<th>프로필 추가</th>
+				<td>
+	
+					
+					<div class="file-wrapper flie-wrapper-area">
+					  <div class="float-left">
+					    <span class="label-plus"><i class="fas fa-plus"></i></span>
+					    <button type="button">
+					    <div id="preview"><img id="preview" src="resources/photo/프로필 기본.png"/></div>
+					    
+					    <input type="file" name="profile" id="file1" class="upload-box upload-plus" accept="image/*">
+					    <div class="file-edit-icon">
+					    
+					      <!-- <a href="#" class="preview-edit">수정</a> -->
+					      <br>
+					      <br>
+					      <img href="#" class="preview-de" src="resources/photo/free-icon-cancel-8532372.png"></img>
+					      </button>
+					    </div>
+					  </div>
+					</div>
+				<br>
+						<h6 id="des">
+							※ 프로필 사진은 10MB 용량 이하의 이미지만 첨부 가능합니다
+						</h6>
+				</td>
+			</tr>
 	
 	<tr>
 			<th>업종</th>
 			<td>
-			<select name="biz" id="interest_biz_id" id="interest_biz_id">
+			<select name="biz" id="biz" id="biz">
 					<option value=".">==선택==</option>
 				    <option value="b001">카페</option>
 				    <option value="b002">음식점</option>
@@ -260,8 +260,8 @@
 		<tr>
 			<th>사업자등록번호</th>
 			<td>
-			<input type="text" name="biz_num" id="biz_num" />
-			<button type="button" class="test_btn1">사업자 등록확인</button>
+			<input type="text" name="biz_num" id="biz_num" maxlength="10"/>
+			<button type="button" class="test_btn3">사업자 등록확인</button>
 			</td>
 		</tr>
 		
@@ -273,7 +273,7 @@
 			</td>
 		</tr>
 		
-		<tr>
+		 <tr>
 		  <th>사업자등록증</th>
 		  <td>
 		    <div class="file-preview-container">
@@ -289,7 +289,7 @@
 		      첨부파일 관련 URL주소가 있다면 상품 소개 입력창에 남겨주세요.
 		    </h6>
 		  </td>
-		</tr>
+		</tr> 
 		<tr>
 			<td><br><br></td>
 
@@ -302,8 +302,9 @@
 		
 		<tr>
 			<th colspan="2">
-				<button type="button" class="test_btn2" onclick="join()">입력확인</button> 
-				<button class="test_btn2" onclick="join()">등록</button>
+				  <button type="button" class="test_btn2" onclick="join()">입력확인</button>   
+				<!-- <button class="test_btn2" onclick="join()">등록</button> -->
+				<button class="test_btn2" >등록</button>
 				
 				<button type="button" onclick="location.href='./'" class="test_btn2">돌아가기</button>
 			</th>
@@ -314,7 +315,7 @@
 	<br>
 	<br>
 	<br>
-	 </form> 
+	 </form>  
 </body>
 
 
@@ -324,37 +325,44 @@
 
 <script>
 
+
+
+
 var pweq = false;
 var overlayChk = false;
 var overlayChk2 = false;
 
 
 function join() {
-	  if /* (pweq && overlayChk && overlayChk2) */(true) {
-	    var $user_id = $('#user_id');
+	  if  (pweq && overlayChk && overlayChk2) {
+	  /*   var $user_id = $('#user_id');
 	    var $user_pw = $('#user_pw');
 	    var $user_name = $('#user_name');
 	    var $nickname = $('#nickname');
 	    var $post_num = $('#post_num');
-	    /* var $phone_num = $('#phone_num'); */
+	    var $phone_num = $('#phone_num'); 
 	    var $email = $('#email');
 	    var $interest_biz_id = $('#interest_biz_id');
+	   
+	    var $post_num = $('#sample6_postcode');
+	    
+	    var $sigungu = $('#sigungu');
+	    var $biz_num = $('#biz_num');
+	    var $store_name = $('#store_name');
+	    
+	    var $sido = $('#sido');
+	    var $left_addr = $('#left_addr');
+	    var $phone_num2 = $('#phone_num2');
+	    var $phone_num3 = $('#phone_num3');
+	    var $user_state = $('#user_state');
+	    var $left_addr = $('#sample6_address');
+	    var $biz = $('#biz');
+	    
+	   
 	    var file1 = $('#file1')[0].files[0]; // 파일 업로드를 위한 input 태그
 	    var file2 = $('#file2')[0].files[0];
-	    
-	    
-	    var phone_num1 = $('#phone_num1').val();
-	    var phone_num2 = $('#phone_num2').val();
-	    var phone_num3 = $('#phone_num3').val();
-	    
-	    console.log(phone_num)
 
-	  
-	    console.log('phone_num')
-	      console.log(phone_num.val())
-	      
-	    
-	   var $post_numTest = $('#sample6_postcode');
+	   var $post_numTest = $('#sample6_postcode'); */
 	    
 	    
 	    if ($user_id.val() == '') {
@@ -380,40 +388,67 @@ function join() {
 	    	
 	    	
 	      // FormData 객체 생성
-	      var formData = new FormData();
+	     
+	      
+	      
+	     /*  var formData = new FormData();
 	      formData.append('user_id', $user_id.val());
 	      formData.append('user_pw', $user_pw.val());
 	      formData.append('user_name', $user_name.val());
 	      formData.append('nickname', $nickname.val());
 	      formData.append('post_num', $post_num.val());
-	     /*  formData.append('phone_num', $phone_num.val()); */
+	      formData.append('phone_num', $phone_num.val()); 
 	      formData.append('email', $email.val());
 	      formData.append('interest_biz_id', $interest_biz_id.val());
-	      formData.append('file1', file1);
-	      formData.append('file2', file2);
-	      formData.append('phone_num1', phone_num1);
-	      formData.append('phone_num2', phone_num2);
-	      formData.append('phone_num3', phone_num3);
+	     
+	    	    formData.append('file1', file1);
+	    	    formData.append('file2', file2);
+	    	    
+	    	    
+	    	    
+	      formData.append('phone_num', phone_num);
+	    
+	      formData.append('sample6_postcode', $post_num.val());
+	      formData.append('sigungu', $sigungu.val());
+	      formData.append('biz_num', $biz_num.val());
+	      formData.append('store_name', $store_name.val());
+	      
+	      formData.append('sido', $sido.val());
+	      formData.append('left_addr', $left_addr.val());
+	      formData.append('phone_num2', $phone_num2.val());
+	      formData.append('phone_num3', $phone_num3.val());
+	      formData.append('user_state', $user_state.val());	
+	      
+	      formData.append('sample6_address', $left_addr.val());
+	      formData.append('biz', $biz.val());
+	      
+	    
 	      
 	      
 	      console.log(formData);
 
 	      // ajax 요청
 	      $.ajax({
-	        url: 'join.ajax', // 파일을 업로드할 php 파일 경로
+	        url: 'join.ajax', // 
 	        type: 'POST',
 	        data: formData,
 	        processData: false,
 	        contentType: false,
 	        success: function (data) {
 	          console.log(data);
-	        },
-	        error: function (xhr, status, error) {
-	          console.log(xhr.responseText);
-	        }
-	        
-	      });
-	      
+	          if(data.success == 1){
+					alert('회원가입이 완료 되었습니다.');
+					location.href = './';
+				}else{
+					alert('회원가입에 실패 했습니다.\r\n 다시 시도해 주세요!');
+				}
+			},
+			error:function(e){
+				console.log(e);
+				alert('회원가입에 실패 했습니다.\r\n 다시 시도해 주세요!');
+			}
+		});
+	       */
 
 		}
 		
@@ -421,6 +456,11 @@ function join() {
 		alert('아이디 중복 체크와 비밀번호 확인을 해 주세요');
 	}	
 }
+
+
+
+
+
 $(function() {
     // 주소 입력값이 한글인 경우 숫자로 입력해달라는 안내 메시지를 띄우는 함수
     function checkAddress() {
@@ -744,6 +784,44 @@ function workURL(input) {
             }
         }).open();
     }
+    
+    
+    //사업자 등록 api
+    
+    $(document).ready(function(){
+  $('.test_btn3').on('click', function(){
+    var bizNum = $('#biz_num').val();
+    var data = {
+      "b_no": [bizNum]
+    };
+    $.ajax({
+      url: "https://api.odcloud.kr/api/nts-businessman/v1/status?serviceKey=e18xz2nUHjGbEsKOfvMhNjoXOcjNNRwEwSw%2BmCJe3vkmSiKJ9IZaY4Y0CM1YT9SV1i%2F6EWdDPYbxXV8PHG1LMQ%3D%3D",
+      type: "POST",
+      data: JSON.stringify(data),
+      dataType: "JSON",
+      contentType: "application/json",
+      accept: "application/json",
+      success: function(result) {
+    	  console.log(result);
+    	  if (result.match_cnt === 1 && result.data[0].b_stt === '폐업자') {
+    		  alert('해당 사업자 번호는 이미 폐업되어서 사용할 수 없는 번호입니다. 확인 후 다시 시도해 주세요.');
+    		}else if (result.match_cnt === 1 && result.data[0].b_stt === '계속사업자') {
+    		  alert('"계속사업자"로 등록된 사업자 등록 번호이므로 사용이 가능합니다. 계속 회원가입을 진행 해 주세요');
+    		} else if (result.match_cnt === 1) {
+    		  alert('등록된 사업자 등록 번호입니다. 계속 회원가입을 진행 해 주세요.');
+    		} else {
+    		  alert('인증되지 않은 사업자 등록 번호입니다.');
+    		}
+    	},
+    	error: function(result) {
+    	    console.log(result.responseText);
+    	}
+    });
+  });
+});
+
+    //사업자 등록 확인 알람
+    
 
 
 
