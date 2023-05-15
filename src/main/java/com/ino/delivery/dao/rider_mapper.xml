@@ -124,8 +124,8 @@
 			on s.star_to_id = u.user_id 
 			left join star_test_paper stp 
 			on s.star_no = stp.star_no  
-		where (u.user_div = 'c' and u.user_id = 'rider001' and p.new_photo_name is null)
-		or (u.user_div = 'c' and u.user_id = 'rider001' and p.new_photo_name is not null)
+		where (u.user_div = 'c' and u.user_id = #{param1} and p.new_photo_name is null)
+		or (u.user_div = 'c' and u.user_id = #{param1} and p.new_photo_name is not null)
 		GROUP BY u.nickname, u.user_id, u.user_div, p.new_photo_name;
 	</select>
 	

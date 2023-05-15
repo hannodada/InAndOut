@@ -342,7 +342,7 @@ function riderListDraw(list){
 		content += '<th>' + item.user_name + '</th>';
 		content += '<th>' + item.sigungu + '</th>';
 		content += '<th>' + 'A.M. 7:00 ~ P.M. 7:00' + '</th>';
-		content += '<th><button class="btn btn-primary" onclick="location.href=\'userOffer.do?rider_id=' + item.user_id + '&msg_div_no=' + delivery_no + '\'">견적신청</button></th></tr>'
+		content += '<th><button class="btn btn-primary" onclick="location.href=\'userOffer.do?rider_id=' + item.user_id + '&sales_no=' + delivery_no + '\'">견적신청</button></th></tr>'
 	});
 	
 	$('#modalRider').empty();
@@ -374,7 +374,7 @@ function listDraw(list, userlist, salephotolist, userphotolist) {
 		}else if (userlist[index].user_div == "c"){
 			content += '<div class="chat_img"> <img style="position:relative;top:-5px" src="resources/photo/icon-rider.png" alt="sunil"> </div>';
 		}
-		content += '</div><div style="width:270px;text-align:right"><h5><span class="chat_date">' + item.recent_time.substring(0,19) + '&nbsp;&nbsp;</span></h5></div></div>';
+		content += '</div><div style="width:270px;text-align:right"><h5><span class="chat_date">' + item.recent_time + '&nbsp;&nbsp;</span></h5></div></div>';
 		content += '<p>'+item.recent_msg+'</p>';
 		content += '</div>';
 		if(salephotolist[index]!="rider"){
@@ -441,7 +441,7 @@ function msgDraw(list,sale,salephoto,user,userphoto,delivery){
 			}else{
 				content += '<p>' + item.msg_content + '</p>';
 			}
-			content += '<span class="time_date">' + item.from_time.substring(0,19) + '</span> </div> </div>';
+			content += '<span class="time_date">' + item.from_time + '</span> </div> </div>';
 			
 		}
 		content += '</div>'
