@@ -84,7 +84,7 @@ public class AdminMemberListController {
 		return "adUserDetailExtra";
 	}  
 	
-	// ȸ�� �Ϲ� -> ������ ó�� 
+	// 회원리스트
 	@RequestMapping(value = "/ad.userlist.do", method=RequestMethod.POST)
 	public String history_userstate(@RequestParam HashMap<String, String> params, @RequestParam String user_id, Model model) {
 		
@@ -123,7 +123,7 @@ public class AdminMemberListController {
 		return "adUserDetail";
 	}		
 	
-	// ȸ�� �����丮 ����
+	// 회원히스토리 이동
     @RequestMapping(value="/user.history.go", method = RequestMethod.GET)
     public String userhistory(Model model, @RequestParam (required=false, value="user_id")String user_id) {
     	logger.info("����Ʈ��û");
@@ -134,16 +134,17 @@ public class AdminMemberListController {
         return "adUserHistory";
     }
 	
-    // ȸ�� �����丮 ó������ ����
-	@RequestMapping(value="/ad.history.detail.do")
-	public String uhistorydetail(Model model, @RequestParam (required=false, value="user_id")String user_id, @RequestParam String user_state, @RequestParam String state_time) {
-		/* �α��� 
-		String page ="redirect:/ad.userlist.do";
-		*/
+    // 회원 히스토리 디테일로 이동
+	@RequestMapping(value="/ad.uhistory.detail.do")
+	public String uhistorydetail(Model model,@RequestParam String user_state
+	
+			) {
+
 		
-		logger.info("�󼼺��� ��û"+user_id,user_state,state_time);
-		AdminMemberDTO dto = service.uhistorydetail(user_id,user_state,state_time);
-		logger.info("dto : ",dto);
+		logger.info("유저아이디,상태"+user_state);
+		AdminMemberDTO dto = service.uhistorydetail(user_state);
+		
+		logger.info("히스토리 디테일 dto"+dto);
 		model.addAttribute("user", dto);
 
 		
@@ -166,7 +167,7 @@ public class AdminMemberListController {
        return service.authuserlist(params);
     }		
 	
-	/* ******************���̴�********************** */
+	/* ***************라이더**************** */
 	
 	// ���̴� ����ó��
 	@RequestMapping(value = "/ad.riderlist.do", method=RequestMethod.POST)
@@ -182,8 +183,8 @@ public class AdminMemberListController {
 		model.addAttribute("rider", dto);
 		return "adRiderDetail";
 	}
-	
-	// ���̴� �ݷ�ó��
+	// 승인반려
+
 	@RequestMapping(value = "/ad.riderlist.go", method=RequestMethod.POST)
 	public String history_riderstate2(@RequestParam HashMap<String, String> params, @RequestParam String user_id, Model model) {
 		

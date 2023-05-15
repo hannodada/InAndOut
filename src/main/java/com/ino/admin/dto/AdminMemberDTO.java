@@ -41,8 +41,16 @@ public class AdminMemberDTO {
 	private String report_content;
 	private String report_id;
 
+	
+	private int StatusCount;
 
 	
+	public int getStatusCount() {
+		return StatusCount;
+	}
+	public void setStatusCount(int statusCount) {
+		StatusCount = statusCount;
+	}
 	public String getReport_no() {
 		return report_no;
 	}
@@ -260,6 +268,7 @@ public class AdminMemberDTO {
 	public void setInterest_biz_id(String interest_biz_id) {
 		this.interest_biz_id = interest_biz_id;
 	}
+
 	
 	
  

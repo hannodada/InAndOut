@@ -164,7 +164,7 @@ public class AdminMemberListService {
 		return dao.riderdetailextra(user_id);
 	}
 
-	// ����ó�� �� �����丮 �ۼ�
+	// 라이더 회원 가입대기 -> 정상으로 변경 
 	public int history_riderstate(HashMap<String, String> params,String user_id) {
 		int result = dao.history_riderstate(params);
 		dao.riderchange(user_id);
@@ -184,11 +184,6 @@ public class AdminMemberListService {
 	}
 
 
-
-	public AdminMemberDTO uhistorydetail(String user_id, String user_state, String state_time) {
-		
-		return dao.uhistorydetail(user_id,user_state,state_time);
-	}
 
 	public HashMap<String, Object> riderlist(HashMap<String, Object> params) {
 	   
@@ -274,9 +269,13 @@ public class AdminMemberListService {
 		return result; 
 	}
 
+	public AdminMemberDTO uhistorydetail(String user_state) {
+		logger.info("히스토리 디테일 요청"+user_state);
+		return dao.uhistorydetail(user_state);
+	}
 
 
-	// ����ó�� �� �����丮 �ۼ� 
+
 
 
 

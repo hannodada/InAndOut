@@ -101,6 +101,14 @@
 	where u.user_id = #{user_id}
 </select>
 
+<!-- 회원 히스토리 디테일 -->
+<select id="uhistorydetail" parameterType="String" resultType="com.ino.admin.dto.AdminMemberDTO">
+	select uh.user_id , uh.user_state , uh.user_content, uh.admin_id , u.nickname 
+	from user_history uh
+	join user u on u.user_id = uh.user_id 
+	where uh.user_state = #{user_state}
+</select>
+
 <!-- 인증사용자 리스트 -->
 <select id="authuserlist" resultType="com.ino.admin.dto.AdminMemberDTO">
 	SELECT u.user_id , u.nickname , ud.user_div_name, u.user_state 
@@ -156,13 +164,7 @@ WHERE user_id = #{user_id} AND (user_div = 'a' OR user_div = 'b')
 			VALUES(#{user_id},#{admin_id},#{user_content})
 </insert>
 
-<!-- -->
-<select id="uhistorydetail" resultType="com.ino.admin.dto.AdminMemberDTO">
-select uh.user_state ,uh.state_time, u.user_id ,u.nickname , uh.user_state, uh.admin_id ,uh.user_content 
-from user_history uh 
-left join user u on uh.user_id = u.user_id
-where u.user_id = #{user_id} and uh.user_state =#{user_state} and uh.state_time =#{state_time}
-</select>
+
 	
 	
 	

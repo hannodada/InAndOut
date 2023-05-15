@@ -1,6 +1,7 @@
 package com.ino.star.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ino.sales.dto.SalesDTO;
 import com.ino.star.dto.CategoryDTO;
@@ -22,20 +24,30 @@ public class StarController {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired StarService service;
 	
-	@RequestMapping(value = "/starPleaseList.go")
-	public String starPleaseList(HttpSession session, Model model) {
+	@RequestMapping(value = "/areYouBuyer.ajax")
+	@ResponseBody
+	public HashMap<String, Object> areYouBuyer(HttpSession session, @RequestParam HashMap<String, String> params){
 		
-		String page = "redirect:/";
-		String loginId = (String) session.getAttribute("loginId");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String loginId = null;
 		
-		ArrayList<SalesDTO> list = service.starPleaseList(loginId);
+		String sales_no = params.get("sales_no");
+		String user_id = params.get("user_id");
 		
+		if(session.getAttribute("loginId")!=null) {
+			loginId = (String) session.getAttribute("loginId");
+			if(loginId.length()>0) {
+				String buyerId = service.areYouBuyer(sales_no, user_id);
+				map.put("buyerId", buyerId);
+			}
+			
+		}
 		
-		return page;
+		return map;
 	}
 	
 	@RequestMapping(value = "/starThrow.go")
-	public String starThrowForm(HttpSession session, Model model, @RequestParam String sales_no) {
+	public String starThrowForm(HttpSession session, Model model, @RequestParam String sales_no, @RequestParam String user_id) {
 		
 		String page = "starThrowForm";
 		String loginId = null;
@@ -58,12 +70,25 @@ public class StarController {
 		return page;
 	}
 	
-	@RequestMapping(value = "/starThrow.do")
-	public String starThrow(HttpSession session, Model model) {
+	@RequestMapping(value = "/starThrow.ajax")
+	@ResponseBody
+	public HashMap<String, Object> starThrow(HttpSession session, @RequestParam HashMap<String, String> params) {
 		
-		String page = "redirect:/";
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String loginId = null;
+		
+		if(session.getAttribute("loginId")!=null) {
+			
+			loginId = (String) session.getAttribute("loginId");
+			
+			if(loginId.length()>0) {
+				int row = service.insertStar(params);
+				map.put("row", row);
+			}
+			
+		}
 
-		return page;
+		return map;
 	}
 	
 }
