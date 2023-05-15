@@ -185,6 +185,42 @@ Logger logger = LoggerFactory.getLogger(getClass());
 		return dao.getPhotoName(userId,string);
 	}
 
+	public void userSetting(HashMap<String, String> params) {
+		dao.userSetting(params);
+		
+	}
+
+	public int countinterest(String writerid) {
+		return dao.countinterest(writerid);
+	}
+
+	public HashMap<String, Object> pwcheck(String oripassword) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String page = "useSetting";
+		map.put("oripassword", oripassword);
+		map.put("page", page);
+		return map;
+	}
+
+	public void userBizdo(String user_id) {
+		dao.userBizdo(user_id);
+		
+	}
+
+	public String userBiz(String user_id) {
+		
+		return dao.userBiz(user_id);
+	}
+
+	public ArrayList<MypageDTO> interestSaleList(String user_id, String attention_div) {
+		return dao.interestSaleList(user_id,attention_div);
+	}
+
+	public ArrayList<MypageDTO> interestglList(String user_id, String attention_div) {
+		// TODO Auto-generated method stub
+		return dao.interestglList(user_id,attention_div);
+	}
+
 	
 	
 	/*

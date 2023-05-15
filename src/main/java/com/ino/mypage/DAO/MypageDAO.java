@@ -24,6 +24,8 @@ public interface MypageDAO {
 
 	int countgallery(String writerid);
 
+	int countinterest(String writerid);
+
 	int star001(String star001);
 
 	int star002(String star002);
@@ -51,6 +53,17 @@ public interface MypageDAO {
 	String getPhotoName(String userId, String string);
 
 	String userdiv(String user_id);
+
+	void userSetting(HashMap<String, String> params);
+
+	void userBizdo(String user_id);
+
+	String userBiz(String user_id);
+
+	ArrayList<MypageDTO> interestSaleList(String user_id, String attention_div);
+
+	ArrayList<MypageDTO> interestglList(String user_id, String attention_div);
+
 
 	
 
