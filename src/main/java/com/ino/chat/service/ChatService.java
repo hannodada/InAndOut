@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ino.chat.dao.ChatDAO;
 import com.ino.chat.dto.ChatDTO;
 import com.ino.chat.dto.MsgDTO;
+import com.ino.delivery.dto.RiderDTO;
 import com.ino.member.dto.MemberDTO;
 import com.ino.sales.dto.SalesDTO;
 import com.ino.sales.dao.*;
@@ -104,6 +105,11 @@ public class ChatService {
 	public int salenum(int id) {
 		// TODO Auto-generated method stub
 		return dao.salenum(id);
+	}
+	
+	public int salenum2(int id) {
+		// TODO Auto-generated method stub
+		return dao.salenum2(id);
 	}
 
 	public SalesDTO msgsale(int salenum) {
@@ -201,8 +207,8 @@ public class ChatService {
 		return dao.getsalephotobydelivery(msg_div_no);
 	}
 
-	
-
-	
-
+	public RiderDTO getdelivery(int id) {
+		// TODO Auto-generated method stub
+		return dao.getdelivery(id);
+	}
 }

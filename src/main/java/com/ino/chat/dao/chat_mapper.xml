@@ -64,7 +64,7 @@
 	
 	<select id="salephoto" resultType="String">
 		select new_photo_name from photo
-		where cate_no = 'p005' and photo_div = #{param1}
+		where cate_no = 'p005' and photo_div = #{param1} limit 1;
 	</select>
 	
 	<select id="getsalephotobydelivery" resultType="String">
@@ -84,6 +84,15 @@
 	
 	<select id="salenum" resultType="Int">
 		select msg_div_no from chatroom where roomid = #{param1}
+	</select>
+	
+	<select id="salenum2" resultType="Int">
+		select sales_no from delivery_offer do
+		where delivery_offer_no = (select msg_div_no from chatroom where roomid = #{param1})
+	</select>
+	 
+	 <select id="getdelivery" resultType="com.ino.delivery.dto.RiderDTO">
+		select * from delivery_offer do LEFT JOIN delivery_history dh ON do.delivery_offer_no = dh.delivery_accept_no where do.delivery_offer_no = #{param1};
 	</select>
 	
 	<select id="msgsale" resultType="com.ino.sales.dto.SalesDTO">
