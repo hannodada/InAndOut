@@ -47,6 +47,8 @@ public interface SalesDAO {
 
 	void removeFileName(String fileName);
 
+	int salesTotalCount(HashMap<String, String> userParams);
+
 
 
 

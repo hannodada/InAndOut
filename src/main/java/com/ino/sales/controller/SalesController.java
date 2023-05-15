@@ -48,25 +48,35 @@ public class SalesController {
 			}
 		}
 		
-		ArrayList<SalesDTO> list = service.salesList(session, userParams);
+		String loginId = null;
+
+		if(session.getAttribute("loginId")!=null) {
+			loginId = (String) session.getAttribute("loginId");
+			if(loginId.length()>0) {
+				model.addAttribute("flag", "first"); //로그인한 사람이 처음으로 salesList 진입 시 플래그 삽입
+			}
+		}
 		
-		model.addAttribute("list", list);
+		
+//		ArrayList<SalesDTO> list = service.salesList(session, userParams);
+		
+//		model.addAttribute("list", list);
 
 		return "salesList";
 	}
 	
-	@RequestMapping(value = "/salesFiltering.ajax", method = RequestMethod.GET)
+	@RequestMapping(value = "/salesList.ajax")
 	@ResponseBody
-	public HashMap<String, Object> filtering(Model model, @RequestParam HashMap<String, String> userParams) {
+	public HashMap<String, Object> filtering(HttpSession session, Model model, @RequestParam HashMap<String, String> userParams) {
 		
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		ArrayList<SalesDTO> filteredList = service.filtering(userParams);
+//		HashMap<String, Object> map = new HashMap<String, Object>();
+//		ArrayList<SalesDTO> filteredList = service.filtering(session, userParams);
 		
-		logger.info("filteredList :"+filteredList);
+//		logger.info("filteredList :"+filteredList);
 		
-		map.put("filteredList", filteredList);
+//		map.put("filteredList", filteredList);
 
-		return map;
+		return service.filtering(session, userParams);
 	}
 
 	@RequestMapping(value = "/salesWrite.go", method = RequestMethod.GET)

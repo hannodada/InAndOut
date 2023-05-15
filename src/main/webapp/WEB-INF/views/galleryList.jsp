@@ -10,7 +10,6 @@
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
 <script src="resources/js/jquery.twbsPagination.min.js" type="text/javascript"></script>
-
 <style>
 table, th, td{
 	border: 1px black solid;
@@ -44,30 +43,7 @@ b{
 			</tr>
 		</thead>
 		<tbody id="list">
-			<c:if test="${list.size() == 0 }">
-				<tr>
-					<th colspan="8">갤러리 글이 없습니다.</th>
-				</tr>
-			</c:if>
-			<c:if test="${list.size() > 0 }">
-				<c:forEach items="${list }" var="i">
-					<tr>
-						<th>${i.gallery_no }</th>
-						<c:if test="${i.new_photo_name ne null }">
-							<th><img src="/photo/${i.new_photo_name }"/></th>
-						</c:if>
-						<c:if test="${i.new_photo_name eq null }">
-							<th><img src="resources/img/defaultIMG.png"/></th>
-						</c:if>
-						<th><a href="galleryDetail.do?gallery_no=${i.gallery_no}">${i.gallery_subject }</a></th>
-						<th>${i.gallery_hit }</th>
-						<th>${i.gallery_jjim }</th>
-						<th>${i.user_id }</th>
-						<th>${i.nickname }</th>
-						<th>${i.gallery_date }</th>
-					</tr>
-				</c:forEach>
-			</c:if>
+
 		</tbody>
 		<tr>
 			<td colspan="8" id="paging">	
@@ -82,89 +58,23 @@ b{
 	</table>
 </body>
 <script>
-/*
-function filtering(){
-	
-	console.log('change');
-
-	var filterName = document.getElementById('filter').value;
-
-	console.log(filterName);
-	
-	$.ajax({
-		type: 'get',
-		url: 'galleryFiltering.ajax',
-		data: {
-			'filterName':filterName
-		},
-		dataType: 'json',
-		success: function(data){
-			console.log(data.filteredList);
-			if(data!=null){
-				filterListDraw(data.filteredList);
-			}
-		},
-		error: function(e){
-			console.log(e);
-		}
-	});
-	
-}
-
-function filterListDraw(list){
-	
-	var content = '';
-	
-	list.forEach(function(item, index){
-		
-		content += '<tr>';
-		content += '<th>'+item.gallery_no+'</th>';
-
-
-		
-		if(item.new_photo_name == null){
-			content += '<th><img src="resources/img/defaultIMG.png';
-		}else{
-			content += '<th><img src="/photo/'+item.new_photo_name;
-		}
-		
-		content += '"/></th>';
-		
-		content += '<th><a href="galleryDetail.do?gallery_no='+item.gallery_no+'">'+item.gallery_subject+'</a></th>';
-		content += '<th>'+item.gallery_hit+'</th>';
-		content += '<th>'+item.gallery_jjim+'</th>';
-		content += '<th>'+item.user_id+'</th>';
-		content += '<th>'+item.nickname+'</th>';
-		
- 		let milliseconds = item.gallery_date;
-		let date = getFormatDate(new Date(milliseconds));
-
-		content += '<th>'+date+'</th>';
-		content += '</tr>';
-	});
-	
-	$('#list').empty();
-	$('#list').append(content);
-	
-}
-*/
-
 //기본값으로 1번 페이지를 설정한다.
 var showPage = 1;
 
 listCall(showPage);
 
-// 게시물 갯수를 5 - 10 - 15 - ... 변경될 때마다 listCall을 해줘야 함.
+// 게시물 갯수를 5 - 10 - 15 - ... 변경될 때마다 listCall을 해줘야 함. (15개로 고정되어 있음.)
 $('#filter').change(function(){
 	listCall(showPage);	
 	// 페이지 총 갯수가 이미 만들어져 있어서 pagePerNum이 변경되면 수정이 안되는 문제가 있다.
 	// 그래서 pagePerNum이 변경되면 부수고 다시 만들어야 한다.
 	// 밑에 만들어진 paging plugin을 부수기
-//	$('#pagination').twbsPagination('destroy');
+	$('#pagination').twbsPagination('destroy');
 });
 
 function listCall(page){
 	var filterName = document.getElementById('filter').value;
+	
 	$.ajax({
 		
 		type: 'post',
@@ -196,6 +106,7 @@ function listCall(page){
 						showPage = page;
 						listCall(page);
 					}
+					
 				}
 			});
 			
@@ -207,6 +118,7 @@ function listCall(page){
 	});
 	
 }
+
 function listPrint(list){
 	// 제이쿼리 셀렉터는 each를 쓰고, JS는 forEach 씀
 	// JS는 인덱스 생략이 가능하기 때문에 item, idx 중에 안받을 수도 있는데
@@ -258,6 +170,5 @@ function getFormatDate(date){
 	
 	return year + '-' + month + '-' +day;
 }
-
 </script>
 </html>
