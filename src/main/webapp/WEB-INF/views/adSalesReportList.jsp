@@ -40,8 +40,8 @@
 				<th>신고번호</th>
 				<th>제목</th>
 				<th>작성자</th>
-				<th>신고자</th>
 				<th>신고일자</th>
+				
 				<th>신고내용</th>
 			</tr>
 		</thead>
@@ -136,11 +136,11 @@ function listPrint(list){
 	      content +='<tr>';
 	      content +='<td><input type="checkbox"></td>';
 	      content +='<td>'+item.report_no+'</td>';
-	      content +='<td id="userdiv">'+item.subject+'</td>';
-	      content +='<td id="userdiv">'+item.s.user_id+'</td>';
-	      content +='<td id="userdiv">'+item.r.user_id+'</td>';
+	      content +='<td id="userdiv"><a href="salesDetail.do?sales_no='+ item.sales_no +'">' + truncateString(item.subject, 16) + '</a></td>';
+	     // content +='<td id="userdiv">'+item.s.user_id+'</td>';
+	      content +='<td id="userdiv">'+item.user_id+'</td>';
 	      content +='<td id="userdiv">'+item.report_date+'</td>';
-	      content +='<td id="subject"><a href="detail.do?report_no='+ item.report_no +'">' + "상세보기" + '</a></td>';
+	      content +='<td id="subject"><a href="detail.sreport.do?report_no='+ item.report_no +'">' + "상세보기" + '</a></td>';
 	      content +='</tr>';
 	      
 	   });
@@ -149,6 +149,13 @@ function listPrint(list){
 	   $('#list').empty();
 	   $('#list').append(content);
 	}
+	
+function truncateString(str, maxLength) {
+    if (str.length > maxLength) {
+        return str.substring(0, maxLength) + "...";
+    }
+    return str;
+}
 
 </script>
 </body>

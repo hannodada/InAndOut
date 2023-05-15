@@ -32,7 +32,9 @@
         <td>${user.nickname}</td>
         <td>${user.user_state}</td>
         <td>${user.state_time}</td>
-				<td><a href="ad.uhistory.detail.do?user_id=${user.user_id}&user_state=${user.user_state}&state_time=${user.state_time}">상세보기</a></td>
+				<td><a href="ad.uhistory.detail.do?user_id=${user.user_id}&user_state=${user.user_state}">
+         			 상세보기
+        		</a></td>
        </tr>
         </c:forEach>
 

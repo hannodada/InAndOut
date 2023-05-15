@@ -25,21 +25,42 @@ public class AdminCategoryController {
 	
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	@RequestMapping(value="/ad.goodslist.do")
-	public String categorylist() {
+	@RequestMapping(value="/ad.categorylist.do")
+	public String goodslist() {
 
-        return "adGoodsList";
+        return "adCategoryList";
 	} 	
+	
+    @RequestMapping(value = "/ad.search.do", method = RequestMethod.GET)
+    public String handleSearchRequest(@RequestParam("category") String category) {
+        String page = "redirect:/ad.categorylist.do";
+    	if (category.equals("업종별")) {
+            page= "adCategoryList";
+        } else if (category.equals("물품별")) {
+            page= "adGoodsList";
+        }
+		return page;	
+    } 
 	
     @RequestMapping(value="/category.ajax", method = RequestMethod.POST)
     @ResponseBody
-    public HashMap<String, Object> list( @RequestParam HashMap<String, Object> params
+    public HashMap<String, Object> clist( @RequestParam HashMap<String, Object> params
  		  		
     		){
-    	logger.info("����Ʈ �ҷ�������");
+    	params.put("requestType", "category");
+    	logger.info("카테고리 ajax 요청");
        return service.list(params);
     }	
 
+    @RequestMapping(value="/goods.ajax", method = RequestMethod.POST)
+    @ResponseBody
+    public HashMap<String, Object> glist( @RequestParam HashMap<String, Object> params
+ 		  		
+    		){
+    	params.put("requestType", "goods");
+    	logger.info("카테고리 ajax 요청");
+       return service.list(params);
+    }	
     
 	@RequestMapping(value="/goodsdetail.do")
 	public String detail(Model model, @RequestParam String goods_id) {
@@ -70,6 +91,12 @@ public class AdminCategoryController {
 		logger.info("params: "+params);
 		service.goodsupdate(params);
 		
-	return "redirect:/ad.goodslist.do";
+	return "redirect:/ad.categorylist.do";
 }  	    
+	
+	
+
+	
+	
+	
 }

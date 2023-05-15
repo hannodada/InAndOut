@@ -43,8 +43,8 @@
 				<td><img width="500" src="/photo/${user.new_photo_name}"/></td>
 			</tr>
 			
-			<button id="myBtn" onclick ="updateRole(${rider.user_state})">가입승인</button>
-			<button id="yourBtn" onclick ="updateRole(${rider.user_state})">가입반려</button>
+			<button id="myBtn" >가입승인</button>
+			<button id="yourBtn" >가입반려</button>
 			
 			<div id="myModal" class="modal">
 			
@@ -52,8 +52,8 @@
 			  	<form action="ad.riderlist.do" method = "post">
 			    <div class="modal-header">
 			      <span class="close">&times;</span>
-			      <h2>처리자 ${rider.admin_id}</h2>
-			      <input type = "text" name="admin_id" value="${rider.admin_id}" hidden/>
+			      <h2>처리자 ${loginId}</h2>
+			      <input type = "text" name="admin_id" value="${loginId}" hidden/>
 			    </div>
 			    <div class="modal-body">
 						<h2>사용자 ${rider.user_id}</h2>
@@ -74,10 +74,12 @@
 			  	<form action="ad.riderlist.go" method = "post">
 			    <div class="modal-header">
 			      <span class="close">&times;</span>
-			      <h2>처리자 <input type = "text" name="admin_id"/>${rider.admin_id}</h2>
+			      <h2>처리자 ${loginId}</h2>
+			      <input type = "text" name="admin_id" value="${loginId}" hidden/>
 			    </div>
 			    <div class="modal-body">
-			<h2>사용자 <input type = "text" name="user_id"/>${rider.user_id}</h2>
+						<h2>사용자 ${rider.user_id}</h2>
+						<input type = "text" name="user_id" value="${rider.user_id}" hidden/>
 			    	<p>처리사유</p>
 			      <p><textarea name="content">${rider.user_content}</textarea></p>
 			
@@ -94,9 +96,6 @@
 	
 		<script>
 
-		function updateRole(${rider.user_state}){
-			
-		}
 		
 		// Get the modal
 		var modal = document.getElementById("myModal");
@@ -117,17 +116,18 @@
 		}
 
 		// When the user clicks on <span> (x), close the modal	
-		span.onclick = function() {
-		  modal.style.display = "none";
-		}
-
-		// When the user clicks anywhere outside of the modal, close it
-		window.onclick = function(event) {
-		  if (event.target == modal) {
+		  span.onclick = function() {
 		    modal.style.display = "none";
+		    ymodal.style.display = "none";
 		  }
+	  
+	  window.onclick = function(event) {
+	    if (event.target == modal || event.target == ymodal) {
+	      modal.style.display = "none";
+	      ymodal.style.display = "none";
+	    }
 		}
-		
+	 
     </script>	
 	</body>
 </html>

@@ -54,7 +54,6 @@ public interface AdminMemberListDAO {
 	ArrayList<AdminMemberDTO> userhistory(String user_id);
 
 
-	AdminMemberDTO uhistorydetail(String user_id, String user_state, String state_time);
 
 
 	int totalCount();
@@ -103,6 +102,12 @@ public interface AdminMemberListDAO {
 
 
 	void userStatechange(String user_id, String radiovalue);
+
+
+	AdminMemberDTO uhistorydetail(String user_state);
+
+
+	int totalCousntSearch(String search);
 
 
 

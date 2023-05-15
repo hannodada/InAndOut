@@ -51,7 +51,8 @@
   		</tbody> 		
 			</table>
 		</div>	
-		<button onclick="location.href='ad.starwrite.go'">등록</button>	
+		<!-- 별점 리스트 활성화 컬럼 존재 x -->
+<!-- 		<button onclick="location.href='ad.starwrite.go'">등록</button>	 -->
 		</section>
 	</article>
 

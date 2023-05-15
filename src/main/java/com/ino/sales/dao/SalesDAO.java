@@ -3,6 +3,7 @@ package com.ino.sales.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.ino.admin.dto.AdminGalleryDTO;
 import com.ino.sales.dto.BizDTO;
 import com.ino.sales.dto.SalesDTO;
 import com.ino.sales.dto.goodsDTO;
@@ -46,6 +47,11 @@ public interface SalesDAO {
 	int salesUpdate(HashMap<String, String> params);
 
 	void removeFileName(String fileName);
+
+	int salesTotalCount(HashMap<String, String> userParams);
+
+
+
 
 
 

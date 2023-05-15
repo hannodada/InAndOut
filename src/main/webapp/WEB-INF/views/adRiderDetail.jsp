@@ -50,12 +50,13 @@
 			<tr>
 				<td>회원분류</td>
 				<td>${rider.user_div_name}</td>
-						<td><input type ="button" onclick="location.href='./ad.riderdetail.extra.do?user_id=${rider.user_id}'"
-							value="추가정보"/></td>
 			</tr>	
 			<tr>
 				<td>회원상태</td>
-				<td>${rider.user_state}</td>
+				<td>${rider.user_state}
+										<td><input type ="button" onclick="location.href='./ad.riderdetail.extra.do?user_id=${rider.user_id}'"
+							value="추가정보"/></td>
+				</td>
 			</tr>				
 			<tr>
 				<td colspan="3" align="right">

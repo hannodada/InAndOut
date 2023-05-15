@@ -28,22 +28,19 @@ public class AdminGalleryService {
 		
 	    HashMap<String, Object> map = new HashMap<String, Object>();
 	    int page = Integer.parseInt(String.valueOf(params.get("page")));
-	    // 1������  offset 0
-	    // 2������ offset 5
-	    // 3 ������ offset 10
-	    int offset = 5*(page-1);	    
+
+	    int offset = 10*(page-1);	    
 		
 	    logger.info("offset : " + offset);
 	    
-	    // ���� �� �ִ� �� ������ �� : ��ü �Խñ��� �� / �������� ������ �� �ִ� ��
+
 	    int total = 0;	    		
 		
 	    total = dao.totalCount();
 		
-	    int range = total%5  == 0 ? total/5 : total/5+1;
+	    int range = total%10  == 0 ? total/10 : total/10+1;
 	    
-	      logger.info("�ѰԽñ� �� : "+ total);
-	      logger.info("�� ������ �� : "+ range);
+
 	      
 	      page = page>range ? range:page;
 	      
