@@ -73,11 +73,11 @@ public class RiderController {
 	
 	
 	@RequestMapping(value = "/userOffer.do") // 사용자가 제안하는 페이지
-	public String userOfferGo(@RequestParam String rider_id, Model model, @RequestParam String msg_div_no) {
+	public String userOfferGo(@RequestParam String rider_id, Model model, @RequestParam String sales_no) {
 		
 		
 		
-		logger.info("user_id 값 =  " +rider_id,msg_div_no);
+		logger.info("user_id 값 =  {} {}", rider_id,sales_no);
 		
 		if(rider_id != null) {
 		
@@ -87,7 +87,7 @@ public class RiderController {
 	
 		}
 		
-		RiderDTO dtoS = service.dtoUOS(msg_div_no);
+		RiderDTO dtoS = service.dtoUOS(sales_no);
 		model.addAttribute("dtoS",dtoS);
 		
 		return "userOffer";

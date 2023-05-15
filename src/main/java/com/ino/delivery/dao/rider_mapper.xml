@@ -131,16 +131,16 @@
 	
 	<select id="dtoUOS" resultType="com.ino.delivery.dto.RiderDTO">
 		SELECT c.msg_div_no, s.user_id, s.sales_no, s.subject, s.content, b.biz_name, g.goods_name, p.new_photo_name, concat(s.sales_sido,' ' , s.sigungu,' ' , s.left_addr) as from_addr FROM sales s 
-			LEFT JOIN biz b 
-			ON s.biz_id = b.biz_id 
-			LEFT JOIN goods g 
-			ON s.goods_id = g.goods_id 
-			LEFT JOIN photo p 
-			ON s.user_id = p.photo_div 
-			left join chatroom c
-			on c.msg_div_no = s.sales_no
-		WHERE (c.msg_div_no = #{param1} and p.new_photo_name is null)
-		or (c.msg_div_no = #{param1} and p.new_photo_name is not null)
+         LEFT JOIN biz b 
+         ON s.biz_id = b.biz_id 
+         LEFT JOIN goods g 
+         ON s.goods_id = g.goods_id 
+         LEFT JOIN photo p 
+         ON s.user_id = p.photo_div 
+         left join chatroom c
+         on c.msg_div_no = s.sales_no
+      WHERE (s.sales_no = #{param1} and p.new_photo_name is null)
+      or (s.sales_no = #{param1} and p.new_photo_name is not null)
 	</select>
 	
 	<insert id="select" parameterType="hashmap">

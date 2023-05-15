@@ -99,7 +99,7 @@
 			   content += '</div>';
 			   content += '<div>' + item.sido + ' ' + item.sigungu + ' / ' + item.store_time + '</div>';
 			   content += '<div class="button-box">';
-			   content += '<button onclick="location.href=\'userOffer.do?rider_id=' + item.user_id + '&msg_div_no=' + item.msg_div_no + '\'">견적신청</button>';
+			   content += '<button onclick="location.href=\'userOffer.do?rider_id=' + item.user_id + '&sales_no=' + item.sales_no + '\'">견적신청</button>';
 			   content += '</div>';
 			   content += '</div>';
 		   });

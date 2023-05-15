@@ -342,7 +342,7 @@ function riderListDraw(list){
 		content += '<th>' + item.user_name + '</th>';
 		content += '<th>' + item.sigungu + '</th>';
 		content += '<th>' + 'A.M. 7:00 ~ P.M. 7:00' + '</th>';
-		content += '<th><button class="btn btn-primary">견적신청</button></th></tr>'
+		content += '<th><button class="btn btn-primary" onclick="location.href=\'userOffer.do?rider_id=' + item.user_id + '&msg_div_no=' + delivery_no + '\'">견적신청</button></th></tr>'
 	});
 	
 	$('#modalRider').empty();
@@ -411,10 +411,13 @@ function msgList(dst){
 }
 
 var enter = false;
+var delivery_no = "";
 
 function msgDraw(list,sale,salephoto,user,userphoto,delivery){
 	
 	console.log(delivery)
+	delivery_no = sale.sales_no;
+	console.log("sale_no: " + delivery_no);
 	var content = '';
 	list.forEach(function(item, index){
 		if(item.from_id == "${loginId}"){
