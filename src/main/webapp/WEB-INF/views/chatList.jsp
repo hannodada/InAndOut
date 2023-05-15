@@ -258,7 +258,7 @@ $('#modalClose').click(function () {
     if (modal.classList.contains('show')) {
 		body.style.overflow = 'hidden';
     } else {
-    	body.style.overflow = 'scroll';
+    	body.style.overflow = 'visible';
     }
 });
 
@@ -281,7 +281,7 @@ $('#modalClose2').click(function () {
     if (modal.classList.contains('show')) {
 		body.style.overflow = 'hidden';
     } else {
-    	body.style.overflow = 'scroll';
+    	body.style.overflow = 'visible';
     }
 });
 
@@ -374,7 +374,7 @@ function listDraw(list, userlist, salephotolist, userphotolist) {
 		}else if (userlist[index].user_div == "c"){
 			content += '<div class="chat_img"> <img style="position:relative;top:-5px" src="resources/photo/icon-rider.png" alt="sunil"> </div>';
 		}
-		content += '</div><div style="width:270px;text-align:right"><h5><span class="chat_date">' + item.recent_time + '&nbsp;&nbsp;</span></h5></div></div>';
+		content += '</div><div style="width:270px;text-align:right"><h5><span class="chat_date">' + item.recent_time.substring(0,19) + '&nbsp;&nbsp;</span></h5></div></div>';
 		content += '<p>'+item.recent_msg+'</p>';
 		content += '</div>';
 		if(salephotolist[index]!="rider"){
@@ -438,7 +438,7 @@ function msgDraw(list,sale,salephoto,user,userphoto,delivery){
 			}else{
 				content += '<p>' + item.msg_content + '</p>';
 			}
-			content += '<span class="time_date">' + item.from_time + '</span> </div> </div>';
+			content += '<span class="time_date">' + item.from_time.substring(0,19) + '</span> </div> </div>';
 			
 		}
 		content += '</div>'
@@ -493,7 +493,7 @@ function msgDraw(list,sale,salephoto,user,userphoto,delivery){
 	$('#sale_def').append(content);
 	$('#modal_text').text(sale.subject);
 	$('#modalsaleid').val(sale.sales_no);
-	$('#modalroomid').val(selectedDst);
+	$('#modalroomid').val("${selectedRoom}");
 	
 	$("#send_msg").mouseenter(function name() {
 		$('#msglistbox').scrollTop($('#msglistbox')[0].scrollHeight);
@@ -507,10 +507,12 @@ function msgDraw(list,sale,salephoto,user,userphoto,delivery){
 		$('#send_msg').attr("placeholder", "메세지를 보낼 수 없는 상태입니다.");
 		$('#send_msg').prop('readonly', true);
 		$('#btnsendimg').removeAttr("onclick");
+		$('#btncallrider').removeAttr("onclick");
 	} else {
 		$('#send_msg').attr("placeholder", "메세지를 입력하세요.");
 		$('#send_msg').prop('readonly', false);
 		$('#btnsendimg').attr("onclick","inputFile()");
+		$('#btncallrider').attr("onclick","showModal2()");
 	}
 	
 	var saleid = sale.user_id;
