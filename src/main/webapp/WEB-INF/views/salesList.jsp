@@ -10,6 +10,14 @@
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
 <script src="resources/js/jquery.twbsPagination.min.js" type="text/javascript"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="description" content="Free open source Tailwind CSS Store template">
+<meta name="keywords" content="tailwind,tailwindcss,tailwind css,css,starter template,free template,store template, shop layout, minimal, monochrome, minimalistic, theme, nordic">
+<link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>
+<link href="https://fonts.googleapis.com/css?family=Work+Sans:200,400&display=swap" rel="stylesheet">
+
 <style>
 table, th, td{
 	border: 1px black solid;
@@ -19,67 +27,118 @@ table, th, td{
 #paging{
 	text-align: center;
 }
+/* 템플릿 */
+.work-sans {
+    font-family: 'Work Sans', sans-serif;
+}
+        
+#menu-toggle:checked + #menu {
+    display: block;
+}
+
+.hover\:grow {
+    transition: all 0.3s;
+    transform: scale(1);
+}
+
+.hover\:grow:hover {
+    transform: scale(1.02);
+}
+
+.carousel-open:checked + .carousel-item {
+    position: static;
+    opacity: 100;
+}
+
+.carousel-item {
+    -webkit-transition: opacity 0.6s ease-out;
+    transition: opacity 0.6s ease-out;
+}
+
+#carousel-1:checked ~ .control-1,
+#carousel-2:checked ~ .control-2,
+#carousel-3:checked ~ .control-3 {
+    display: block;
+}
+
+.carousel-indicators {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    bottom: 2%;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 10;
+}
+
+#carousel-1:checked ~ .control-1 ~ .carousel-indicators li:nth-child(1) .carousel-bullet,
+#carousel-2:checked ~ .control-2 ~ .carousel-indicators li:nth-child(2) .carousel-bullet,
+#carousel-3:checked ~ .control-3 ~ .carousel-indicators li:nth-child(3) .carousel-bullet {
+    color: #000;
+    /*Set to match the Tailwind colour you want the active one to be */
+}
 </style>
 </head>
 <body>
-	<table>
-		<thead>
-			<tr>
-				<td>
-				판매목록 / 
-					<c:if test="${biz_id ne null}">
-						<input type="text" id="flag" name="flag" value="${flag}" hidden="true"/>
-						<input type="text" id="biz_id" name="biz_id" value="${biz_id}" hidden="true"/>
-						<input type="text" id="biz_name" value="${biz_name}" readonly="readonly"/> &gt;
-						<select name="goods_id" id="goods_id" onchange="filtering()">
-							<c:forEach items="${goodsList}" var="i">
-								<option value="${i.goods_id }">${i.goods_name }</option>
-							</c:forEach>
-						</select>
-					</c:if>
-					<c:if test="${biz_id eq null}">
-						<input type="text" id="flag" name="flag" value="${flag}" hidden="true"/>
-						<input type="text" id="biz_id" name="biz_id" value="default" hidden="true"/>
-						<input type="text" id="biz_name" value="전체" readonly="readonly"/>
-						<input type="text" id="goods_id" name="goods_id" value="default" hidden="true"/>
-					</c:if>
-				</td>
-				<td>
-					<select name="filter" id="filter" onchange="filtering()">
-						<option value="sales_no">최신 순</option>
-						<option value="hit">조회수 순</option>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td>
-				위치 / 
-					<select name="sido" id="sido">
-					</select> &gt;
-					<select name="sigungu" id="sigungu" onchange="filtering()">
-					</select>			
-				</td>
-				<td>
-				가격 /
-					<input type="text" name="minPrice" id="minPrice" value="" onblur="filtering()"/>원 ~ 
-					<input type="text" name="maxPrice" id="maxPrice" value="" onblur="filtering()"/>원
-				</td>
-			</tr>
-		</thead>
-		<tbody id="list">
-
-		</tbody>
-		<tr>
-			<td colspan="13" id="paging">	
-				<!-- 	플러그인 사용	(twbsPagination)	-->
-				<div class="container">									
-					<nav aria-label="Page navigation" style="text-align:center">
-						<ul class="pagination" id="pagination"></ul>
-					</nav>					
-				</div>
-			</td>
-		</tr>
-	</table>
+<%-- <jsp:include page="realGnb.jsp"/>  --%>
+	<div class="container mx-auto flex justify-start p-8">
+		<div class="text-blue-600 font-semibold text-3xl">판매목록 / </div>
+		<div class="ml-5 text-3xl">
+			<c:if test="${biz_id ne null}">
+				<input type="text" id="flag" name="flag" value="${flag}" hidden="true"/>
+				<input type="text" id="biz_id" name="biz_id" value="${biz_id}" hidden="true"/>
+				<input class="border-2 rounded w-40" type="text" id="biz_name" value="${biz_name}" readonly="readonly"/> &gt;
+				<select class="border-2 border-black rounded w-40" name="goods_id" id="goods_id" onchange="filtering()">
+					<c:forEach items="${goodsList}" var="i">
+						<option value="${i.goods_id }">${i.goods_name }</option>
+					</c:forEach>
+				</select>
+			</c:if>
+			<c:if test="${biz_id eq null}">
+				<input type="text" id="flag" name="flag" value="${flag}" hidden="true"/>
+				<input type="text" id="biz_id" name="biz_id" value="default" hidden="true"/>
+				<input class="border-2 rounded-xl w-24" type="text" id="biz_name" value="전체" readonly="readonly"/>
+				<input type="text" id="goods_id" name="goods_id" value="default" hidden="true"/>
+			</c:if>
+		</div>
+	</div>
+	<div class="container mx-auto flex justify-start p-8">
+		<div class="text-blue-600 font-semibold text-3xl">위치 / </div>
+		<div class="ml-5 text-3xl">
+			<select class="border-2 border-black rounded w-70" name="sido" id="sido">
+			</select> &gt;
+			<select class="border-2 border-black rounded w-60" name="sigungu" id="sigungu" onchange="filtering()">
+			</select>			
+		</div>
+		<div class="ml-20 text-blue-600 font-semibold text-3xl">가격 / </div>
+		<div class="ml-5 text-3xl">
+			<input class="border-2 border-black rounded w-60" type="number" name="minPrice" id="minPrice" value="" onblur="filtering()"/>원 ~ 
+			<input class="border-2 border-black rounded w-60" type="number" name="maxPrice" id="maxPrice" value="" onblur="filtering()"/>원
+		</div>
+	</div>
+	<div class="container mx-auto flex justify-end p-8">			
+		<div class="ml-60 text-3xl">
+			<select class="border-2 border-black rounded" name="filter" id="filter" onchange="filtering()">
+				<option value="sales_no">최신 순</option>
+				<option value="hit">조회수 순</option>
+			</select>
+		</div>
+	</div>	
+	    <body class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
+ 
+        <section class="bg-white py-8">
+            <div id="add_item" class="container mx-auto flex items-center flex-wrap pt-4 pb-12">
+			<!-- 상품 들어가는 자리 -->
+			</div>
+        </section>	
+		<!-- 플러그인 사용 (twbsPagination) -->
+		<div class="container">									
+			<nav aria-label="Page navigation" style="text-align:center">
+				<ul class="pagination" id="pagination"></ul>
+			</nav>					
+		</div>
 </body>
 <script>
 $('document').ready(function() {
@@ -134,7 +193,7 @@ $('document').ready(function() {
 
 //기본값으로 1번 페이지를 설정한다.
 var showPage = 1;
-
+console.log();
 listCall(showPage);
 
 // 게시물 갯수를 5 - 10 - 15 - ... 변경될 때마다 listCall을 해줘야 함.
@@ -244,39 +303,45 @@ function listPrint(list){
 	//해결방법 1. DTO에서 Date를 toString으로 변환하는 방법(JAVA)
 	//해결방법 2. JS에서 변환하는 방법
 	list.forEach(function(item, idx){
-		
-		content += '<tr>';
-		content += '<th>'+item.sales_no+'</th>';
-		content += '<th>'+item.sales_state+'</th>';
 
-		if(item.new_photo_name == null){
-			content += '<th><img src="resources/img/defaultIMG.png';
+		content += '<div class="w-full md:w-1/3 xl:w-1/5 p-6 flex flex-col">';
+		content += '<div class="pt-3 flex items-center justify-between">';
+		if(item.sales_state == '판매중'){
+			content += '<p class="text-xl font-semibold">'+item.sales_state+'</p>';
 		}else{
-			content += '<th><img src="/photo/'+item.new_photo_name;
+			content += '<p class="text-xl font-semibold">'+item.sales_state+'</p>';
 		}
+		content += '<p class="">'+item.sales_sido+' '+item.sigungu+'</p>';
+		content += '</div>';
+		content += '<a href="salesDetail.do?sales_no='+item.sales_no+'">';
+		if(item.new_photo_name == null){
+			content += '<img class="hover:grow hover:shadow-lg rounded-lg" src="resources/img/defaultIMG.png">';
+		}else{
+			content += '<img class="hover:grow hover:shadow-lg rounded-lg" src="/photo/'+item.new_photo_name+'">';
+		}
+		content += '</a>';
 		
-		content += '"/></th>';
-		
-		content += '<th><a href="salesDetail.do?sales_no='+item.sales_no+'">'+item.subject+'</a></th>';
-		content += '<th>'+item.price+'</th>';
-		content += '<th>'+item.sales_sido+'</th>';
-		content += '<th>'+item.sigungu+'</th>';
-		content += '<th>'+item.biz_name+'</th>';
-		content += '<th>'+item.goods_name+'</th>';
-		content += '<th>'+item.hit+'</th>';
-		content += '<th>'+item.user_id+'</th>';
-		content += '<th>'+item.nickname+'</th>';
+		content += '<a class="text-2xl" href="salesDetail.do?sales_no='+item.sales_no+'">'+item.subject+'</a>';
+		if(item.sales_state == '판매중'){
+			content += '<p class="font-semibold pt-1 text-gray-900 text-2xl">'+priceToString(item.price)+'원'+'</p>';
+		}else{
+			content += '<p class="font-semibold pt-1 text-gray-900 text-2xl line-through">'+priceToString(item.price)+'원'+'</p>';
+		}
+		content += '<div class="pt-3 flex items-center justify-between">';
+		content += '<p class="">'+item.nickname+'</p>';
 		
 		let milliseconds = item.date;
 		let date = getFormatDate(new Date(milliseconds));
-
-		content += '<th>'+date+'</th>';
-		content += '</tr>';
+		
+		content += '<p class="">'+date+'</p>';
+		content += '</div>';
+		content += '</a>';
+		content += '</div>';
+		
 	});
 	
-	$('#list').empty();
-	$('#list').append(content);
-	
+	$('#add_item').empty();
+	$('#add_item').append(content);
 }	
 
 function getFormatDate(date){
@@ -288,6 +353,10 @@ function getFormatDate(date){
 	day = day >= 10 ? day : '0' + day;
 	
 	return year + '-' + month + '-' +day;
+}
+
+function priceToString(price) {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 </script>
 </html>
