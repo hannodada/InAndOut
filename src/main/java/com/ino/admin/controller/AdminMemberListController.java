@@ -118,7 +118,7 @@ public class AdminMemberListController {
 		AdminMemberDTO dto = service.viewdetail(user_id);
 		logger.info("dto : ",dto);
 		model.addAttribute("user", dto);
-		return "adUserDetailExtra";
+		return "adUserDetailState";
 	}
 	
 	@RequestMapping(value = "/ad.updateUserState", method=RequestMethod.POST)

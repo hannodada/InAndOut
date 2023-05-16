@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ino.admin.dto.AdminGalleryDTO;
 import com.ino.admin.dto.AdminMemberDTO;
+import com.ino.admin.dto.AdminReportDTO;
 import com.ino.admin.dto.AdminSalesDTO;
 import com.ino.admin.service.AdminGalleryService;
 import com.ino.admin.service.AdminSalesListService;
@@ -101,5 +102,28 @@ public class AdminSalesController {
 			model.addAttribute("user", dto);
 			return page;
 		}	
+		
+		
+		
+		
+		
+		public String sblindyes(@RequestParam HashMap<String, String> params, 
+				@RequestParam String report_no,
+				@RequestParam String report_id, 
+				@RequestParam String report_content, 
+				Model model) {
+
+			logger.info("params : {}"+ params);
+			int row = service.gblindyes(params, report_no, report_id,report_content);
+			logger.info("insert row : " + row);
+			
+			logger.info("판매글 신고처리할 번호" + report_no, report_id);
+			AdminReportDTO dto = service.greportdetail(report_no);
+			logger.info("dto : " + dto);
+
+			model.addAttribute("dto", dto);
+			return "adGalleryReportDetail";
+		}
+
 	    
 }

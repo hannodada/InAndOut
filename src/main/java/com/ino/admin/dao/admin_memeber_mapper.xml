@@ -79,11 +79,11 @@
 
 <!-- 인증사용자 리스트 -->
 <select id="authuserlist" resultType="com.ino.admin.dto.AdminMemberDTO">
-	SELECT u.user_id , u.nickname , ud.user_div_name, u.user_state 
+	SELECT u.user_id , u.nickname , ae.state, u.user_state 
 	FROM user u 
 	left join user_div ud on u.user_div = ud.user_div
 	left join auth_extra ae on u.user_id = ae.user_id
-	where u.user_div = 'a' and ae.state = '인증대기' 
+	where u.user_div = 'b' and ae.state = '인증대기' 
 	AND ae.biz_num IS NOT NULL
   AND ae.biz IS NOT NULL
   AND ae.store_name IS NOT NULL
@@ -100,15 +100,15 @@
   AND ae.biz IS NOT NULL
   AND ae.store_name IS NOT NULL
 </select>
-<!-- 인증사용자/일반으로 변경 -->
+<!-- 인증사용자- 인증대기/인증완료 변경 버튼 클릭 시 -->
 <update id="userchange" parameterType="String">
-UPDATE user SET user_div = 
+UPDATE auth_extra SET state = 
   CASE
-    WHEN user_div = 'a' THEN 'b'
-    WHEN user_div = 'b' THEN 'a'
-    ELSE user_div
+    WHEN state = '인증완료' THEN '인증대기'
+    WHEN state = '인증대기' THEN '인증완료'
+    ELSE state
   END
-WHERE user_id = #{user_id} AND (user_div = 'a' OR user_div = 'b')
+WHERE user_id = #{user_id} AND user_div = 'b'
 </update>
 
 
