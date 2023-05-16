@@ -223,7 +223,8 @@
 															 		 <c:if test="${sessionScope.new_photo_name eq null}">
 														     		 <img src="resources/photo/프로필 기본.png" id="profileNomal" onclick="location.href='riderPage?loginId=${sessionScope.loginId}'">
 														     		 </c:if>
-														     		 
+														
+													     		 
 														     		 <c:if test="${sessionScope.new_photo_name ne null}">
 														     		 <img src="/photo/${sessionScope.new_photo_name}" id="profileUser" onclick="location.href='riderPage?loginId=${sessionScope.loginId}'">
 														     		 </c:if>
@@ -303,6 +304,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
   <script type="text/javascript">
 </script>
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e434e3b05b4f1c7f078a8511ceaaab79&libraries=services"></script>
    
  
     
@@ -318,7 +320,6 @@
 </body>
 
 
-<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e434e3b05b4f1c7f078a8511ceaaab79&libraries=services"></script>
 
 
 <script>

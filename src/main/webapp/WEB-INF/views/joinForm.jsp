@@ -133,10 +133,10 @@
 			<th>*이메일</th>
 			<td><input type="text" name="email" id="email"/> 
 			&nbsp; @ &nbsp; 
-			<select id="url" name="email">
-			<option value="naver">naver.com</option>
-			<option value="gmail">gmail.com</option>
-			<option value="daum">daum.com</option>
+			<select id="url" name="url">
+			<option value="naver.com">naver.com</option>
+			<option value="gmail.com">gmail.com</option>
+			<option value="daum.com">daum.com</option>
 			</select>
 			</td>
 		</tr>
