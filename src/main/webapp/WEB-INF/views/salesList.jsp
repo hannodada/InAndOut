@@ -81,7 +81,7 @@ table, th, td{
 }
 </style>
 </head>
-<body>
+<body class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
 <%-- <jsp:include page="realGnb.jsp"/>  --%>
 	<div class="container mx-auto flex justify-start p-8">
 		<div class="text-blue-600 font-semibold text-3xl">판매목록 / </div>
@@ -89,8 +89,8 @@ table, th, td{
 			<c:if test="${biz_id ne null}">
 				<input type="text" id="flag" name="flag" value="${flag}" hidden="true"/>
 				<input type="text" id="biz_id" name="biz_id" value="${biz_id}" hidden="true"/>
-				<input class="border-2 rounded w-40" type="text" id="biz_name" value="${biz_name}" readonly="readonly"/> &gt;
-				<select class="border-2 border-black rounded w-40" name="goods_id" id="goods_id" onchange="filtering()">
+				<input class="focus:outline-none focus:ring-2 focus:ring-sky-600 w-60 text-gray-600 py-2 px-3 border border-gray-300 bg-white rounded-md" type="text" id="biz_name" value="${biz_name}" readonly="readonly"/> &gt;
+				<select class="focus:outline-none focus:ring-2 focus:ring-sky-600 w-60 text-gray-600 py-2 px-3 border border-gray-300 bg-white rounded-md" name="goods_id" id="goods_id" onchange="filtering()">
 					<c:forEach items="${goodsList}" var="i">
 						<option value="${i.goods_id }">${i.goods_name }</option>
 					</c:forEach>
@@ -99,7 +99,7 @@ table, th, td{
 			<c:if test="${biz_id eq null}">
 				<input type="text" id="flag" name="flag" value="${flag}" hidden="true"/>
 				<input type="text" id="biz_id" name="biz_id" value="default" hidden="true"/>
-				<input class="border-2 rounded-xl w-24" type="text" id="biz_name" value="전체" readonly="readonly"/>
+				<input class="focus:outline-none focus:ring-2 focus:ring-sky-600 w-24 text-gray-600 py-2 px-3 border border-gray-300 bg-white rounded-md" type="text" id="biz_name" value="전체" readonly="readonly"/>
 				<input type="text" id="goods_id" name="goods_id" value="default" hidden="true"/>
 			</c:if>
 		</div>
@@ -107,32 +107,30 @@ table, th, td{
 	<div class="container mx-auto flex justify-start p-8">
 		<div class="text-blue-600 font-semibold text-3xl">위치 / </div>
 		<div class="ml-5 text-3xl">
-			<select class="border-2 border-black rounded w-70" name="sido" id="sido">
+			<select class="focus:outline-none focus:ring-2 focus:ring-sky-600 w-60 text-gray-600 py-2 px-3 border border-gray-300 bg-white rounded-md" name="sido" id="sido">
 			</select> &gt;
-			<select class="border-2 border-black rounded w-60" name="sigungu" id="sigungu" onchange="filtering()">
+			<select class="focus:outline-none focus:ring-2 focus:ring-sky-600 w-60 text-gray-600 py-2 px-3 border border-gray-300 bg-white rounded-md" name="sigungu" id="sigungu" onchange="filtering()">
 			</select>			
 		</div>
 		<div class="ml-20 text-blue-600 font-semibold text-3xl">가격 / </div>
 		<div class="ml-5 text-3xl">
-			<input class="border-2 border-black rounded w-60" type="number" name="minPrice" id="minPrice" value="" onblur="filtering()"/>원 ~ 
-			<input class="border-2 border-black rounded w-60" type="number" name="maxPrice" id="maxPrice" value="" onblur="filtering()"/>원
+			<input class="w-60 rounded-md appearance-none border border-gray-300 py-2 px-2 bg-white text-gray-700 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="number" name="minPrice" id="minPrice" value="" onblur="filtering()"/>원 ~ 
+			<input class="w-60 rounded-md appearance-none border border-gray-300 py-2 px-2 bg-white text-gray-700 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="number" name="maxPrice" id="maxPrice" value="" onblur="filtering()"/>원
 		</div>
 	</div>
 	<div class="container mx-auto flex justify-end p-8">			
-		<div class="ml-60 text-3xl">
-			<select class="border-2 border-black rounded" name="filter" id="filter" onchange="filtering()">
+		<div class="ml-60 text-2xl">
+			<select class="focus:outline-none focus:ring-2 focus:ring-sky-600 w-40 text-gray-600 py-2 px-3 border border-gray-300 bg-white rounded-md" name="filter" id="filter" onchange="filtering()">
 				<option value="sales_no">최신 순</option>
 				<option value="hit">조회수 순</option>
 			</select>
 		</div>
 	</div>	
-	    <body class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
- 
-        <section class="bg-white py-8">
-            <div id="add_item" class="container mx-auto flex items-center flex-wrap pt-4 pb-12">
+    <section class="bg-white py-8">
+		<div id="add_item" class="container mx-auto flex items-center flex-wrap pt-4 pb-12">
 			<!-- 상품 들어가는 자리 -->
-			</div>
-        </section>	
+		</div>
+	</section>	
 		<!-- 플러그인 사용 (twbsPagination) -->
 		<div class="container">									
 			<nav aria-label="Page navigation" style="text-align:center">
@@ -313,6 +311,7 @@ function listPrint(list){
 		}
 		content += '<p class="">'+item.sales_sido+' '+item.sigungu+'</p>';
 		content += '</div>';
+		
 		content += '<a href="salesDetail.do?sales_no='+item.sales_no+'">';
 		if(item.new_photo_name == null){
 			content += '<img class="hover:grow hover:shadow-lg rounded-lg" src="resources/img/defaultIMG.png">';

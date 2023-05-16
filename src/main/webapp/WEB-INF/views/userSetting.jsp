@@ -14,7 +14,6 @@
 <jsp:include page="realGnb.jsp"/>
  </head>
 
-<form action="userSetting.do" method="post" enctype="multipart/form-data">
 <input type="hidden" name="user_id" value="${riderSetting.user_id}"/>
 <input type="hidden" name="user_pw" value="${riderSetting.user_pw}"/>
 	<header>
@@ -33,6 +32,7 @@
 		<a href="userBiz.go">인증판매자등록</a>
 		</nav>
 	</header>
+	<form action="userSetting.do" method="post" enctype="multipart/form-data" >
 	<h2 id="rdupdate" style="color: skyblue; display:block;">회원정보 수정</h2>
 	<div id="rdidupdate" style="float:left; margin-right:10px;">
 			<h4 style="font-size:15px; color: skyblue; display:inline;">
@@ -46,20 +46,22 @@
 	</div>
 		<div id="rdpwupdate" style="float:left; margin-right:10px;">
 				<h4 style="font-size:15px; color: skyblue; display:inline;">
-				* 비밀번호&nbsp;&nbsp;<input type="password" name="newpassword" id="newpassword" size=24 placeholder="새 비밀번호 혹은 현재 비밀번호">
+				* 비밀번호&nbsp;&nbsp;
+				<input type="password" name="newpassword" id="newpassword" size=24 placeholder="새 비밀번호 혹은 현재 비밀번호">
 				</h4>
 		</div>
 		<div id="rdpwupdatecheck" style="float:left; margin-right:10px;">
 				<h4 style="font-size:15px; color: skyblue; display:inline;">
-				* 비밀번호 확인&nbsp;&nbsp;<input type="password" name="confirm_password" id="confirm_password" placeholder="비밀번호 확인">
+				* 비밀번호 확인&nbsp;&nbsp;
+				<input type="password" name="confirm_password" id="confirm_password" placeholder="비밀번호 확인">
 				<span id="msg"></span>
 				</h4>
 		</div>
 		
 		<div id="rdaddrupdate" style="float:left; margin-right:10px;">
-				<tr>
+				
 			<h4 style="font-size:15px; color: skyblue; display:inline;">* 주소 </h4>
-			<td>
+			
 			
 			<!-- <input type="text" name="post_num" id="post_num"/>
 			<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -74,35 +76,26 @@
 				<input type="text" id="sample6_postcode" name="post_num" placeholder="우편번호" value="${riderSetting.post_num}">
 				<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" id="findPost"><br>
 				
-			</td>
-		</tr>
-		<tr>
-		<td></td>
-		<td><input type="text" id="sample6_address" placeholder="주소" name="left_addr" 
-		value="${riderSetting.left_addr}" size=30><br></td>
-		</tr>
+			
 		
 		
-		<tr>
+		<input type="text" id="sample6_address" placeholder="주소" name="left_addr" value="${riderSetting.sido}&nbsp;${riderSetting.sigungu}&nbsp;${riderSetting.left_addr}" size=30><br>
+		
+		
+		
+		
 		
 			<h4 style="font-size:15px; color: skyblue; display:inline;">* 상세주소 </h4>
-			<td>
+			
 			<!-- <input type="text" name="left_addr" id="left_addr"/> -->
 			<input type="text" id="sample6_detailAddress"  placeholder="상세주소">
 			<input type="text" id="sample6_extraAddress" placeholder="참고항목">
 			<input type="hidden" id="sido" name="sido">
 			<input type="hidden" id="sigungu" name="sigungu">
-			</td>
-		</tr>
+			
+		
 		</div>
-	<%-- <div id="rdaddrupdate" style="float:left; margin-right:10px;">
-			<h4 style="font-size:15px; color: skyblue; display:inline;">
-			* 주소&nbsp;&nbsp;<input type="text" value="${riderSetting.sido}"/></h4>
-	</div>
-	<div id="rdsaddrupdate" style="float:left; margin-right:10px;">
-			<h4 style="font-size:15px; color: skyblue; display:inline;">
-			* 상세주소&nbsp;&nbsp;<input type="text" value="${riderSetting.left_addr}"/></h4>
-	</div> --%>
+
 	<div id="rdemailupdate" style="float:left; margin-right:10px;">
 			<h4 style="font-size:15px; color: skyblue; display:inline;">
 			* 이메일&nbsp;&nbsp;<input type="text" name="email" id="email" value="${riderSetting.email}" size=10/>
@@ -120,19 +113,19 @@
 	<div id="rdinterestupdate" style="float:left; margin-right:10px;">
 			<h4 style="font-size:15px; color: skyblue; display:inline;">
 			관심업종&nbsp;&nbsp;</h4>
-			<select name="interest_biz_id" id="interest_biz_id">
-			<option value=".">==선택==</option>
-				    <option value="b001">카페</option>
-				    <option value="b002">음식점</option>
-				    <option value="b003">여가오락</option>
-				    <option value="b004">교육</option>
-				    <option value="b005">운동</option>
-				    <option value="b006">미용</option>
-				    <option value="b007">숙박업</option>
-				    <option value="b008">반려동물</option>
-				    <option value="b009">세탁업</option>
-				    <option value="b010">도소매</option>
-				    <option value="b011">기타</option>
+			<select name="interest_biz_id" id="interest_biz_id" class="interest_biz_id">
+			<option name="interest_biz_id" value=".">==선택==</option>
+				    <option name="interest_biz_id" value="b001">카페</option>
+				    <option name="interest_biz_id" value="b002">음식점</option>
+				    <option name="interest_biz_id" value="b003">여가오락</option>
+				    <option name="interest_biz_id" value="b004">교육</option>
+				    <option name="interest_biz_id" value="b005">운동</option>
+				    <option name="interest_biz_id" value="b006">미용</option>
+				    <option name="interest_biz_id" value="b007">숙박업</option>
+				    <option name="interest_biz_id" value="b008">반려동물</option>
+				    <option name="interest_biz_id" value="b009">세탁업</option>
+				    <option name="interest_biz_id" value="b010">도소매</option>
+				    <option name="interest_biz_id" value="b011">기타</option>
   		</select>
 	</div>
 	<div id="rdphotoupdate" style="float:left; margin-right:10px;">
@@ -149,15 +142,15 @@
 	</div>
 	
 	<div id="riderupdatebutton3">
-	<input type="button" onclick="location.href='./riderPage'" value="돌아가기"/>
+	<input type="button" onclick="location.href='./myPage'" value="돌아가기"/>
 	<button type="submit" onclick="join()">저장</button>
 	</div>
-	</form>
+</form>
 	
 	<hr>
-    <div class="main-box">
+<div class="main-box">
         <div class="profile-box">
-        <img src="/photo/${new_photo_name}" style="width: 130px;">
+        <img src="/photo/${new_photo_name}">
             <div class="title-nickname">
             <h2>${dto.nickname}</h2>
             </div>
@@ -176,163 +169,103 @@
         	<c:when test="${avg eq 4}">
         	<img src="resources/img/dolphin4.png" style="width: 60px;"/>
         	</c:when>
+        	<c:when test="${avg eq 5}">
+        	<img src="resources/img/dolphin5.png" style="width: 60px;"/>
+        	</c:when>
         </c:choose>        
-        		
-            <p>나의 &돌핀 단계 : ${avg}단계</p>
+        </div>
+            <div id="avgdolphin">&nbsp;&nbsp;나의 &돌핀 단계 : ${avg}단계&nbsp;&nbsp;</div>
             <hr>
             <div class="parent">
-		        <div class="pfirst">제안요청</div>
-		        <div class="psecond">배송 진행</div>
-		    </div>
-		    <div class="child">
-		        <div class="cfirst">4</div>
-		        <div class="csecond">2</div>
-		    </div>
+		        <div class="pfirst">판매글</div>
+		        <div class="psecond">갤러리</div>
+		        <div class="pthird">나의 관심</div>
+		    		</div>
+		    		<div class="child">
+		        <div class="cfirst">${countsales}</div>
+		        <div class="csecond">${countgallery}</div>
+		        <div class="cthird">${countinterest}</div>
+        		</div>
 
         </div>
-    </div>
 </body>
 <!--다음 주소 api  -->
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>  
-<script type="text/javascript">
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
+<script>
 
-var pweq = false;
-var overlayChk = false;
-var overlayChk2 = false;
+function join(){     
+    var $user_id = $('#user_id');
+    var $newpassword = $('#newpassword');
+    var $confirm_password = $('#confirm_password');
+    var $nickname = $('#nickname');
+    var $post_num = $('#sample6_postcode');
+    var $phone_num = $('#phone_num');
+    var $email = $('#email');
+    var $interest_biz_id = $("#interest_biz_id option:selected").val();
+    var $sigungu = $("#sigungu");
+    var $sido = $("#sido");
+    var $left_addr = $("#left_addr");
+    var pweq = false;
+    
+    console.log($interest_biz_id);
+    
+    if($newpassword.val().length == 0){
+        alert('비밀번호를 입력해 주세요!');
+        console.log("1");
+        $newpassword.focus();
+    }else if($confirm_password.val() == ''){
+        alert('비밀번호 확인을 해주세요!');
+        $confirm_password.focus();
+        console.log("2");
+    }else if($nickname.val() == ''){
+        alert('닉네임을 입력해 주세요!');
+        $nickname.focus();
+        console.log("3");
+    }else if($post_num.val() == null){
+        alert('우편번호를 입력해 주세요!');
+        console.log("4");
+    }else if($phone_num.val() == null){
+        alert('전화번호를 입력해 주세요!');
+        console.log("5");
+    }else if($email.val() == ''){
+        alert('이메일 입력해 주세요!');
+        $email.focus();
+        console.log("6");
+    }else if($interest_biz_id.val() == '.'){
+        alert('관심업종을 선택해 주세요!');
+        console.log("7");
+    }else{
+        var overlayChk = true;
+        var param = {};
+        param.interest_biz_id = $interest_biz_id;
+        param.newpassword = $newpassword.val();
+        param.confirm_password = $confirm_password.val();
+        param.nickname = $nickname.val();
+        param.post_num = $post_num.val();
+        param.phone_num = $phone_num.val();
+        param.email = $email.val();
+        
+        console.log(param);
+        
+    }}
 
-$('document').ready(function(){
-	var elem = $('#nickname').val();
-	console.log(elem);
-	if(elem!=null){
-		overlayChk2 = true;
-	}
-	
-});
-function join(){
-	
-	if(pweq && overlayChk && overlayChk2){
-		
-		var $user_id = $('#user_id');
-		var $newpassword = $('#newpassword');
-
-		var $nickname = $('#nickname');
-		var $post_num = $('input[name=post_num]').val();
-		var $phone_num = $('#phone_num');
-		var $email = $('#email');
-		var $interest_biz_id = $('#interest_biz_id');
-		
-		console.log('post_num : '+ $post_num);
-	
-		if($newpassword.val()==''){
-			alert('비밀번호를 입력해 주세요!');
-			$newpassword.focus();
-		}else if($confirm_password.val() == ''){
-			alert('비밀번호 확인을 해주세요!');
-			$confirm_password.focus();
-		}else if($nickname.val() == ''){
-			alert('닉네임을 입력해 주세요!');
-			$nickname.focus();
-		}else if($post_num.val() == null){
-			alert('우편번호를 입력해 주세요!');
-		}else if($phone_num.val() == null){
-			alert('전화번호를 입력해 주세요!');
-		}else if($email.val() == ''){
-			alert('이메일 입력해 주세요!');
-			$email.focus();
-		}else if($interest_biz_id.val() == '.'){
-			alert('관심업종을 선택해 주세요!');
-		}else{
-			var param = {};
-			param.interest_biz_id = $interest_biz_id.val();
-			param.newpassword = $newpassword.val();
-			param.confirm_password = $confirm_password.val();
-			param.nickname = $nickname.val();
-			param.post_num = $post_num.val();
-			param.phone_num = $phone_num.val();
-			param.email = $email.val();
-			
-			console.log(param);
-			
-			$.ajax({
-				type: 'post',
-				url:'update.ajax',
-				data:param,
-				dataType: 'json',
-				success:function(data){
-					console.log(data);
-					if(data.success == 1){
-						alert('수정이 완료되었습니다');
-						location.href='./';
-					}else{
-						alert('수정에 실패했습니다.\r\n 다시 시도해주세요!');
-					}
-					
-				},
-				error: function(e){
-					console.log(e);
-					alert('회원가입에 실패했습니다.\r\n 다시 시도해주세요!');
-					
-				}
-			});
-		}
-		
-		
-	}else{
-		overlayChk = true;
-		alert('overlayChk가 true');
-	}	
-}
-
-
-$('#overlay3').on('click',function(e){	
-	var chkId2 = $('#nickname').val();	
-	var nickname = document.getElementById('nickname').value;
-	
-	console.log('chkId2 : '+chkId2);
-	console.log('nickname : '+nickname);
-	
-	console.log('닉네임중복체크를 요청한 아이디 : '+chkId2);
-	
-	$.ajax({
-		type:'get',
-		url:'overlay3.ajax',
-		data:{'nickname':chkId2},
-		dataType:'json',
-		success:function(data){
-			console.log(data);
-			if(data.overlay3 == 0){
-				if(nickname == chkId2){
-					alert('사용 가능한 닉네임 입니다.');
-					overlayChk2 = true;
-				}
-				
-			}else{
-				alert('이미 사용중인 닉네임 입니다.');
-				$('#nickname').val('');
-			}
-		},
-		error:function(e){
-			console.log(e);
-		}
-	});
-	
-});
 
 $('#confirm_password').on('keyup',function(e){
-	console.log('confirm_password: '+$('#confirm_password').val());
-	console.log('newpassword: '+$('#newpassword').val());
-	if($('#newpassword').val() == $(this).val()){
-		$('#msg').css({'font-size': '10px', 'color': 'darkgreen'});
-		$('#msg').html('비밀번호가 일치 합니다.');
-		pweq = true;
-	}else{
-		$('#msg').css({'font-size': '10px', 'color': 'red'});
-		$('#msg').html('비밀번호가 일치 하지 않습니다.');
-	}	
-});
-
-console.log("${riderSettingdo.new_photo_name}");
+    console.log('confirm_password: '+$('#confirm_password').val());
+    console.log('newpassword: '+$('#newpassword').val());
+     if($('#newpassword').val() == $(this).val()){
+        $('#msg').css({'font-size': '10px', 'color': 'darkgreen'});
+        $('#msg').html('비밀번호가 일치 합니다.');
+        var pweq = true;
+     }else{
+        $('#msg').css({'font-size': '10px', 'color': 'red'});
+        $('#msg').html('비밀번호가 일치 하지 않습니다.');
+     }   
+  });
+if(pweq && overlayChk){
+    alert('회원정보 수정이 완료되었습니다');
+}
 
 function sample6_execDaumPostcode() {
     new daum.Postcode({

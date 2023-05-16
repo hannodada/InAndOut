@@ -62,6 +62,16 @@ Logger logger = LoggerFactory.getLogger(getClass());
 		// TODO Auto-generated method stub
 		return dao.countgallery(writerid);
 	}
+	
+	public int rideroffer(String user_id) {
+		// TODO Auto-generated method stub
+		return dao.rideroffer(user_id);
+	}
+
+	public int riderdelivery(String user_id, String string) {
+		// TODO Auto-generated method stub
+		return dao.riderdelivery(user_id,string);
+	}
 
 	public int star001(String riderstarid) {
 		// TODO Auto-generated method stub
@@ -104,11 +114,6 @@ Logger logger = LoggerFactory.getLogger(getClass());
 	public HashMap<String, String> riderSettingdo(MultipartFile photo,HashMap<String, String> params, HttpSession session) {
 		
 		String user_id = (String) session.getAttribute("loginId");
-		String emailcon = params.get("email");
-		String emailcat = params.get("emailaddr");
-		String emailnotyet = emailcon.concat("@");
-		String email = emailnotyet.concat(emailcat);
-		params.put("email", email);
 		logger.info("이메일까지 추가한 params : "+params);
 		int row = dao.riderSettingdo(params);
 		logger.info("업데이트한 갯수 :"+ row);
@@ -184,6 +189,87 @@ Logger logger = LoggerFactory.getLogger(getClass());
 		// TODO Auto-generated method stub
 		return dao.getPhotoName(userId,string);
 	}
+
+	public void userSetting(HashMap<String, String> params) {
+		dao.userSetting(params);
+		
+	}
+
+	public int countinterest(String writerid) {
+		return dao.countinterest(writerid);
+	}
+
+	public HashMap<String, Object> pwcheck(String oripassword) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String page = "useSetting";
+		map.put("oripassword", oripassword);
+		map.put("page", page);
+		return map;
+	}
+
+	
+	public void userBizdo(MultipartFile photo, HashMap<String, String> params, String user_id, HttpSession session) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map = fileSaveBiz(user_id, photo, session);
+		
+		try {
+			Thread.sleep(1);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+	
+	String new_biz_photo = map.get("new_biz_photo");
+	logger.info("서비스 바뀐이름 : "+ new_biz_photo);
+	map.put("new_biz_photo", new_biz_photo);
+	dao.userBizdo(params);
+}
+
+		public HashMap<String, String> fileSaveBiz(String user_id, MultipartFile photo, HttpSession session) {
+		
+		String ori_biz_photo = photo.getOriginalFilename();
+		String cate_no = "p002";
+		String ext = ori_biz_photo.substring(ori_biz_photo.lastIndexOf("."));
+		logger.info("예전 이름 : "+ori_biz_photo);
+		
+		String new_biz_photo = System.currentTimeMillis()+ext;
+		logger.info("바뀐이름 : "+new_biz_photo);
+		
+		try {
+			byte[] bytes = photo.getBytes();
+			//1-5 추출한 바이트 저장
+			Path path = Paths.get("C:/img/upload/"+new_biz_photo); 
+			Files.write(path, bytes);
+			logger.info(new_biz_photo+" save OK");
+			//2. 저장 정보를 DB에 저장
+			//2-1 가져온 idx, oriFileName, newFileName 인서트하기
+			dao.fileWrited(ori_biz_photo,new_biz_photo,user_id, cate_no);
+			dao.fileWrite(ori_biz_photo,new_biz_photo,user_id, cate_no);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		String page = "redirect:/myPage?user_id="+user_id;
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("page", page);
+		map.put("new_biz_photo", new_biz_photo);
+		return map;
+	}
+
+	public String userBiz(String user_id) {
+		
+		return dao.userBiz(user_id);
+	}
+
+	public ArrayList<MypageDTO> interestSaleList(String user_id, String attention_div) {
+		return dao.interestSaleList(user_id,attention_div);
+	}
+
+	public ArrayList<MypageDTO> interestglList(String user_id, String attention_div) {
+		// TODO Auto-generated method stub
+		return dao.interestglList(user_id,attention_div);
+	}
+
+
 
 	
 	
