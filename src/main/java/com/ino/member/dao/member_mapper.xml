@@ -173,7 +173,7 @@
  		 FROM sales s
  		 LEFT JOIN photo p ON user_id = p.photo_div
  		 RIGHT JOIN user u ON #{param1} = s.sigungu
-	  		GROUP BY user_id ORDER BY 글갯수 desc limit 5 ;
+	  		GROUP BY user_id ORDER BY 글갯수 desc limit 5 
 	</select>
 	
 	

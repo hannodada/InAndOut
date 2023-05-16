@@ -175,8 +175,8 @@ public class MemberService {
 	
 	
 	
-	public String riderRegist(MultipartFile profile, HashMap<String, String> params, MultipartFile bizprofile) {
-		String page = "riderForm";
+	public int riderRegist(MultipartFile profile, HashMap<String, String> params, MultipartFile bizprofile) {
+		
 		
 		//**이거 idx 값으로 해서 dto로 넣어야 할까?? 고민중..,,,
 		String user_div = "c";
@@ -225,7 +225,7 @@ public class MemberService {
 			logger.info("riderbizprofile파일 업로드 작업");
 			bizfileSave(user_id, bizprofile);
 		}
-		return page;
+		return riderRegistrow;
 	}
 	
 	
