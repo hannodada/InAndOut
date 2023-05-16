@@ -273,7 +273,7 @@ h6{
 				        }
 				    }).open();
 				</script> -->
-				<input type="text" id="sample6_postcode" name="post_num" placeholder="우편번호">
+				<input type="text" id="sample6_postcode" name="post_num" placeholder="우편번호" readonly>
 				<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" id="findPost"><br>
 				
 				
@@ -292,7 +292,7 @@ h6{
 			<td>
 			<!-- <input type="text" name="left_addr" id="left_addr"/> -->
 			<input type="text" id="sample6_detailAddress"  placeholder="상세주소">
-			<input type="text" id="sample6_extraAddress" placeholder="참고항목">
+			<input type="text" id="sample6_extraAddress" placeholder="참고항목" readonly>
 			<input type="hidden" id="sido" name="sido">
 			<input type="hidden" id="sigungu" name="sigungu">
 			</td>
@@ -307,8 +307,8 @@ h6{
 				    <option value="011">011</option>
 				    <option value="012">012</option>
 		  	</select>
-			<input name="phone_num" type="text" id="phone_num"/>
-			<input name="phone_num" type="text" id="phone_num"/>
+			<input name="phone_num2" type="text" id="phone_num2" maxlength="4"/>
+			<input name="phone_num3" type="text" id="phone_num3" maxlength="4"/>
 			</td>
 		</tr>
 		<tr>
@@ -377,8 +377,8 @@ h6{
 		<tr>
 			<th>사업자등록번호</th>
 			<td>
-			<input type="text" name="biz_num" id="biz_num" />
-			<button type="button" class="test_btn1">사업자 등록확인</button>
+			<input type="text" name="biz_num" id="biz_num" maxlength="10"/>
+			<button type="button" class="test_btn3">사업자 등록확인</button>
 			</td>
 		</tr>
 		<tr>
@@ -429,11 +429,10 @@ h6{
 		
 		<tr>
 			<th colspan="2">
-				<button type="button" class="test_btn2" onclick="join()">입력확인</button>
-				<button class="test_btn2" >등록</button>
-				
-				<button type="button" onclick="location.href='./'" class="test_btn2">돌아가기</button>
-			</th>
+				 <button type="button" class="test_btn2" onclick="checkInput()">입력확인</button>
+			      <button class="test_btn2" id="registerButton" style="display: none;">등록</button>
+			      <button type="button" onclick="location.href='./'" class="test_btn2">돌아가기</button>
+    		</th>
 		</tr>
 	</table>
 	</form>
@@ -449,6 +448,7 @@ var pweq = false;
 var overlayChk = false;
 var overlayChk2 = false;
 
+/*
 function join(){
 	
 	if(pweq && overlayChk && overlayChk2){
@@ -522,7 +522,7 @@ function join(){
 					alert('회원가입에 실패 했습니다.\r\n 다시 시도해 주세요!');
 				}
 			});
-			*/
+			
 		}
 		
 		
@@ -530,6 +530,74 @@ function join(){
 		alert('아이디 중복 체크와 비밀번호 확인을 해 주세요');
 	}	
 }
+*/
+
+
+/// 유효성 검사
+function checkInput() {
+   
+	
+     if  (pweq && overlayChk && overlayChk2 ) {
+    	 
+	     var $user_id = $('#user_id');
+	    var $user_pw = $('#user_pw');
+	    var $user_name = $('#user_name');
+	    var $nickname = $('#nickname');
+	    var $post_num = $('#post_num');
+	    var $phone_num = $('#phone_num'); 
+	    var $email = $('#email');
+	    var $interest_biz_id = $('#interest_biz_id');
+	    var $post_num = $('#sample6_postcode');
+	    var $sigungu = $('#sigungu');
+	    var $biz_num = $('#biz_num');
+	    var $store_name = $('#store_name');
+	    var $sido = $('#sido');
+	    var $left_addr = $('#left_addr');
+	    var $phone_num2 = $('#phone_num2');
+	    var $phone_num3 = $('#phone_num3');
+	    var $user_state = $('#user_state');
+	    var $left_addr = $('#sample6_address');
+	    var $biz = $('#biz');
+	    
+	   
+	  
+
+	   var $post_numTest = $('#sample6_postcode'); 
+	    
+	    
+	    if ($user_id.val() == '') {
+	      alert('아이디를 입력해 주세요!');
+	      $user_id.focus();
+	    }  else if ($user_pw.val() == '') {
+	      alert('비밀번호를 입력해 주세요!');
+	      $user_pw.focus();
+	    } else if ($user_name.val() == '') {
+	      alert('이름을 입력해 주세요!');
+	      $user_name.focus();
+	    } else if ($nickname.val() == '') {
+	      alert('닉네임을 입력해 주세요!');
+	      $nickname.focus();
+	    }else if ($phone_num.val() == '') {
+	      alert('전화번호를 입력해 주세요!');
+	    }else if ($post_num.val() == '') {
+	      alert('우편번호 찾기를 해주세요!');
+	    } else if ($email.val() == '') {
+	      alert('이메일 입력해 주세요!');
+	      $email.focus();
+	    } else if ($interest_biz_id.val() == '.') {
+	      alert('관심업종을 선택해 주세요!');
+	    } else  {
+	    	 alert('회원가입 준비가 됐습니다. 등록 버튼을 눌러주세요!');
+	    	 document.getElementById('registerButton').style.display = 'inline-block';
+    // 모든 필드의 유효성을 통과했을 경우
+	    } 
+	    
+     } else  {
+    	 alert('아이디 중복 체크와 비밀번호 확인을 해 주세요');
+      
+    }
+  }
+
 
 
 $('#overlay').on('click',function(e){	
@@ -686,7 +754,39 @@ function sample6_execDaumPostcode() {
        }).open();
    }
 
+//사업자 등록 api
 
+$(document).ready(function(){
+$('.test_btn3').on('click', function(){
+var bizNum = $('#biz_num').val();
+var data = {
+  "b_no": [bizNum]
+};
+$.ajax({
+  url: "https://api.odcloud.kr/api/nts-businessman/v1/status?serviceKey=e18xz2nUHjGbEsKOfvMhNjoXOcjNNRwEwSw%2BmCJe3vkmSiKJ9IZaY4Y0CM1YT9SV1i%2F6EWdDPYbxXV8PHG1LMQ%3D%3D",
+  type: "POST",
+  data: JSON.stringify(data),
+  dataType: "JSON",
+  contentType: "application/json",
+  accept: "application/json",
+  success: function(result) {
+	  console.log(result);
+	  if (result.match_cnt === 1 && result.data[0].b_stt === '폐업자') {
+		  alert('해당 사업자 번호는 이미 폐업되어서 사용할 수 없는 번호입니다. 확인 후 다시 시도해 주세요.');
+		}else if (result.match_cnt === 1 && result.data[0].b_stt === '계속사업자') {
+		  alert('"계속사업자"로 등록된 사업자 등록 번호이므로 사용이 가능합니다. 계속 회원가입을 진행 해 주세요');
+		} else if (result.match_cnt === 1) {
+		  alert('등록된 사업자 등록 번호입니다. 계속 회원가입을 진행 해 주세요.');
+		} else {
+		  alert('인증되지 않은 사업자 등록 번호입니다.');
+		}
+	},
+	error: function(result) {
+	    console.log(result.responseText);
+	}
+});
+});
+});
 
 
 

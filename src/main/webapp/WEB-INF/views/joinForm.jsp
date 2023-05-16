@@ -461,11 +461,9 @@ var overlayChk2 = false;
 
 
   
-  
+  /// 유효성 검사
 function checkInput() {
-    // 여기에 입력 확인 로직을 추가합니다.
-    // 예를 들어 필요한 필드가 모두 입력되었는지 확인하는 로직을 작성하고,
-    // 입력이 완료되면 등록 버튼을 표시하도록 처리합니다.
+   
 	
      if  (pweq && overlayChk && overlayChk2 ) {
     	 
@@ -477,13 +475,10 @@ function checkInput() {
 	    var $phone_num = $('#phone_num'); 
 	    var $email = $('#email');
 	    var $interest_biz_id = $('#interest_biz_id');
-	   
 	    var $post_num = $('#sample6_postcode');
-	    
 	    var $sigungu = $('#sigungu');
 	    var $biz_num = $('#biz_num');
 	    var $store_name = $('#store_name');
-	    
 	    var $sido = $('#sido');
 	    var $left_addr = $('#left_addr');
 	    var $phone_num2 = $('#phone_num2');
@@ -520,7 +515,7 @@ function checkInput() {
 	    } else if ($interest_biz_id.val() == '.') {
 	      alert('관심업종을 선택해 주세요!');
 	    } else  {
-	    	 alert('회원가입 준비가 됐습니다. 등록 버튼을 눌러주세요. !');
+	    	 alert('회원가입 준비가 됐습니다. 등록 버튼을 눌러주세요!');
 	    	 document.getElementById('registerButton').style.display = 'inline-block';
     // 모든 필드의 유효성을 통과했을 경우
 	    } 
