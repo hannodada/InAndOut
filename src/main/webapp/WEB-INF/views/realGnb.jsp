@@ -322,7 +322,10 @@
 
 
 <script>
+
+
 /*
+
 var prevScrollpos = window.pageYOffset; 
 
 window.onscroll = function() { 
@@ -361,7 +364,7 @@ new Swiper('.swiper', {
 });
 
 
-
+/*
 
 ///top
 

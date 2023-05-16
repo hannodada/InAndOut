@@ -185,7 +185,20 @@ public class MemberController {
 		String sigungu  = service.sigungu(user_id);
 		session.setAttribute("sigungu", sigungu);
 		ArrayList<MemberDTO> sigunguTopList = service.sigunguTopList(sigungu);
+		sigunguTopList = service.sigunguTopList(sigungu);
+
 		model.addAttribute("sigunguTopList",sigunguTopList);
+		try {
+			for(MemberDTO arg : sigunguTopList) {
+				logger.info("user_id: " + arg.getUser_id());
+				logger.info("hit: " + arg.getHit());
+				logger.info("sigungu: " + arg.getSigungu());
+			}
+		} catch (Exception e) {
+
+			model.addAttribute("sigunguTopList", new ArrayList<MemberDTO>());
+		}
+		
 		
 		
 		logger.info("지금 시군구이거에 정보 있는건가? : " +sigunguTopList.size() );
@@ -288,8 +301,8 @@ public class MemberController {
 		String page = "joinForm";
 		
 		if(service.userRegist(profile, params,bizprofile)==1) {
-			 model.addAttribute("msg", "회원가입에 성공했습니다.");
-			page = "redirect:/";
+			 model.addAttribute("msg", "회원가입이 완료되었습니다. 홈으로 가서 로그인을 시도해주세요");
+			page = "joinForm";
 			
 		}else {
 	         model.addAttribute("msg", "회원가입에 실패 했습니다!");
@@ -303,13 +316,28 @@ public class MemberController {
 	
 	@RequestMapping(value="/riderRegist.do",method = RequestMethod.POST)
 	public String riderwrite(MultipartFile profile,  MultipartFile bizprofile,
-			@RequestParam HashMap<String, String> params) {
+			@RequestParam HashMap<String, String> params , Model model) {
 
 	logger.info(" 파람 왓따! params : "+params);
 	MemberDTO dto = new MemberDTO();
 	logger.info("riderprofile도 왔음 !! ㄷㄷ; : "+profile);
 	logger.info("riderbizprofile도 도착 : "+bizprofile);
-	return service.riderRegist(profile, params,bizprofile);
+	
+	String page = "riderForm";
+	
+	
+	if(service.riderRegist(profile, params,bizprofile)==1) {
+		 model.addAttribute("msg", "라이더회원가입이 완료되었습니다. 라이더 자격은 심사 후 승인, 반려 될 수 있으며 빠른 시일 내에 처리 될 예정입니다. 감사합니다.");
+		 
+		page = "riderForm";
+		
+	}else {
+        model.addAttribute("msg", "회원가입에 실패 했습니다!");
+     }
+	
+	
+	
+	return page;
 }
 	
 	
