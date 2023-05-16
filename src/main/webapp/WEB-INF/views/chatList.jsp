@@ -320,7 +320,7 @@ function riderList(){
 
 function riderListDraw(list){
 	var content = '';
-	console.log(list);
+	console.log("rider list: " + list);
 	list.forEach(function(item, index){
 		/* content += '<div style="border:1px solid silver; padding: 10px 10px; display:flex; align-items: center; position: relative">';
 		content += '<div><img src="resources/photo/' + item.new_photo_name + '" style="max-width:80px;max-height:80px"></div>';

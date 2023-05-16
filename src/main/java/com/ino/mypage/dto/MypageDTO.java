@@ -106,12 +106,7 @@ public class MypageDTO {
 		return email;
 	}
 	public void setEmail(String email) {
-		if(email.contains("@")) {
-			this.email = email.substring(0, email.indexOf("@"));
-		} else {
-			this.email = email;
-		}
-		
+		this.email = email;
 	}
 	public String getUser_state() {
 		return user_state;
