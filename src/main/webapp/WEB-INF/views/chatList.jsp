@@ -135,13 +135,6 @@
     						</tr>
     					</thead>
     					<tbody id="modalRider" style="max-height:350px; padding: 10px 10px; overflow-y: scroll;">
-    						<tr style="height: 100px">
-    							<th><img src="http://bootsnipp.com/apple-touch-icon-114x114-precomposed.png" style="max-width:80px;max-height:80px"></th>
-    							<th>테스트라이더</th>
-    							<th>서울시 광진구</th>
-    							<th>A.M. 7:00 ~ P.M. 7:00</th>
-    							<th><button class="btn btn-primary">견적신청</button></th>
-    						</tr>
     					</tbody>
     				</table>
     			</div>
@@ -327,7 +320,7 @@ function riderList(){
 
 function riderListDraw(list){
 	var content = '';
-	console.log(list);
+	console.log("rider list: " + list);
 	list.forEach(function(item, index){
 		/* content += '<div style="border:1px solid silver; padding: 10px 10px; display:flex; align-items: center; position: relative">';
 		content += '<div><img src="resources/photo/' + item.new_photo_name + '" style="max-width:80px;max-height:80px"></div>';
@@ -338,7 +331,7 @@ function riderListDraw(list){
 		content += '<div style="padding: 10px 20px"><h6>' + 'A.M. 7:00 ~ P.M. 7:00' + '</h6></div>';
 		content += '<button class="btn btn-primary" style="position: absolute; right:20px">견적신청</button></div>'; */
 		content += '<tr style="height: 100px">';
-		content += '<th><img src="resources/photo/' + item.new_photo_name + '" style="max-width:80px;max-height:80px"></th>';
+		content += '<th><img src="/photo/' + item.new_photo_name + '" style="max-width:80px;max-height:80px"></th>';
 		content += '<th>' + item.user_name + '</th>';
 		content += '<th>' + item.sigungu + '</th>';
 		content += '<th>' + 'A.M. 7:00 ~ P.M. 7:00' + '</th>';

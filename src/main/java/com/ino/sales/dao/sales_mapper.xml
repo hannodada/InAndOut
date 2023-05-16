@@ -25,7 +25,7 @@
 			AND s.sales_sido = #{sido}
 		</if>
 		<if test='sigungu != null  and !sigungu.equals("default")'>
-			AND s.sigungu = #{sigungu}
+			AND s.sigungu LIKE CONCAT('%', #{sigungu}, '%')
 		</if>
 		<if test='biz_id != null  and !biz_id.equals("default")'>
 			AND s.biz_id = #{biz_id}
@@ -154,7 +154,7 @@
 			AND s.sales_sido = #{sido}
 		</if>
 		<if test='sigungu != null  and !sigungu.equals("default")'>
-			AND s.sigungu = #{sigungu}
+			AND s.sigungu LIKE CONCAT('%', #{sigungu}, '%')
 		</if>
 		<if test='biz_id != null  and !biz_id.equals("default")'>
 			AND s.biz_id = #{biz_id}

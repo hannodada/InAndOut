@@ -141,6 +141,7 @@
          on c.msg_div_no = s.sales_no
       WHERE (s.sales_no = #{param1} and p.new_photo_name is null)
       or (s.sales_no = #{param1} and p.new_photo_name is not null)
+      limit 1
 	</select>
 	
 	<insert id="select" parameterType="hashmap">

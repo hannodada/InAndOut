@@ -241,7 +241,7 @@ function addrChange(){
 	content += '<br>';
 	content += '<input type="text" id="sido" name="sido" placeholder="시도" hidden="true">';
 	content += '<br>';
-	content += '<input type="text" id="sigungu" name="sigungu" placeholder="시군구" hidden="true">';
+	content += '<input type="text" id="sigungu1" name="sigungu" placeholder="시군구" hidden="true">';
 	content += '<br>';
 	content += '<span id="guide" style="color:#999;display:none"></span>';
 	content += '<input type="text" id="detailAddress" name="detailAddress" placeholder="상세주소">';
@@ -293,7 +293,7 @@ function DaumPostcode() {
             
             //커스텀
             document.getElementById('sido').value = data.sido;
-            document.getElementById('sigungu').value = data.sigungu;            
+            document.getElementById('sigungu1').value = data.sigungu;            
             // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
             if(roadAddr !== ''){
                 document.getElementById('extraAddress').value = extraRoadAddr;

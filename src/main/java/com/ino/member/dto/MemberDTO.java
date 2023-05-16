@@ -76,7 +76,6 @@ public class MemberDTO {
 	public void setLeft_addr(String left_addr) {
 		this.left_addr = left_addr;
 	}
-	
 	public String getEmail() {
 		return email;
 	}
