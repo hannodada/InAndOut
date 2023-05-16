@@ -298,6 +298,19 @@ public class MemberController {
 		logger.info("profile도 왔음 !! ㄷㄷ; : "+profile);
 		logger.info("bizprofile도 도착 : "+bizprofile);
 		
+		
+		//폰 번호 병합
+		String phone_num = params.get("phone_num");
+		String phone_num2 = params.get("phone_num2");
+		String phone_num3 = params.get("phone_num3");
+		params.put("phone_num", phone_num+phone_num2+phone_num3);
+		String phone_num4 = params.get("phone_num");
+		logger.info(phone_num4);
+		
+		//이메일 병합
+		String email = params.get("email");
+		String url = params.get("url");
+		params.put("email", email +"@"+url );
 		String page = "joinForm";
 		
 		if(service.userRegist(profile, params,bizprofile)==1) {
@@ -322,6 +335,28 @@ public class MemberController {
 	MemberDTO dto = new MemberDTO();
 	logger.info("riderprofile도 왔음 !! ㄷㄷ; : "+profile);
 	logger.info("riderbizprofile도 도착 : "+bizprofile);
+	
+	// 폰 번호 병합
+	String phone_num = params.get("phone_num");
+	String phone_num2 = params.get("phone_num2");
+	String phone_num3 = params.get("phone_num3");
+	params.put("phone_num", phone_num+phone_num2+phone_num3);
+	String phone_num4 = params.get("phone_num");
+	logger.info(phone_num4);
+	
+	
+	//이메일 병합
+	String email = params.get("email");
+	String url = params.get("url");
+	params.put("email", email +"@"+url );
+	
+	
+	//영업시간 병합
+	String store_time = params.get("store_time");
+	String store_time2 = params.get("store_time2");
+	
+	params.put("store_time", store_time+"~"+store_time2);
+	
 	
 	String page = "riderForm";
 	

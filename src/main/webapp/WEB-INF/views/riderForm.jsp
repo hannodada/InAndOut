@@ -307,7 +307,9 @@ h6{
 				    <option value="011">011</option>
 				    <option value="012">012</option>
 		  	</select>
+		  	-
 			<input name="phone_num2" type="text" id="phone_num2" maxlength="4"/>
+			-
 			<input name="phone_num3" type="text" id="phone_num3" maxlength="4"/>
 			</td>
 		</tr>
@@ -315,10 +317,10 @@ h6{
 			<th>*이메일</th>
 			<td><input type="text" name="email" id="email"/> 
 			&nbsp; @ &nbsp; 
-			<select id="url" name="email">
-			<option value="naver">naver</option>
-			<option value="gmail">gmail</option>
-			<option value="daum">daum</option>
+			<select id="url" name="url">
+			<option value="naver.com">naver</option>
+			<option value="gmail.com">gmail</option>
+			<option value="daum.com">daum</option>
 			</select>
 			</td>
 		</tr>
@@ -399,7 +401,7 @@ h6{
 			<td>
 				<input type="time" name="store_time" id="store_time"/>
 				~
-				<input type="time" name="store_time" id="store_time"/>
+				<input type="time" name="store_time2" id="store_time2"/>
 				
 			</td>
 			
