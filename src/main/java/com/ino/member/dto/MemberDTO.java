@@ -8,7 +8,7 @@ public class MemberDTO {
 	private String nickname;
 	private String post_num;
 	private String left_addr;
-	private int phone_num;
+	private String phone_num;
 	private String email;
  	private String new_photo_name;
  	private String sido;
@@ -30,9 +30,8 @@ public class MemberDTO {
 	private int  gallery_hit;
 	private int sales_no;
 	private int gallery_no;
-	
-	
-	
+	private String interest_biz_id;
+
  	
  	
  	public String getNew_photo_name() {
@@ -41,10 +40,6 @@ public class MemberDTO {
 	public void setNew_photo_name(String new_photo_name) {
 		this.new_photo_name = new_photo_name;
 	}
-	private String interest_biz_id;
- 
- 	
- 	
 	public String getUser_id() {
 		return user_id;
 	}
@@ -81,19 +76,13 @@ public class MemberDTO {
 	public void setLeft_addr(String left_addr) {
 		this.left_addr = left_addr;
 	}
-	public int getPhone_num() {
-		return phone_num;
-	}
-	public void setPhone_num(int phone_num) {
-		this.phone_num = phone_num;
-	}
+	
 	public String getEmail() {
 		return email;
 	}
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
 	public String getInterest_biz_id() {
 		return interest_biz_id;
 	}
@@ -112,7 +101,6 @@ public class MemberDTO {
 	public void setSigungu(String sigungu) {
 		this.sigungu = sigungu;
 	}
-	
 	public String getSubject() {
 		return subject;
 	}
@@ -214,6 +202,12 @@ public class MemberDTO {
 	}
 	public void setUser_div(String user_div) {
 		this.user_div = user_div;
+	}
+	public String getPhone_num() {
+		return phone_num;
+	}
+	public void setPhone_num(String phone_num) {
+		this.phone_num = phone_num;
 	}
  
  	

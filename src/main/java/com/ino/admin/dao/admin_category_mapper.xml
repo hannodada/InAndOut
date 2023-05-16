@@ -6,7 +6,15 @@
 <mapper namespace="com.ino.admin.dao.AdminCategoryDAO">
 
 	
-	<select id="totalCount" parameterType="String" resultType ="int">
+	<select id="ctotalCount" parameterType="String" resultType ="int">
+			SELECT SUM(count)
+			FROM (
+			  SELECT COUNT(biz_id) AS count FROM biz
+			) AS subquery;
+
+	</select>
+
+	<select id="gtotalCount" parameterType="String" resultType ="int">
 			SELECT SUM(count)
 			FROM (
 			  SELECT COUNT(biz_id) AS count FROM biz
@@ -16,8 +24,7 @@
 
 	</select>
 
-
-	<select id="list" resultType="com.ino.admin.dto.AdminCategoryDTO">
+	<select id="glist" resultType="com.ino.admin.dto.AdminCategoryDTO">
 		SELECT b.biz_id, b.biz_name, g.goods_id, g.goods_name 
 		FROM biz b
 		JOIN goods g ON b.biz_id = g.biz_id
@@ -25,6 +32,12 @@
 		LIMIT 10 OFFSET #{offset}
 	</select>	
 
+	<select id="clist" resultType="com.ino.admin.dto.AdminCategoryDTO">
+		SELECT b.biz_id, b.biz_name
+		FROM biz b
+		ORDER BY 1
+		LIMIT 10 OFFSET #{offset}
+	</select>	
 
 	<select id="goodsdetail" resultType="com.ino.admin.dto.AdminCategoryDTO">
 		SELECT b.biz_id, b.biz_name, g.goods_id, g.goods_name 

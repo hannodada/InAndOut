@@ -21,18 +21,29 @@ public class AdminSalesListService {
 	public HashMap<String, Object> slist(HashMap<String, Object> params) {
 	
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		
 	    int page = Integer.parseInt(String.valueOf(params.get("page")));
-
-	    int offset = 5*(page-1);	    
+	    String search = String.valueOf(params.get("search"));
+	    
+	    int offset = 10*(page-1);	    
 		
 	    logger.info("offset : " + offset);
 	    
 
 	    int total = 0;	    		
 		
-	    total = dao.stotalCount();
+	    if(search.equals("default") || search.equals("")) {
+
+		    	  total = dao.stotalCount();
+
+		      	}else {	      
+		    	   	   
+		    	  total = dao.stotalCountSearch(search);
 		
-	    int range = total%5  == 0 ? total/5 : total/5+1;
+		       }
+	    logger.info("판매글 search :"+search);
+		
+	    int range = total%10  == 0 ? total/10 : total/10+1;
 	    
 
 	      
@@ -44,8 +55,17 @@ public class AdminSalesListService {
 		
 	      logger.info("params : " + params);		
 		
+	      if(search.equals("default") ||search.equals("")) {
+	    	  
+	    	  logger.info("search"+search);
+	    	  list = dao.slist(offset);
 		
-	      list = dao.slist(offset);
+		       
+	      }else {
+
+			  list = dao.slistSearch(params);
+			      }
+	      
 		
 	      map.put("list", list);
 	      map.put("currPage", page);
@@ -55,5 +75,27 @@ public class AdminSalesListService {
 		
 		
 	}
+
+	public void sblind(String sales_no) {
+	    dao.sblind(sales_no);
+	}
+
+	public AdminSalesDTO shistory(String sales_no) {
+		
+		return dao.shistory(sales_no);
+	}
+
+	public int history_sblind(HashMap<String, String> params, String sales_no) {
+		
+		return dao.history_sblind(sales_no);
+	}
+
+/*
+	public int history_sblind(HashMap<String, String> params, String sales_no) {
+		
+		return dao.history_sblind;
+	}
+
+*/
 	
 }

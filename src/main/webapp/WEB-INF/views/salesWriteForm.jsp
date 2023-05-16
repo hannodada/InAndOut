@@ -52,7 +52,7 @@ table, th, td{
 			</tr>
 			<tr>
 				<th>가격</th>
-				<td><input type="text" name="price"/></td>
+				<td><input type="number" name="price"/></td>
 			</tr>
 			<tr>
 				<th>거래지역</th>
@@ -62,7 +62,7 @@ table, th, td{
 					<br>
 					<input type="text" id="roadAddress" name="roadAddress" placeholder="도로명주소">
 					<br>
-					<input type="text" id="jibunAddress" name="jibunAddress" placeholder="지번주소">
+					<input type="text" id="jibunAddress" name="jibunAddress" placeholder="지번주소" hidden="true">
 					<br>
 					<input type="text" id="sido" name="sido" placeholder="시도" hidden="true">
 					<br>

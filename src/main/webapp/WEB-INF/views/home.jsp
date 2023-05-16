@@ -27,6 +27,12 @@
 
 
 
+
+
+	<a href="myPage.go">마이페이지 보기</a>
+	<a href="riderPage">라이더페이지 보기</a>
+	<a href="riderList.go">라이더리스트</a>
+
 	
 	
 	<br>
@@ -39,21 +45,21 @@
 			<td>
 			<!--  onclick="location.href='profile.go?idx'""-->
 
-				<a href="catagory.go?biz_id=b001" id="catagorybox">
+				<a href="salesList.do?biz_id=b001" id="catagorybox">
 				<img src="resources/photo/free-icon-coffee-4062363.png" id="topCategery" >
 				<br>
 				<a>카페</a>
 				</a>
 			</td>
 			<td>
-				<a href="catagory.go?biz_id=b002" id="catagorybox">
+				<a href="salesList.do?biz_id=b002" id="catagorybox">
 				<img src="resources/photo/food.png" id="topCategery" >
 				<br>
 				<a>음식점</a>
 				</a>
 			</td>
 			<td>
-				<a href="catagory.go?biz_id=b003" id="catagorybox">
+				<a href="salesList.do?biz_id=b003" id="catagorybox">
 				<img src="resources/photo/free-icon-park-4299072.png" id="topCategery" >
 				<br>
 				<a>여가오락</a>
@@ -61,7 +67,7 @@
 			</td>
 			<td>
 
-				<a href="catagory.go?biz_id=b004" id="catagorybox">
+				<a href="salesList.do?biz_id=b004" id="catagorybox">
 				<img src="resources/photo/free-icon-teach-4696727.png" id="topCategery" >
 				<br>
 				<a>교육</a>
@@ -69,7 +75,7 @@
 			</td>
 			<td>
 
-				<a href="catagory.go?biz_id=b005" id="catagorybox">
+				<a href="salesList.do?biz_id=b005" id="catagorybox">
 				<img src="resources/photo/free-icon-exercise-2833390.png" id="topCategery" >
 				<br>
 				<a>운동</a>
@@ -77,7 +83,7 @@
 			</td>
 			<td>
 
-				<a href="catagory.go?biz_id=b006" id="catagorybox">
+				<a href="salesList.do?biz_id=b006" id="catagorybox">
 				<img src="resources/photo/free-icon-pet-grooming-6317238.png" id="topCategery" >
 				<br>
 				<a>미용</a>
@@ -88,7 +94,7 @@
 		<tr>
 			<td>
 
-				<a href="catagory.go?biz_id=b007" id="catagorybox">
+				<a href="salesList.do?biz_id=b007" id="catagorybox">
 				<img src="resources/photo/free-icon-resort-5273329.png" id="topCategery" >
 				<br>
 				<a>숙박업</a>
@@ -96,7 +102,7 @@
 			</td>
 			<td>
 
-				<a href="catagory.go?biz_id=b008" id="catagorybox">
+				<a href="salesList.do?biz_id=b008" id="catagorybox">
 				<img src="resources/photo/animal-shelter.png" id="topCategery" >
 				<br>
 				<a>반려동물</a>
@@ -104,7 +110,7 @@
 			</td>
 			<td>
 
-				<a href="catagory.go?biz_id=b009" id="catagorybox">
+				<a href="salesList.do?biz_id=b009" id="catagorybox">
 				<img src="resources/photo/washing-machine.png" id="topCategery" >
 				<br>
 				<a>세탁업</a>
@@ -112,7 +118,7 @@
 			</td>
 			<td>
 
-				<a href="catagory.go?biz_id=b010" id="catagorybox">
+				<a href="salesList.do?biz_id=b010" id="catagorybox">
 				<img src="resources/photo/mart.png" id="topCategery" >
 				<br>
 				<a>도소매</a>
@@ -120,7 +126,7 @@
 			</td>
 			<td>
 
-				<a href="catagory.go?biz_id=b011" id="catagorybox">
+				<a href="salesList.do?biz_id=b011" id="catagorybox">
 				<img src="resources/photo/ellipsis.png" id="topCategery" >
 				<br>
 				<a>기타</a>
@@ -128,7 +134,7 @@
 			</td>
 			<td>
 
-				<a href="catagory.go?biz_id" id="catagorybox">
+				<a href="salesList.do" id="catagorybox">
 				<img src="resources/photo/select-all.png" id="topCategery" >
 				<br>
 				<a>모든상품</a>
@@ -310,29 +316,7 @@
 					<table>
 						<tr>
 				   		 <c:forEach items="${sigunguTopList }" var="sigungu">
-				   		 
-				   		 <!-- 지금 값이 없는대도 불구하고 group by 구문에서만 이상하게 null 말고 다른 어떤 이상한게 나옴.... 그래서 뭔가 잇는데 null은 아닌상태?? 가 되서
-				   		 자꾸 오류가 나는 상황.
-				   		 일단 만약 강남구라면 강남구 사람은 나오는데 강북구 이면 오류가 발생하는 상황이 나옴.. 해결방법을 알 수 없음. null 인데 null은 아닌 이상한 상황. 
-				   		 일단은 가려놓고, 오류 해결 해야 할듯.
-				   		 
-			     		  	<c:if test="${sigungu.new_photo_name eq null}">
-								<td>
-							     		  		<br>
-							     		 		<img src="resources/photo/프로필 기본.png" id="sellerProfile" onclick="location.href='myPage.go?user_id=${sigungu.user_id}'">
-				    							<br>
-						    					<a>${sigungu.user_id }</a>
-				    			</td>
-	   						</c:if>
-	     		 			 <c:if test="${sigungu.new_photo_name ne null}">
-				    			<td>	
-							     		 		<br>
-							     		 		<img src="resources/photo/${sigungu.new_photo_name}" id="sellerProfile" onclick="location.href='myPage.go?user_id=${sigungu.user_id}'">
-				    							<br>
-						    					<a>${sigungu.user_id }</a>
-								</td>
-	    					</c:if> 
-	    				  -->	
+
 						</c:forEach>
 						</tr>
 					</table>

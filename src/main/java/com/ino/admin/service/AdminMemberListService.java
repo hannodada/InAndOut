@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.ino.admin.dao.AdminMemberListDAO;
 import com.ino.admin.dto.AdminMemberDTO;
@@ -26,83 +27,63 @@ public class AdminMemberListService {
 	    String userstate = String.valueOf(params.get("userstate"));
 	    String userId = String.valueOf(params.get("userid"));
 	    String search = String.valueOf(params.get("search"));
+	    String categoryId = String.valueOf(params.get("categoryId"));
+
 
 		
 	    HashMap<String, Object> map = new HashMap<String, Object>();
-	    
-	    // 1������  offset 0
-	    // 2������ offset 5
-	    // 3 ������ offset 10
-	    int offset = 5*(page-1);	    
+
+	    int offset = 10*(page-1);	    
 		
 	    logger.info("offset : " + offset);
 	    
-	    // ���� �� �ִ� �� ������ �� : ��ü �Խñ��� �� / �������� ������ �� �ִ� ��
+	    logger.info("params : " + params);
+	    
 	    int total = 0;	    
 		
 	    if(search.equals("default") || search.equals("")) {
 	      if(userdiv.equals("default") && userstate.equals("default")) {
 	      
-	      // ��ü �����ֱ�
-	      total = dao.totalCount();
-	       
-	      }else if(!(userdiv.equals("default")) && userstate.equals("default")){
-	             
-	      // ȸ�� �з��� ���õ� ���
-	      total = dao.totalCountUserdiv(params);
-	             
-	       }else if(userdiv.equals("default") && !(userstate.equals("default"))){
-	             
-	      // ȸ�� ���¸� ���� �� ���
-	      total = dao.totalCountUserstate(params);
-	             
-	       }else {
-	        
-	      // ȸ�� �з�, ȸ�� ���� �Ѵ� ���� �� ��� 
-	      total = dao.totalCountAll(params);
-	      }
-	    
-	    }else {	      
+	    	  
+	    	  total = dao.totalCount();
+
+	      	}else {	      
 	    	   	   
-	      // �˻���� �۵�
-	      total = dao.totalCountSearch(search);
+	    	  total = dao.totalCountSearch(search);
 	       }
-	       		
-	    int range = total%5  == 0 ? total/5 : total/5+1;
+	    }
 	    
-	      logger.info("�ѰԽñ� �� : "+ total);
-	      logger.info("�� ������ �� : "+ range);
-	      
+	    int range = total%10  == 0 ? total/10 : total/10+1;
+
 	      page = page>range ? range:page;
 	      
 	      ArrayList<AdminMemberDTO> list = null;	    
 		
 	      params.put("offset", offset);
 		
-	      logger.info("params : " + params);
-	      
+	      logger.info("user search:"+search);
 	      
 	      if(search.equals("default") ||search.equals("")) {
 	        if(userdiv.equals("default") && userstate.equals("default")) {
-	          // ��ü �����ֱ�
+
 	          list = dao.list(offset);
 	       
 	        }else if(!(userdiv.equals("default")) && userstate.equals("default")) {
-	          // ȸ�� �з��� ���� �� ��� 
+
 	          list = dao.listUserdiv(params);
 	        }
 	         
 	        else if(userdiv.equals("default") && !(userstate.equals("default"))){
-	          // ȸ�� ���¸� ���� �� ���
+
 	          list = dao.listUserstate(params);
 	        
 	        }else {
-	          // ȸ�� �з�, ȸ�� ���� ��� ����
+
 	          list = dao.listAll(params);
 	         }
 	     
 	      }else {
-	         // �˻� ���
+
 	         list = dao.listSearch(params);
 	      }
 	      		
@@ -171,7 +152,7 @@ public class AdminMemberListService {
 		return result;
 	}
 	
-	// �ݷ�ó�� �� �����丮 �ۼ�
+	// 라이더 승인대기 승인처리
 	public int history_riderstate2(HashMap<String, String> params, String user_id) {
 		
 		return dao.history_riderstate2(params);
@@ -188,34 +169,59 @@ public class AdminMemberListService {
 	public HashMap<String, Object> riderlist(HashMap<String, Object> params) {
 	   
 		HashMap<String, Object> map = new HashMap<String, Object>();
-	    int page = Integer.parseInt(String.valueOf(params.get("page")));
-	    // 1������  offset 0
-	    // 2������ offset 5
-	    // 3 ������ offset 10
-	    int offset = 5*(page-1);	    
+		
+		int page = Integer.parseInt(String.valueOf(params.get("page")));
+	    String userId = String.valueOf(params.get("user_id"));
+	    String nickname = String.valueOf(params.get("nickname"));
+	    String userdivName = String.valueOf(params.get("user_div_name"));
+	    String userState = String.valueOf(params.get("user_state"));
+	    String search = String.valueOf(params.get("search"));
+	    String categoryId = String.valueOf(params.get("categoryId"));
+
+
+	    int offset = 10*(page-1);	    
 		
 	    logger.info("offset : " + offset);
 	    
-	    // ���� �� �ִ� �� ������ �� : ��ü �Խñ��� �� / �������� ������ �� �ִ� ��
-	    int total = 0;	    		
-		
-	    total = dao.rtotalCount();
-		
-	    int range = total%5  == 0 ? total/5 : total/5+1;
+
+	    int total = 0;	    	
 	    
-	      logger.info("�ѰԽñ� �� : "+ total);
-	      logger.info("�� ������ �� : "+ range);
-	      
+	    if(search.equals("default") || search.equals("")) {
+		      if(userId.equals("default") && nickname.equals("default")) {
+		      
+		    	  
+		    	  total = dao.rtotalCount();
+
+		      	}else {	      
+		    	   	   
+		    	  total = dao.rtotalCountSearch(search);
+		
+		       }
+	    } 
+		
+	    int range = total%10  == 0 ? total/10 : total/10+1;
+	    
+	    
 	      page = page>range ? range:page;
 	      
 	      ArrayList<AdminMemberDTO> riderlist = null;	    
 		
 	      params.put("offset", offset);
 		
-	      logger.info("params : " + params);		
+	      logger.info("rider params : " + params);		
 		
-		
-	      riderlist = dao.riderlist(offset);
+	      logger.info("user search"+search);
+	      
+	      if(search.equals("default") ||search.equals("")) {
+	    	  
+	    	  logger.info("search"+search);
+		       riderlist = dao.riderlist(offset);
+		       logger.info("라이더 리스트"+riderlist);
+		       
+	      }else {
+
+			   riderlist = dao.rlistSearch(params);
+			      }
 		
 	      map.put("list", riderlist);
 	      map.put("currPage", page);
@@ -231,7 +237,7 @@ public class AdminMemberListService {
 	    // 1������  offset 0
 	    // 2������ offset 5
 	    // 3 ������ offset 10
-	    int offset = 5*(page-1);	    
+	    int offset = 10*(page-1);	    
 		
 	    logger.info("offset : " + offset);
 	    
@@ -240,7 +246,7 @@ public class AdminMemberListService {
 		
 	    total = dao.atotalCount();
 		
-	    int range = total%5  == 0 ? total/5 : total/5+1;
+	    int range = total%10  == 0 ? total/10 : total/10+1;
 	    
 	      logger.info("�ѰԽñ� �� : "+ total);
 	      logger.info("�� ������ �� : "+ range);
@@ -276,20 +282,9 @@ public class AdminMemberListService {
 
 
 
-
-
-
-
-
-
-
-
-
-	
-
-
-
-
 	}
+
+
+
 
 

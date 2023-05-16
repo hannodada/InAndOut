@@ -37,8 +37,44 @@ public class RiderDTO {
 	private String cate_no;
 	private String subject;
 	private String rider_id;
+	private int star_score;
+	private int star_no;
+	private String star_to_id;
+	private int totalCountDS;
+	
+	public int getTotalCountDS() {
+		return totalCountDS;
+	}
+	public void setTotalCountDS(int totalCountDS) {
+		this.totalCountDS = totalCountDS;
+	}
+	private int msg_div_no;
 	
 	
+	public int getMsg_div_no() {
+		return msg_div_no;
+	}
+	public void setMsg_div_no(int msg_div_no) {
+		this.msg_div_no = msg_div_no;
+	}
+	public int getStar_no() {
+		return star_no;
+	}
+	public void setStar_no(int star_no) {
+		this.star_no = star_no;
+	}
+	public String getStar_to_id() {
+		return star_to_id;
+	}
+	public void setStar_to_id(String star_to_id) {
+		this.star_to_id = star_to_id;
+	}
+	public int getStar_score() {
+		return star_score;
+	}
+	public void setStar_score(int star_score) {
+		this.star_score = star_score;
+	}
 	public String getRider_id() {
 		return rider_id;
 	}

@@ -137,7 +137,7 @@ form{
 				<p>항목관리</p>
 			</td>
 				<li>
-					<a href="/main/ad.goodslist.do">카테고리 목록</a>
+					<a href="/main/ad.categorylist.do">카테고리 목록</a>
 				</li>
 				<li>
 					<a href="/main/adstarlist.do">별점 목록</a>

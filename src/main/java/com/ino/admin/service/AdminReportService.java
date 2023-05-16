@@ -29,22 +29,18 @@ public class AdminReportService {
 	   
 		HashMap<String, Object> map = new HashMap<String, Object>();
 	    int page = Integer.parseInt(String.valueOf(params.get("page")));
-	    // 1������  offset 0
-	    // 2������ offset 5
-	    // 3 ������ offset 10
-	    int offset = 5*(page-1);	    
+
+	    int offset = 10*(page-1);	    
 		
 	    logger.info("offset : " + offset);
 	    
-	    // ���� �� �ִ� �� ������ �� : ��ü �Խñ��� �� / �������� ������ �� �ִ� ��
+	  
 	    int total = 0;	    		
 		
 	    total = dao.utotalCount();
 		
-	    int range = total%5  == 0 ? total/5 : total/5+1;
+	    int range = total%10  == 0 ? total/10 : total/10+1;
 	    
-	      logger.info("�ѰԽñ� �� : "+ total);
-	      logger.info("�� ������ �� : "+ range);
 	      
 	      page = page>range ? range:page;
 	      
@@ -68,22 +64,18 @@ public class AdminReportService {
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 	    int page = Integer.parseInt(String.valueOf(params.get("page")));
-	    // 1������  offset 0
-	    // 2������ offset 5
-	    // 3 ������ offset 10
-	    int offset = 5*(page-1);	    
+
+	    int offset = 10*(page-1);	    
 		
 	    logger.info("offset : " + offset);
 	    
-	    // ���� �� �ִ� �� ������ �� : ��ü �Խñ��� �� / �������� ������ �� �ִ� ��
+	
 	    int total = 0;	    		
 		
 	    total = dao.stotalCount();
 		
-	    int range = total%5  == 0 ? total/5 : total/5+1;
+	    int range = total%10  == 0 ? total/10 : total/10+1;
 	    
-	      logger.info("�ѰԽñ� �� : "+ total);
-	      logger.info("�� ������ �� : "+ range);
 	      
 	      page = page>range ? range:page;
 	      
@@ -102,5 +94,63 @@ public class AdminReportService {
 	      
 	      return map;		
 	}
+
+	public AdminReportDTO sreportdetail(String report_no) {
+		return dao.sreportdetail(report_no);
+	}
+
+	public int sblindyes(HashMap<String, String> params, String report_no, String report_id) {
+		logger.info("판매글 신고처리 요청");
+		int result = dao.sblind_history(report_no,params,report_id);
+		logger.info("판매글 params:"+params);
+		dao.blindchange(report_no);
+		return result;
+	}
+
+	public int sblindno(HashMap<String, String> params, String report_no, String report_id) {
+		int result = dao.sblind_history(report_no,params,report_id);
+		dao.blindnochange(report_no);
+		return result;
+	}
+
+	public HashMap<String, Object> gallerylist(HashMap<String, Object> params) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+	    int page = Integer.parseInt(String.valueOf(params.get("page")));
+
+	    int offset = 10*(page-1);	    
+		
+	    logger.info("offset : " + offset);
+	    
+	
+	    int total = 0;	    		
+		
+	    total = dao.gtotalCount();
+		
+	    int range = total%10  == 0 ? total/10 : total/10+1;
+	   
+	      
+	      page = page>range ? range:page;
+	      
+	      ArrayList<AdminReportDTO> glist = null;	    
+		
+	      params.put("offset", offset);
+		
+	      logger.info("params : " + params);		
+		
+		
+	      glist = dao.glist(offset);
+		
+	      map.put("list", glist);
+	      map.put("currPage", page);
+	      map.put("pages", range);
+	      
+	      return map;		
+	}
+
+	/*
+	 * public AdminReportDTO greportdetail(String report_no) { return
+	 * dao.greportdetail(report_no); }
+	 */
 	
 }

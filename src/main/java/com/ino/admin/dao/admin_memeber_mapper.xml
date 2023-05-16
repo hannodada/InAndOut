@@ -8,16 +8,6 @@
 	<select id="totalCount" parameterType="String" resultType ="int">
 		SELECT COUNT (u.user_id) FROM user u
 	</select>
-
-	<select id="totalCountUserdiv" parameterType="hashmap" resultType ="int">
-		SELECT COUNT (u.user_id) FROM user u 
-		left join user_div ud on u.user_div = ud.user_div
-		WHERE ud.user_div_name = #{user_div_name}
-	</select>
-	
-	<select id="totalCountUserstate" parameterType="hashmap" resultType ="int">
-		SELECT COUNT (u.user_id) FROM user u WHERE u.user_state = #{user_state}
-	</select>
 	
 	<select id="totalCountAll" parameterType="hashmap" resultType ="int">
 		SELECT COUNT (u.user_id) 
@@ -27,8 +17,9 @@
 	</select>	
 	
 	<select id="totalCountSearch" parameterType="String" resultType ="int">
-		SELECT COUNT (u.user_id) FROM user u WHERE u.user_id = #{user_id} OR u.nickname = #{nickname}
+		SELECT COUNT (u.user_id) FROM user u WHERE u.user_id = #{search} OR u.nickname = #{search}
 	</select>	
+		
 	
 <!-- 회원 리스트 -->
 	<select id="list" resultType="com.ino.admin.dto.AdminMemberDTO">
@@ -38,41 +29,18 @@
 		LIMIT 10 OFFSET #{offset}
 	</select>	
 
-<!-- 회원 분류만 선택 된 경우  -->
-	<select id="listUserdiv" parameterType="hashmap" resultType ="String">
-		SELECT u.user_id, u.nickname, ud.user_div_name, u.user_state
-		FROM user u 
-		JOIN user_div ud ON u.user_div = ud.user_div
-		WHERE ud.user_div_name = #{user_div_name}
-		LIMIT 5 OFFSET #{offset}
-	</select>	
 
-<!-- 회원 상태만 선택 된 경우  -->
-	<select id="listUserstate" parameterType="hashmap" resultType ="String">
-		SELECT u.user_id, u.nickname, d.user_div_name, u.user_state
-		FROM user u 
-		JOIN user_div d ON u.user_div = d.user_div
-		WHERE u.user_state = #{user_state}
-		LIMIT 5 OFFSET #{offset}
-	</select>	
+	<select id="listSearch" parameterType="hashmap" resultType="com.ino.admin.dto.AdminMemberDTO">
+    SELECT u.user_id, u.nickname, d.user_div_name, u.user_state
+    FROM user u 
+    JOIN user_div d ON u.user_div = d.user_div
+    WHERE CONCAT(u.user_id, u.nickname) LIKE CONCAT('%', #{search}, '%')
+    LIMIT 10 OFFSET #{offset}
+</select>
 
-<!-- 회원 분류, 상태 둘 다 선택한 경우 -->
-	<select id="listAll" parameterType="hashmap" resultType ="String">
-		SELECT u.user_id, u.nickname, d.user_div_name, u.user_state
-		FROM user u 
-		JOIN user_div d ON u.user_div = d.user_div
-		WHERE d.user_div_name = #{user_div_name} AND u.user_state = #{user_state}
-		LIMIT 5 OFFSET #{offset}
-	</select>	
+		
 
-	<select id="listSearch" parameterType="hashmap" resultType ="String">
-		SELECT u.user_id, u.nickname, d.user_div_name, u.user_state
-		FROM user u 
-		JOIN user_div d ON u.user_div = d.user_div
-		WHERE user_id = #{user_id} OR nickname = #{nickname}
-		LIMIT 5 OFFSET #{offset}
-	</select>	
-	
+
 	
 <!-- 회원정보 상세보기 -->
 <select id="viewdetail" resultType="com.ino.admin.dto.AdminMemberDTO">
@@ -127,7 +95,7 @@
 	FROM user u 
 	left join user_div ud on u.user_div = ud.user_div
 	left join auth_extra ae on u.user_id = ae.user_id
-	where u.user_div = 'a' and ae.state = '인증대기' 
+	where u.user_div = 'a'
 	AND ae.biz_num IS NOT NULL
   AND ae.biz IS NOT NULL
   AND ae.store_name IS NOT NULL
@@ -160,8 +128,8 @@ WHERE user_id = #{user_id} AND (user_div = 'a' OR user_div = 'b')
 
 <!-- 일반에서 인증사용자로 변경 시 히스토리 작성 -->
 <insert id="history_userstate" parameterType="hashmap">
-		INSERT INTO user_history(user_id,admin_id,user_content)
-			VALUES(#{user_id},#{admin_id},#{user_content})
+		INSERT INTO user_history(user_id,admin_id,user_content,user_state)
+			VALUES(#{user_id},#{admin_id},#{user_content},#{user_state})
 </insert>
 
 
@@ -187,6 +155,25 @@ WHERE user_id = #{user_id} AND (user_div = 'a' OR user_div = 'b')
 		join user_div d on u.user_div = d.user_div
 		WHERE d.user_div = 'c' AND user_state = '가입대기'
 	</select>
+	
+	
+	<select id="rlistSearch" parameterType="hashmap" resultType="com.ino.admin.dto.AdminMemberDTO">
+    SELECT u.user_id, u.nickname, d.user_div_name, u.user_state
+    FROM user u 
+    JOIN user_div d ON u.user_div = d.user_div
+    WHERE CONCAT(u.user_id, u.nickname) LIKE CONCAT('%', #{search}, '%')
+    AND d.user_div = 'c' AND u.user_state = '가입대기'
+    LIMIT 10 OFFSET #{offset}
+</select>
+	
+<!-- 라이더 검색 페이지 -->
+	<select id="rtotalCountSearch" parameterType="String" resultType ="int">
+    SELECT COUNT(u.user_id)
+    FROM user u
+    JOIN user_div d ON u.user_div = d.user_div
+    WHERE d.user_div = 'c' AND u.user_state = '가입대기' 
+    AND (u.user_id = #{search} OR u.nickname = #{search})
+	</select>	
 	
 <!-- 라이더 상세보기 -->
 <select id="riderdetail" resultType="com.ino.admin.dto.AdminMemberDTO">
@@ -223,4 +210,5 @@ update user set user_state = '정상' where user_state ='가입대기' and user_
 		INSERT INTO user_history(admin_id,user_id,user_content)
 			VALUES(#{admin_id},#{user_id},#{user_content})
 </insert>	
+
 </mapper>

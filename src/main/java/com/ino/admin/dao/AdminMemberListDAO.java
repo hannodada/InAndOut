@@ -54,7 +54,7 @@ public interface AdminMemberListDAO {
 	ArrayList<AdminMemberDTO> userhistory(String user_id);
 
 
-	
+
 
 	int totalCount();
 
@@ -105,6 +105,15 @@ public interface AdminMemberListDAO {
 
 
 	AdminMemberDTO uhistorydetail(String user_state);
+
+
+	int totalCousntSearch(String search);
+
+
+	int rtotalCountSearch(String search);
+
+
+	ArrayList<AdminMemberDTO> rlistSearch(HashMap<String, Object> params);
 
 
 

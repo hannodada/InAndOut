@@ -32,7 +32,7 @@ Logger logger  = LoggerFactory.getLogger(this.getClass());
 	    // 1������  offset 0
 	    // 2������ offset 5
 	    // 3 ������ offset 10
-	    int offset = 5*(page-1);	    
+	    int offset = 10*(page-1);	    
 		
 	    logger.info("offset : " + offset);
 	    
@@ -41,7 +41,7 @@ Logger logger  = LoggerFactory.getLogger(this.getClass());
 		
 	    total = dao.totalCount();
 		
-	    int range = total%5  == 0 ? total/5 : total/5+1;
+	    int range = total%10  == 0 ? total/10 : total/10+1;
 	    
 	      logger.info("�ѰԽñ� �� : "+ total);
 	      logger.info("�� ������ �� : "+ range);

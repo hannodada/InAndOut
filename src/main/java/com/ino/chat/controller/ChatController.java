@@ -21,6 +21,7 @@ import com.ino.chat.dto.ChatDTO;
 import com.ino.chat.dto.ImgChatDTO;
 import com.ino.chat.dto.MsgDTO;
 import com.ino.chat.service.ChatService;
+import com.ino.delivery.dto.RiderDTO;
 import com.ino.member.dto.MemberDTO;
 import com.ino.sales.dto.SalesDTO;
 
@@ -95,24 +96,33 @@ public class ChatController {
 		logger.info("msgList 실행.");
 		boolean login = false;
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		RiderDTO msgrider = new RiderDTO();
 		
 		if(session.getAttribute("loginId") != null) {
 			session.setAttribute("selectedRoom", id);
 			
 			String issale = service.issale(id);
 			logger.info("issale: " + issale);
+			int salenum = 0;
 			if(issale.equals("판매")) {
-				int salenum = service.salenum(id);
-				SalesDTO msgsale = new SalesDTO();
-				msgsale = service.msgsale(salenum);
-				logger.info("msgsale: " + msgsale);
-				map.put("sale", msgsale);
-				String salephoto = service.salephoto(Integer.toString(salenum));
-				map.put("salephoto", salephoto);
+				salenum = service.salenum(id);
+			} else {
+				logger.info("delivery offer no: " + id);
+				salenum = service.salenum2(id);
+				int deliveryno = service.salenum(id);
+				logger.info("salenum: " + salenum);
+				msgrider = service.getdelivery(deliveryno);
 			}
+			SalesDTO msgsale = new SalesDTO();
+			msgsale = service.msgsale(salenum);
+			logger.info("msgsale: " + msgsale);
+			map.put("sale", msgsale);
+			String salephoto = service.salephoto(Integer.toString(salenum));
+			map.put("salephoto", salephoto);
 			login = true;
 			logger.info("id = " + id);
 			ArrayList<MsgDTO> msglist = service.msglist(id);
+			map.put("delivery", msgrider);
 			map.put("list", msglist);
 			
 			String msguser = service.msguser(id, (String)session.getAttribute("loginId"));

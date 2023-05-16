@@ -248,9 +248,9 @@
 											      		<img src="resources/photo/로고2.png" onclick="location.href='logout.do'" >
 											      </div>
 													<div id="banner">
-														<a href="#">관리자페이지 열기</a>
-														<a href="$">#</a>
-														<a href="$">#</a>
+														<a href="ad.userlist.do">회원 관리</a>
+														<a href="adsaleslist.do">판매글 관리</a>
+														<a href="userreportlist.do">회원 신고 관리</a>
 													</div>			
 																									       
 											       <div class="nbsp">		     
@@ -469,6 +469,7 @@ function reverseGeocoding(lat, lng) {
 	          sigungu += result[i].regionName;
 	        }
 	      }
+	      console.log(sigungu);
 	      // 추출한 구와 동 정보를 출력합니다
 	      document.getElementById("location").innerHTML = `현재 위치: ${lat}, ${lng}, ${sigungu}`;
 	    }
