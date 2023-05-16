@@ -302,12 +302,10 @@
 		
 		<tr>
 			<th colspan="2">
-				  <button type="button" class="test_btn2" onclick="join()">입력확인</button>   
-				<!-- <button class="test_btn2" onclick="join()">등록</button> -->
-				<button class="test_btn2" >등록</button>
-				
-				<button type="button" onclick="location.href='./'" class="test_btn2">돌아가기</button>
-			</th>
+				 <button type="button" class="test_btn2" onclick="checkInput()">입력확인</button>
+			      <button class="test_btn2" id="registerButton" style="display: none;">등록</button>
+			      <button type="button" onclick="location.href='./'" class="test_btn2">돌아가기</button>
+    		</th>
 		</tr>
 	</table>
 	<br>
@@ -328,9 +326,7 @@
 
 
 
-var pweq = false;
-var overlayChk = false;
-var overlayChk2 = false;
+
 
 
 function join() {
@@ -456,6 +452,84 @@ function join() {
 		alert('아이디 중복 체크와 비밀번호 확인을 해 주세요');
 	}	
 }
+
+
+var pweq = false;
+var overlayChk = false;
+var overlayChk2 = false;
+
+
+
+  
+  
+function checkInput() {
+    // 여기에 입력 확인 로직을 추가합니다.
+    // 예를 들어 필요한 필드가 모두 입력되었는지 확인하는 로직을 작성하고,
+    // 입력이 완료되면 등록 버튼을 표시하도록 처리합니다.
+	
+     if  (pweq && overlayChk && overlayChk2 ) {
+    	 
+	     var $user_id = $('#user_id');
+	    var $user_pw = $('#user_pw');
+	    var $user_name = $('#user_name');
+	    var $nickname = $('#nickname');
+	    var $post_num = $('#post_num');
+	    var $phone_num = $('#phone_num'); 
+	    var $email = $('#email');
+	    var $interest_biz_id = $('#interest_biz_id');
+	   
+	    var $post_num = $('#sample6_postcode');
+	    
+	    var $sigungu = $('#sigungu');
+	    var $biz_num = $('#biz_num');
+	    var $store_name = $('#store_name');
+	    
+	    var $sido = $('#sido');
+	    var $left_addr = $('#left_addr');
+	    var $phone_num2 = $('#phone_num2');
+	    var $phone_num3 = $('#phone_num3');
+	    var $user_state = $('#user_state');
+	    var $left_addr = $('#sample6_address');
+	    var $biz = $('#biz');
+	    
+	   
+	  
+
+	   var $post_numTest = $('#sample6_postcode'); 
+	    
+	    
+	    if ($user_id.val() == '') {
+	      alert('아이디를 입력해 주세요!');
+	      $user_id.focus();
+	    }  else if ($user_pw.val() == '') {
+	      alert('비밀번호를 입력해 주세요!');
+	      $user_pw.focus();
+	    } else if ($user_name.val() == '') {
+	      alert('이름을 입력해 주세요!');
+	      $user_name.focus();
+	    } else if ($nickname.val() == '') {
+	      alert('닉네임을 입력해 주세요!');
+	      $nickname.focus();
+	    }else if ($phone_num.val() == '') {
+	      alert('전화번호를 입력해 주세요!');
+	    }else if ($post_num.val() == '') {
+	      alert('우편번호 찾기를 해주세요!');
+	    } else if ($email.val() == '') {
+	      alert('이메일 입력해 주세요!');
+	      $email.focus();
+	    } else if ($interest_biz_id.val() == '.') {
+	      alert('관심업종을 선택해 주세요!');
+	    } else  {
+	    	 alert('회원가입 준비가 됐습니다. 등록 버튼을 눌러주세요. !');
+	    	 document.getElementById('registerButton').style.display = 'inline-block';
+    // 모든 필드의 유효성을 통과했을 경우
+	    } 
+	    
+     } else  {
+    	 alert('아이디 중복 체크와 비밀번호 확인을 해 주세요');
+      
+    }
+  }
 
 
 
@@ -823,7 +897,12 @@ function workURL(input) {
     //사업자 등록 확인 알람
     
 
-
+/// 성공 확인 알람
+ var msg = "${msg}";
+ 	 if(msg !=""){
+ 		 	alert(msg);
+ 		 
+ 	 }
 
 
 

@@ -11,6 +11,12 @@
 		SELECT COUNT (sales_no) FROM sales
 	</select>
 
+	<select id="stotalCountSearch" parameterType="String" resultType ="int">
+		SELECT COUNT (sales_no) FROM sales s
+		JOIN user u
+		WHERE u.user_id = #{search} OR u.nickname = #{search} OR s.subject = #{search}
+	</select>
+
 
 	<select id="slist" resultType="com.ino.admin.dto.AdminSalesDTO">
 		select s.sales_no , s.subject , s.user_id ,u.nickname , s.sales_state , s.date 
@@ -18,6 +24,15 @@
 		join user u on u.user_id = s.user_id 
 		LIMIT 10 OFFSET #{offset}
 	</select>	
+	
+	<select id="slistSearch" parameterType="hashmap" resultType="com.ino.admin.dto.AdminSalesDTO">
+		select s.sales_no , s.subject , s.user_id ,u.nickname , s.sales_state , s.date 
+		from sales s
+		join user u on u.user_id = s.user_id 
+    WHERE CONCAT(s.user_id, u.nickname,s.subject) LIKE CONCAT('%', #{search}, '%')
+    LIMIT 10 OFFSET #{offset}
+	</select>
+	
 	
 	<update id="sblind" parameterType="java.lang.String">
 		update sales set blind = 1 where blind = 0 and sales_no = #{sales_no}

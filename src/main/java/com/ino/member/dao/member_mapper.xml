@@ -149,10 +149,11 @@
       GROUP BY s.sales_no ORDER BY s.hit desc limit 4
 	</select>
 	
-	
 	<!--  조회수 높은 판매글-->
+	
+	
 	<select id="attentionTopList" 
-	resultType="com.ino.member.dao.MemberDAO">
+	resultType="com.ino.member.dto.MemberDTO">
 	SELECT s.sales_no, s.sales_state, s.subject, s.price, s.sales_sido, s.sigungu, s.hit, s.user_id, u.nickname, s.date, p.new_photo_name, s.biz_id, b.biz_name, s.goods_id, g.goods_name
       FROM sales s 
       LEFT JOIN sales s2 ON s2.blind = '0'
@@ -160,8 +161,11 @@
       LEFT JOIN photo p ON p.photo_div = s.sales_no AND p.cate_no = 'p005'
       LEFT JOIN biz b ON s.biz_id = b.biz_id 
       LEFT JOIN goods g ON s.goods_id = g.goods_id 
-      GROUP BY s.sales_no ORDER BY s.hit desc limit 4;
+      GROUP BY s.sales_no ORDER BY s.hit desc limit 10;
       </select>
+	
+	
+	
 	
 	<!--  시군구 중에서 판매글 많은 프로필-->
 	<select id="sigunguTopList" resultType="com.ino.member.dto.MemberDTO">

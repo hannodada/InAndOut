@@ -35,7 +35,7 @@ table, th, td{
 			<tr>
 				<th>	
 					<input type="text" name="cate_no" value="${i.cate_no}" hidden="true"/>
-					<input type="text" name="cate_name" value="${i.cate_name}"/>
+					<input type="text" name="cate_name" value="${i.cate_name}" readonly="readonly"/>
 				</th>
 				<td>
 					<input type="radio" name="${i.cate_no}" value="1"/> 1

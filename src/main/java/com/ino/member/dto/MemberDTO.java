@@ -31,6 +31,7 @@ public class MemberDTO {
 	private int sales_no;
 	private int gallery_no;
 	private String interest_biz_id;
+
  	
  	
  	public String getNew_photo_name() {
@@ -201,11 +202,11 @@ public class MemberDTO {
 	public void setUser_div(String user_div) {
 		this.user_div = user_div;
 	}
-	public void setPhone_num(String phone_num) {
-		this.phone_num = phone_num;
-	}
 	public String getPhone_num() {
 		return phone_num;
+	}
+	public void setPhone_num(String phone_num) {
+		this.phone_num = phone_num;
 	}
 }
  	
