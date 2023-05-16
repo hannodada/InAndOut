@@ -43,7 +43,7 @@
 
 
 	<select id="glist" resultType="com.ino.admin.dto.AdminReportDTO">
-		select r.report_no , g.gallery_subject , g.user_id , r.report_date 
+		select r.report_no , g.gallery_subject , g.user_id , r.report_date,r.report_state
 		from gallery g
 		left join report r on r.report_whom = g.gallery_no 
 		where r.report_no IS NOT null and r.cate_no = 's001'
@@ -59,22 +59,32 @@
 </select>
 
 <select id="sreportdetail" resultType="com.ino.admin.dto.AdminReportDTO">
-		select r.report_whom,rh.report_id,r.user_id,r.report_date,r.report_reason,r.report_state,s.blind, r.report_no
+		select DISTINCT r.report_whom,rh.report_id,r.user_id,r.report_date,r.report_reason,r.report_state,s.blind, r.report_no
 		from report r
 		left join sales s on s.sales_no = r.report_whom
 		left join report_history rh on r.report_no = rh.report_no
 		where r.report_no = #{report_no};
 </select>
 
-<update id="blindchange" parameterType="String">
-		UPDATE report r
-		JOIN sales s ON r.report_whom = s.sales_no
-		SET r.report_state = '완료',
-	  s.blind = 1
-		WHERE r.report_date = '대기'
-	  AND s.blind = 0;
+<select id="greportdetail" resultType="com.ino.admin.dto.AdminReportDTO">
+		select DISTINCT r.report_whom,rh.report_id,r.user_id,r.report_date,r.report_reason,r.report_state,g.blind, r.report_no
+		from report r
+		left join gallery g  on g.gallery_no = r.report_whom
+		left join report_history rh on r.report_no = rh.report_no
+		where r.report_no = #{report_no};
+</select>
+
+<update id="gblindchange" parameterType="String">
+    UPDATE report r
+    JOIN gallery g ON r.report_whom = g.gallery_no
+    SET r.report_state = '완료',
+        g.blind = 1
+    WHERE r.report_state = '대기'
+    AND g.blind = 0
+    AND report_no = #{report_no}
 </update>
 
+<!-- 블라인드 반려 기능 통일 -->
 <update id="blindnochange" parameterType="String">
 		UPDATE report SET report_state = '완료'
 		WHERE report_state = '대기'
@@ -83,9 +93,11 @@
 
 </update>
 
-<insert id="sblind_history" parameterType="hashmap">
-INSERT INTO report_history (report_no,report_id, report_time, report_content)
-VALUES (#{report_no}, #{report_id}, #{report_time}, #{report_content})
+
+<!-- 블라인드 히스토리 작성 기능 통일  -->
+<insert id="blind_history" parameterType="hashmap">
+INSERT INTO report_history (report_no,report_id,report_content)
+VALUES (#{report_no}, #{report_id}, #{report_content})
 
 </insert>	
 

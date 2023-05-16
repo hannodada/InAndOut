@@ -3,6 +3,8 @@ package com.ino.admin.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.ino.admin.dto.AdminReportDTO;
 
 public interface AdminReportDAO {
@@ -23,15 +25,16 @@ public interface AdminReportDAO {
 
 	AdminReportDTO greportdetail(String report_no);
 
-	int sblind_history(String report_no,HashMap<String, String> params, String report_id);
 
-	void blindchange(String report_no);
+	void gblindchange(String report_no);
 
 	void blindnochange(String report_no);
 
 	ArrayList<AdminReportDTO> glist(int offset);
 
 	int gtotalCount();
+
+	int blind_history(@Param("report_no")String report_no, @Param("report_id")String report_id, @Param("report_content")String report_content);
 
 
 }
