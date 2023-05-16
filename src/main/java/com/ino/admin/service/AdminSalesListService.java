@@ -21,8 +21,10 @@ public class AdminSalesListService {
 	public HashMap<String, Object> slist(HashMap<String, Object> params) {
 	
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		
 	    int page = Integer.parseInt(String.valueOf(params.get("page")));
-
+	    String search = String.valueOf(params.get("search"));
+	    
 	    int offset = 10*(page-1);	    
 		
 	    logger.info("offset : " + offset);
@@ -30,7 +32,16 @@ public class AdminSalesListService {
 
 	    int total = 0;	    		
 		
-	    total = dao.stotalCount();
+	    if(search.equals("default") || search.equals("")) {
+
+		    	  total = dao.stotalCount();
+
+		      	}else {	      
+		    	   	   
+		    	  total = dao.stotalCountSearch(search);
+		
+		       }
+	    logger.info("판매글 search :"+search);
 		
 	    int range = total%10  == 0 ? total/10 : total/10+1;
 	    
@@ -44,8 +55,17 @@ public class AdminSalesListService {
 		
 	      logger.info("params : " + params);		
 		
+	      if(search.equals("default") ||search.equals("")) {
+	    	  
+	    	  logger.info("search"+search);
+	    	  list = dao.slist(offset);
 		
-	      list = dao.slist(offset);
+		       
+	      }else {
+
+			  list = dao.slistSearch(params);
+			      }
+	      
 		
 	      map.put("list", list);
 	      map.put("currPage", page);

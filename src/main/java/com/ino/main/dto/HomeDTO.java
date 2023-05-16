@@ -24,7 +24,7 @@ public class HomeDTO {
 	private int phone_num;
 	private String email;
  	private String sido;
- 	private String user_div_name;
+ 	private String user_div;
 	private String gallery_subject;
 	private String gallery_date;
 	private int  gallery_hit;
@@ -169,12 +169,7 @@ public class HomeDTO {
 	public void setSido(String sido) {
 		this.sido = sido;
 	}
-	public String getUser_div_name() {
-		return user_div_name;
-	}
-	public void setUser_div_name(String user_div_name) {
-		this.user_div_name = user_div_name;
-	}
+	
 	public String getGallery_subject() {
 		return gallery_subject;
 	}

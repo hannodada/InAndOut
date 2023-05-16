@@ -142,13 +142,14 @@ public class AdminReportController {
 	public String sblindyes(@RequestParam HashMap<String, String> params, @RequestParam String report_no,
 			@RequestParam String report_id, Model model) {
 
-		logger.info("params : {}", params);
+		logger.info("params : {}"+ params);
 		int row = service.sblindyes(params, report_no, report_id);
 		logger.info("insert row : " + row);
-
+		
 		logger.info("판매글 신고처리할 번호" + report_no, report_id);
 		AdminReportDTO dto = service.sreportdetail(report_no);
 		logger.info("dto : " + dto);
+		model.addAttribute("sdto", row);
 		model.addAttribute("dto", dto);
 		return "adSalesReportDetail";
 	}

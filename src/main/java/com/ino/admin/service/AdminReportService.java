@@ -100,7 +100,9 @@ public class AdminReportService {
 	}
 
 	public int sblindyes(HashMap<String, String> params, String report_no, String report_id) {
+		logger.info("판매글 신고처리 요청");
 		int result = dao.sblind_history(report_no,params,report_id);
+		logger.info("판매글 params:"+params);
 		dao.blindchange(report_no);
 		return result;
 	}

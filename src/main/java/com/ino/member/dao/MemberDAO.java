@@ -3,7 +3,7 @@ package com.ino.member.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
+import com.ino.main.dto.HomeDTO;
 import com.ino.member.dto.MemberDTO;
 
 
@@ -67,9 +67,10 @@ public interface MemberDAO {
 
 	ArrayList<MemberDTO> hitGallery();
 
-	ArrayList<MemberDTO> attentionTopList();
+	
 
 	
+	ArrayList<MemberDTO> attentionTopList();
 	
 
 	
