@@ -9,9 +9,14 @@
 		(select roomid from roomuser where id = #{param1}) order by recent_no desc
 	</select>
 	
+	<select id="riderlist" resultType="com.ino.member.dto.MemberDTO">
+		select * from user u LEFT JOIN photo p ON p.photo_div = u.user_id and p.cate_no = 'p001'
+		where sigungu = (select sigungu from user where user_id = #{param1}) and user_div = 'c'
+	</select>
+	
 	<select id="msglist" resultType="com.ino.chat.dto.MsgDTO">
 		select * from chatmsg c LEFT JOIN photo p ON p.photo_div = c.msg_no and p.cate_no = 'p004'
-		where roomid = #{param1}
+		where roomid = #{param1} order by msg_no
 	</select>
 	
 	<select id="userlist" resultType="String">
@@ -44,6 +49,11 @@
 			values(#{param2},"판매",#{param1}, "", 999999999)
 	</insert>
 	
+	<insert id="newchat2" parameterType="String">
+		insert into chatroom(roomname, msg_div, msg_div_no, recent_msg, recent_no)
+			values(#{param2},"배송",#{param1}, "", 999999999)
+	</insert>
+	
 	<select id="lastroom" resultType="Int">
 		select MAX(roomid) from chatroom
 	</select>
@@ -55,6 +65,13 @@
 	<select id="salephoto" resultType="String">
 		select new_photo_name from photo
 		where cate_no = 'p005' and photo_div = #{param1} limit 1
+	</select>
+	
+	<select id="getsalephotobydelivery" resultType="String">
+		select new_photo_name from photo
+		where cate_no = 'p005' and photo_div = 
+		(select sales_no from delivery_offer do  where  delivery_offer_no = #{param1})
+>>>>>>> origin/master
 	</select>
 	
 	<select id="userphoto" resultType="String">
@@ -70,6 +87,15 @@
 		select msg_div_no from chatroom where roomid = #{param1}
 	</select>
 	
+	<select id="salenum2" resultType="Int">
+		select sales_no from delivery_offer do
+		where delivery_offer_no = (select msg_div_no from chatroom where roomid = #{param1})
+	</select>
+	 
+	 <select id="getdelivery" resultType="com.ino.delivery.dto.RiderDTO">
+		select * from delivery_offer do LEFT JOIN delivery_history dh ON do.delivery_offer_no = dh.delivery_accept_no where do.delivery_offer_no = #{param1};
+	</select>
+	
 	<select id="msgsale" resultType="com.ino.sales.dto.SalesDTO">
 		select * from sales where sales_no = #{param1}
 	</select>
@@ -78,8 +104,8 @@
 		select id from roomuser r where roomid = #{param1} and id != #{param2};
 	</select>
 	
-	<select id="username" resultType="String">
-		select user_name from user where user_id = #{param1}
+	<select id="username" resultType="com.ino.member.dto.MemberDTO">
+		select * from user where user_id = #{param1}
 	</select>
 	
 	<update id="chatsaledone">
@@ -88,6 +114,14 @@
 	
 	<select id="findroomuser" resultType="String">
 		select roomid from roomuser where id = #{param1} and roomid in (select roomid from chatroom where msg_div='판매' and msg_div_no = #{param2});
+	</select>
+	
+	<select id="findroomuser2" resultType="String">
+		select roomid from roomuser where id = #{param1} and roomid in (select roomid from chatroom where msg_div='배송' and msg_div_no = #{param2});
+	</select>
+	
+	<select id="offergetuserid" resultType="String">
+		select user_id from delivery_offer do where delivery_offer_no = #{param1}
 	</select>
 	
 	<insert

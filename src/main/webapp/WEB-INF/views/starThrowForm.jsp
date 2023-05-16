@@ -33,19 +33,20 @@ table, th, td{
 		</tr>
 		<c:forEach items="${starList}" var="i">
 			<tr>
-				<th>별점</th>
-				<td>
+				<th>	
 					<input type="text" name="cate_no" value="${i.cate_no}" hidden="true"/>
 					<input type="text" name="cate_name" value="${i.cate_name}"/>
-					<input type="radio" name="${i.cate_no}_value" value="1"/> 1
+				</th>
+				<td>
+					<input type="radio" name="${i.cate_no}" value="1"/> 1
 					&nbsp;&nbsp;&nbsp;&nbsp;
-					<input type="radio" name="${i.cate_no}_value" value="2"/> 2
+					<input type="radio" name="${i.cate_no}" value="2"/> 2
 					&nbsp;&nbsp;&nbsp;&nbsp;
-					<input type="radio" name="${i.cate_no}_value" value="3"/> 3
+					<input type="radio" name="${i.cate_no}" value="3"/> 3
 					&nbsp;&nbsp;&nbsp;&nbsp;
-					<input type="radio" name="${i.cate_no}_value" value="4"/> 4
+					<input type="radio" name="${i.cate_no}" value="4"/> 4
 					&nbsp;&nbsp;&nbsp;&nbsp;
-					<input type="radio" name="${i.cate_no}_value" value="5"/> 5
+					<input type="radio" name="${i.cate_no}" value="5"/> 5
 					&nbsp;&nbsp;&nbsp;&nbsp;
 				</td>
 			</tr>
@@ -64,20 +65,26 @@ $('#submit').click(function(){
 	var star_div_no = document.getElementById('star_div_no').value;
 	var user_id = document.getElementById('user_id').value;
 	var consumer_id = document.getElementById('consumer_id').value;
+	var star001 = document.querySelector('input[name="star001"]:checked').value;
+	var star002 = document.querySelector('input[name="star002"]:checked').value;
+	var star003 = document.querySelector('input[name="star003"]:checked').value;
 	
 	$.ajax({
 		type: 'post',
-		url: 'salesReportWrite.ajax',
+		url: 'starThrow.ajax',
 		data: {
-			'report_whom':report_whom,
+			'star_div_no':star_div_no,
 			'user_id':user_id,
-			'report_reason':report_reason,
+			'consumer_id':consumer_id,
+			'star001':star001,
+			'star002':star002,
+			'star003':star003
 		},
 		dataType: 'json',
 		success: function(data){
 			console.log(data.row);
 			if(data.row==1){
-				alert('신고되었습니다.');
+				alert('별점이 등록되었습니다.');
 				self.close();
 			}
 		},

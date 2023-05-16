@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ino.admin.dao.AdminGalleryDAO;
 import com.ino.admin.dto.AdminGalleryDTO;
@@ -27,22 +28,19 @@ public class AdminGalleryService {
 		
 	    HashMap<String, Object> map = new HashMap<String, Object>();
 	    int page = Integer.parseInt(String.valueOf(params.get("page")));
-	    // 1������  offset 0
-	    // 2������ offset 5
-	    // 3 ������ offset 10
-	    int offset = 5*(page-1);	    
+
+	    int offset = 10*(page-1);	    
 		
 	    logger.info("offset : " + offset);
 	    
-	    // ���� �� �ִ� �� ������ �� : ��ü �Խñ��� �� / �������� ������ �� �ִ� ��
+
 	    int total = 0;	    		
 		
 	    total = dao.totalCount();
 		
-	    int range = total%5  == 0 ? total/5 : total/5+1;
+	    int range = total%10  == 0 ? total/10 : total/10+1;
 	    
-	      logger.info("�ѰԽñ� �� : "+ total);
-	      logger.info("�� ������ �� : "+ range);
+
 	      
 	      page = page>range ? range:page;
 	      
@@ -63,6 +61,25 @@ public class AdminGalleryService {
 		
 		
 	}
+
+	public HashMap<String, Object> gblind(ArrayList<String> blindList) {
+		HashMap<String, Object> map = new HashMap<String,Object>();
+		
+		int blindSize = blindList.size(); 
+		
+		int successCnt = 0; // 총 몇개지울건지
+		for(String id: blindList) {
+			successCnt += dao.gblind(id);// delete 하면 한개의 업데이트 로우가 생기니까 증가시켜서 확인  
+		}
+		
+		map.put("msg", blindSize+ "요청중"+successCnt+" 개 블라인드 했습니다.");
+		
+		map.put("success",true );
+		return map;
+	}
+
+
+
 
 
 }

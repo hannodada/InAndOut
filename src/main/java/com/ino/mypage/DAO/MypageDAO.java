@@ -12,7 +12,7 @@ public interface MypageDAO {
 
 	MypageDTO mypage(String id);
 
-	int mystar(String starid);
+	Integer mystar(String starid);
 
 	MypageDTO myrider(String riderid);
 
@@ -56,13 +56,17 @@ public interface MypageDAO {
 
 	void userSetting(HashMap<String, String> params);
 
-	void userBizdo(String user_id);
+	void userBizdo(HashMap<String, String> params);
 
 	String userBiz(String user_id);
 
 	ArrayList<MypageDTO> interestSaleList(String user_id, String attention_div);
 
 	ArrayList<MypageDTO> interestglList(String user_id, String attention_div);
+
+	int rideroffer(String user_id);
+
+	int riderdelivery(String user_id, String string);
 
 
 	

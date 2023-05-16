@@ -2,7 +2,6 @@ package com.ino.delivery.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,33 +18,40 @@ public class RiderService {
 	
 	@Autowired RiderDAO dao;
 	
-	public ArrayList<RiderDTO> listRO() {
-		logger.info("listRO 서비스 이동");
-		return dao.listRO();
-	}
+	//public ArrayList<RiderDTO> listRO() {
+	//	logger.info("listRO 서비스 이동");
+	//	return dao.listRO();
+	//}
 
-	public RiderDTO dtoROD(String idx) {
+	public RiderDTO dtoROD(String delivery_offer_no) {
 		logger.info("dtoROD 서비스 이동");
-		return dao.dtoROD(idx);
+		return dao.dtoROD(delivery_offer_no);
+		//,sales_no
 	}
 
-	public ArrayList<RiderDTO> listDH() {
-		logger.info("listDH 서비스 이동");
-		return dao.listDH();
+	//public ArrayList<RiderDTO> listDH() {
+	//	logger.info("listDH 서비스 이동");
+	//	return dao.listDH();
+	//}
+
+	//public ArrayList<RiderDTO> listDS() {
+	//	return dao.listDS();
+	//}
+
+	public RiderDTO dtoUO(String rider_id) {
+		logger.info("dtoUO 서비스 도착 : "+ rider_id);
+		return dao.dtoUO(rider_id);
+	}
+	
+	public RiderDTO dtoUOS(String msg_div_no) {
+		logger.info("dtoUOS msg_div_no" + msg_div_no);
+		
+		return dao.dtoUOS(msg_div_no);
 	}
 
-	public ArrayList<RiderDTO> listDS() {
-		return dao.listDS();
-	}
-
-	public RiderDTO dtoUO(String user_id) {
-		logger.info("dtoUO 서비스 도착 : "+ user_id);
-		return dao.dtoUO(user_id);
-	}
-
-	public ArrayList<RiderDTO> listRL() {
-		return dao.listRL();
-	}
+	/*
+	 * public ArrayList<RiderDTO> listRL() { return dao.listRL(); }
+	 */
 
 	/*
 	 * public String uoWrite(HashMap<String, String> params) {
@@ -60,9 +66,7 @@ public class RiderService {
 	 * return "riderOffer"; }
 	 */
 
-	public RiderDTO dtoUOS(String sales_no) {
-		return dao.dtoUOS(sales_no);
-	}
+	
 
 
 
@@ -131,9 +135,143 @@ public class RiderService {
 		int row = dao.writeUO(dto);
 		logger.info("insert 횟수"+row);
 		
-		page = "redirect:/";
+		page = "redirect:/riderOffer.go";
 		
 		return page;
+	}
+
+	public HashMap<String, Object> riderListAjax(int page, int cnt) {
+		logger.info(page+"페이지 보여줘");
+		logger.info("한 페이지에 "+cnt+" 개씩 보여줄거야");
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		// 1page = offset : 0
+		// 2page = offset : ?
+		// 3page = offset : ?
+		
+		int offset = cnt*(page-1);
+		
+		// 만들 수 있는 총 페이지 수
+		// 전체 게시물 / 페이지당 보여줄 수
+		int total = dao.totalCountRL();
+		int range = total%cnt == 0?total/cnt : (total/cnt)+1;
+		logger.info("전체 페이지 수 :" +total);
+		logger.info("총 페이지 수:" +range);
+		
+		page = page > range ? range : page; 
+		
+		map.put("currPage", page);
+		map.put("pages", range);
+		
+		ArrayList<RiderDTO> list = dao.listRL(cnt,offset);
+		map.put("list", list);
+		
+		return map;
+	}
+
+	
+	public HashMap<String, Object> riderOfferAjax(int page, int cnt) {
+		logger.info(page+"페이지 보여줘");
+		logger.info("한 페이지에 "+cnt+" 개씩 보여줄거야");
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		// 1page = offset : 0
+		// 2page = offset : ?
+		// 3page = offset : ?
+		
+		int offset = cnt*(page-1);
+		
+		// 만들 수 있는 총 페이지 수
+		// 전체 게시물 / 페이지당 보여줄 수
+		int total = dao.totalCountRO();
+		int range = total%cnt == 0?total/cnt : (total/cnt)+1;
+		logger.info("전체 페이지 수 :" +total);
+		logger.info("총 페이지 수:" +range);
+		
+		page = page > range ? range : page; 
+		
+		map.put("currPage", page);
+		map.put("pages", range);
+		
+		ArrayList<RiderDTO> list1 = dao.listRO(cnt,offset);
+		map.put("list", list1);
+		
+		return map;
+	}
+
+	public HashMap<String, Object> deliveryStateAjax(int page, int cnt) {
+		logger.info(page+"페이지 보여줘");
+		logger.info("한 페이지에 "+cnt+" 개씩 보여줄거야");
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		// 1page = offset : 0
+		// 2page = offset : ?
+		// 3page = offset : ?
+		
+		int offset = cnt*(page-1);
+		
+		// 만들 수 있는 총 페이지 수
+		// 전체 게시물 / 페이지당 보여줄 수
+		int total = dao.totalCountDS();
+		int range = total%cnt == 0?total/cnt : (total/cnt)+1;
+		logger.info("전체 페이지 수 :" +total);
+		logger.info("총 페이지 수:" +range);
+		
+		page = page > range ? range : page; 
+		
+		map.put("currPage", page);
+		map.put("pages", range);
+		
+		ArrayList<RiderDTO> list1 = dao.listDS(cnt,offset);
+		map.put("list", list1);
+		
+		return map;
+	}
+
+	public HashMap<String, Object> deliveryHistroyAjax(int page, int cnt) {
+		
+		logger.info(page+"페이지 보여줘");
+		logger.info("한 페이지에 "+cnt+" 개씩 보여줄거야");
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		// 1page = offset : 0
+		// 2page = offset : ?
+		// 3page = offset : ?
+		
+		int offset = cnt*(page-1);
+		
+		// 만들 수 있는 총 페이지 수
+		// 전체 게시물 / 페이지당 보여줄 수
+		int total = dao.totalCountDH();
+		
+		int range = total%cnt == 0?total/cnt : (total/cnt)+1;
+		logger.info("전체 페이지 수 :" +total);
+		logger.info("총 페이지 수:" +range);
+		
+		page = page > range ? range : page; 
+		
+		map.put("currPage", page);
+		map.put("pages", range);
+		
+		ArrayList<RiderDTO> list1 = dao.listDH(cnt,offset);
+		map.put("list", list1);
+		
+		return map;
+	}
+
+	public HashMap<String, Object> filtering(HashMap<String, String> params) {
+		logger.info("params 값" + params);
+		
+		RiderDTO dto = new RiderDTO();
+		dto.setDelivery_state(params.get("delivery_state"));
+		
+		logger.info("dto Delivery_state : "+dto.getDelivery_state());
+		
+		return dao.filtering(dto);
 	}
 
 	/*

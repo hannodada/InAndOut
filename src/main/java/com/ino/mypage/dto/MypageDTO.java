@@ -106,7 +106,7 @@ public class MypageDTO {
 		return email;
 	}
 	public void setEmail(String email) {
-		this.email = email.substring(0, email.indexOf("@"));
+		this.email = email;
 	}
 	public String getUser_state() {
 		return user_state;

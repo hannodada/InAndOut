@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC   "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+
+<mapper namespace="com.ino.admin.dao.AdminSalesDAO">
+
+
+
+	<select id="stotalCount" parameterType="String" resultType ="int">
+		SELECT COUNT (sales_no) FROM sales
+	</select>
+
+
+	<select id="slist" resultType="com.ino.admin.dto.AdminSalesDTO">
+		select s.sales_no , s.subject , s.user_id ,u.nickname , s.sales_state , s.date 
+		from sales s
+		join user u on u.user_id = s.user_id 
+		LIMIT 10 OFFSET #{offset}
+	</select>	
+	
+	<update id="sblind" parameterType="java.lang.String">
+		update sales set blind = 1 where blind = 0 and sales_no = #{sales_no}
+	</update>
+	
+	<select id="shistory" resultType="com.ino.admin.dto.AdminSalesDTO">
+		select *from sales s 
+		left join report r on s.sales_no = r.report_whom
+		where s.sales_no = #{sales_no}
+	</select>		
+	
+	<insert id="history_sblind" parameterType="hashmap">
+		insert into report_history(report_no,report_time, report_content,report_id)
+		VALUES (#{report_no},#{report_time},#{report_content},#{report_id})
+	
+	</insert>
+	
+	
+</mapper>

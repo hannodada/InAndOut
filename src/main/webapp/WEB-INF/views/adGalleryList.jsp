@@ -31,10 +31,10 @@
 	      <input type="submit" value="검색">
     </form>
     
-    <form>
-    <button onclick="">블라인드</button>
-    <button onclick="">블라인드 해제</button>
-		</form>
+    
+    <button onclick="blind()">블라인드</button>
+    <button onclick="noblind()">블라인드 해제</button>
+
     
    <!-- 표 -->
    <div>
@@ -47,6 +47,7 @@
 					<th>상호명</th>
 					<th>아이디</th>
 					<th>등록일자</th>
+					<th>갤러리 상태</th>
 					<th>히스토리</th>
 				</tr>
 			</thead>
@@ -74,7 +75,7 @@
 		  	</tbody>
 		
          <tr>
-           <th colspan="7" id="paging">  
+           <th colspan="8 id="paging">  
              <div class="container">                  
                <nav aria-label="Page navigation">
                  <ul class="pagination justify-content-center" id="pagination"></ul>
@@ -136,16 +137,21 @@ function listCall(page){
 function listPrint(list){
 	   var content ='';
 	   
-	   list.forEach(function(item){
+	   list.forEach(function(item,index){
 	      
 	      // 배열 요소들 반복문 실행 -> 행 구성 + 데이터 추가 
 	      content +='<tr>';
-	      content +='<td><input type="checkbox"></td>';
+	      content +='<td><input type="checkbox" name="check"></td>';
 	      content +='<td>'+item.gallery_no+'</td>';
-	      content +='<td id="userdiv">'+item.gallery_subject+'</td>';
+	      content +='<td id="userdiv"><a href="galleryDetail.do?gallery_no='+ item.gallery_no +'">' + truncateString(item.gallery_subject, 16) + '</a></td>';
 	      content +='<td>'+item.store_name+'</td>';
 	      content +='<td>'+item.user_id+'</td>';
 	      content +='<td>'+item.gallery_date+'</td>';
+	        if (item.blind == 1) {
+	            content += '<td>블라인드</td>';
+	        } else {
+	            content += '<td>정상</td>';
+	        }
 	      content +='<td id="subject"><a href="history.go?gallery_no='+ item.gallery_no +'">' + "상세보기" + '</a></td>';
 
 	      content +='</tr>';
@@ -155,7 +161,65 @@ function listPrint(list){
 	   // list 요소의 내용 지우고 추가 - 페이징 처리 
 	   $('#list').empty();
 	   $('#list').append(content);
-	}
 
-</script>
+	   
+	   
+	}
+	   $('#all').click(function(e){
+	   var $chk = $('input[type="checkbox"]');
+	   	
+	   if($(this).is(':checked')){
+	      $chk.prop('checked',true);
+	   }else{
+	      $chk.prop('checked',false);
+	   }
+		console.log($chk);
+	 
+  
+	   });
+	   
+	   
+
+	   
+	   function blind(){
+			
+		   var checkBoxArr = [];
+			// 체크박스중에서 체크 된 놈 가져올 것 
+			 $("input:checkbox[name='check']:checked").each(function() {
+				 checkBoxArr.push($(this).val()); 
+				 console.log(checkBoxArr);
+			})
+			
+			  $.ajax({
+			      type : "POST",
+			      url : "/blind.ajax",
+			      data: {
+			      checkBoxArr:checkBoxArr   
+			      },
+			      success: function(result){
+			      	console.log(result);
+			      },
+			      error: function(xhr, status, error) {
+			      	alert(error);
+			      }  
+			   });
+			}			
+				 
+				 
+	   function truncateString(str, maxLength) {
+		    if (str.length > maxLength) {
+		        return str.substring(0, maxLength) + "...";
+		    }
+		    return str;
+		}
+			 
+				 
+				 
+				 
+				 
+		 
+				 
+		
+	   
+			</script>
 </html>

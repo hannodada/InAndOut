@@ -50,6 +50,7 @@
 				GROUP BY s.sales_no ORDER BY s.sales_no DESC
 			</otherwise>
 		</choose>
+		LIMIT ${cnt} OFFSET ${offset}
 	</select>
 	
 	<select id="getBiz_name" parameterType="String" resultType="String">
@@ -141,5 +142,32 @@
 		</if>
 		WHERE sales_no = #{sales_no}
 	</update>
+	
+	<select id="salesTotalCount" parameterType="HashMap" resultType="Integer">
+		SELECT count(s.sales_no) FROM sales s 
+			LEFT JOIN user u ON s.user_id = u.user_id
+			LEFT JOIN photo p ON p.photo_div = s.sales_no AND p.cate_no = 'p005'
+			LEFT JOIN biz b ON s.biz_id = b.biz_id 
+			LEFT JOIN goods g ON s.goods_id = g.goods_id 
+			WHERE s.blind = '0' AND (s.sales_state = '판매중' OR s.sales_state = '판매완료')
+		<if test='sido != null  and !sido.equals("default")'>
+			AND s.sales_sido = #{sido}
+		</if>
+		<if test='sigungu != null  and !sigungu.equals("default")'>
+			AND s.sigungu = #{sigungu}
+		</if>
+		<if test='biz_id != null  and !biz_id.equals("default")'>
+			AND s.biz_id = #{biz_id}
+		</if>
+		<if test='goods_id != null and !goods_id.equals("default")'>
+			AND s.goods_id = #{goods_id}
+		</if>
+		<if test='minPrice != null  and !minPrice.equals("default")'>
+			AND s.price >= #{minPrice}
+		</if>
+		<if test='maxPrice != null  and !maxPrice.equals("default")'>
+			<![CDATA[ AND s.price <= #{maxPrice} ]]>	
+		</if>
+	</select>
 	
 </mapper>

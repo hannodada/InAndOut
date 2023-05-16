@@ -9,19 +9,19 @@ public interface RiderDAO {
 
 	ArrayList<RiderDTO> listRO();
 
-	RiderDTO dtoROD(String idx);
+	RiderDTO dtoROD(String delivery_offer_no);
 
-	ArrayList<RiderDTO> listDH();
+	// ArrayList<RiderDTO> listDH();
 
-	ArrayList<RiderDTO> listDS();
+	// ArrayList<RiderDTO> listDS();
 
-	RiderDTO dtoUO(String user_id);
+	RiderDTO dtoUO(String rider_id);
 
-	ArrayList<RiderDTO> listRL();
+	// ArrayList<RiderDTO> listRL();
 
 	//int uoWrite(RiderDTO dto);
 
-	RiderDTO dtoUOS(String sales_no);
+	RiderDTO dtoUOS(String msg_div_no);
 
 	int deliveryUpdate(String idx);
 
@@ -34,6 +34,24 @@ public interface RiderDAO {
 	HashMap<String, Object> select(RiderDTO dto);
 
 	int writeUO(RiderDTO dto);
+
+	int totalCountRL();
+
+	ArrayList<RiderDTO> listRL(int cnt, int offset);
+
+	ArrayList<RiderDTO> listRO(int cnt, int offset);
+
+	int totalCountRO();
+
+	int totalCountDS();
+
+	ArrayList<RiderDTO> listDS(int cnt, int offset);
+
+	int totalCountDH();
+
+	ArrayList<RiderDTO> listDH(int cnt, int offset);
+
+	HashMap<String, Object> filtering(RiderDTO dto);
 
 
 }

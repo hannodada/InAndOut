@@ -49,18 +49,18 @@
 	<div id="bizauthphoto">
 			<h4 style="font-size:15px; color: skyblue; display:inline;">
 			* 사업자등록증&nbsp;&nbsp;</h4>
-	<c:if test="${new_photo_name eq null}">
+	<c:if test="${biz_photo eq null}">
 					<input type="file" name="photo" />
 				</c:if>
-				<c:if test="${new_photo_name ne null}">
-					<img src="/photo/${new_photo_name}" style="width: 130px;"/>
+				<c:if test="${biz_photo ne null}">
+					<img src="/photo/${biz_photo}" style="width: 130px;"/>
 					<input type="file" name="photo" />
 				</c:if>
 	</div>
 	
-	<div id="riderupdatebutton3">
+	<div id="riderupdatebutton4">
 	<input type="button" onclick="location.href='./riderPage'" value="돌아가기"/>
-	<button type="button">저장</button>
+	<button type="submit">저장</button>
 	</div>
 	</form>
 	

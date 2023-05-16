@@ -80,6 +80,15 @@
 		SELECT COUNT(attention_no) FROM attention WHERE user_id=#{param1} 
 	</select>
 	
+	<select id="rideroffer" resultType="int">
+	SELECT COUNT(delivery_offer_no) FROM delivery_offer WHERE rider_id=#{param1} 
+	</select>
+	
+		<select id="riderdelivery" resultType="int">
+	SELECT COUNT(delivery_state) from delivery_history dh WHERE dh.delivery_accept_no IN (select delivery_offer_no 
+	FROM delivery_offer where rider_id=#{param1} ) AND delivery_state =#{param2}
+	</select>
+	
 	<select id="star001" resultType="int">
 		SELECT AVG(star_score) FROM star_test_paper stp
 		WHERE star_category_no ='star001' AND stp.star_no in (SELECT star_no FROM star WHERE star_to_id=#{param1})
@@ -149,12 +158,12 @@
 		SELECT user_div FROM user WHERE user_id=#{param1}
 	</select>
 	
-	<insert id="userBizdo">
+	<insert id="userBizdo" parameterType="hashmap">
 		INSERT INTO auth_extra(user_id,biz_num, biz, store_name, state)
 		VALUES (#{user_id},#{biz_num},#{biz},#{store_name},#{state})
 	</insert>
 	
-	<select id="userBiz">
+	<select id="userBiz" resultType="String">
 	SELECT interest_biz_id FROM user WHERE user_id=#{param1}
 	</select>
 </mapper>

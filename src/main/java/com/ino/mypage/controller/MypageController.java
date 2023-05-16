@@ -46,10 +46,15 @@ public class MypageController {
 				model.addAttribute("galleryList", galleryList);
 				
 		//프사 가져오기		
-				String new_photo_name = service.getPhotoName(user_id, "p001");
-				model.addAttribute("new_photo_name",new_photo_name);
+		String new_photo_name = service.getPhotoName(user_id, "p001");
+		model.addAttribute("new_photo_name",new_photo_name);
 		//평점
-			int avg = service.mystar(user_id);
+		int avg;
+		try {
+		   avg = service.mystar(user_id);
+		} catch (Exception e) {
+		   avg = 0;
+		} 
 			logger.info("평균점수 :" + avg);
 			model.addAttribute("avg", avg);
 		// 판매글, 갤러리 갯수 세기
@@ -78,11 +83,15 @@ public class MypageController {
 		logger.info("가져온 값 : " + dto);
 		logger.info("닉네임: " + dto.getNickname());
 		model.addAttribute("dto", dto);
-		
-		
-			int avg = service.mystar(user_id);
-			logger.info("평균점수 :" + avg);
-			model.addAttribute("avg", avg);
+		//평점
+				int avg;
+				try {
+				   avg = service.mystar(user_id);
+				} catch (Exception e) {
+				   avg = 0;
+				} 
+					logger.info("평균점수 :" + avg);
+					model.addAttribute("avg", avg);
 		
 		// 라이더 extra 불러오기
 		MypageDTO extra = service.myrider(user_id);
@@ -101,6 +110,12 @@ public class MypageController {
 		model.addAttribute("new_photo_name",new_photo_name);
 		session.setAttribute("new_photo_name", new_photo_name);
 		
+		//제안요청, 배송 진행 불러오기
+		int rideroffer = service.rideroffer(user_id);
+		model.addAttribute("rideroffer", rideroffer);
+		int riderdelivery = service.riderdelivery(user_id,"배송중");
+		model.addAttribute("riderdelivery", riderdelivery);
+		
 		return page;
 	}
 
@@ -109,10 +124,23 @@ public class MypageController {
 		String user_id = (String) session.getAttribute("loginId");
 		String page = "redirect:/riderPage";
 		MypageDTO extra = service.riderdetail("user003");
-		//별점
-		int avg = service.mystar(user_id);
-		logger.info("평균점수 :" + avg);
-		model.addAttribute("avg", avg);
+		//닉네임
+				MypageDTO dto = service.mypage(user_id);
+				model.addAttribute("dto", dto);
+				//평점
+				int avg;
+				try {
+				   avg = service.mystar(user_id);
+				} catch (Exception e) {
+				   avg = 0;
+				} 
+					logger.info("평균점수 :" + avg);
+					model.addAttribute("avg", avg);
+					//제안요청, 배송 진행 불러오기
+					int rideroffer = service.rideroffer(user_id);
+					model.addAttribute("rideroffer", rideroffer);
+					int riderdelivery = service.riderdelivery(user_id,"배송중");
+					model.addAttribute("riderdelivery", riderdelivery);
 		if(extra != null) {
 		page ="riderUpdate";
 		model.addAttribute("extra", extra);
@@ -127,10 +155,23 @@ public class MypageController {
 	 String>params, HttpSession session, Model model) {
 	String user_id = (String) session.getAttribute("loginId");
 	 logger.info("가져온 값들 : " + params); 
-	 //별점
-	 int avg = service.mystar(user_id);
+	//닉네임
+			MypageDTO dto = service.mypage(user_id);
+			model.addAttribute("dto", dto);
+			//평점
+			int avg;
+			try {
+			   avg = service.mystar(user_id);
+			} catch (Exception e) {
+			   avg = 0;
+			} 
+				logger.info("평균점수 :" + avg);
+				model.addAttribute("avg", avg);
 		logger.info("평균점수 :" + avg);
 		model.addAttribute("avg", avg);
+		//프사 가져오기		
+				String new_photo_name = service.getPhotoName(user_id, "p001");
+				model.addAttribute("new_photo_name",new_photo_name);
 	 return service.riderUpdatedo(params);
 	 
 	 }
@@ -144,11 +185,23 @@ public class MypageController {
 		String user_id = (String) session.getAttribute("loginId");
 		MypageDTO riderSetting = service.riderSetting(user_id);
 		logger.info("riderSetting : "+riderSetting);
-		
-		//별점
-		int avg = service.mystar(user_id);
-		logger.info("평균점수 :" + avg);
-		model.addAttribute("avg", avg);
+		//닉네임
+				MypageDTO dto = service.mypage(user_id);
+				model.addAttribute("dto", dto);
+				//평점
+				int avg;
+				try {
+				   avg = service.mystar(user_id);
+				} catch (Exception e) {
+				   avg = 0;
+				} 
+					logger.info("평균점수 :" + avg);
+					model.addAttribute("avg", avg);
+					//제안요청, 배송 진행 불러오기
+					int rideroffer = service.rideroffer(user_id);
+					model.addAttribute("rideroffer", rideroffer);
+					int riderdelivery = service.riderdelivery(user_id,"배송중");
+					model.addAttribute("riderdelivery", riderdelivery);
 		
 		if(!(riderSetting==null)) {
 		logger.info("riderSetting에 값있어서 if문 안으로 들어옴");
@@ -166,11 +219,23 @@ public class MypageController {
 			 String>params, HttpSession session, MultipartFile photo) {
 		String user_id = (String) session.getAttribute("loginId");
 		String user_pw = (String) session.getAttribute("loginPw");
-		
-		//별점
-		int avg = service.mystar(user_id);
-		logger.info("평균점수 :" + avg);
-		model.addAttribute("avg", avg);
+		//닉네임
+				MypageDTO dto = service.mypage(user_id);
+				model.addAttribute("dto", dto);
+				//평점
+				int avg;
+				try {
+				   avg = service.mystar(user_id);
+				} catch (Exception e) {
+				   avg = 0;
+				} 
+					logger.info("평균점수 :" + avg);
+					model.addAttribute("avg", avg);
+					//제안요청, 배송 진행 불러오기
+					int rideroffer = service.rideroffer(user_id);
+					model.addAttribute("rideroffer", rideroffer);
+					int riderdelivery = service.riderdelivery(user_id,"배송중");
+					model.addAttribute("riderdelivery", riderdelivery);
 		
 		String new_photo_name = service.getPhotoName(user_id, "p001");
 		model.addAttribute("new_photo_name",new_photo_name);
@@ -200,13 +265,26 @@ public class MypageController {
 		String user_id = (String) session.getAttribute("loginId");
 		String user_pw = (String) session.getAttribute("loginPw");
 		String pw = params.get("user_pw");
+		//프사 가져오기		
+				String new_photo_name = service.getPhotoName(user_id, "p001");
+				model.addAttribute("new_photo_name",new_photo_name);
 		//닉네임
 		MypageDTO dto = service.mypage(user_id);
 		model.addAttribute("dto", dto);
-		//별점
-				int avg = service.mystar(user_id);
-				logger.info("평균점수 :" + avg);
-				model.addAttribute("avg", avg);
+		//평점
+				int avg;
+				try {
+				   avg = service.mystar(user_id);
+				} catch (Exception e) {
+				   avg = 0;
+				} 
+					logger.info("평균점수 :" + avg);
+					model.addAttribute("avg", avg);
+					//제안요청, 배송 진행 불러오기
+					int rideroffer = service.rideroffer(user_id);
+					model.addAttribute("rideroffer", rideroffer);
+					int riderdelivery = service.riderdelivery(user_id,"배송중");
+					model.addAttribute("riderdelivery", riderdelivery);
 		
 		logger.info("예전 비밀번호 : "+ user_pw);
 		if(user_pw.equals(pw)) {
@@ -242,8 +320,15 @@ public class MypageController {
 				model.addAttribute("countgallery", countgallery);
 				int countinterest = service.countinterest(user_id);
 				model.addAttribute("countinterest", countinterest);
-		//별점
-		int avg = service.mystar(user_id);
+				//평점
+				int avg;
+				try {
+				   avg = service.mystar(user_id);
+				} catch (Exception e) {
+				   avg = 0;
+				} 
+					logger.info("평균점수 :" + avg);
+					model.addAttribute("avg", avg);
 		logger.info("평균점수 :" + avg);
 		model.addAttribute("avg", avg);
 		
@@ -284,7 +369,14 @@ public class MypageController {
 		String new_photo_name = service.getPhotoName(user_id, "p001");
 		model.addAttribute("new_photo_name",new_photo_name);
 		//평점
-			int avg = service.mystar(user_id);
+				int avg;
+				try {
+				   avg = service.mystar(user_id);
+				} catch (Exception e) {
+				   avg = 0;
+				} 
+					logger.info("평균점수 :" + avg);
+					model.addAttribute("avg", avg);
 			logger.info("평균점수 :" + avg);
 			model.addAttribute("avg", avg);
 		// 판매글, 갤러리 갯수 세기
@@ -296,10 +388,10 @@ public class MypageController {
 		model.addAttribute("countinterest", countinterest);
 		
 		if(user_pw.equals(oripassword)) {
-		logger.info("비밀번호가 일치합니다 회원정보 수정 페이지로 이동합니다");
+		
 		MypageDTO riderSetting = service.riderSetting(user_id);
 		if(riderSetting != null) {
-					
+			logger.info("비밀번호가 일치합니다 회원정보 수정 페이지로 이동합니다");
 		model.addAttribute("riderSetting", riderSetting);
 		page = "userSetting";
 		} else{	
@@ -310,7 +402,7 @@ public class MypageController {
 		return page;
 	}
 	
-	@RequestMapping(value = "/userSetting.do")
+	@RequestMapping(value = "/userSetting.do", method = RequestMethod.POST)
 	public String userSettingdo(Model model, @RequestParam HashMap<String,
 			 String>params, HttpSession session, MultipartFile photo) {
 		String user_id = (String) session.getAttribute("loginId");
@@ -320,8 +412,15 @@ public class MypageController {
 		MypageDTO dto = service.mypage(user_id);
 		model.addAttribute("dto", dto);
 		
-		//별점
-		int avg = service.mystar(user_id);
+		//평점
+				int avg;
+				try {
+				   avg = service.mystar(user_id);
+				} catch (Exception e) {
+				   avg = 0;
+				} 
+					logger.info("평균점수 :" + avg);
+					model.addAttribute("avg", avg);
 		logger.info("평균점수 :" + avg);
 		model.addAttribute("avg", avg);
 		//프사 저장
@@ -360,7 +459,14 @@ public class MypageController {
 		String new_photo_name = service.getPhotoName(user_id, "p001");
 		model.addAttribute("new_photo_name",new_photo_name);
 		//평점
-			int avg = service.mystar(user_id);
+				int avg;
+				try {
+				   avg = service.mystar(user_id);
+				} catch (Exception e) {
+				   avg = 0;
+				} 
+					logger.info("평균점수 :" + avg);
+					model.addAttribute("avg", avg);
 			logger.info("평균점수 :" + avg);
 			model.addAttribute("avg", avg);
 		// 판매글, 갤러리 갯수 세기
@@ -377,7 +483,7 @@ public class MypageController {
 	
 	@RequestMapping(value="/userBiz.do")
 	public String userBizdo(Model model, @RequestParam HashMap<String,
-			 String>params, HttpSession session) {
+			 String>params, HttpSession session, MultipartFile photo) {
 		String user_id = (String) session.getAttribute("loginId");
 		//닉네임
 		MypageDTO dto = service.mypage(user_id);
@@ -386,7 +492,14 @@ public class MypageController {
 		String new_photo_name = service.getPhotoName(user_id, "p001");
 		model.addAttribute("new_photo_name",new_photo_name);
 		//평점
-			int avg = service.mystar(user_id);
+				int avg;
+				try {
+				   avg = service.mystar(user_id);
+				} catch (Exception e) {
+				   avg = 0;
+				} 
+					logger.info("평균점수 :" + avg);
+					model.addAttribute("avg", avg);
 			logger.info("평균점수 :" + avg);
 			model.addAttribute("avg", avg);
 		// 판매글, 갤러리 갯수 세기
@@ -402,9 +515,14 @@ public class MypageController {
 		params.put("state", "인증대기");
 		params.put("user_id", user_id);
 		logger.info("params : "+params);
-		service.userBizdo(user_id);
+	
+		//정보 인서트하기 (상호명, 사업자등록번호, 사업자등록증 사진)
+		service.userBizdo(photo, params, user_id,session);
 		logger.info("alert)인증사용자 신청이 완료되었습니다");
-		String page = "myPage";
+		//사업자등록증 가져오기
+		String biz_photo = service.getPhotoName(user_id, "p002");
+		model.addAttribute("biz_photo",biz_photo);
+		String page = "redirect:/myPage.go?user_id="+user_id;
 		return page;
 		
 	}
@@ -435,8 +553,15 @@ public class MypageController {
 		//프사 가져오기		
 		String new_photo_name = service.getPhotoName(user_id, "p001");
 		model.addAttribute("new_photo_name",new_photo_name);
-		//별점
-				int avg = service.mystar(user_id);
+		//평점
+				int avg;
+				try {
+				   avg = service.mystar(user_id);
+				} catch (Exception e) {
+				   avg = 0;
+				} 
+					logger.info("평균점수 :" + avg);
+					model.addAttribute("avg", avg);
 				logger.info("평균점수 :" + avg);
 				model.addAttribute("avg", avg);
 		return "mySales";
@@ -459,8 +584,15 @@ public class MypageController {
 						// 갤러리 띄우기
 						ArrayList<MypageDTO> galleryList = service.galleryList(user_id);
 						model.addAttribute("galleryList", galleryList);
-		//별점
-				int avg = service.mystar(user_id);
+						//평점
+						int avg;
+						try {
+						   avg = service.mystar(user_id);
+						} catch (Exception e) {
+						   avg = 0;
+						} 
+							logger.info("평균점수 :" + avg);
+							model.addAttribute("avg", avg);
 				logger.info("평균점수 :" + avg);
 				model.addAttribute("avg", avg);
 				
@@ -484,8 +616,15 @@ public class MypageController {
 						model.addAttribute("countgallery", countgallery);
 						int countinterest = service.countinterest(user_id);
 						model.addAttribute("countinterest", countinterest);
-		//별점
-				int avg = service.mystar(user_id);
+						//평점
+						int avg;
+						try {
+						   avg = service.mystar(user_id);
+						} catch (Exception e) {
+						   avg = 0;
+						} 
+							logger.info("평균점수 :" + avg);
+							model.addAttribute("avg", avg);
 				logger.info("평균점수 :" + avg);
 				model.addAttribute("avg", avg);
 				//프사 가져오기		
@@ -512,8 +651,15 @@ public class MypageController {
 						model.addAttribute("countgallery", countgallery);
 						int countinterest = service.countinterest(user_id);
 						model.addAttribute("countinterest", countinterest);
-		//별점
-				int avg = service.mystar(user_id);
+						//평점
+						int avg;
+						try {
+						   avg = service.mystar(user_id);
+						} catch (Exception e) {
+						   avg = 0;
+						} 
+							logger.info("평균점수 :" + avg);
+							model.addAttribute("avg", avg);
 				logger.info("평균점수 :" + avg);
 				model.addAttribute("avg", avg);
 				//프사 가져오기		
@@ -541,8 +687,15 @@ public class MypageController {
 						model.addAttribute("countgallery", countgallery);
 						int countinterest = service.countinterest(user_id);
 						model.addAttribute("countinterest", countinterest);
-		//별점
-				int avg = service.mystar(user_id);
+						//평점
+						int avg;
+						try {
+						   avg = service.mystar(user_id);
+						} catch (Exception e) {
+						   avg = 0;
+						} 
+							logger.info("평균점수 :" + avg);
+							model.addAttribute("avg", avg);
 				logger.info("평균점수 :" + avg);
 				model.addAttribute("avg", avg);
 				//프사 가져오기		

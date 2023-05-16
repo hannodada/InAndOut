@@ -30,38 +30,59 @@ public class RiderController {
 	@Autowired RiderService service;
 	
 	
-	@RequestMapping(value = "/riderList.go") // 라이더 리스트 보기
-	public String riderList(Model model, HttpSession session) {
-		// select 사진 들고와야함
-		
-		String page = "redirect:/";
-		
-		if(session.getAttribute("loginId")!=null) {
-			logger.info("riderList 컨트롤러 이동");
-			ArrayList<RiderDTO> listRL = service.listRL();
-			model.addAttribute("riderList",listRL);
-			// 해당 채팅에서 판매글 번호 들고오기
-			
-			page = "riderList";
-		}
-		
-		return page;
-	}
 	/*
-	 * @RequestMapping(value = "/userOffer.go") public String Rider() { return
-	 * "userOffer"; }
+	 * @RequestMapping(value = "/riderList.go") // 라이더 리스트 보기 public String
+	 * riderList(Model model, HttpSession session) { // select 사진 들고와야함
+	 * 
+	 * String page = "redirect:/";
+	 * 
+	 * if(session.getAttribute("loginId")!=null) { logger.info("riderList 컨트롤러 이동");
+	 * ArrayList<RiderDTO> listRL = service.listRL();
+	 * model.addAttribute("riderList",listRL); // 해당 채팅에서 판매글 번호 들고오기
+	 * 
+	 * page = "riderList"; }
+	 * 
+	 * return page; }
+	 */
+	@RequestMapping(value = "/riderList.go")
+	public String riderList() {
+		
+		return "riderList";
+	}
+	
+	@RequestMapping(value="/riderList.ajax", method = RequestMethod.POST ) // 페이징 아작스
+	@ResponseBody
+	public HashMap<String, Object> riderListAjax(
+			@RequestParam String page,
+			@RequestParam String cnt){
+		return service.riderListAjax(Integer.parseInt(page),Integer.parseInt(cnt));
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/*
+	 * @RequestMapping(value = "/userOffer.go") public String Rider() { return "userOffer"; }
 	 */
 	
 	
 	@RequestMapping(value = "/userOffer.do") // 사용자가 제안하는 페이지
-	public String userOfferGo(@RequestParam String user_id, Model model, @RequestParam String sales_no) {
+	public String userOfferGo(@RequestParam String rider_id, Model model, @RequestParam String sales_no) {
 		
-		logger.info("user_id 값 =  " +user_id,sales_no);
 		
-		if(user_id != null) {
 		
-		RiderDTO dto = service.dtoUO(user_id);
-		logger.info("user_id =  " + dto);
+		logger.info("user_id 값 =  {} {}", rider_id,sales_no);
+		
+		if(rider_id != null) {
+		
+		RiderDTO dto = service.dtoUO(rider_id);
+		logger.info("user_id =  " + dto.getUser_id());
 		model.addAttribute("dto", dto);
 	
 		}
@@ -83,13 +104,14 @@ public class RiderController {
 	 */
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	@RequestMapping(value = "/riderOfferDetail") // 라이더에게 제한한 사용자 물품 상세보기
-	public String riderOfferDetail(@RequestParam String idx, Model model) {
+	public String riderOfferDetail(@RequestParam String delivery_offer_no, Model model) {
 		
 		// select 
-		logger.info("riderOfferDetail : " + idx);
+		logger.info("riderOfferDetail : " + delivery_offer_no);
+		//logger.info("sales_no : " + sales_no);
 		String page = "riderOffer";
 		
-		RiderDTO dtoROD = service.dtoROD(idx);
+		RiderDTO dtoROD = service.dtoROD(delivery_offer_no);
 		
 		if(dtoROD != null) {
 			page = "riderOfferDetail";
@@ -99,7 +121,7 @@ public class RiderController {
 		return page;
 	}
 	
-	@RequestMapping(value = "/riderOffer.go") // 라이더 제안 확인
+	/*@RequestMapping(value = "/riderOffer.go") // 라이더 제안 확인
 	public String riderOffer(Model model, HttpSession session) {
 		
 		// select
@@ -115,6 +137,22 @@ public class RiderController {
 		}
 		return page;
 	}
+	*/
+	@RequestMapping(value = "/riderOffer.go") // 라이더 제안 확인
+	public String riderOffer() {
+		
+		return "riderOffer";
+	}
+	
+	@RequestMapping(value = "/riderOffer.ajax", method = RequestMethod.POST)
+	@ResponseBody
+	public HashMap<String, Object> riderOfferAjax(
+			@RequestParam String page,
+			@RequestParam String cnt){
+		return service.riderOfferAjax(Integer.parseInt(page),Integer.parseInt(cnt));
+	}
+	
+	
 	
 	
 	
@@ -133,8 +171,16 @@ public class RiderController {
 		return "redirect:/deliveryState.go";
 	}
 	
+	@RequestMapping(value = "/deliveryNone.do") // 
+	public String deliveryNone(@RequestParam String idx) {
+		
+		service.deliveryNone(idx);
+		
+		return "redirect:/riderOffer.go";
+	}
 	
-	@RequestMapping(value = "/deliveryState.go")
+	
+	/*@RequestMapping(value = "/deliveryState.go")
 	public String deliveryStateG(Model model, HttpSession session) {
 		
 		String page = "redirect:/";
@@ -149,14 +195,21 @@ public class RiderController {
 		}
 		return page;
 	}
-	
-	@RequestMapping(value = "/deliveryNone.do") // 
-	public String deliveryNone(@RequestParam String idx) {
-		
-		service.deliveryNone(idx);
-		
-		return "redirect:/riderOffer.go";
+	*/
+	@RequestMapping(value = "/deliveryState.go")
+	public String deliveryStateG() {
+		return "deliveryState";
 	}
+	
+	@RequestMapping(value = "/deliveryState.ajax", method = RequestMethod.POST)
+	@ResponseBody
+	public HashMap<String, Object> deliveryStateAjax(
+			@RequestParam String page,
+			@RequestParam String cnt){
+		return service.deliveryStateAjax(Integer.parseInt(page),Integer.parseInt(cnt));
+	}
+	
+	
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	/*
 	@RequestMapping(value = "recognize.ajax")
@@ -180,11 +233,7 @@ public class RiderController {
 		return map;
 	}
 	*/
-	
-	
-	
-	
-	
+
 	//-----------------------------------------------------------------------------------------------------------
 	
 	/*@RequestMapping(value = "/select.do")
@@ -195,7 +244,7 @@ public class RiderController {
 	*/
 	
 	
-	@RequestMapping(value = "/deliveryHistory.go") // 배송 이력 보기
+	/*@RequestMapping(value = "/deliveryHistory.go") // 배송 이력 보기
 	public String deliveryHistory(Model model, HttpSession session) {
 		
 		// DB에 배송상태(delivery_state = '배송완료')가 배송완료인 것들만 출력하기
@@ -212,6 +261,21 @@ public class RiderController {
 		
 		return page;
 	}
+	*/
+	@RequestMapping(value = "/deliveryHistory.go")
+	public String deliveryHistory() {
+		return "deliveryHistory";
+	}
+	
+	@RequestMapping(value = "/deliveryHistory.ajax", method = RequestMethod.POST)
+	@ResponseBody
+	public HashMap<String, Object> deliveryHistroyAjax(
+			@RequestParam String page,
+			@RequestParam String cnt
+			){
+		
+		return service.deliveryHistroyAjax(Integer.parseInt(page),Integer.parseInt(cnt));	
+	}
 	
 	@RequestMapping(value = "/select.ajax", method = RequestMethod.POST)
 	@ResponseBody
@@ -226,6 +290,13 @@ public class RiderController {
 //		map.put("delivery_state", selectList);
 		
 		return service.select(params);
+	}
+	
+	@RequestMapping(value = "filtering.ajax")
+	@ResponseBody
+	public HashMap<String, Object> filteringAjax(@RequestParam HashMap<String, String> params){
+		logger.info("historystate : "+params.get("delivery_state"));
+		return service.filtering(params);
 	}
 
 	

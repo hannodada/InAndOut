@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.ino.admin.dao.AdminMemberListDAO;
 import com.ino.admin.dto.AdminMemberDTO;
@@ -26,51 +27,49 @@ public class AdminMemberListService {
 	    String userstate = String.valueOf(params.get("userstate"));
 	    String userId = String.valueOf(params.get("userid"));
 	    String search = String.valueOf(params.get("search"));
-	    logger.info(page + "�� ���õ� ȸ���з���" + userdiv +"���� ������");
-	    logger.info(page + "�� ���õ� ȸ�����°�" + userstate +"���� ������");
-	    logger.info("���������� " + 5 +"���� ������ �� ");
+	    String categoryId = String.valueOf(params.get("categoryId"));
+
+
 		
 	    HashMap<String, Object> map = new HashMap<String, Object>();
-	    
-	    // 1������  offset 0
-	    // 2������ offset 5
-	    // 3 ������ offset 10
-	    int offset = 5*(page-1);	    
+
+	    int offset = 10*(page-1);	    
 		
 	    logger.info("offset : " + offset);
 	    
-	    // ���� �� �ִ� �� ������ �� : ��ü �Խñ��� �� / �������� ������ �� �ִ� ��
+	    logger.info("params : " + params);
+	    
 	    int total = 0;	    
 		
 	    if(search.equals("default") || search.equals("")) {
 	      if(userdiv.equals("default") && userstate.equals("default")) {
 	      
-	      // ��ü �����ֱ�
+
 	      total = dao.totalCount();
 	       
 	      }else if(!(userdiv.equals("default")) && userstate.equals("default")){
 	             
-	      // ȸ�� �з��� ���õ� ���
+
 	      total = dao.totalCountUserdiv(params);
 	             
 	       }else if(userdiv.equals("default") && !(userstate.equals("default"))){
 	             
-	      // ȸ�� ���¸� ���� �� ���
+
 	      total = dao.totalCountUserstate(params);
 	             
 	       }else {
 	        
-	      // ȸ�� �з�, ȸ�� ���� �Ѵ� ���� �� ��� 
+
 	      total = dao.totalCountAll(params);
 	      }
 	    
 	    }else {	      
 	    	   	   
-	      // �˻���� �۵�
-	      total = dao.totalCountSearch(search);
+	    	total = dao.totalCountSearch(search);
 	       }
-	       		
-	    int range = total%5  == 0 ? total/5 : total/5+1;
+	    
+	    
+	    int range = total%5  == 0 ? total/10 : total/10+1;
 	    
 	      logger.info("�ѰԽñ� �� : "+ total);
 	      logger.info("�� ������ �� : "+ range);
@@ -81,30 +80,29 @@ public class AdminMemberListService {
 		
 	      params.put("offset", offset);
 		
-	      logger.info("params : " + params);
 	      
 	      
 	      if(search.equals("default") ||search.equals("")) {
 	        if(userdiv.equals("default") && userstate.equals("default")) {
-	          // ��ü �����ֱ�
+
 	          list = dao.list(offset);
 	       
 	        }else if(!(userdiv.equals("default")) && userstate.equals("default")) {
-	          // ȸ�� �з��� ���� �� ��� 
+
 	          list = dao.listUserdiv(params);
 	        }
 	         
 	        else if(userdiv.equals("default") && !(userstate.equals("default"))){
-	          // ȸ�� ���¸� ���� �� ���
+
 	          list = dao.listUserstate(params);
 	        
 	        }else {
-	          // ȸ�� �з�, ȸ�� ���� ��� ����
+
 	          list = dao.listAll(params);
 	         }
 	     
 	      }else {
-	         // �˻� ���
+
 	         list = dao.listSearch(params);
 	      }
 	      		
@@ -166,14 +164,14 @@ public class AdminMemberListService {
 		return dao.riderdetailextra(user_id);
 	}
 
-	// ����ó�� �� �����丮 �ۼ�
+	// 라이더 회원 가입대기 -> 정상으로 변경 
 	public int history_riderstate(HashMap<String, String> params,String user_id) {
 		int result = dao.history_riderstate(params);
 		dao.riderchange(user_id);
 		return result;
 	}
 	
-	// �ݷ�ó�� �� �����丮 �ۼ�
+	// 라이더 승인대기 승인처리
 	public int history_riderstate2(HashMap<String, String> params, String user_id) {
 		
 		return dao.history_riderstate2(params);
@@ -186,11 +184,6 @@ public class AdminMemberListService {
 	}
 
 
-
-	public AdminMemberDTO uhistorydetail(String user_id, String user_state, String state_time) {
-		
-		return dao.uhistorydetail(user_id,user_state,state_time);
-	}
 
 	public HashMap<String, Object> riderlist(HashMap<String, Object> params) {
 	   
@@ -276,23 +269,16 @@ public class AdminMemberListService {
 		return result; 
 	}
 
-
-
-	// ����ó�� �� �����丮 �ۼ� 
-
-
-
-
-
-
-
-
-
-	
-
+	public AdminMemberDTO uhistorydetail(String user_state) {
+		logger.info("히스토리 디테일 요청"+user_state);
+		return dao.uhistorydetail(user_state);
+	}
 
 
 
 	}
+
+
+
 
 

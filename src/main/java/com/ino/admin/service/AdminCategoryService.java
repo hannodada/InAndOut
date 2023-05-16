@@ -27,22 +27,18 @@ public class AdminCategoryService {
 		
 	    HashMap<String, Object> map = new HashMap<String, Object>();
 	    int page = Integer.parseInt(String.valueOf(params.get("page")));
-	    // 1������  offset 0
-	    // 2������ offset 5
-	    // 3 ������ offset 10
-	    int offset = 5*(page-1);	    
+
+	    int offset = 10*(page-1);	    
 		
 	    logger.info("offset : " + offset);
-	    
-	    // ���� �� �ִ� �� ������ �� : ��ü �Խñ��� �� / �������� ������ �� �ִ� ��
+	
 	    int total = 0;	    		
 		
-	    total = dao.totalCount();
 		
-	    int range = total%5  == 0 ? total/5 : total/5+1;
+	    int range = total%10  == 0 ? total/10 : total/10+1;
 	    
-	      logger.info("�ѰԽñ� �� : "+ total);
-	      logger.info("�� ������ �� : "+ range);
+	    logger.info("전체 게시물 수: " + total);
+	    logger.info("전체 페이지 수: " + range);
 	      
 	      page = page>range ? range:page;
 	      
@@ -53,7 +49,15 @@ public class AdminCategoryService {
 	      logger.info("params : " + params);		
 		
 		
-	      list = dao.list(offset);
+	      if (params.get("requestType").equals("category")) {
+	          list = dao.clist(params);
+	          total = dao.ctotalCount();
+	          range = total % 10 == 0 ? total / 10 : total / 10 + 1;
+	      } else if (params.get("requestType").equals("goods")) {
+	          list = dao.glist(params);
+	          total = dao.gtotalCount();
+	          range = total % 10 == 0 ? total / 10 : total / 10 + 1;
+	      }
 		
 	      map.put("list", list);
 	      map.put("currPage", page);

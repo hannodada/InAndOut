@@ -21,6 +21,8 @@ import com.ino.chat.dto.ChatDTO;
 import com.ino.chat.dto.ImgChatDTO;
 import com.ino.chat.dto.MsgDTO;
 import com.ino.chat.service.ChatService;
+import com.ino.delivery.dto.RiderDTO;
+import com.ino.member.dto.MemberDTO;
 import com.ino.sales.dto.SalesDTO;
 
 @Controller
@@ -52,7 +54,7 @@ public class ChatController {
 			String loginId = (String) session.getAttribute("loginId");
 			logger.info("loginId = " + loginId);
 			ArrayList<ChatDTO> chatlist = service.list(loginId);
-			ArrayList<String> userlist = new ArrayList<String>();
+			ArrayList<MemberDTO> userlist = new ArrayList<MemberDTO>();
 			ArrayList<String> salephotolist = new ArrayList<String>();
 			ArrayList<String> userphotolist = new ArrayList<String>();
 			for (ChatDTO args: chatlist) {
@@ -60,7 +62,8 @@ public class ChatController {
 					String salephoto = service.salephoto(args.getMsg_div_no());
 					salephotolist.add(salephoto);
 				} else {
-					salephotolist.add("rider");
+					String salephoto = service.getsalephotobydelivery(args.getMsg_div_no());
+					salephotolist.add(salephoto);
 				}
 				int roomid = args.getRoomid();
 				ArrayList<String> roomuserlist = service.userlist(roomid);
@@ -93,28 +96,37 @@ public class ChatController {
 		logger.info("msgList 실행.");
 		boolean login = false;
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		RiderDTO msgrider = new RiderDTO();
 		
 		if(session.getAttribute("loginId") != null) {
 			session.setAttribute("selectedRoom", id);
 			
 			String issale = service.issale(id);
 			logger.info("issale: " + issale);
+			int salenum = 0;
 			if(issale.equals("판매")) {
-				int salenum = service.salenum(id);
-				SalesDTO msgsale = new SalesDTO();
-				msgsale = service.msgsale(salenum);
-				logger.info("msgsale: " + msgsale);
-				map.put("sale", msgsale);
-				String salephoto = service.salephoto(Integer.toString(salenum));
-				map.put("salephoto", salephoto);
+				salenum = service.salenum(id);
+			} else {
+				logger.info("delivery offer no: " + id);
+				salenum = service.salenum2(id);
+				int deliveryno = service.salenum(id);
+				logger.info("salenum: " + salenum);
+				msgrider = service.getdelivery(deliveryno);
 			}
+			SalesDTO msgsale = new SalesDTO();
+			msgsale = service.msgsale(salenum);
+			logger.info("msgsale: " + msgsale);
+			map.put("sale", msgsale);
+			String salephoto = service.salephoto(Integer.toString(salenum));
+			map.put("salephoto", salephoto);
 			login = true;
 			logger.info("id = " + id);
 			ArrayList<MsgDTO> msglist = service.msglist(id);
+			map.put("delivery", msgrider);
 			map.put("list", msglist);
 			
 			String msguser = service.msguser(id, (String)session.getAttribute("loginId"));
-			String username = service.username(msguser);
+			MemberDTO username = service.username(msguser);
 			String userphoto = service.userphoto(msguser);
 			map.put("user", username);
 			map.put("userphoto", userphoto);
@@ -162,6 +174,28 @@ public class ChatController {
 		return "redirect:/chat.go";
 	}
 	
+	@RequestMapping(value = "riderChatOpen.do")
+	public String newchat2(@RequestParam String offers_no, HttpSession session) {
+		String loginId = (String) session.getAttribute("loginId");
+		// loginId -> 라이더
+		// user_id -> 요청자
+		String user_id = service.offergetuserid(offers_no);
+		if(session.getAttribute("loginId") != null) {
+			String roomuserno = service.findroomuser2(user_id, offers_no);
+			logger.info("findroomuser: " + roomuserno);
+			if(roomuserno == null) {
+				logger.info("속한 채팅방이 없다");
+				logger.info("loginId: {}/user_id: {}", loginId, user_id);
+				int newroom = service.newroom2(offers_no,loginId,user_id);
+				session.setAttribute("selectedRoom", newroom);
+			}else {
+				session.setAttribute("selectedRoom", roomuserno);
+			}
+		}
+		
+		return "redirect:/chat.go";
+	}
+	
 	@RequestMapping(value = "imgSend.ajax", method = RequestMethod.POST)
 	@ResponseBody
 	public void imgSend(ImgChatDTO imgDTO, HttpSession session) throws Exception {
@@ -179,11 +213,41 @@ public class ChatController {
 	}
 	
 	@RequestMapping(value = "chatsaledone.do")
-	public String chatsaledone(@RequestParam String modalsaleid, HttpSession session) {
+	public String chatsaledone(@RequestParam String modalsaleid, @RequestParam String modalroomid, HttpSession session) {
 		String loginId = (String) session.getAttribute("loginId");
+		logger.info("sales_no: {}, roomid: {}", modalsaleid, modalroomid);
 		service.chatsaledone(modalsaleid);
 		
 		//return "redirect:/salesDetail.do?sales_no=" + modalsaleid;
 		return "redirect:/chat.go";
+	}
+	
+	@RequestMapping(value = "chatriderList.ajax")
+	@ResponseBody
+	public HashMap<String, Object> chatriderList(HttpSession session){
+		logger.info("chatList 실행.");
+		boolean login = false;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		if(session.getAttribute("loginId") != null) {
+			login = true;
+			String loginId = (String) session.getAttribute("loginId");
+			logger.info("loginId = " + loginId);
+			ArrayList<MemberDTO> chatriderlist = service.riderlist(loginId);
+			
+			for (MemberDTO args : chatriderlist) {
+				logger.info("ridername: " + args.getNickname());
+				logger.info("ridername: " + args.getNickname());
+				logger.info("ridername: " + args.getNickname());
+				logger.info("ridername: " + args.getNickname());
+				logger.info("ridername: " + args.getNickname());
+				logger.info("ridername: " + args.getNickname());
+			}
+			
+			map.put("chatriderlist", chatriderlist);
+		}
+		
+		return map;
+		
 	}
 }

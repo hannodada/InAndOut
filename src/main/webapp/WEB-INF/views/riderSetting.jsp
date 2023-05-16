@@ -67,7 +67,6 @@
 			</td>
 		</tr>
 		<tr>
-		<td></td>
 		<td><input type="text" id="sample6_address" placeholder="주소" name="left_addr" value="${riderSetting.sido}&nbsp;${riderSetting.sigungu}&nbsp;${riderSetting.left_addr}" size=30><br></td>
 		</tr>
 		
@@ -139,19 +138,19 @@
 	
 	<div id="riderupdatebutton3">
 	<input type="button" onclick="location.href='./riderPage'" value="돌아가기"/>
-	<button type="submit" onclick="join()">저장</button>
+	<button onclick="join()">저장</button>
 	</div>
 	</form>
 	
 	<hr>
     <div class="main-box">
         <div class="profile-box">
-        <img src="/photo/${new_photo_name}" style="width: 130px;">
+        <img src="/photo/${new_photo_name}" style="width: 130px;"/>
             <div class="title-nickname">
             <h2>${dto.nickname}</h2>
             </div>
         </div>
-        <div class="content">
+        <div class="content2">
         <c:choose>
         	<c:when test="${avg eq 1}">
         	<img src="resources/img/dolphin1.png" style="width: 60px;"/>
@@ -165,163 +164,99 @@
         	<c:when test="${avg eq 4}">
         	<img src="resources/img/dolphin4.png" style="width: 60px;"/>
         	</c:when>
+        	<c:when test="${avg eq 5}">
+        	<img src="resources/img/dolphin5.png" style="width: 60px;"/>
+        	</c:when>
         </c:choose>        
-        		
-            <p>나의 &돌핀 단계 : ${avg}단계</p>
-            <hr>
+
+        </div>
+            <div id="avgdolphin">&nbsp;&nbsp;나의 &돌핀 단계 : ${avg}단계&nbsp;&nbsp;</div>
             <div class="parent">
 		        <div class="pfirst">제안요청</div>
 		        <div class="psecond">배송 진행</div>
-		    </div>
+		    		</div>
 		    <div class="child">
-		        <div class="cfirst">4</div>
-		        <div class="csecond">2</div>
+		        <div class="cfirst">${rideroffer}</div>
+		        <div class="csecond">${riderdelivery}</div>
 		    </div>
-
-        </div>
+    </div>
     </div>
 </body>
 <!--다음 주소 api  -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>  
-<script type="text/javascript">
+<script>
+function join(){     
+    var $user_id = $('#user_id');
+    var $newpassword = $('#newpassword');
+    var $confirm_password = $('#confirm_password');
+    var $nickname = $('#nickname');
+    var $post_num = $('#sample6_postcode');
+    var $phone_num = $('#phone_num');
+    var $email = $('#email');
+    var $interest_biz_id = $("#interest_biz_id option:selected").val();
+    var $sigungu = $("#sigungu");
+    var $sido = $("#sido");
+    var $left_addr = $("#left_addr");
+    var pweq = false;
+    
+    console.log($interest_biz_id);
+    
+    if($newpassword.val().length == 0){
+        alert('비밀번호를 입력해 주세요!');
+        console.log("1");
+        $newpassword.focus();
+    }else if($confirm_password.val() == ''){
+        alert('비밀번호 확인을 해주세요!');
+        $confirm_password.focus();
+        console.log("2");
+    }else if($nickname.val() == ''){
+        alert('닉네임을 입력해 주세요!');
+        $nickname.focus();
+        console.log("3");
+    }else if($post_num.val() == null){
+        alert('우편번호를 입력해 주세요!');
+        console.log("4");
+    }else if($phone_num.val() == null){
+        alert('전화번호를 입력해 주세요!');
+        console.log("5");
+    }else if($email.val() == ''){
+        alert('이메일 입력해 주세요!');
+        $email.focus();
+        console.log("6");
+    }else if($interest_biz_id.val() == '.'){
+        alert('관심업종을 선택해 주세요!');
+        console.log("7");
+    }else{
+        var overlayChk = true;
+        var param = {};
+        param.interest_biz_id = $interest_biz_id;
+        param.newpassword = $newpassword.val();
+        param.confirm_password = $confirm_password.val();
+        param.nickname = $nickname.val();
+        param.post_num = $post_num.val();
+        param.phone_num = $phone_num.val();
+        param.email = $email.val();
+        
+        console.log(param);
+        
+    }}
 
-
-var pweq = false;
-var overlayChk = false;
-var overlayChk2 = false;
-
-$('document').ready(function(){
-	var elem = $('#nickname').val();
-	console.log(elem);
-	if(elem!=null){
-		overlayChk2 = true;
-	}
-	
-});
-function join(){
-	
-	if(pweq && overlayChk && overlayChk2){
-		
-		var $user_id = $('#user_id');
-		var $newpassword = $('#newpassword');
-
-		var $nickname = $('#nickname');
-		var $post_num = $('input[name=post_num]').val();
-		var $phone_num = $('#phone_num');
-		var $email = $('#email');
-		var $interest_biz_id = $('#interest_biz_id');
-		
-		console.log('post_num : '+ $post_num);
-	
-		if($newpassword.val()==''){
-			alert('비밀번호를 입력해 주세요!');
-			$newpassword.focus();
-		}else if($confirm_password.val() == ''){
-			alert('비밀번호 확인을 해주세요!');
-			$confirm_password.focus();
-		}else if($nickname.val() == ''){
-			alert('닉네임을 입력해 주세요!');
-			$nickname.focus();
-		}else if($post_num.val() == null){
-			alert('우편번호를 입력해 주세요!');
-		}else if($phone_num.val() == null){
-			alert('전화번호를 입력해 주세요!');
-		}else if($email.val() == ''){
-			alert('이메일 입력해 주세요!');
-			$email.focus();
-		}else if($interest_biz_id.val() == '.'){
-			alert('관심업종을 선택해 주세요!');
-		}else{
-			var param = {};
-			param.interest_biz_id = $interest_biz_id.val();
-			param.newpassword = $newpassword.val();
-			param.confirm_password = $confirm_password.val();
-			param.nickname = $nickname.val();
-			param.post_num = $post_num.val();
-			param.phone_num = $phone_num.val();
-			param.email = $email.val();
-			
-			console.log(param);
-			
-			$.ajax({
-				type: 'post',
-				url:'update.ajax',
-				data:param,
-				dataType: 'json',
-				success:function(data){
-					console.log(data);
-					if(data.success == 1){
-						alert('수정이 완료되었습니다');
-						location.href='./';
-					}else{
-						alert('수정에 실패했습니다.\r\n 다시 시도해주세요!');
-					}
-					
-				},
-				error: function(e){
-					console.log(e);
-					alert('회원가입에 실패했습니다.\r\n 다시 시도해주세요!');
-					
-				}
-			});
-		}
-		
-		
-	}else{
-		overlayChk = true;
-		alert('overlayChk가 true');
-	}	
-}
-
-
-$('#overlay3').on('click',function(e){	
-	var chkId2 = $('#nickname').val();	
-	var nickname = document.getElementById('nickname').value;
-	
-	console.log('chkId2 : '+chkId2);
-	console.log('nickname : '+nickname);
-	
-	console.log('닉네임중복체크를 요청한 아이디 : '+chkId2);
-	
-	$.ajax({
-		type:'get',
-		url:'overlay3.ajax',
-		data:{'nickname':chkId2},
-		dataType:'json',
-		success:function(data){
-			console.log(data);
-			if(data.overlay3 == 0){
-				if(nickname == chkId2){
-					alert('사용 가능한 닉네임 입니다.');
-					overlayChk2 = true;
-				}
-				
-			}else{
-				alert('이미 사용중인 닉네임 입니다.');
-				$('#nickname').val('');
-			}
-		},
-		error:function(e){
-			console.log(e);
-		}
-	});
-	
-});
 
 $('#confirm_password').on('keyup',function(e){
-	console.log('confirm_password: '+$('#confirm_password').val());
-	console.log('newpassword: '+$('#newpassword').val());
-	if($('#newpassword').val() == $(this).val()){
-		$('#msg').css({'font-size': '10px', 'color': 'darkgreen'});
-		$('#msg').html('비밀번호가 일치 합니다.');
-		pweq = true;
-	}else{
-		$('#msg').css({'font-size': '10px', 'color': 'red'});
-		$('#msg').html('비밀번호가 일치 하지 않습니다.');
-	}	
-});
-
-console.log("${riderSettingdo.new_photo_name}");
+    console.log('confirm_password: '+$('#confirm_password').val());
+    console.log('newpassword: '+$('#newpassword').val());
+     if($('#newpassword').val() == $(this).val()){
+        $('#msg').css({'font-size': '10px', 'color': 'darkgreen'});
+        $('#msg').html('비밀번호가 일치 합니다.');
+        var pweq = true;
+     }else{
+        $('#msg').css({'font-size': '10px', 'color': 'red'});
+        $('#msg').html('비밀번호가 일치 하지 않습니다.');
+     }   
+  });
+if(pweq && overlayChk){
+    alert('회원정보 수정이 완료되었습니다');
+}
 
 function sample6_execDaumPostcode() {
     new daum.Postcode({

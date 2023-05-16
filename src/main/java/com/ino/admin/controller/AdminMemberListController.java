@@ -3,16 +3,20 @@ package com.ino.admin.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.ino.admin.dto.AdminMemberDTO;
 import com.ino.admin.service.AdminMemberListService;
@@ -29,20 +33,29 @@ public class AdminMemberListController {
 	Logger logger  = LoggerFactory.getLogger(this.getClass());
 
     @RequestMapping(value="/ad.userlist.do")
-    public String userlist() {
-    	logger.info("ȸ�� ����Ʈ ��û");
-        return "adUserList";
+    public String userlist(HttpSession session) {
+    	
+    	String page = "redirect:/";
+    
+		if(session.getAttribute("loginId") != null) {
+			logger.info("로그인 여부 확인");
+			page = "adUserList";
+		}
+		
+        return page;
     }
     
     @RequestMapping(value="/list.ajax", method = RequestMethod.POST)
     @ResponseBody
-    public HashMap<String, Object> list( @RequestParam HashMap<String, Object> params
- 		  		
-    		){
-    	logger.info("����Ʈ �ҷ�������");
+    public HashMap<String, Object> list(HttpSession session, @RequestParam HashMap<String, Object> params){
+    	
        return service.list(params);
     }
     
+    
+
+	
+	
 	@RequestMapping(value="/ad.userdetail.do")
 	public String userdetail(Model model, @RequestParam (required=false, value="user_id")String user_id) {
 		/* �α��� 
@@ -51,7 +64,7 @@ public class AdminMemberListController {
 		
 		logger.info("�󼼺��� ��û"+user_id);
 		AdminMemberDTO dto = service.viewdetail(user_id);
-		logger.info("dto : ",dto);
+		logger.info("dto : "+dto);
 		model.addAttribute("user", dto);
 
 		
@@ -61,33 +74,42 @@ public class AdminMemberListController {
 	
 	// ȸ�� �߰�����
 	@RequestMapping(value="/ad.userdetail.extra.do")
-	public String userdetailextra(Model model,@RequestParam (required=false, value="user_id")String user_id) {
-		/* �α��� 
-		String page ="redirect:/ad.userlist.do";
-		*/
+	public String userdetailextra(HttpSession session,Model model,@RequestParam (required=false, value="user_id")String user_id) {
 		
+		
+		String page = "redirect:/";
+		if(session.getAttribute("loginId") != null) {
+			logger.info("로그인 여부 확인");
+			page = "adUserDetailExtra";
+		}
 		logger.info("�߰� ���� ���� ��û"+user_id);
 		AdminMemberDTO dto = service.viewdetailextra(user_id);
-		logger.info("dto : ",dto);
+		logger.info("dto : "+dto);
 		model.addAttribute("user", dto);
 
 		
 		return "adUserDetailExtra";
 	}  
 	
-	// ȸ�� �Ϲ� -> ������ ó�� 
-	@RequestMapping(value = "/ad.userlist.do", method=RequestMethod.POST)
-	public String history_userstate(@RequestParam HashMap<String, String> params, @RequestParam String user_id, Model model) {
+	// 회원 일반 -> 인증 변경
+	@RequestMapping(value = "/history_userstate.do", method=RequestMethod.POST)
+	public String history_userstate(HttpSession session,@RequestParam HashMap<String, String> params, @RequestParam String user_id, Model model) {
+
+		String page = "redirect:/";
+		if(session.getAttribute("loginId") != null) {
+			logger.info("로그인 여부 확인");
+			page = "adUserDetailExtra";
+		}
 		
 		logger.info("params : {}",params);
-		int row = service.history_userstate(params, user_id); // �ؿ��� Ȯ���غ����� row �� ��������
+		int row = service.history_userstate(params, user_id); 
 		logger.info("insert row : "+row);
 		
 		logger.info("�󼼺��� ��û"+user_id);
-		AdminMemberDTO dto = service.viewdetail(user_id);
+		AdminMemberDTO dto = service.viewdetailextra(user_id);
 		logger.info("dto : ",dto);
 		model.addAttribute("user", dto);
-		return "adUserDetailExtra";
+		return page;
 	}	
 	
 	@RequestMapping(value="/ustatechange.do")
@@ -96,15 +118,15 @@ public class AdminMemberListController {
 		AdminMemberDTO dto = service.viewdetail(user_id);
 		logger.info("dto : ",dto);
 		model.addAttribute("user", dto);
-		return "adUserDetailState";
+		return "adUserDetailExtra";
 	}
 	
 	@RequestMapping(value = "/ad.updateUserState", method=RequestMethod.POST)
 	public String updateUserState(@RequestParam HashMap<String, String> params, 
 			                       @RequestParam String user_id, Model model){
-	    String radioValue = params.get("radioValue"); // ���� ��ư�� ���� �� ����
+	    String radioValue = params.get("radioValue"); 
 		logger.info("params : {}",params);
-		int row = service.updateUserState(params, user_id, radioValue); // �ؿ��� Ȯ���غ����� row �� ��������
+		int row = service.updateUserState(params, user_id, radioValue); 
 		logger.info("insert row : "+row);
 		
 		logger.info("ȸ�� ���º��� ��û"+user_id);
@@ -114,7 +136,7 @@ public class AdminMemberListController {
 		return "adUserDetail";
 	}		
 	
-	// ȸ�� �����丮 ����
+	// 회원히스토리 이동
     @RequestMapping(value="/user.history.go", method = RequestMethod.GET)
     public String userhistory(Model model, @RequestParam (required=false, value="user_id")String user_id) {
     	logger.info("����Ʈ��û");
@@ -125,16 +147,17 @@ public class AdminMemberListController {
         return "adUserHistory";
     }
 	
-    // ȸ�� �����丮 ó������ ����
-	@RequestMapping(value="/ad.history.detail.do")
-	public String uhistorydetail(Model model, @RequestParam (required=false, value="user_id")String user_id, @RequestParam String user_state, @RequestParam String state_time) {
-		/* �α��� 
-		String page ="redirect:/ad.userlist.do";
-		*/
+    // 회원 히스토리 디테일로 이동
+	@RequestMapping(value="/ad.uhistory.detail.do")
+	public String uhistorydetail(Model model,@RequestParam String user_state
+	
+			) {
+
 		
-		logger.info("�󼼺��� ��û"+user_id,user_state,state_time);
-		AdminMemberDTO dto = service.uhistorydetail(user_id,user_state,state_time);
-		logger.info("dto : ",dto);
+		logger.info("유저아이디,상태"+user_state);
+		AdminMemberDTO dto = service.uhistorydetail(user_state);
+		
+		logger.info("히스토리 디테일 dto"+dto);
 		model.addAttribute("user", dto);
 
 		
@@ -157,9 +180,9 @@ public class AdminMemberListController {
        return service.authuserlist(params);
     }		
 	
-	/* ******************���̴�********************** */
+	/* ***************라이더**************** */
 	
-	// ���̴� ����ó��
+	// 가입대기 승인처리
 	@RequestMapping(value = "/ad.riderlist.do", method=RequestMethod.POST)
 	public String history_riderstate(@RequestParam HashMap<String, String> params, @RequestParam String user_id, Model model) {
 		
@@ -174,7 +197,8 @@ public class AdminMemberListController {
 		return "adRiderDetail";
 	}
 	
-	// ���̴� �ݷ�ó��
+	// 승인반려
+
 	@RequestMapping(value = "/ad.riderlist.go", method=RequestMethod.POST)
 	public String history_riderstate2(@RequestParam HashMap<String, String> params, @RequestParam String user_id, Model model) {
 		

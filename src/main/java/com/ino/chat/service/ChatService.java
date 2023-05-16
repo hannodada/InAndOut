@@ -16,6 +16,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ino.chat.dao.ChatDAO;
 import com.ino.chat.dto.ChatDTO;
 import com.ino.chat.dto.MsgDTO;
+import com.ino.delivery.dto.RiderDTO;
+import com.ino.member.dto.MemberDTO;
 import com.ino.sales.dto.SalesDTO;
 import com.ino.sales.dao.*;
 
@@ -69,10 +71,25 @@ public class ChatService {
 		
 		return roomid;
 	}
+	
+	public int newroom2(String offers_no, String loginId, String username) {
+		logger.info("newchat2 service");
+		dao.newchat2(offers_no, username);
+		int roomid = dao.lastroom();
+		dao.roomjoin(roomid,loginId);
+		dao.roomjoin(roomid,username);
+		
+		return roomid;
+	}
 
 	public String salephoto(String msg_div_no) {
 		// TODO Auto-generated method stub
 		return dao.salephoto(msg_div_no);
+	}
+	
+	public String salephoto2(String msg_div_no) {
+		// TODO Auto-generated method stub
+		return dao.salephoto2(msg_div_no);
 	}
 
 	public String userphoto(String roomusername) {
@@ -89,6 +106,11 @@ public class ChatService {
 		// TODO Auto-generated method stub
 		return dao.salenum(id);
 	}
+	
+	public int salenum2(int id) {
+		// TODO Auto-generated method stub
+		return dao.salenum2(id);
+	}
 
 	public SalesDTO msgsale(int salenum) {
 		// TODO Auto-generated method stub
@@ -100,7 +122,7 @@ public class ChatService {
 		return dao.msguser(id, loginId);
 	}
 
-	public String username(String msguser) {
+	public MemberDTO username(String msguser) {
 		// TODO Auto-generated method stub
 		return dao.username(msguser);
 	}
@@ -112,6 +134,11 @@ public class ChatService {
 	public String findroomuser(String user_id, String sales_no) {
 		// TODO Auto-generated method stub
 		return dao.findroomuser(user_id, sales_no);
+	}
+	
+	public String findroomuser2(String user_id, String offers_no) {
+		// TODO Auto-generated method stub
+		return dao.findroomuser2(user_id, offers_no);
 	}
 
 	public void imgmsgsend(HashMap<String, String> params, MultipartFile[] uploadFile) {
@@ -165,4 +192,23 @@ public class ChatService {
 		}
 	}
 
+	public ArrayList<MemberDTO> riderlist(String loginId) {
+		// TODO Auto-generated method stub
+		return dao.riderlist(loginId);
+	}
+
+	public String offergetuserid(String offers_no) {
+		// TODO Auto-generated method stub
+		return dao.offergetuserid(offers_no);
+	}
+
+	public String getsalephotobydelivery(String msg_div_no) {
+		// TODO Auto-generated method stub
+		return dao.getsalephotobydelivery(msg_div_no);
+	}
+
+	public RiderDTO getdelivery(int id) {
+		// TODO Auto-generated method stub
+		return dao.getdelivery(id);
+	}
 }
