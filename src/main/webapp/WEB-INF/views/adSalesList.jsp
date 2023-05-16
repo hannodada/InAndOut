@@ -53,6 +53,7 @@
 				<th>아이디</th>
 				<th>닉네임</th>
 				<th>판매상태</th>
+				<th>블라인드 여부</th>
 				<th>등록일자</th>
 				<th>히스토리</th>
 			</tr>			
@@ -65,7 +66,7 @@
 		  	</tbody>
 		
          <tr>
-           <th colspan="8 id="paging">  
+           <th colspan="9 id="paging">  
              <div class="container">                  
                <nav aria-label="Page navigation">
                  <ul class="pagination justify-content-center" id="pagination"></ul>
@@ -87,7 +88,7 @@
 			    </div>
 			    <div class="modal-body">		    
 				   		<input type = "text" name="sales_no" value="${user.sales_no}" hidden/>
-				   		<input type = "text" name="report_time" value="${user.report_time}" hidden/>
+		
 			    	<p>처리사유</p>
 			      <p><textarea name="report_content">${user.report_content}</textarea></p>
 			
@@ -177,7 +178,11 @@ function listPrint(list){
 	    	} else if (item.sales_state === "삭제됨") {
 	    	    content += '<td>삭제됨</td>';
 	    	}
-
+	        if (item.blind == 1) {
+	            content += '<td>블라인드</td>';
+	        } else {
+	            content += '<td>정상</td>';
+	        }
 	      content +='<td>'+item.date+'</td>';
 	      content +='<td id="subject"><a href="shistory.go?sales_no='+ item.sales_no +'">' + "상세보기" + '</a></td>';
 

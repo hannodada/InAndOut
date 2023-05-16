@@ -2,6 +2,8 @@ package com.ino.admin.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -85,7 +87,7 @@ public class AdminReportController {
 	public HashMap<String, Object> gallerylist(@RequestParam HashMap<String, Object> params
 
 	) {
-		logger.info("판매글 신고 ajax 요청");
+		logger.info("판매글 신고 ajax 요청:"+params);
 		return service.gallerylist(params);
 	}
 	
@@ -105,13 +107,15 @@ public class AdminReportController {
 	}
 
 	@RequestMapping(value = "/detail.sreport.do")
-	public String sreportdetail(HttpSession session, Model model, @RequestParam String report_no) {
+	public String sreportdetail(HttpServletRequest req,HttpSession session, Model model, @RequestParam String report_no) {
 
-		String page = "redirect:/";
-		if (session.getAttribute("loginId") != null) {
-			logger.info("로그인 여부 확인");
-			page = "adSalesReportDetail";
-		}
+	    String page = "redirect:/";
+	    if (session.getAttribute("loginId") != null) {
+	        logger.info("로그인 여부 확인");
+	  
+	            page = "adSalesReportDetail";
+	        }
+	    
 
 		logger.info("판매글 신고목록" + report_no);
 		AdminReportDTO dto = service.sreportdetail(report_no);
@@ -120,6 +124,26 @@ public class AdminReportController {
 
 		return page;
 	}
+	
+	@RequestMapping(value = "/detail.greport.do")
+	public String greportdetail(HttpServletRequest req,HttpSession session, Model model, @RequestParam String report_no) {
+
+	    String page = "redirect:/";
+	    if (session.getAttribute("loginId") != null) {
+	        logger.info("로그인 여부 확인");
+	  
+	            page = "adGalleryReportDetail";
+	        }
+	    
+
+		logger.info("판매글 신고목록" + report_no);
+		AdminReportDTO dto = service.greportdetail(report_no);
+		logger.info("dto : ", dto);
+		model.addAttribute("dto", dto);
+
+		return page;
+	}
+
 
 	
 	/*
@@ -137,37 +161,43 @@ public class AdminReportController {
 	 
 
 
-	// 판매글 신고 처리
-	@RequestMapping(value = "/ad.sblind.do", method = RequestMethod.POST)
-	public String sblindyes(@RequestParam HashMap<String, String> params, @RequestParam String report_no,
-			@RequestParam String report_id, Model model) {
+	// 갤러리 신고 처리
+	@RequestMapping(value = "/ad.gblind.do", method = RequestMethod.POST)
+	public String sblindyes(@RequestParam HashMap<String, String> params, 
+			@RequestParam String report_no,
+			@RequestParam String report_id, 
+			@RequestParam String report_content, 
+			Model model) {
 
 		logger.info("params : {}"+ params);
-		int row = service.sblindyes(params, report_no, report_id);
+		int row = service.gblindyes(params, report_no, report_id,report_content);
 		logger.info("insert row : " + row);
 		
 		logger.info("판매글 신고처리할 번호" + report_no, report_id);
-		AdminReportDTO dto = service.sreportdetail(report_no);
+		AdminReportDTO dto = service.greportdetail(report_no);
 		logger.info("dto : " + dto);
-		model.addAttribute("sdto", row);
+
 		model.addAttribute("dto", dto);
-		return "adSalesReportDetail";
+		return "adGalleryReportDetail";
 	}
 
-	// 판매글 신고 반려
+	// 갤러리 신고 반려
 
-	@RequestMapping(value = "/ad.sblind.go", method = RequestMethod.POST)
-	public String sblindno(@RequestParam HashMap<String, String> params, @RequestParam String report_no,
-			@RequestParam String report_id, Model model) {
+	@RequestMapping(value = "/ad.gblind.go", method = RequestMethod.POST)
+	public String sblindno(@RequestParam HashMap<String, String> params, 
+			@RequestParam String report_no,
+			@RequestParam String report_id, 
+			@RequestParam String report_content, 			
+			Model model) {
 
 		logger.info("params : {}", params);
-		int row = service.sblindno(params, report_no, report_id);
+		int row = service.sblindno(params, report_no, report_id,report_content);
 		logger.info("insert row : " + row);
 
 		logger.info("판매글 신고 반려처리할 번호" + report_no);
-		AdminReportDTO dto = service.sreportdetail(report_no);
+		AdminReportDTO dto = service.greportdetail(report_no);
 		logger.info("dto : ", dto);
-		model.addAttribute("blind", dto);
-		return "adSalesReportDetail";
+		model.addAttribute("dto", dto);
+		return "adGalleryReportDetail";
 	}
 }

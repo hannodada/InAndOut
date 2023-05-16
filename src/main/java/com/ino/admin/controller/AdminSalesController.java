@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ino.admin.dto.AdminGalleryDTO;
 import com.ino.admin.dto.AdminMemberDTO;
+import com.ino.admin.dto.AdminReportDTO;
 import com.ino.admin.dto.AdminSalesDTO;
 import com.ino.admin.service.AdminGalleryService;
 import com.ino.admin.service.AdminSalesListService;
@@ -101,5 +102,10 @@ public class AdminSalesController {
 			model.addAttribute("user", dto);
 			return page;
 		}	
+		
+		
+		
+		
+
 	    
 }

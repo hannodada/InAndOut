@@ -57,6 +57,7 @@ public class MypageController {
 		} 
 			logger.info("평균점수 :" + avg);
 			model.addAttribute("avg", avg);
+
 		// 판매글, 갤러리 갯수 세기
 		int countsales = service.countsales(user_id);
 		model.addAttribute("countsales", countsales);
@@ -65,7 +66,7 @@ public class MypageController {
 		int countinterest = service.countinterest(user_id);
 		model.addAttribute("countinterest", countinterest);
 		return page;
-		}
+	}
 
 	@RequestMapping(value = "/riderPage", method = RequestMethod.GET)
 	public String riderPage(Model model, HttpSession session) {

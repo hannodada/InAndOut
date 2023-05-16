@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<jsp:include page="realGnb.jsp"/>
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
@@ -82,10 +83,10 @@ table, th, td{
 </style>
 </head>
 <body class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
-<%-- <jsp:include page="realGnb.jsp"/>  --%>
+
 	<div class="container mx-auto flex justify-start p-8">
-		<div class="text-blue-600 font-semibold text-3xl">판매목록 / </div>
-		<div class="ml-5 text-3xl">
+		<div class="text-3xl">
+			<label class="font-semibold text-3xl text-blue-600">판매목록 /</label>&nbsp;
 			<c:if test="${biz_id ne null}">
 				<input type="text" id="flag" name="flag" value="${flag}" hidden="true"/>
 				<input type="text" id="biz_id" name="biz_id" value="${biz_id}" hidden="true"/>
@@ -105,22 +106,23 @@ table, th, td{
 		</div>
 	</div>
 	<div class="container mx-auto flex justify-start p-8">
-		<div class="text-blue-600 font-semibold text-3xl">위치 / </div>
-		<div class="ml-5 text-3xl">
+		<div class="text-3xl">
+			<label class="font-semibold text-3xl text-blue-600">위치 /</label>&nbsp;
 			<select class="focus:outline-none focus:ring-2 focus:ring-sky-600 w-60 text-gray-600 py-2 px-3 border border-gray-300 bg-white rounded-md" name="sido" id="sido">
 			</select> &gt;
-			<select class="focus:outline-none focus:ring-2 focus:ring-sky-600 w-60 text-gray-600 py-2 px-3 border border-gray-300 bg-white rounded-md" name="sigungu" id="sigungu" onchange="filtering()">
-			</select>			
+			<select class="focus:outline-none focus:ring-2 focus:ring-sky-600 w-60 text-gray-600 py-2 px-3 border border-gray-300 bg-white rounded-md" name="sigungu" id="sigungu" onchange="zoneChange()">
+			</select>		
 		</div>
-		<div class="ml-20 text-blue-600 font-semibold text-3xl">가격 / </div>
-		<div class="ml-5 text-3xl">
+		<div class="ml-20 font-semibold text-3xl"><label class="text-blue-600">가격 /</label>&nbsp;
 			<input class="w-60 rounded-md appearance-none border border-gray-300 py-2 px-2 bg-white text-gray-700 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="number" name="minPrice" id="minPrice" value="" onblur="filtering()"/>원 ~ 
 			<input class="w-60 rounded-md appearance-none border border-gray-300 py-2 px-2 bg-white text-gray-700 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="number" name="maxPrice" id="maxPrice" value="" onblur="filtering()"/>원
+			&nbsp;
+			<label class="text-gray-700">나눔 /</label>&nbsp;<input type="checkbox" onclick="forFree(this)"/>
 		</div>
 	</div>
 	<div class="container mx-auto flex justify-end p-8">			
 		<div class="ml-60 text-2xl">
-			<select class="focus:outline-none focus:ring-2 focus:ring-sky-600 w-40 text-gray-600 py-2 px-3 border border-gray-300 bg-white rounded-md" name="filter" id="filter" onchange="filtering()">
+			<select class="focus:outline-none focus:ring-2 focus:ring-sky-600 w-45 text-gray-600 py-2 px-3 border border-gray-300 bg-white rounded-md" name="filter" id="filter" onchange="filtering()">
 				<option value="sales_no">최신 순</option>
 				<option value="hit">조회수 순</option>
 			</select>
@@ -184,19 +186,35 @@ $('document').ready(function() {
 				$gugun.append("<option value='"+this+"'>"+this+"</option>");
 			});
 		}
-		filtering(); //시도 체인지할때도 필터링 함수 작동
+		zoneChange(); //시도 체인지할때도 필터링 함수 작동
 	});
 
 });
 
 //기본값으로 1번 페이지를 설정한다.
 var showPage = 1;
-console.log();
 listCall(showPage);
 
-// 게시물 갯수를 5 - 10 - 15 - ... 변경될 때마다 listCall을 해줘야 함.
 function filtering(){
-	$('#flag').val('second');  
+	listCall(showPage);	
+	$('#pagination').twbsPagination('destroy');
+};
+
+function forFree(box){
+	if(box.checked){
+		$('#maxPrice').val('0');
+	}else{
+		$('#maxPrice').val('');
+	}
+
+	listCall(showPage);
+	$('#pagination').twbsPagination('destroy');
+}
+
+// 게시물 갯수를 5 - 10 - 15 - ... 변경될 때마다 listCall을 해줘야 함.
+//지역 체인지할 때부터는 flag를 second로 변경한다.
+function zoneChange(){
+	$('#flag').val('second');
 	listCall(showPage);	
 	// 페이지 총 갯수가 이미 만들어져 있어서 pagePerNum이 변경되면 수정이 안되는 문제가 있다.
 	// 그래서 pagePerNum이 변경되면 부수고 다시 만들어야 한다.
@@ -322,9 +340,17 @@ function listPrint(list){
 		
 		content += '<a class="text-2xl" href="salesDetail.do?sales_no='+item.sales_no+'">'+item.subject+'</a>';
 		if(item.sales_state == '판매중'){
-			content += '<p class="font-semibold pt-1 text-gray-900 text-2xl">'+priceToString(item.price)+'원'+'</p>';
+			if(item.price == '0'){
+				content += '<p class="font-semibold pt-1 text-gray-900 text-2xl">'+'나눔'+'</p>';
+			}else{
+				content += '<p class="font-semibold pt-1 text-gray-900 text-2xl">'+priceToString(item.price)+'원'+'</p>';
+			}
 		}else{
-			content += '<p class="font-semibold pt-1 text-gray-900 text-2xl line-through">'+priceToString(item.price)+'원'+'</p>';
+			if(item.price == '0'){
+				content += '<p class="font-semibold pt-1 text-gray-900 text-2xl line-through">'+'나눔'+'</p>';
+			}else{
+				content += '<p class="font-semibold pt-1 text-gray-900 text-2xl line-through">'+priceToString(item.price)+'원'+'</p>';
+			}
 		}
 		content += '<div class="pt-3 flex items-center justify-between">';
 		content += '<p class="">'+item.nickname+'</p>';
