@@ -34,11 +34,11 @@
 				<td>${user.sido}</td>
 			</tr>		
 			<tr>
-				<td>주소</td>
+				<td></td>
 				<td>${user.sigungu}</td>
 			</tr>				
 			<tr>
-				<td>주소</td>
+				<td></td>
 				<td>${user.left_addr}</td>
 			</tr>				
 					

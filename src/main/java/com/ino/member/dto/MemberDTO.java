@@ -31,6 +31,7 @@ public class MemberDTO {
 	private int sales_no;
 	private int gallery_no;
 	private String interest_biz_id;
+
  	
  	
  	public String getNew_photo_name() {
@@ -75,7 +76,6 @@ public class MemberDTO {
 	public void setLeft_addr(String left_addr) {
 		this.left_addr = left_addr;
 	}
-
 	public String getEmail() {
 		return email;
 	}

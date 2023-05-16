@@ -24,12 +24,16 @@
 
 <jsp:include page="realGnb.jsp"/>
 
+
+
+
+
+
 	<a href="myPage.go">마이페이지 보기</a>
 	<a href="riderPage">라이더페이지 보기</a>
 	<a href="riderList.go">라이더리스트</a>
-	
-	
 
+	
 	
 	<br>
 	
@@ -178,7 +182,7 @@
 						<c:forEach items="${attentionTopList }" var="topSeller">
 						<c:if test="${topSeller.new_photo_name eq null}">
 						
-							<div class="swiper-slide"><img src="resources/photo/자전거.png" onclick="location.href='salesDetail.do?sales_no=${topSeller.sales_no}'">
+							<div class="swiper-slide"><img src="/photo/로고기본.png" onclick="location.href='salesDetail.do?sales_no=${topSeller.sales_no}'">
 						      	<div class="word">
 								        <h5>${topSeller.subject }<h5>
 								          <p>${topSeller.price }원</p>
@@ -187,7 +191,7 @@
 							</div>
 						</c:if>
 						<c:if test="${topSeller.new_photo_name ne null}">
-							<div class="swiper-slide"><img src="resources/photo/${topSeller.new_photo_name}" onclick="location.href='salesDetail.do?sales_no=${topSeller.sales_no}'">
+							<div class="swiper-slide"><img src="/photo/${topSeller.new_photo_name}" onclick="location.href='salesDetail.do?sales_no=${topSeller.sales_no}'">
 						      	<div class="word">
 								        <h5>${topSeller.subject }<h5>
 								          <p>${topSeller.price }원</p>
@@ -217,7 +221,7 @@
 			<br>
 			
 			<br>
-			<h2>가장 많이 판매하는 사람 top 5</h2>
+			<h2>현재 가장 많이 파는 사장님들</h2>
 			<br>
 					<table>
 						<tr>
@@ -251,7 +255,7 @@
 						<br>
 						<hr>
 						<br>
-						<h2>조회수 순으로 갤러리 호출</h2>
+						<h2> 갤러리 </h2>
 						<br>
 		     		 <table>
 	     		 		<tr>
@@ -259,7 +263,7 @@
 				     		  	<c:if test="${hGallery.new_photo_name eq null}">
 			     		 			<td>
 				     		 			<br>
-				     		 			<img src="resources/photo/마이프차3.png" id="gallery" onclick="location.href='galleryDetail.do?gallery_no=${hGallery.gallery_no}'">
+				     		 			<img src="/photo/로고기본.png" id="gallery" onclick="location.href='galleryDetail.do?gallery_no=${hGallery.gallery_no}'">
 			    						<br>
 			    						<a>${hGallery.gallery_subject }</a>	
 			    					</td>
@@ -307,7 +311,7 @@
 			<br>
 			<hr>
 			<br>
-			<h2>${sessionScope.loginId }님 주위에 가장 많이 판매하는 사람 top 5</h2>
+			<h2>${sessionScope.loginId }님 주위에서 가장 많이 판매하는 사장님 top 5</h2>
 			<br>
 					<table>
 						<tr>
@@ -332,7 +336,7 @@
 						<br>
 						<hr>
 						<br>
-						<h2> ${sessionScope.loginId }님 관심업종 중 조회수 순으로 판매글(4개) 호출</h2>
+						<h2> ${sessionScope.loginId }님 관심업종 중 조회수가 높은 판매물품</h2>
 						<br>
 		     		 <table>
 	     		 		<tr>
@@ -340,7 +344,7 @@
 					     		  	<c:if test="${attentiontop.new_photo_name eq null}">
 					     		 		<td>
 						     		 		<br>
-						     		 		<img src="resources/photo/자전거.png" id="hitSeller" onclick="location.href='profile.go'">
+						     		 		<img src="/photo/로고기본.png" id="hitSeller" onclick="location.href='profile.go'">
 					    					<br>
 					    					<a>${attentiontop.subject }</a>
 					    					<br>
@@ -367,7 +371,7 @@
 						<br>
 						<hr>
 						<br>
-						<h2>조회수 순으로 갤러리 호출</h2>
+						<h2>조회수가 높은 갤러리</h2>
 						<br>
 		     		 <table>
 	     		 		<tr>
@@ -375,7 +379,7 @@
 				     		  	<c:if test="${hGallery.new_photo_name eq null}">
 			     		 			<td>
 				     		 			<br>
-				     		 			<img src="resources/photo/오늘의집.png" id="gallery" onclick="location.href='profile.go'">
+				     		 			<img src="/photo/로고기본.png" id="gallery" onclick="location.href='profile.go'">
 			    						<br>
 			    						<a>${hGallery.gallery_subject }</a>	
 			    					</td>
@@ -416,50 +420,7 @@
 	
 	<br>
 	
-	 <img src="resources/photo/logout.png" id="logout" onclick="location.href='logout.do'">
-	
-	
 
-
-<ul id="gnb1">
-    <li><a href="#menu1">Menu 1</a></li>
-    <li><a href="#menu2">Menu 2</a></li>
-    <li><a href="#menu3">Menu 3</a></li>
-    <li><a href="#menu4">Menu 4</a></li>
-</ul>
-<div id="WrapDiv">
-    <div id="menu1"><h2>Menu 1</h2></div>
-    <div id="menu2"><h2>Menu 2</h2></div>
-    <div id="menu3"><h2>Menu 3</h2></div>
-    <div id="menu4"><h2>Menu 4</h2></div>
-</div>
-<h1>gnbNav.js Example</h1>
-<ul id="gnb">
-    <li><a href="#menu1">Menu 1</a></li>
-    <li><a href="#menu2">Menu 2</a></li>
-    <li><a href="#menu3">Menu 3</a></li>
-    <li><a href="#menu4">Menu 4</a></li>
-</ul>
-<div id="WrapDiv">
-    <div id="menu1"><h2>Menu 1</h2></div>
-    <div id="menu2"><h2>Menu 2</h2></div>
-    <div id="menu3"><h2>Menu 3</h2></div>
-    <div id="menu4"><h2>Menu 4</h2></div>
-</div>
-<h1>gnbNav.js Example</h1>
-<ul id="gnb">
-    <li><a href="#menu1">Menu 1</a></li>
-    <li><a href="#menu2">Menu 2</a></li>
-    <li><a href="#menu3">Menu 3</a></li>
-    <li><a href="#menu4">Menu 4</a></li>
-</ul>
-<div id="WrapDiv">
-    <div id="menu1"><h2>Menu 1</h2></div>
-    <div id="menu2"><h2>Menu 2</h2></div>
-    <div id="menu3"><h2>Menu 3</h2></div>
-    <div id="menu4"><h2>Menu 4</h2></div>
-</div>
-	
 	
 </body>
 
@@ -559,7 +520,12 @@ var container = document.getElementById('map');
 
 		var map = new kakao.maps.Map(container, options);
 
-
+/// 회원가입 성공 알림
+var msg = '${msg}';
+ 	 if(msg !=""){
+ 		 	alert(msg);
+ 		 
+ 	 }
 
 
 

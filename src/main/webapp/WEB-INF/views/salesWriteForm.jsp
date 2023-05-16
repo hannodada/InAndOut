@@ -52,7 +52,7 @@ table, th, td{
 			</tr>
 			<tr>
 				<th>가격</th>
-				<td><input type="text" name="price"/></td>
+				<td><input type="number" name="price"/></td>
 			</tr>
 			<tr>
 				<th>거래지역</th>
@@ -62,11 +62,11 @@ table, th, td{
 					<br>
 					<input type="text" id="roadAddress" name="roadAddress" placeholder="도로명주소">
 					<br>
-					<input type="text" id="jibunAddress" name="jibunAddress" placeholder="지번주소">
+					<input type="text" id="jibunAddress" name="jibunAddress" placeholder="지번주소" hidden="true">
 					<br>
 					<input type="text" id="sido" name="sido" placeholder="시도" hidden="true">
 					<br>
-					<input type="text" id="sigungu" name="sigungu" placeholder="시군구" hidden="true">
+					<input type="text" id="sigungu1" name="sigungu" placeholder="시군구" hidden="true">
 					<br>
 					<span id="guide" style="color:#999;display:none"></span>
 					<input type="text" id="detailAddress" name="detailAddress" placeholder="상세주소">
@@ -114,159 +114,160 @@ table, th, td{
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 ( /* att_zone : 이미지들이 들어갈 위치 id, btn : file tag id */
-		  imageView = function imageView(att_zone, btn){
-
-		    var attZone = document.getElementById(att_zone);
-		    var btnAtt = document.getElementById(btn)
-		    var sel_files = [];
-		    
-		    // 이미지와 체크 박스를 감싸고 있는 div 속성
-		    var div_style = 'display:inline-block;position:relative;'
-		                  + 'width:150px;height:120px;margin:5px;border:1px solid #00f;z-index:1';
-		    // 미리보기 이미지 속성
-		    var img_style = 'width:100%;height:100%;z-index:none';
-		    // 이미지안에 표시되는 체크박스의 속성
-		    var chk_style = 'width:30px;height:30px;position:absolute;font-size:24px;'
-		                  + 'right:0px;bottom:0px;z-index:999;background-color:rgba(255,255,255,0.1);color:#f00';
-		  
-		    btnAtt.onchange = function(e){
-		      var files = e.target.files;
-		      var fileArr = Array.prototype.slice.call(files)
-		      for(f of fileArr){
-		        imageLoader(f);
-		      }
-		    }  
-		    
-		    // 탐색기에서 드래그앤 드롭 사용
-		    attZone.addEventListener('dragenter', function(e){
-		      e.preventDefault();
-		      e.stopPropagation();
-		    }, false)
-		    
-		    attZone.addEventListener('dragover', function(e){
-		      e.preventDefault();
-		      e.stopPropagation();
-		      
-		    }, false)
-		  
-		    attZone.addEventListener('drop', function(e){
-		      var files = {};
-		      e.preventDefault();
-		      e.stopPropagation();
-		      var dt = e.dataTransfer;
-		      files = dt.files;
-		      for(f of files){
-		        imageLoader(f);
-		      }
-		      
-		    }, false)
-		    
-		    /*첨부된 이미리즐을 배열에 넣고 미리보기 */
-		    imageLoader = function(file){
-		      sel_files.push(file);
-		      var reader = new FileReader();
-		      reader.onload = function(ee){
-		        let img = document.createElement('img')
-		        img.setAttribute('style', img_style)
-		        img.src = ee.target.result;
-		        attZone.appendChild(makeDiv(img, file));
-		      }
-		      
-		      reader.readAsDataURL(file);
-		    }
-		    
-		    /*첨부된 파일이 있는 경우 checkbox와 함께 attZone에 추가할 div를 만들어 반환 */
-		    makeDiv = function(img, file){
-		      var div = document.createElement('div')
-		      div.setAttribute('style', div_style)
-		      
-		      var btn = document.createElement('input')
-		      btn.setAttribute('type', 'button')
-		      btn.setAttribute('value', 'x')
-		      btn.setAttribute('delFile', file.name);
-		      btn.setAttribute('style', chk_style);
-		      btn.onclick = function(ev){
-		        var ele = ev.srcElement;
-		        var delFile = ele.getAttribute('delFile');
-		        for(var i=0 ;i<sel_files.length; i++){
-		          if(delFile== sel_files[i].name){
-		            sel_files.splice(i, 1);      
-		          }
-		        }
-		        
-		        dt = new DataTransfer();
-		        for(f in sel_files) {
-		          var file = sel_files[f];
-		          dt.items.add(file);
-		        }
-		        btnAtt.files = dt.files;
-		        var p = ele.parentNode;
-		        attZone.removeChild(p)
-		      }
-		      div.appendChild(img)
-		      div.appendChild(btn)
-		      return div
-		    }
-		  }
-		)('att_zone', 'btnAtt')
-
-	function DaumPostcode() {
-	    new daum.Postcode({
-	        oncomplete: function(data) {
-	            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+	  imageView = function imageView(att_zone, btn){
 	
-	            // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
-	            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-	            var roadAddr = data.roadAddress; // 도로명 주소 변수
-	            var extraRoadAddr = ''; // 참고 항목 변수
-	
-	            // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-	            // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-	            if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-	                extraRoadAddr += data.bname;
-	            }
-	            // 건물명이 있고, 공동주택일 경우 추가한다.
-	            if(data.buildingName !== '' && data.apartment === 'Y'){
-	               extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-	            }
-	            // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-	            if(extraRoadAddr !== ''){
-	                extraRoadAddr = ' (' + extraRoadAddr + ')';
-	            }
-	
-	            // 우편번호와 주소 정보를 해당 필드에 넣는다.
-	            document.getElementById('postcode').value = data.zonecode;
-	            document.getElementById('roadAddress').value = roadAddr;
-	            document.getElementById('jibunAddress').value = data.jibunAddress;
-	            
-	            //커스텀
-	            document.getElementById('sido').value = data.sido;
-	            document.getElementById('sigungu').value = data.sigungu;            
-	            // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
-	            if(roadAddr !== ''){
-	                document.getElementById('extraAddress').value = extraRoadAddr;
-	            } else {
-	                document.getElementById('extraAddress').value = '';
-	            }
-	
-	            var guideTextBox = document.getElementById("guide");
-	            // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
-	            if(data.autoRoadAddress) {
-	                var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
-	                guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
-	                guideTextBox.style.display = 'block';
-	
-	            } else if(data.autoJibunAddress) {
-	                var expJibunAddr = data.autoJibunAddress;
-	                guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
-	                guideTextBox.style.display = 'block';
-	            } else {
-	                guideTextBox.innerHTML = '';
-	                guideTextBox.style.display = 'none';
-	            }
+	    var attZone = document.getElementById(att_zone);
+	    var btnAtt = document.getElementById(btn)
+	    var sel_files = [];
+	    
+	    // 이미지와 체크 박스를 감싸고 있는 div 속성
+	    var div_style = 'display:inline-block;position:relative;'
+	                  + 'width:150px;height:120px;margin:5px;border:1px solid #00f;z-index:1';
+	    // 미리보기 이미지 속성
+	    var img_style = 'width:100%;height:100%;z-index:none';
+	    // 이미지안에 표시되는 체크박스의 속성
+	    var chk_style = 'width:30px;height:30px;position:absolute;font-size:24px;'
+	                  + 'right:0px;bottom:0px;z-index:999;background-color:rgba(255,255,255,0.1);color:#f00';
+	  
+	    btnAtt.onchange = function(e){
+	      var files = e.target.files;
+	      var fileArr = Array.prototype.slice.call(files)
+	      for(f of fileArr){
+	        imageLoader(f);
+	      }
+	    }  
+	    
+	    // 탐색기에서 드래그앤 드롭 사용
+	    attZone.addEventListener('dragenter', function(e){
+	      e.preventDefault();
+	      e.stopPropagation();
+	    }, false)
+	    
+	    attZone.addEventListener('dragover', function(e){
+	      e.preventDefault();
+	      e.stopPropagation();
+	      
+	    }, false)
+	  
+	    attZone.addEventListener('drop', function(e){
+	      var files = {};
+	      e.preventDefault();
+	      e.stopPropagation();
+	      var dt = e.dataTransfer;
+	      files = dt.files;
+	      for(f of files){
+	        imageLoader(f);
+	      }
+	      
+	    }, false)
+	    
+	    /*첨부된 이미리즐을 배열에 넣고 미리보기 */
+	    imageLoader = function(file){
+	      sel_files.push(file);
+	      var reader = new FileReader();
+	      reader.onload = function(ee){
+	        let img = document.createElement('img')
+	        img.setAttribute('style', img_style)
+	        img.src = ee.target.result;
+	        attZone.appendChild(makeDiv(img, file));
+	      }
+	      
+	      reader.readAsDataURL(file);
+	    }
+	    
+	    /*첨부된 파일이 있는 경우 checkbox와 함께 attZone에 추가할 div를 만들어 반환 */
+	    makeDiv = function(img, file){
+	      var div = document.createElement('div')
+	      div.setAttribute('style', div_style)
+	      
+	      var btn = document.createElement('input')
+	      btn.setAttribute('type', 'button')
+	      btn.setAttribute('value', 'x')
+	      btn.setAttribute('delFile', file.name);
+	      btn.setAttribute('style', chk_style);
+	      btn.onclick = function(ev){
+	        var ele = ev.srcElement;
+	        var delFile = ele.getAttribute('delFile');
+	        for(var i=0 ;i<sel_files.length; i++){
+	          if(delFile== sel_files[i].name){
+	            sel_files.splice(i, 1);      
+	          }
 	        }
-	    }).open();
-	}
+	        
+	        dt = new DataTransfer();
+	        for(f in sel_files) {
+	          var file = sel_files[f];
+	          dt.items.add(file);
+	        }
+	        btnAtt.files = dt.files;
+	        var p = ele.parentNode;
+	        attZone.removeChild(p)
+	      }
+	      div.appendChild(img)
+	      div.appendChild(btn)
+	      return div
+	    }
+	  }
+	)('att_zone', 'btnAtt')
+	
+function DaumPostcode() {
+    new daum.Postcode({
+        oncomplete: function(data) {
+            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+            // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+            var roadAddr = data.roadAddress; // 도로명 주소 변수
+            var extraRoadAddr = ''; // 참고 항목 변수
+
+            // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+            // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+            if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                extraRoadAddr += data.bname;
+            }
+            // 건물명이 있고, 공동주택일 경우 추가한다.
+            if(data.buildingName !== '' && data.apartment === 'Y'){
+               extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+            }
+            // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+            if(extraRoadAddr !== ''){
+                extraRoadAddr = ' (' + extraRoadAddr + ')';
+            }
+
+            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+            document.getElementById('postcode').value = data.zonecode;
+            document.getElementById('roadAddress').value = roadAddr;
+            document.getElementById('jibunAddress').value = data.jibunAddress;
+            
+            //커스텀
+            document.getElementById('sido').value = data.sido
+            document.getElementById('sigungu1').value = data.sigungu;     
+            
+            // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+            if(roadAddr !== ''){
+                document.getElementById('extraAddress').value = extraRoadAddr;
+            } else {
+                document.getElementById('extraAddress').value = '';
+            }
+
+            var guideTextBox = document.getElementById("guide");
+            // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+            if(data.autoRoadAddress) {
+                var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+                guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+                guideTextBox.style.display = 'block';
+
+            } else if(data.autoJibunAddress) {
+                var expJibunAddr = data.autoJibunAddress;
+                guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+                guideTextBox.style.display = 'block';
+            } else {
+                guideTextBox.innerHTML = '';
+                guideTextBox.style.display = 'none';
+            }
+        }
+    }).open();
+}
 	
 	function goodsCall(){
 		console.log('change');

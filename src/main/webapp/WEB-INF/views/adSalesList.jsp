@@ -41,17 +41,8 @@
       </select>       
     </form>
     
-    <form>
-      <label for="search-word">검색어:</label>
-      &nbsp&nbsp&nbsp
-      <select name="search-type">
-        <option value="id">아이디</option>
-        <option value="nickname">닉네임</option>
-        <option value="nickname">제목</option>
-      </select>
-      <input type="text" id="search-word" name="search-word">
-      <input type="submit" value="검색">
-    </form>
+   <input type="text" id="searchInput" placeholder="제목 또는 작성자를 입력">
+   <button id="searchButton">검색</button>
      
 		<table class = "mokrok">
 		<thead>
@@ -115,9 +106,19 @@
 	</article>
 </body>
 <script>
+
+var searchText = 'default';
 var showPage = 1;
 listCall(showPage);
 
+//검색어에 따른 출력 
+$('#searchButton').click(function(){
+   //검색어 확인 
+   searchText = $('#searchInput').val();
+   listCall(showPage);
+   searchText = 'default';
+   $('#pagination').twbsPagination('destroy');
+});
 
 function listCall(page){
 	   $.ajax({
@@ -125,7 +126,7 @@ function listCall(page){
 	      url:'adsales.ajax',
 	      data:{
 	         'page':page,
-
+	         'search':searchText
 	      },
 	      dataType:'json',           
 	      success:function(data){

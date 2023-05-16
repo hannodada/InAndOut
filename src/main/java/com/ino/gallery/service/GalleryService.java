@@ -221,8 +221,9 @@ public class GalleryService {
 		map.put("currPage", page);
 		map.put("pages", range);
 		
-		ArrayList<GalleryDTO> list = dao.list(cnt, offset, filterName);		
+		ArrayList<GalleryDTO> list = dao.list(cnt, offset, filterName);	
 		map.put("filteredList", list);
+		
 		return map;
 	}
 

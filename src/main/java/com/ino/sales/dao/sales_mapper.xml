@@ -14,7 +14,7 @@
 	</select>
 	
 	<select id="salesList" resultType="com.ino.sales.dto.SalesDTO" parameterType="HashMap">
-		SELECT s.sales_no, s.sales_state, s.subject, s.price, s.sales_sido, s.sigungu, s.hit, s.user_id, u.nickname, s.date, p.new_photo_name, s.biz_id, b.biz_name, s.goods_id, g.goods_name
+		SELECT s.sales_no, s.sales_state, s.subject, s.price, s.sales_sido, s.sigungu, s.hit, s.attention, s.user_id, u.nickname, s.date, p.new_photo_name, s.biz_id, b.biz_name, s.goods_id, g.goods_name
 			FROM sales s 
 			LEFT JOIN user u ON s.user_id = u.user_id
 			LEFT JOIN photo p ON p.photo_div = s.sales_no AND p.cate_no = 'p005'
@@ -25,7 +25,7 @@
 			AND s.sales_sido = #{sido}
 		</if>
 		<if test='sigungu != null  and !sigungu.equals("default")'>
-			AND s.sigungu = #{sigungu}
+			AND s.sigungu LIKE CONCAT('%', #{sigungu}, '%')
 		</if>
 		<if test='biz_id != null  and !biz_id.equals("default")'>
 			AND s.biz_id = #{biz_id}
@@ -154,7 +154,7 @@
 			AND s.sales_sido = #{sido}
 		</if>
 		<if test='sigungu != null  and !sigungu.equals("default")'>
-			AND s.sigungu = #{sigungu}
+			AND s.sigungu LIKE CONCAT('%', #{sigungu}, '%')
 		</if>
 		<if test='biz_id != null  and !biz_id.equals("default")'>
 			AND s.biz_id = #{biz_id}

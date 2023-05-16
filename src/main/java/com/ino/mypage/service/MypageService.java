@@ -114,11 +114,6 @@ Logger logger = LoggerFactory.getLogger(getClass());
 	public HashMap<String, String> riderSettingdo(MultipartFile photo,HashMap<String, String> params, HttpSession session) {
 		
 		String user_id = (String) session.getAttribute("loginId");
-//		String emailcon = params.get("email");
-//		String emailcat = params.get("emailaddr");
-//		String emailnotyet = emailcon.concat("@");
-//		String email = emailnotyet.concat(emailcat);
-//		params.put("email", email);
 		logger.info("이메일까지 추가한 params : "+params);
 		int row = dao.riderSettingdo(params);
 		logger.info("업데이트한 갯수 :"+ row);

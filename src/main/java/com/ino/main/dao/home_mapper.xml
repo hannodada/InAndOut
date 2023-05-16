@@ -33,7 +33,7 @@
       LEFT JOIN photo p ON p.photo_div = s.sales_no AND p.cate_no = 'p005'
       LEFT JOIN biz b ON s.biz_id = b.biz_id 
       LEFT JOIN goods g ON s.goods_id = g.goods_id 
-      GROUP BY s.sales_no ORDER BY s.hit desc limit 4;
+      GROUP BY s.sales_no ORDER BY s.hit desc limit 10;
       </select>
 	
 

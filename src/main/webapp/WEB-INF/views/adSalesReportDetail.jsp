@@ -38,6 +38,8 @@
 			<tr>
 				<td>신고사유</td>
 				<td>${dto.report_reason}</td>
+				<td>${dto.report_id}</td>
+				<td>${dto.report_no}</td>
 			</tr>			
 			<tr>
 				<td colspan="3" align="right">
@@ -54,13 +56,13 @@
 			    <div class="modal-header">
 			      <span class="close">&times;</span>
 			      <h2>처리자 ${loginId}</h2>
-			      <input type = "text" name="report_id" id="report_id" value="${dto.report_id}" hidden/>
+			      <input type = "text" name="report_id" id="report_id" value="${sdto.report_id}" hidden/>
 			
 			    </div>
 			    <div class="modal-body">
-						<input type = "text" name="report_no" id="report_no" value="${dto.report_no}" hidden/>
+						<input type = "text" name="report_no" id="report_no" value="${sdto.report_no}" hidden/>
 			    	<p>처리사유</p>
-			      <p><textarea name="report_content">${dto.report_content}</textarea></p>
+			      <p><textarea name="report_content">${sdto.report_content}</textarea></p>
 			
 			    </div>
 			    <div class="modal-footer">
