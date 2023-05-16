@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import com.ino.chat.dto.ChatDTO;
 import com.ino.chat.dto.MsgDTO;
+import com.ino.delivery.dto.RiderDTO;
 import com.ino.member.dto.MemberDTO;
 import com.ino.sales.dto.SalesDTO;
 
@@ -41,6 +42,8 @@ public interface ChatDAO {
 
 	int salenum(int id);
 
+	int salenum2(int id);
+
 	SalesDTO msgsale(int salenum);
 
 	String msguser(int id, String loginId);
@@ -60,4 +63,6 @@ public interface ChatDAO {
 	String offergetuserid(String offers_no);
 
 	String getsalephotobydelivery(String msg_div_no);
+
+	RiderDTO getdelivery(int id);
 }

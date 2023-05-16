@@ -69,7 +69,7 @@
 			</tr>
 			<tr>
 				<th>가격</th>
-				<td><input type="text" name="price" value="${detailData.price }"/></td>
+				<td><input type="number" name="price" value="${detailData.price }"/></td>
 			</tr>
 			<tr>
 				<th>거래지역</th>

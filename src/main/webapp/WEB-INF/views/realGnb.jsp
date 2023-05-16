@@ -452,6 +452,7 @@ function reverseGeocoding(lat, lng) {
 	          sigungu += result[i].regionName;
 	        }
 	      }
+	      console.log(sigungu);
 	      // 추출한 구와 동 정보를 출력합니다
 	      document.getElementById("location").innerHTML = `현재 위치: ${lat}, ${lng}, ${sigungu}`;
 	    }
