@@ -367,7 +367,7 @@ function listDraw(list, userlist, salephotolist, userphotolist) {
 		}else if (userlist[index].user_div == "c"){
 			content += '<div class="chat_img"> <img style="position:relative;top:-5px" src="resources/photo/icon-rider.png" alt="img"> </div>';
 		}
-		content += '</div><div style="width:270px;text-align:right"><h5><span class="chat_date">' + item.recent_time + '&nbsp;&nbsp;</span></h5></div></div>';
+		content += '</div><div style="width:270px;text-align:right"><h5><span class="chat_date">' + item.recent_time.substring(0,19) + '&nbsp;&nbsp;</span></h5></div></div>';
 		content += '<p>'+item.recent_msg+'</p>';
 		content += '</div>';
 		if(salephotolist[index]!="rider"){
@@ -420,7 +420,7 @@ function msgDraw(list,sale,salephoto,user,userphoto,delivery){
 			}else{
 				content += '<p>' + item.msg_content + '</p>';
 			}
-			content += '<span class="time_date">' + item.from_time + '</span> </div>';
+			content += '<span class="time_date">' + item.from_time.substring(0,19) + '</span> </div>';
 		}else{
 			content += '<div class="incoming_msg"><div class="incoming_msg_img" style="margin-left: 10px;">';
 			if(userphoto!= null){
@@ -434,7 +434,7 @@ function msgDraw(list,sale,salephoto,user,userphoto,delivery){
 			}else{
 				content += '<p>' + item.msg_content + '</p>';
 			}
-			content += '<span class="time_date">' + item.from_time + '</span> </div> </div>';
+			content += '<span class="time_date">' + item.from_time.substring(0,19) + '</span> </div> </div>';
 			
 		}
 		content += '</div>'

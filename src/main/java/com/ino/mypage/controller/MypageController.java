@@ -40,10 +40,15 @@ public class MypageController {
 		logger.info("닉네임: " + dto.getNickname());
 		model.addAttribute("dto", dto);
 		
+		int avg;
+		try {
+			avg = service.mystar(user_id);
+		} catch (Exception e) {
+			avg = 0;
+		}
 		
-			int avg = service.mystar(user_id);
-			logger.info("평균점수 :" + avg);
-			model.addAttribute("avg", avg);
+		logger.info("평균점수 :" + avg);
+		model.addAttribute("avg", avg);
 		
 		// 판매글 띄우기
 		ArrayList<MypageDTO> saleslist = service.saleslist(user_id);

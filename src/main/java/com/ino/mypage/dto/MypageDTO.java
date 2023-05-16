@@ -21,27 +21,27 @@ public class MypageDTO {
 	private String news;
 	private String store_time;
 	private String store_name;
-	   private int sales_no;
-	   private String subject;
-	   private int price;
-	   private String sales_sido;
-	   private String content;
-	   private String sales_state;
-	   private boolean blind;
-	   private int hit;
-	   private int attention;
-	   private Date date;
-	   private String biz_id;
-	   private String goods_id;
+	private int sales_no;
+	private String subject;
+	private int price;
+	private String sales_sido;
+	private String content;
+	private String sales_state;
+	private boolean blind;
+	private int hit;
+	private int attention;
+	private Date date;
+	private String biz_id;
+	private String goods_id;
 	   
-	   private String new_photo_name;
-	   private String biz_name;
-	   private String goods_name;
-	   private String gallery_subject;
-	   private int photo_no;
-		private String ori_photo_name;
-		private String photo_div;
-		private String cate_no;
+	private String new_photo_name;
+	private String biz_name;
+	private String goods_name;
+	private String gallery_subject;
+	private int photo_no;
+	private String ori_photo_name;
+	private String photo_div;
+	private String cate_no;
 
 	
 	
@@ -106,7 +106,12 @@ public class MypageDTO {
 		return email;
 	}
 	public void setEmail(String email) {
-		this.email = email.substring(0, email.indexOf("@"));
+		if(email.contains("@")) {
+			this.email = email.substring(0, email.indexOf("@"));
+		} else {
+			this.email = email;
+		}
+		
 	}
 	public String getUser_state() {
 		return user_state;
