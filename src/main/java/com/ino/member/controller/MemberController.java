@@ -223,20 +223,21 @@ public class MemberController {
 		   logger.info((String) session.getAttribute("user_div_name"));
 	     
 		   
-		   //
-		   /*
+		   //판매 많이 하는 사장님
+		   
 		   ArrayList<MemberDTO> list = service.normalTopList();
 			logger.info("topList:" + list.size());
 			model.addAttribute("list", list);
 			MemberDTO dto3 = new MemberDTO();
 			logger.info(dto3.getUser_id());
-			*/
-			//조회수 높은 판매글
 			
-		   /*
+			//조회수 높은 판매글
+
+			
 			ArrayList<MemberDTO> attentionTopList = service.attentionTopList();
 			model.addAttribute("attentionTopList",attentionTopList);
-			*/
+			
+			
 			
 			
 			//조회수 순으로 갤러리(4개) 호출
@@ -277,13 +278,26 @@ public class MemberController {
 	
 	@RequestMapping(value="/userRegist.do",method = RequestMethod.POST)
 		public String write(MultipartFile profile,  MultipartFile bizprofile,
-				@RequestParam HashMap<String, String> params) {
+				@RequestParam HashMap<String, String> params, Model model) {
 	
 		logger.info(" 파람 왓따! params : "+params);
 		MemberDTO dto = new MemberDTO();
 		logger.info("profile도 왔음 !! ㄷㄷ; : "+profile);
 		logger.info("bizprofile도 도착 : "+bizprofile);
-		return service.userRegist(profile, params,bizprofile);
+		
+		String page = "joinForm";
+		
+		if(service.userRegist(profile, params,bizprofile)==1) {
+			 model.addAttribute("msg", "회원가입에 성공했습니다.");
+			page = "redirect:/";
+			
+		}else {
+	         model.addAttribute("msg", "회원가입에 실패 했습니다!");
+	      }
+		
+		
+		
+		return page;
 	}
 	
 	

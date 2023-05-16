@@ -30,6 +30,9 @@ public class MemberDTO {
 	private int  gallery_hit;
 	private int sales_no;
 	private int gallery_no;
+	
+	
+	
  	
  	
  	public String getNew_photo_name() {

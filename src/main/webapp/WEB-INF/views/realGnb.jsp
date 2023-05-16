@@ -19,6 +19,19 @@
   margin: 0;
 }
 
+
+#profileUser{
+	width: 55px;
+	cursor:pointer;
+	border-top-left-radius: 15px;
+            border-bottom-left-radius: 15px;
+            border-top-right-radius: 15px;
+            border-bottom-right-radius: 15px; 
+    margin-right: 9px;     
+            
+}
+
+
 </style>
 <head>
 
@@ -67,8 +80,10 @@
 											      <div class="logo">
 											      		<img src="resources/photo/로고2.png" onclick="location.href='home'" >
 											      </div>
-														<a href="salesList.do">Store</a>
-														<a href="galleryList.do">Gallery</a>
+													<div id="banner">
+															<a href="salesList.do">전체판매목록</a>
+															<a href="galleryList.do">갤러리</a>
+											      	</div>
 											       <div class="nbsp">		     
 									 		      </div>
 										 		      <div id="etc">
@@ -123,8 +138,10 @@
 											      <div class="logo">
 											      		<img src="resources/photo/로고2.png" onclick="location.href='home'" >
 											      </div>
-														<a href="salesList.do">Store</a>
-														<a href="galleryList.do">Gallery</a>
+													<div id="banner">
+														<a href="salesList.do">전체판매목록</a>
+														<a href="galleryList.do">갤러리</a>
+											      </div>
 											       <div class="nbsp">		     
 									 		      </div>
 										 		      <div id="etc">

@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-
+import com.ino.main.dto.HomeDTO;
 import com.ino.member.dao.MemberDAO;
 import com.ino.member.dto.MemberDTO;
 
@@ -116,9 +116,9 @@ public class MemberService {
 	
 	
 	
-	public String userRegist(MultipartFile profile, HashMap<String, String> params, 
+	public int userRegist(MultipartFile profile, HashMap<String, String> params, 
 			MultipartFile bizprofile) {
-		String page = "joinForm";
+		
 		
 		MemberDTO dto = new MemberDTO();
 		dto.setUser_id(params.get("user_id"));
@@ -169,7 +169,7 @@ public class MemberService {
 			logger.info("bizprofile파일 업로드 작업");
 			bizfileSave(user_id, bizprofile);
 		}
-		return page;
+		return userRegistrow;
 	}
 	
 	
@@ -271,7 +271,7 @@ public class MemberService {
 		logger.info(oriFileName+" => " + newFileName);
 		try {
 			byte[] bytes= file.getBytes();
-			Path path = Paths.get("D:\\SPRING\\사진\\"+newFileName);
+			Path path = Paths.get("C:/img/upload/"+newFileName);
 			Files.write(path, bytes);
 			logger.info(newFileName+"save OK");
 			String cate_no = "p001";
@@ -290,7 +290,7 @@ public class MemberService {
 		logger.info(oriFileName+" => " + newFileName);
 		try {
 			byte[] bytes= bizprofile.getBytes();
-			Path path = Paths.get("D:\\SPRING\\사진\\"+newFileName);
+			Path path = Paths.get("C:/img/upload/"+newFileName);
 			Files.write(path, bytes);
 			logger.info(newFileName +" : bizsave OK ");
 			String cate_no = "p002";
@@ -332,13 +332,14 @@ public class MemberService {
 		
 		return dao.hitGallery();
 	}
-
-	public ArrayList<MemberDTO> attentionTopList() {
+	
+	
+	
+	
+public ArrayList<MemberDTO> attentionTopList() {
 		
 		return dao.attentionTopList();
 	}
-
-	
 	
 
 
