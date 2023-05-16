@@ -76,7 +76,6 @@ public class MemberDTO {
 	public void setLeft_addr(String left_addr) {
 		this.left_addr = left_addr;
 	}
-	
 	public String getEmail() {
 		return email;
 	}
@@ -209,11 +208,6 @@ public class MemberDTO {
 	public void setPhone_num(String phone_num) {
 		this.phone_num = phone_num;
 	}
- 
- 	
- 	
- 	
- 	
 }
  	
 	

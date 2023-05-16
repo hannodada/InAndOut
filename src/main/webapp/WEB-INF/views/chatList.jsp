@@ -135,13 +135,6 @@
     						</tr>
     					</thead>
     					<tbody id="modalRider" style="max-height:350px; padding: 10px 10px; overflow-y: scroll;">
-    						<tr style="height: 100px">
-    							<th><img src="http://bootsnipp.com/apple-touch-icon-114x114-precomposed.png" style="max-width:80px;max-height:80px"></th>
-    							<th>테스트라이더</th>
-    							<th>서울시 광진구</th>
-    							<th>A.M. 7:00 ~ P.M. 7:00</th>
-    							<th><button class="btn btn-primary">견적신청</button></th>
-    						</tr>
     					</tbody>
     				</table>
     			</div>
@@ -190,7 +183,7 @@
 	          	<!-- 
 	            <div class="chat_list active_chat">
 	              <div class="chat_people">
-	                <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+	                <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="img"> </div>
 	                <div class="chat_ib">
 	                  <h5>SSS <span class="chat_date">Dec 25</span></h5>
 	                  <p>Test message</p>
@@ -327,7 +320,7 @@ function riderList(){
 
 function riderListDraw(list){
 	var content = '';
-	console.log(list);
+	console.log("rider list: " + list);
 	list.forEach(function(item, index){
 		/* content += '<div style="border:1px solid silver; padding: 10px 10px; display:flex; align-items: center; position: relative">';
 		content += '<div><img src="resources/photo/' + item.new_photo_name + '" style="max-width:80px;max-height:80px"></div>';
@@ -338,7 +331,7 @@ function riderListDraw(list){
 		content += '<div style="padding: 10px 20px"><h6>' + 'A.M. 7:00 ~ P.M. 7:00' + '</h6></div>';
 		content += '<button class="btn btn-primary" style="position: absolute; right:20px">견적신청</button></div>'; */
 		content += '<tr style="height: 100px">';
-		content += '<th><img src="resources/photo/' + item.new_photo_name + '" style="max-width:80px;max-height:80px"></th>';
+		content += '<th><img src="/photo/' + item.new_photo_name + '" style="max-width:80px;max-height:80px"></th>';
 		content += '<th>' + item.user_name + '</th>';
 		content += '<th>' + item.sigungu + '</th>';
 		content += '<th>' + 'A.M. 7:00 ~ P.M. 7:00' + '</th>';
@@ -362,19 +355,19 @@ function listDraw(list, userlist, salephotolist, userphotolist) {
 		}
 		content += '<div class="chat_people" style="display:flex" onclick="select(' + item.roomid + ')">';
 		if(userphotolist[index] == null){
-			content += '<div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>';
+			content += '<div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="img"> </div>';
 		} else{
-			content += '<div class="chat_img"> <img src="resources/photo/' + userphotolist[index] + '" alt="sunil"> </div>';
+			content += '<div class="chat_img"> <img src="/photo/' + userphotolist[index] + '" alt="img"> </div>';
 		}
 		content += '<div class="chat_ib"><div style="display:flex"><div style="width:100%; display:flex"><div style="width:auto"><h5>';
 		content += userlist[index].user_name + '&nbsp;&nbsp; </h5></div>';
 		console.log("user_div : " + userlist[index]);
 		if(userlist[index].user_div == "b"){
-			content += '<div class="chat_img"> <img style="position:relative;top:-5px" src="resources/photo/badge.png" alt="sunil"> </div>';
+			content += '<div class="chat_img"> <img style="position:relative;top:-5px" src="resources/photo/badge.png" alt="img"> </div>';
 		}else if (userlist[index].user_div == "c"){
-			content += '<div class="chat_img"> <img style="position:relative;top:-5px" src="resources/photo/icon-rider.png" alt="sunil"> </div>';
+			content += '<div class="chat_img"> <img style="position:relative;top:-5px" src="resources/photo/icon-rider.png" alt="img"> </div>';
 		}
-		content += '</div><div style="width:270px;text-align:right"><h5><span class="chat_date">' + item.recent_time + '&nbsp;&nbsp;</span></h5></div></div>';
+		content += '</div><div style="width:270px;text-align:right"><h5><span class="chat_date">' + item.recent_time.substring(0,19) + '&nbsp;&nbsp;</span></h5></div></div>';
 		content += '<p>'+item.recent_msg+'</p>';
 		content += '</div>';
 		if(salephotolist[index]!="rider"){
@@ -423,25 +416,25 @@ function msgDraw(list,sale,salephoto,user,userphoto,delivery){
 		if(item.from_id == "${loginId}"){
 			content += '<div class="outgoing_msg"><div class="sent_msg" style="margin-right: 5px">';
 			if(item.new_photo_name != null){
-				content += '<img style="max-width: 200px;max-height: 200px" src="/photo/' + item.new_photo_name + '" alt="sunil">'
+				content += '<img style="max-width: 200px;max-height: 200px" src="/photo/' + item.new_photo_name + '" alt="img">'
 			}else{
 				content += '<p>' + item.msg_content + '</p>';
 			}
-			content += '<span class="time_date">' + item.from_time + '</span> </div>';
+			content += '<span class="time_date">' + item.from_time.substring(0,19) + '</span> </div>';
 		}else{
 			content += '<div class="incoming_msg"><div class="incoming_msg_img" style="margin-left: 10px;">';
 			if(userphoto!= null){
-				content += '<img src="resources/photo/' + userphoto + '" alt="sunil"> </div>';
+				content += '<img src="/photo/' + userphoto + '" alt="img"> </div>';
 			}else{
-				content += '<img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>';
+				content += '<img src="https://ptetutorials.com/images/user-profile.png" alt="img"> </div>';
 			}
 			content += '<div class="received_msg"><div class="received_withd_msg">';
 			if(item.new_photo_name != null){
-				content += '<img style="max-width: 200px;max-height: 200px" src="/photo/' + item.new_photo_name + '" alt="sunil">'
+				content += '<img style="max-width: 200px;max-height: 200px" src="/photo/' + item.new_photo_name + '" alt="img">'
 			}else{
 				content += '<p>' + item.msg_content + '</p>';
 			}
-			content += '<span class="time_date">' + item.from_time + '</span> </div> </div>';
+			content += '<span class="time_date">' + item.from_time.substring(0,19) + '</span> </div> </div>';
 			
 		}
 		content += '</div>'
@@ -459,9 +452,9 @@ function msgDraw(list,sale,salephoto,user,userphoto,delivery){
 	content += '<div style="width:40%; display:flex">';
 	content += '<div style="width:auto"><h3>&nbsp;' + user.user_name + '&nbsp;님&nbsp;&nbsp;</h3></div>';
 	if(user.user_div == "b"){
-		content += '<div class="chat_img"> <img src="resources/photo/badge.png" alt="sunil"> </div>';
+		content += '<div class="chat_img"> <img src="resources/photo/badge.png" alt="img"> </div>';
 	}else if (user.user_div == "c"){
-		content += '<div class="chat_img"> <img src="resources/photo/icon-rider.png" alt="sunil"> </div>';
+		content += '<div class="chat_img"> <img src="resources/photo/icon-rider.png" alt="img"> </div>';
 	}
 	content += '</div>';
 	content += '<div style="display:flex;width:60%" onclick="location.href=\'salesDetail.do?sales_no=' + sale.sales_no + '\'">'

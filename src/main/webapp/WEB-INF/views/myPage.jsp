@@ -14,7 +14,7 @@
 <jsp:include page="realGnb.jsp"/>
 <form action="/myPage.go" method="get">
 	<header>
-	  <nav id="nav" >
+	  <nav id="nav">
 	   <a href="myPage.go" style="color:blue; text-decoration: underline;">모아보기</a>
 	   <a href="mySales.go">판매글</a>
 	   <a href="myGallery.go">갤러리</a>
@@ -28,7 +28,7 @@
 	<h4 style="font-size:15px; color:skyblue; line-height: 300%;">
 	내가 올린 판매글</h4>
 	<h6 style="float:right; margin-right:100px; display:inline;">
-	<a href="mySales">전체보기 ></a></h6>
+	<a href="mySales.go">전체보기 ></a></h6>
 	<c:forEach items="${saleslist}" var="sl">
 	<div style="float:left; margin-right:10px; display:inline;">
 		<a href="salesDetail.do?sales_no=${sl.sales_no}">
@@ -44,7 +44,7 @@
 	<h4 style="font-size:15px; color:skyblue;line-height: 300%;">
 	내가 올린 갤러리</h4>
 	<h6 style="float:right; margin-right:100px; display:inline;">
-	<a href="myGallery">전체보기 ></a></h6>
+	<a href="myGallery.go">전체보기 ></a></h6>
 	<c:forEach items="${galleryList}" var="gl">
 	<div style="float:left; margin-right:10px; display:inline;">
 		<a href="galleryDetail.do?gallery_no=${gl.sales_no}">
@@ -57,7 +57,7 @@
 	<hr>
     <div class="main-box">
         <div class="profile-box">
-        <img src="/photo/${new_photo_name}" style="width: 130px;">
+        <img src="/photo/${new_photo_name}">
             <div class="title-nickname">
             <h2>${dto.nickname}</h2>
             </div>
@@ -76,22 +76,23 @@
         	<c:when test="${avg eq 4}">
         	<img src="resources/img/dolphin4.png" style="width: 60px;"/>
         	</c:when>
+        	<c:when test="${avg eq 5}">
+        	<img src="resources/img/dolphin5.png" style="width: 60px;"/>
+        	</c:when>
         </c:choose>        
-        		
-            <p>나의 &돌핀 단계 : ${avg}단계</p>
+        </div>
+            <div id="avgdolphin">&nbsp;&nbsp;나의 &돌핀 단계 : ${avg}단계&nbsp;&nbsp;</div>
             <hr>
             <div class="parent">
 		        <div class="pfirst">판매글</div>
 		        <div class="psecond">갤러리</div>
 		        <div class="pthird">나의 관심</div>
-		    </div>
-		    <div class="child">
+		    		</div>
+		    		<div class="child">
 		        <div class="cfirst">${countsales}</div>
 		        <div class="csecond">${countgallery}</div>
-		        <div class="cthird">1</div>
-		    </div>
-
-        </div>
+		        <div class="cthird">${countinterest}</div>
+        		</div>
     </div>
 
 </form>

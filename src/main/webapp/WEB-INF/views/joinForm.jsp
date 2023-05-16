@@ -134,9 +134,9 @@
 			<td><input type="text" name="email" id="email"/> 
 			&nbsp; @ &nbsp; 
 			<select id="url" name="email">
-			<option value="naver">naver</option>
-			<option value="gmail">gmail</option>
-			<option value="daum">daum</option>
+			<option value="naver">naver.com</option>
+			<option value="gmail">gmail.com</option>
+			<option value="daum">daum.com</option>
 			</select>
 			</td>
 		</tr>

@@ -298,7 +298,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3.0">
   <title>INaNdOUT</title> 
   <link rel="stylesheet" href="style.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
   <script type="text/javascript">
@@ -322,7 +322,10 @@
 
 
 <script>
+
+
 /*
+
 var prevScrollpos = window.pageYOffset; 
 
 window.onscroll = function() { 
@@ -361,7 +364,7 @@ new Swiper('.swiper', {
 });
 
 
-
+/*
 
 ///top
 

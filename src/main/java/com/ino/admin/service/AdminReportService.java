@@ -99,16 +99,16 @@ public class AdminReportService {
 		return dao.sreportdetail(report_no);
 	}
 
-	public int sblindyes(HashMap<String, String> params, String report_no, String report_id) {
-		logger.info("판매글 신고처리 요청");
-		int result = dao.sblind_history(report_no,params,report_id);
-		logger.info("판매글 params:"+params);
-		dao.blindchange(report_no);
+	public int gblindyes(HashMap<String, String> params, String report_no, String report_id,String report_content) {
+		logger.info("갤러리 신고처리 요청");
+		int result = dao.blind_history(report_no,report_id,report_content);
+
+		dao.gblindchange(report_no);
 		return result;
 	}
 
-	public int sblindno(HashMap<String, String> params, String report_no, String report_id) {
-		int result = dao.sblind_history(report_no,params,report_id);
+	public int sblindno(HashMap<String, String> params,String report_no, String report_id,String report_content) {
+		int result = dao.blind_history(report_no,report_id,report_content);
 		dao.blindnochange(report_no);
 		return result;
 	}
@@ -146,6 +146,11 @@ public class AdminReportService {
 	      map.put("pages", range);
 	      
 	      return map;		
+	}
+
+	public AdminReportDTO greportdetail(String report_no) {
+		
+		return dao.greportdetail(report_no);
 	}
 
 	/*

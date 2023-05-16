@@ -22,8 +22,8 @@
 	 
 	<insert id="userRegist" parameterType="hashmap">
 		INSERT INTO user(
-			user_id,user_pw,user_name,nickname,post_num,sido,sigungu,
-			left_addr,phone_num,email,user_state,interest_biz_id,user_div
+			user_id,user_pw,user_name,nickname,post_num,left_addr
+			,sido,sigungu,phone_num,email,user_state,interest_biz_id,user_div
 		)VALUES(
 			#{user_id},#{user_pw},#{user_name},#{nickname},#{post_num},#{sido}
 			,#{sigungu},#{left_addr},#{phone_num},#{email},#{user_state},#{interest_biz_id}
@@ -173,7 +173,7 @@
  		 FROM sales s
  		 LEFT JOIN photo p ON user_id = p.photo_div
  		 RIGHT JOIN user u ON #{param1} = s.sigungu
-	  		GROUP BY user_id ORDER BY 글갯수 desc limit 5 ;
+	  		GROUP BY user_id ORDER BY 글갯수 desc limit 5 
 	</select>
 	
 	

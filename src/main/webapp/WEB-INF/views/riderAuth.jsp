@@ -46,73 +46,35 @@
             <h2>${dto.nickname}</h2>
             </div>
         </div>
-        <div class="content">
+        <div class="content2">
         <c:choose>
         	<c:when test="${avg eq 1}">
-        	<img src="/photo/dolphin1.png" style="width: 60px;"/>
+        	<img src="resources/img/dolphin1.png" style="width: 60px;"/>
         	</c:when>
         	<c:when test="${avg eq 2}">
-        	<img src="/photo/dolphin2.png" style="width: 60px;"/>
+        	<img src="resources/img/dolphin2.png" style="width: 60px;"/>
         	</c:when>
         	<c:when test="${avg eq 3}">
-        	<img src="/photo/dolphin3.png" style="width: 60px;"/>
+        	<img src="resources/img/dolphin3.png" style="width: 60px;"/>
         	</c:when>
         	<c:when test="${avg eq 4}">
-        	<img src="/photo/dolphin4.png" style="width: 60px;"/>
+        	<img src="resources/img/dolphin4.png" style="width: 60px;"/>
+        	</c:when>
+        	<c:when test="${avg eq 5}">
+        	<img src="resources/img/dolphin5.png" style="width: 60px;"/>
         	</c:when>
         </c:choose>        
-        		
-            <p>나의 &돌핀 단계 : ${avg}단계</p>
-            <hr>
+
+        </div>
+            <div id="avgdolphin">&nbsp;&nbsp;나의 &돌핀 단계 : ${avg}단계&nbsp;&nbsp;</div>
             <div class="parent">
 		        <div class="pfirst">제안요청</div>
 		        <div class="psecond">배송 진행</div>
-		    </div>
+		    		</div>
 		    <div class="child">
-		        <div class="cfirst">4</div>
-		        <div class="csecond">2</div>
+		        <div class="cfirst">${rideroffer}</div>
+		        <div class="csecond">${riderdelivery}</div>
 		    </div>
-
-        </div>
     </div>
 </body>  
-<script type="text/javascript">
-$('#overlay3').on('click',function(e){	
-	var chkId2 = $('#nickname').val();	
-	
-	console.log('닉네임중복체크를 요청한 아이디 : '+chkId2);
-	
-	$.ajax({
-		type:'get',
-		url:'overlay3.ajax',
-		data:{'nickname':chkId2},
-		dataType:'json',
-		success:function(data){
-			console.log(data);
-			if(data.overlay3 == 0){
-				alert('사용 가능한 닉네임 입니다.');
-				overlayChk2 = true;
-			}else{
-				alert('이미 사용중인 닉네임 입니다.');
-				$('#nickname').val('');
-			}
-		},
-		error:function(e){
-			console.log(e);
-		}
-	});
-	
-});
-
-$('#confirm-password').on('keyup',function(e){
-	if($('#password').val() == $(this).val()){
-		$('#msg').css({'font-size': '10px', 'color': 'darkgreen'});
-		$('#msg').html('비밀번호가 일치 합니다.');
-		pweq = true;
-	}else{
-		$('#msg').css({'font-size': '10px', 'color': 'red'});
-		$('#msg').html('비밀번호가 일치 하지 않습니다.');
-	}	
-});
-</script>
 </html>

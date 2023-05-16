@@ -10,7 +10,7 @@
 <jsp:include page="adminbox.jsp"/>
 <jsp:include page="adModal.jsp"/>
 <article>
-<h2 style="color: #708090;">신고 판매글 상세보기</h2>
+<h2 style="color: #708090;">신고 갤러리 상세보기</h2>
 	<hr style="border-top-width:2px; border-color:#b0cbd6;">
  	<table class = "mokrok">
 	
@@ -38,7 +38,6 @@
 			<tr>
 				<td>신고사유</td>
 				<td>${dto.report_reason}</td>
-
 			</tr>			
 			<tr>
 				<td colspan="3" align="right">
@@ -51,7 +50,7 @@
 			
 			<div id="sMyModal" class="modal">
 			  <div class="modal-content">
-			  	<form action="ad.sblind.do" method = "post">
+			  	<form action="ad.gblind.do" method = "post">
 			    <div class="modal-header">
 			      <span class="close">&times;</span>
 			      <h2>처리자 ${loginId}</h2>
@@ -59,6 +58,7 @@
 			
 			    </div>
 			    <div class="modal-body">
+			    	<h2>신고번호 ${dto.report_no}</h2>
 						<input type = "text" name="report_no" id="report_no" value="${dto.report_no}" hidden/>
 			    	<p>처리사유</p>
 			      <p><textarea name="report_content">${dto.report_content}</textarea></p>
@@ -73,15 +73,15 @@
 			
 			<div id="sYourModal" class="modal">
 			  <div class="modal-content">
-			  	<form action="ad.sblind.go" method = "post">
+			  	<form action="ad.gblind.go" method = "post">
 			    <div class="modal-header">
 			      <span class="close">&times;</span>
 
 			      <h2>처리자 ${loginId}</h2>
-			      <input type = "text" name="report_id" value="${loginId}" hidden/>
+			      <input type = "text" name="report_id" value="${dto.report_id}" />
 			    </div>
 			    <div class="modal-body">
-						<input type = "text" name="report_no" value="${dto.report_no}" hidden/>
+						<input type = "text" name="report_no" value="${dto.report_no}"/>
 			    	<p>처리사유</p>
 			      <p><textarea name="report_content">${dto.report_content}</textarea></p>
 			
@@ -130,6 +130,10 @@
 	    }
 		}
 	 
+	  document.getElementById("sMyBtn").addEventListener("click", function() {
+		    document.getElementById("report_id").value = "${loginId}";
+		    document.getElementById("report_no").value = "${dto.report_no}";
+		  });
     </script>	
 </body>
 </html>
