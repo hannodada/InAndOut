@@ -110,6 +110,12 @@ public interface AdminMemberListDAO {
 	int totalCousntSearch(String search);
 
 
+	int rtotalCountSearch(String search);
+
+
+	ArrayList<AdminMemberDTO> rlistSearch(HashMap<String, Object> params);
+
+
 
 
 
