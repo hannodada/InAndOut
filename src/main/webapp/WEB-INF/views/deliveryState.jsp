@@ -137,7 +137,6 @@ list.forEach(function(item, idx){
 	content += '<div>' + item.delivery_state + '</div>';
 	content += '<div class="box">';
 	content += '<select class="dv-list" id="dv-ln" onchange="myfunction(this)">';
-	if(item.delivery_state == '배송접수')
 	content += '<option value="배송접수" ' + (item.delivery_state == '배송접수' ? 'selected' : '') + '>배송접수</option>';
 	content += '<option value="배송중" ' + (item.delivery_state == '배송중' ? 'selected' : '') + '>배송중</option>';
 	content += '<option value="배송완료" ' + (item.delivery_state == '배송완료' ? 'selected' : '') + '>배송완료</option>';
