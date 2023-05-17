@@ -30,6 +30,7 @@ public class MemberDTO {
 	private int  gallery_hit;
 	private int sales_no;
 	private int gallery_no;
+	private String interest_biz_id;
  	
  	
  	public String getNew_photo_name() {
@@ -38,10 +39,6 @@ public class MemberDTO {
 	public void setNew_photo_name(String new_photo_name) {
 		this.new_photo_name = new_photo_name;
 	}
-	private String interest_biz_id;
- 
- 	
- 	
 	public String getUser_id() {
 		return user_id;
 	}
@@ -90,7 +87,6 @@ public class MemberDTO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
 	public String getInterest_biz_id() {
 		return interest_biz_id;
 	}
@@ -109,7 +105,6 @@ public class MemberDTO {
 	public void setSigungu(String sigungu) {
 		this.sigungu = sigungu;
 	}
-	
 	public String getSubject() {
 		return subject;
 	}

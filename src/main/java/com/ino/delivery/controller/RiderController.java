@@ -73,11 +73,11 @@ public class RiderController {
 	
 	
 	@RequestMapping(value = "/userOffer.do") // 사용자가 제안하는 페이지
-	public String userOfferGo(@RequestParam String rider_id, Model model, @RequestParam String msg_div_no) {
+	public String userOfferGo(@RequestParam String rider_id, Model model, @RequestParam String sales_no) {
 		
 		
 		
-		logger.info("user_id 값 =  " +rider_id,msg_div_no);
+		logger.info("user_id 값 = ", rider_id+sales_no);
 		
 		if(rider_id != null) {
 		
@@ -87,7 +87,7 @@ public class RiderController {
 	
 		}
 		
-		RiderDTO dtoS = service.dtoUOS(msg_div_no);
+		RiderDTO dtoS = service.dtoUOS(sales_no);
 		model.addAttribute("dtoS",dtoS);
 		
 		return "userOffer";
@@ -149,6 +149,7 @@ public class RiderController {
 	public HashMap<String, Object> riderOfferAjax(
 			@RequestParam String page,
 			@RequestParam String cnt){
+		
 		return service.riderOfferAjax(Integer.parseInt(page),Integer.parseInt(cnt));
 	}
 	
@@ -161,12 +162,11 @@ public class RiderController {
 	@RequestMapping(value = "/deliveryState.do") // 배송 상태 변경
 	public String deliveryState(@RequestParam String idx, HttpSession session) {
 		
-		// DB에 update로 배송상태를 배송완료로 변경하기 
-		// 배송 이력 보기
-		logger.info("deliveryState.do 컨트롤러 이동 : " + idx);
-		service.deliveryUpdate(idx);
+		logger.info("deliveryState.do 컨트롤러 이동 : " + idx); // idx = deliver_offer_no임
 		
-		service.deliveryInsert(idx);
+		service.deliveryUpdate(idx); // 해당 delivery_accept_no 에 accept 가 null에서  1로 업데이트 
+		
+		service.deliveryInsert(idx); // deliveryHistory table에 delivery_accept_no와 delivery_state(배송접수)가 insert됨
 		
 		return "redirect:/deliveryState.go";
 	}
@@ -174,7 +174,7 @@ public class RiderController {
 	@RequestMapping(value = "/deliveryNone.do") // 
 	public String deliveryNone(@RequestParam String idx) {
 		
-		service.deliveryNone(idx);
+		service.deliveryNone(idx); // accept 가 0로 업데이트
 		
 		return "redirect:/riderOffer.go";
 	}
@@ -201,11 +201,12 @@ public class RiderController {
 		return "deliveryState";
 	}
 	
-	@RequestMapping(value = "/deliveryState.ajax", method = RequestMethod.POST)
+	@RequestMapping(value = "/deliveryState.ajax", method = RequestMethod.POST) // ajax 페이징
 	@ResponseBody
 	public HashMap<String, Object> deliveryStateAjax(
 			@RequestParam String page,
 			@RequestParam String cnt){
+		
 		return service.deliveryStateAjax(Integer.parseInt(page),Integer.parseInt(cnt));
 	}
 	
@@ -244,10 +245,10 @@ public class RiderController {
 	*/
 	
 	
-	/*@RequestMapping(value = "/deliveryHistory.go") // 배송 이력 보기
+	@RequestMapping(value = "/deliveryHistory.go") // 배송 이력 보기
 	public String deliveryHistory(Model model, HttpSession session) {
 		
-		// DB에 배송상태(delivery_state = '배송완료')가 배송완료인 것들만 출력하기
+		/*// DB에 배송상태(delivery_state = '배송완료')가 배송완료인 것들만 출력하기
 		String page = "redirect:/";
 		
 		if(session.getAttribute("loginId")!=null) {
@@ -258,11 +259,30 @@ public class RiderController {
 			
 			page = "deliveryHistory";
 		}
-		
-		return page;
+		*/
+		return "deliveryHistory";
 	}
-	*/
-	@RequestMapping(value = "/deliveryHistory.go")
+	
+	@RequestMapping(value = "filtering.ajax", method=RequestMethod.POST)
+	@ResponseBody
+	public HashMap<String, Object> filteringAjax(@RequestParam HashMap<String, String>param){
+		
+		HashMap<String, Object> returnData = new HashMap<String, Object>();
+		logger.info("historystate : " + param.get("delivery_state"));
+		String state = param.get("delivery_state");
+		
+		int total = service.totalCountDH(state);
+		
+		ArrayList<RiderDTO> riderList = service.filtering(state);
+		returnData.put("list", riderList);
+		returnData.put("total", total);
+		
+		
+		return returnData;
+	}
+	
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+/*	@RequestMapping(value = "/deliveryHistory.go")
 	public String deliveryHistory() {
 		return "deliveryHistory";
 	}
@@ -275,37 +295,37 @@ public class RiderController {
 			){
 		
 		return service.deliveryHistroyAjax(Integer.parseInt(page),Integer.parseInt(cnt));	
-	}
-	
-	//@RequestMapping(value = "/select.ajax", method = RequestMethod.POST)
-	//@ResponseBody
-	//public HashMap<String, Object> selectAjax(Model model, @RequestParam HashMap<String, String> params) {
-
-	//	logger.info("delivery_state :"+params.get("delivery_state"));
-	//	logger.info("delivery_offer_no :"+params.get("delivery_offer_no"));
-//		ArrayList<RiderDTO> selectList = service.select(delivery_state, delivery_offer_no);
-		
-//		logger.info("delivery_state : " + delivery_state,delivery_offer_no);
-		
-//		map.put("delivery_state", selectList);
-		
-	//	return service.select(params);
-	// }
-	
-	@RequestMapping(value = "filtering.ajax")
+	}*/
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+	@RequestMapping(value = "/select.ajax", method = RequestMethod.POST)
 	@ResponseBody
-	public HashMap<String, Object> filteringAjax(@RequestParam HashMap<String, String> params){
-		logger.info("historystate : "+params.get("delivery_state"));
-		return service.filtering(params);
-	}
+	public HashMap<String, Object> selectAjax(Model model, @RequestParam HashMap<String, String> params) {
 
+		logger.info("delivery_state :"+params.get("delivery_state"));
+		logger.info("delivery_offer_no :"+params.get("delivery_offer_no"));
+		//ArrayList<RiderDTO> selectList = service.select(delivery_state, delivery_offer_no);
+		
+		//logger.info("delivery_state : " + delivery_state,delivery_offer_no);
+		
+		//map.put("delivery_state", selectList);
+		
+		return service.selectAjax(params);
+	 }
+	
+	
+	
+	
 	
 	@RequestMapping(value ="write.do") // userOffer에서 제안요청하기 버튼 클릭시 
-	public String writeDo(@RequestParam HashMap<String, String> params) {
+	public String writeDo(@RequestParam HashMap<String, String> params, HttpSession session) {
 		
-		logger.info("params 값"+params);
+		logger.info("params 값 : "+params);
 		
-		return service.writeDo(params);
+		String user_id = (String) session.getAttribute("loginId");
+		String user_div = service.userC(user_id);
+		logger.info("유저 구분 : " + user_div);
+		
+		return service.writeDo(params,user_div);
 	}
 	
 	
