@@ -71,6 +71,8 @@ public interface MemberDAO {
 
 	
 	ArrayList<MemberDTO> attentionTopList();
+
+	int updateSigungu( String user_id , String sigungu);
 	
 
 	

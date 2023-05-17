@@ -60,6 +60,32 @@ public class MemberController {
 		return map;
 	}
 	
+	@RequestMapping(value="/sigungu.ajax" ,method = RequestMethod.POST)
+	@ResponseBody
+	public HashMap<String, Object> sigungu(
+			@RequestParam String sigungu , HttpSession session){
+		
+		
+		logger.info("sigungu 요청온거 로그..,,");
+		logger.info("sigungu : "+ sigungu);
+		
+		session.setAttribute("sigungu", sigungu);
+		
+		String user_id = (String) session.getAttribute("loginId");
+		int success = service.updateSigungu(user_id,sigungu);
+		if(success == 1) {
+			session.setAttribute("sigungu", sigungu);
+			
+			
+		}
+		
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("success", success);
+		
+		return map;
+	}
+	
 	
 	
 	

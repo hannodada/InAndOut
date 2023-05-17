@@ -205,7 +205,24 @@ h6{
             cursor:pointer;
         }
         
-        
+    /*  알림 팝업창*/
+ /* .custom-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 4px;
+} */
 
 	
         
@@ -307,10 +324,17 @@ h6{
 				    <option value="011">011</option>
 				    <option value="012">012</option>
 		  	</select>
-		  	-
-			<input name="phone_num2" type="text" id="phone_num2" maxlength="4"/>
-			-
-			<input name="phone_num3" type="text" id="phone_num3" maxlength="4"/>
+		  	 -
+		 <input name="phone_num2" type="text" id="phone_num2" maxlength="4" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 4)">
+			<!-- <input name="phone_num2" type="text" id="phone_num2" maxlength="4" oninput="validateInput(this)">
+				<div id="custom-popup" class="custom-popup">
+				  <div class="popup-content">
+				    <span id="popup-message"></span>
+				  </div>
+				</div> -->
+
+				 -
+		    <input name="phone_num3" type="text" id="phone_num3" maxlength="4" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 4)">
 			</td>
 		</tr>
 		<tr>
@@ -796,9 +820,43 @@ var msg = "${msg}";
 		 	alert(msg);
 		 
 	 }
+/* 
+/// 경고 팝업창
+function validateInput(input) {
+  // 숫자 이외의 문자를 제거
+  input.value = input.value.replace(/[^0-9]/g, '');
 
+  // 입력된 값이 최대 4자리인지 확인
+  if (input.value.length > 4) {
+    input.value = input.value.slice(0, 4);
+  }
 
+  // 숫자 이외의 문자가 입력되었을 때 팝업 메시지 표시
+  function validateInput(input) {
+  // 입력된 값이 숫자가 아닌 경우
+  if (isNaN(input.value)) {
+    // 한글 입력인 경우
+    if (/[\uAC00-\uD7AF\u1100-\u11FF\u3130-\u318F\uA960-\uA97F\uAC00-\uD7AF\u11A8-\u11FF\u3130-\u318F\uFF00-\uFFEF]/.test(input.value)) {
+      input.value = '';
+    }
+    openCustomPopup("숫자 이외의 문자는 입력할 수 없습니다.");
+  } else {
+    closeCustomPopup();
+  }
+}
 
+function openCustomPopup(message) {
+  const customPopup = document.getElementById("custom-popup");
+  const popupMessage = document.getElementById("popup-message");
+  popupMessage.textContent = message;
+  customPopup.style.display = "flex";
+  setTimeout(closeCustomPopup, 2000); // 일정 시간 후에 팝업 닫기 (2초 후)
+}
+
+function closeCustomPopup() {
+  const customPopup = document.getElementById("custom-popup");
+  customPopup.style.display = "none";
+} */
 
 </script>
 </html>
