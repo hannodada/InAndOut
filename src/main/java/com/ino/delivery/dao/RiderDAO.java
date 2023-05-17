@@ -11,7 +11,7 @@ public interface RiderDAO {
 
 	RiderDTO dtoROD(String delivery_offer_no);
 
-	// ArrayList<RiderDTO> listDH();
+	ArrayList<RiderDTO> listDH();
 
 	// ArrayList<RiderDTO> listDS();
 
@@ -31,7 +31,7 @@ public interface RiderDAO {
 
 	//ArrayList<RiderDTO> selectBySC(String delivery_state, String delivery_offer_no);
 
-	HashMap<String, Object> select(RiderDTO dto);
+	HashMap<String, Object> selectAjax(RiderDTO dto);
 
 	int writeUO(RiderDTO dto);
 
@@ -47,11 +47,15 @@ public interface RiderDAO {
 
 	ArrayList<RiderDTO> listDS(int cnt, int offset);
 
-	int totalCountDH();
+	int totalCountDH(String state);
 
-	ArrayList<RiderDTO> listDH(int cnt, int offset);
+	// ArrayList<RiderDTO> listDH(int cnt, int offset);
 
-	HashMap<String, Object> filtering(RiderDTO dto);
+	ArrayList<RiderDTO> filtering(String state);
+
+	String userC(String user_id);
+
+	//ArrayList<RiderDTO> filtering(HashMap<String, String> params);
 
 
 }

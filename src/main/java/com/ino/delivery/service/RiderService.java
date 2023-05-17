@@ -29,10 +29,10 @@ public class RiderService {
 		//,sales_no
 	}
 
-	//public ArrayList<RiderDTO> listDH() {
-	//	logger.info("listDH 서비스 이동");
-	//	return dao.listDH();
-	//}
+	public ArrayList<RiderDTO> listDH() {
+		logger.info("listDH 서비스 이동");
+		return dao.listDH();
+	}
 
 	//public ArrayList<RiderDTO> listDS() {
 	//	return dao.listDS();
@@ -99,7 +99,7 @@ public class RiderService {
 	  }
 	 */
 
-	public HashMap<String, Object> select(HashMap<String, String> params) {
+	public HashMap<String, Object> selectAjax(HashMap<String, String> params) {
 	
 		logger.info("params 값" + params);
 		
@@ -110,12 +110,13 @@ public class RiderService {
 		logger.info("dto delivery_accept_no : "+dto.getDelivery_accept_no());
 		logger.info("dto Delivery_state : "+dto.getDelivery_state());
 		
-		return dao.select(dto);
+		return dao.selectAjax(dto);
 	}
 
-	public String writeDo(HashMap<String, String> params) {
+	public String writeDo(HashMap<String, String> params, String user_div) {
 		
-		logger.info("params 값" + params);
+		logger.info("params 값 : " + params);
+		
 		
 		String page = "redirect:/riderList";
 		
@@ -125,7 +126,9 @@ public class RiderService {
 		dto.setFrom_addr(params.get("from_addr"));
 		dto.setTo_addr(params.get("to_addr"));
 		dto.setRider_id(params.get("rider_id"));
+		dto.setUser_div(params.get("user_div"));
 		
+		logger.info("user_div : " + dto.getUser_div());
 		logger.info("user_id : " + dto.getUser_id());
 		logger.info("sales_no : " + dto.getSales_no());
 		logger.info("From_addr : " + dto.getFrom_addr());
@@ -135,8 +138,11 @@ public class RiderService {
 		int row = dao.writeUO(dto);
 		logger.info("insert 횟수"+row);
 		
-		page = "redirect:/riderOffer.go";
-		
+		if(user_div.equals("c")) {
+			page = "redirect:/riderOffer.go";
+		} else {
+			page = "redirect:/";
+		}
 		return page;
 	}
 
@@ -163,6 +169,7 @@ public class RiderService {
 		
 		map.put("currPage", page);
 		map.put("pages", range);
+		map.put("total", total);
 		
 		ArrayList<RiderDTO> list = dao.listRL(cnt,offset);
 		map.put("list", list);
@@ -187,13 +194,14 @@ public class RiderService {
 		// 전체 게시물 / 페이지당 보여줄 수
 		int total = dao.totalCountRO();
 		int range = total%cnt == 0?total/cnt : (total/cnt)+1;
-		logger.info("전체 페이지 수 :" +total);
-		logger.info("총 페이지 수:" +range);
+		logger.info("전체 페이지 수 : " +total);
+		logger.info("총 페이지 수: " +range);
 		
 		page = page > range ? range : page; 
 		
 		map.put("currPage", page);
 		map.put("pages", range);
+		map.put("total", total);
 		
 		ArrayList<RiderDTO> list1 = dao.listRO(cnt,offset);
 		map.put("list", list1);
@@ -202,6 +210,7 @@ public class RiderService {
 	}
 
 	public HashMap<String, Object> deliveryStateAjax(int page, int cnt) {
+		
 		logger.info(page+"페이지 보여줘");
 		logger.info("한 페이지에 "+cnt+" 개씩 보여줄거야");
 		
@@ -216,14 +225,16 @@ public class RiderService {
 		// 만들 수 있는 총 페이지 수
 		// 전체 게시물 / 페이지당 보여줄 수
 		int total = dao.totalCountDS();
+				
 		int range = total%cnt == 0?total/cnt : (total/cnt)+1;
-		logger.info("전체 페이지 수 :" +total);
-		logger.info("총 페이지 수:" +range);
+		logger.info("전체 페이지 수 : " +total);
+		logger.info("총 페이지 수: " +range);
 		
 		page = page > range ? range : page; 
 		
 		map.put("currPage", page);
 		map.put("pages", range);
+		map.put("total", total);
 		
 		ArrayList<RiderDTO> list1 = dao.listDS(cnt,offset);
 		map.put("list", list1);
@@ -231,7 +242,12 @@ public class RiderService {
 		return map;
 	}
 
-	public HashMap<String, Object> deliveryHistroyAjax(int page, int cnt) {
+	public String userC(String user_id) {
+
+		return dao.userC(user_id);
+	}
+
+	/*public HashMap<String, Object> deliveryHistroyAjax(int page, int cnt) {
 		
 		logger.info(page+"페이지 보여줘");
 		logger.info("한 페이지에 "+cnt+" 개씩 보여줄거야");
@@ -262,17 +278,19 @@ public class RiderService {
 		
 		return map;
 	}
+	*/
 
-	public HashMap<String, Object> filtering(HashMap<String, String> params) {
-		logger.info("params 값" + params);
-		
-		RiderDTO dto = new RiderDTO();
-		dto.setDelivery_state(params.get("delivery_state"));
-		
-		logger.info("dto Delivery_state : "+dto.getDelivery_state());
-		
-		return dao.filtering(dto);
+	public ArrayList<RiderDTO> filtering(String state) {
+	    logger.info("params 값 : " + state);
+	    
+	    return dao.filtering(state);
 	}
+
+	public int totalCountDH(String state) {
+
+		return dao.totalCountDH(state);
+	}
+	
 
 	/*
 	public String selectDo(HashMap<String, String> params) {

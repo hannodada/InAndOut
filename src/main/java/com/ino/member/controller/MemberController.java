@@ -60,6 +60,32 @@ public class MemberController {
 		return map;
 	}
 	
+	@RequestMapping(value="/sigungu.ajax" ,method = RequestMethod.POST)
+	@ResponseBody
+	public HashMap<String, Object> sigungu(
+			@RequestParam String sigungu , HttpSession session){
+		
+		
+		logger.info("sigungu 요청온거 로그..,,");
+		logger.info("sigungu : "+ sigungu);
+		
+		session.setAttribute("sigungu", sigungu);
+		
+		String user_id = (String) session.getAttribute("loginId");
+		int success = service.updateSigungu(user_id,sigungu);
+		if(success == 1) {
+			session.setAttribute("sigungu", sigungu);
+			
+			
+		}
+		
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("success", success);
+		
+		return map;
+	}
+	
 	
 	
 	
@@ -115,6 +141,22 @@ public class MemberController {
 							
 						}
 		
+
+		}
+		if(user_div.equals("b")) {
+			if(new_photo_name != null) {
+				
+				session.setAttribute("new_photo_name", new_photo_name);
+				logger.info("판매자dto사진!! 나온거!!! :  " +new_photo_name);
+				
+				
+			}
+			if(new_photo_name == null) {
+				//session.setAttribute("user_id", user_id);
+				//logger.info("제발dto 유저 아이디좀 해줘 : "+dto.getUser_id());
+				
+			}
+
 
 		}
 		if(user_div.equals("c")) {

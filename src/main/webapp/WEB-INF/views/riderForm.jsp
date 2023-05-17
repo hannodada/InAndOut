@@ -6,6 +6,10 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 <link rel="stylesheet" href="resources/css/common.css" type="text/css">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+
+
 <style>
 
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
@@ -60,6 +64,14 @@ h4{
 	padding: 0% 0% 0% 25%;
 	color: blue;
 }
+
+h5{
+	font-size:10px;
+	color: gray;
+
+}
+
+
 h6{
 	padding: 0% 0% 0% 25%;
 	color: gray;
@@ -205,7 +217,24 @@ h6{
             cursor:pointer;
         }
         
-        
+    /*  알림 팝업창*/
+ /* .custom-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 4px;
+} */
 
 	
         
@@ -234,19 +263,42 @@ h6{
 			<td>
 				<input type="text" name="user_id" id="user_id"/>
 				<button type="button" id="overlay" class="test_btn1">중복체크</button>
+				
 			</td>
 		</tr>
 		<tr>
+			<th></th>
+			<td>
+				
+				<h5>아이디는 영문, 숫자를 포함한 5자 이상으로 입력해주세요.</h5>
+			</td>
+		</tr>
+		
+		<tr>
 			<th>*비밀번호</th>
-			<td><input type="text" name="user_pw" id="user_pw"/></td>
+			<td><input type="password" name="user_pw" id="user_pw"/>
+			<span id="togglePassword" class="eye-icon far fa-eye"></span>
+			</td>
 		</tr>
 		<tr>
-			<th>*비밀번호 확인</th>
+			<th></th>
 			<td>
-				<input type="text" name="confirm" id="confirm"/>
+				
+				<h5>비밀번호는 한글을 제외한 영문, 숫자, 특수문자만 입력 가능합니다.</h5>
+			</td>
+		</tr>
+		
+		
+		<tr>
+			<th>비밀번호 확인</th>
+			<td>
+				<input type="password" name="confirm" id="confirm"/>
+				<i class="fa fa-eye" id="togglePassword"></i>
 				<span id="msg"></span>
 			</td>
 		</tr>
+		
+		
 		<tr>
 			<th>*이름</th>
 			<td><input type="text" name="user_name" id="user_name"/></td>
@@ -307,10 +359,17 @@ h6{
 				    <option value="011">011</option>
 				    <option value="012">012</option>
 		  	</select>
-		  	-
-			<input name="phone_num2" type="text" id="phone_num2" maxlength="4"/>
-			-
-			<input name="phone_num3" type="text" id="phone_num3" maxlength="4"/>
+		  	 -
+		 <input name="phone_num2" type="text" id="phone_num2" maxlength="4" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 4)">
+			<!-- <input name="phone_num2" type="text" id="phone_num2" maxlength="4" oninput="validateInput(this)">
+				<div id="custom-popup" class="custom-popup">
+				  <div class="popup-content">
+				    <span id="popup-message"></span>
+				  </div>
+				</div> -->
+
+				 -
+		    <input name="phone_num3" type="text" id="phone_num3" maxlength="4" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 4)">
 			</td>
 		</tr>
 		<tr>
@@ -438,6 +497,7 @@ h6{
 		</tr>
 	</table>
 	</form>
+	<br><br>	<br><br><br>
 </body>
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -567,39 +627,48 @@ function checkInput() {
 	   var $post_numTest = $('#sample6_postcode'); 
 	    
 	    
-	    if ($user_id.val() == '') {
-	      alert('아이디를 입력해 주세요!');
-	      $user_id.focus();
-	    }  else if ($user_pw.val() == '') {
-	      alert('비밀번호를 입력해 주세요!');
-	      $user_pw.focus();
-	    } else if ($user_name.val() == '') {
-	      alert('이름을 입력해 주세요!');
-	      $user_name.focus();
-	    } else if ($nickname.val() == '') {
-	      alert('닉네임을 입력해 주세요!');
-	      $nickname.focus();
-	    }else if ($phone_num.val() == '') {
-	      alert('전화번호를 입력해 주세요!');
-	    }else if ($post_num.val() == '') {
-	      alert('우편번호 찾기를 해주세요!');
-	    } else if ($email.val() == '') {
-	      alert('이메일 입력해 주세요!');
-	      $email.focus();
-	    } else if ($interest_biz_id.val() == '.') {
-	      alert('관심업종을 선택해 주세요!');
-	    } else  {
-	    	 alert('회원가입 준비가 됐습니다. 등록 버튼을 눌러주세요!');
-	    	 document.getElementById('registerButton').style.display = 'inline-block';
-    // 모든 필드의 유효성을 통과했을 경우
-	    } 
-	    
-     } else  {
-    	 alert('아이디 중복 체크와 비밀번호 확인을 해 주세요');
-      
-    }
-  }
+	   if ($user_id.val() == '') {
+		      alert('아이디를 입력해 주세요!');
+		      $user_id.focus();
+		    }else if (!validateUserId($user_id.val())) {
+		        alert('아이디는 영어와 숫자를 조합한 5글자 이상이어야 합니다.');
+		        $user_id.focus();
+		      }  else if ($user_pw.val() == '') {
+		      alert('비밀번호를 입력해 주세요!');
+		      $user_pw.focus();
+		    }else if (!/^[a-zA-Z0-9!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]*$/.test($user_pw.val())) {
+		        alert('비밀번호는 한글을 제외한 영문, 숫자, 특수문자만 입력 가능합니다.');
+		        $user_pw.focus();
+		      }else if ($user_name.val() == '') {
+		      alert('이름을 입력해 주세요!');
+		      $user_name.focus();
+		    } else if ($nickname.val() == '') {
+		      alert('닉네임을 입력해 주세요!');
+		      $nickname.focus();
+		    }else if ($phone_num.val() == '') {
+		      alert('전화번호를 입력해 주세요!');
+		    }else if ($post_num.val() == '') {
+		      alert('우편번호 찾기를 해주세요!');
+		    } else if ($email.val() == '') {
+		      alert('이메일 입력해 주세요!');
+		      $email.focus();
+		    } else if ($interest_biz_id.val() == '.') {
+		      alert('관심업종을 선택해 주세요!');
+		    } else  {
+		    	 alert('회원가입 준비가 됐습니다. 등록 버튼을 눌러주세요!');
+		    	 document.getElementById('registerButton').style.display = 'inline-block';
+	    // 모든 필드의 유효성을 통과했을 경우
+		    } 
+		    
+	     } else  {
+	    	 alert('아이디 중복 체크와 비밀번호 확인을 해 주세요');
+	      
+	    }
+	  }
 
+function validateUserId(userId) {
+	  return /^[a-zA-Z0-9]{5,}$/.test(userId);
+}
 
 
 $('#overlay').on('click',function(e){	
@@ -796,6 +865,35 @@ var msg = "${msg}";
 		 	alert(msg);
 		 
 	 }
+
+
+	/// 비밀번호 알려주는 자스
+	$(document).ready(function() {
+	  // 비밀번호 보기/가리기 기능
+	  $('#togglePassword').on('click', function() {
+	    var passwordField = $('#confirm');
+	    var fieldType = passwordField.attr('type');
+	    if (fieldType === 'password') {
+	      passwordField.attr('type', 'text');
+	      $('#togglePassword').removeClass('fa-eye').addClass('fa-eye-slash');
+	    } else {
+	      passwordField.attr('type', 'password');
+	      $('#togglePassword').removeClass('fa-eye-slash').addClass('fa-eye');
+	    }
+	  });
+	});
+	 
+	 
+//마찬가지 비밀번호 보여주는
+const togglePassword = document.querySelector('#togglePassword');
+const passwordInput = document.querySelector('#user_pw');
+
+togglePassword.addEventListener('click', function () {
+  const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+  passwordInput.setAttribute('type', type);
+  togglePassword.classList.toggle('fa-eye');
+  togglePassword.classList.toggle('fa-eye-slash');
+});
 
 
 

@@ -68,6 +68,7 @@
 #carousel-3:checked ~ .control-3 ~ .carousel-indicators li:nth-child(3) .carousel-bullet {
     color: #000;
     /*Set to match the Tailwind colour you want the active one to be */
+}
 </style>
 </head>
 <body>
@@ -137,10 +138,10 @@
 				            <span class="ml-4 text-gray-600">관심 ${detailData.attention }회</span>
 						</span>
 						<c:if test="${sessionScope.loginId ne null}">
-							<input class="ml-4 h-5 w-5" type="checkbox" onclick="attention(this)" <c:if test="${attentionCheck==1 }">checked</c:if>/>
+							<input class="ml-4 h-8 w-8 accent-pink-500" type="checkbox" onclick="attention(this)" <c:if test="${attentionCheck==1 }">checked</c:if>/>
 			        	</c:if>
 			        </div>
-			        <div class="flex mt-6 items-center pb-5 border-b-2 border-gray-100">
+			        <div class="flex mt-6 items-center pb-5">
 				        <div class="flex">
 				        	<button class="flex ml-auto text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded" onclick="saleChat()">채팅하기</button>
 							<button class="flex ml-4 text-white bg-gray-500 border-0 py-2 px-6 focus:outline-none hover:bg-gray-600 rounded" onclick="location.href='./salesList.do'">리스트</button>
@@ -150,11 +151,11 @@
 				        </div>
 			        </div>
 					<c:if test="${detailData.sales_state == '판매완료'}">
-						<div class="flex items-center pb-5 border-b-2 border-gray-100">
+						<div class="flex items-center pb-5">
 							<button class="flex mr-4 text-white bg-yellow-600 border-0 py-2 px-6 focus:outline-none hover:bg-yellow-700 rounded" onclick="openStarThrowForm()">별점주기</button>
 						</div>
 					</c:if>
-			        <div class="flex items-center pb-5 border-b-2 border-gray-100 mb-5">
+			        <div class="flex items-center pb-5">
 				        <div class="flex">
 				        	<c:if test="${sessionScope.loginId eq detailData.user_id}">
 								<button class="flex ml-auto text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded" onclick="location.href='./salesUpdate.go?sales_no=${detailData.sales_no}&user_id=${detailData.user_id }'">수정</button>
@@ -224,7 +225,7 @@ function attention(box){
 function openSalesReportForm(sales_no){
 	
 	window.name = "salesDetail";
-	openWin = window.open("salesReport.go?sales_no=${detailData.sales_no }", "salesReportForm", "width=570, height=350, resizable = no, scrollbars = no");
+	openWin = window.open("salesReport.go?sales_no=${detailData.sales_no }", "salesReportForm", "width=570, height=800, resizable = no, scrollbars = no");
 }
 
 function openStarThrowForm(){
@@ -249,7 +250,7 @@ function openStarThrowForm(){
 			success: function(data){
 				console.log(data);
 				window.name = "salesDetail";
-				openWin = window.open("starThrow.go?sales_no=${detailData.sales_no }&user_id=${detailData.user_id}", "salesReportForm", "width=570, height=350, resizable = no, scrollbars = no");
+				openWin = window.open("starThrow.go?sales_no=${detailData.sales_no }&user_id=${detailData.user_id}", "salesReportForm", "width=570, height=800, resizable = no, scrollbars = no");
 			},
 			error: function(e){
 				console.log(e);

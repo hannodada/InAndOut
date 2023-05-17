@@ -339,6 +339,11 @@ public ArrayList<MemberDTO> attentionTopList() {
 		
 		return dao.attentionTopList();
 	}
+
+public int updateSigungu(String user_id, String sigungu ) {
+	
+	return dao.updateSigungu(user_id,sigungu);
+}
 	
 
 
