@@ -17,7 +17,6 @@ public interface MemberDAO {
 	
 	ArrayList<MemberDTO> normalTopList();
 	
-
 	int join(HashMap<String, String> params);
 
 	int login(String id, String pw);
@@ -71,6 +70,8 @@ public interface MemberDAO {
 
 	
 	ArrayList<MemberDTO> attentionTopList();
+
+	int updateSigungu( String user_id , String sigungu);
 	
 
 	

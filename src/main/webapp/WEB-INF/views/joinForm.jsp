@@ -6,6 +6,10 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 <link rel="stylesheet" href="resources/css/joinform.css" type="text/css">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+
+
 <style>
 
 .file-preview-container img {
@@ -13,8 +17,11 @@
   max-height: 255px;
 }
 
+h5{
+	font-size:10px;
+	color: gray;
 
-
+}
 
 </style>
 <head>
@@ -50,19 +57,44 @@
 			<td>
 				<input type="text" name="user_id" id="user_id"/>
 				<button type="button" id="overlay" class="test_btn1">중복체크</button>
+				
 			</td>
 		</tr>
 		<tr>
-			<th>*비밀번호</th>
-			<td><input type="text" name="user_pw" id="user_pw"/></td>
+			<th></th>
+			<td>
+				
+				<h5>아이디는 영문, 숫자를 포함한 5자 이상으로 입력해주세요.</h5>
+			</td>
 		</tr>
+		
+		<tr>
+			<th>*비밀번호</th>
+			<td><input type="password" name="user_pw" id="user_pw"/>
+			 <span id="togglePassword" class="eye-icon far fa-eye"></span>
+			</td>
+			
+			
+		</tr>
+		<tr>
+			<th></th>
+			<td>
+				
+				<h5>비밀번호는 한글을 제외한 영문, 숫자, 특수문자만 입력 가능합니다.</h5>
+			</td>
+		</tr>
+		
+		
 		<tr>
 			<th>비밀번호 확인</th>
 			<td>
-				<input type="text" name="confirm" id="confirm"/>
+				<input type="password" name="confirm" id="confirm"/>
+				<i class="fa fa-eye" id="togglePassword"></i>
 				<span id="msg"></span>
 			</td>
 		</tr>
+		
+		
 		<tr>
 			<th>*이름</th>
 			<td><input type="text" name="user_name" id="user_name"/></td>
@@ -124,9 +156,9 @@
 			      <option value="012">012</option>
 			    </select>
 			    -
-			    <input name="phone_num2" type="text" id="phone_num2" maxlength="4"/>
+			   <input name="phone_num2" type="text" id="phone_num2" maxlength="4" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 4)">
 			    -
-			    <input name="phone_num3" type="text" id="phone_num3" maxlength="4"/>
+			    <input name="phone_num3" type="text" id="phone_num3" maxlength="4" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 4)">
 			  </td>
 			</tr>
 		<tr>
@@ -496,10 +528,16 @@ function checkInput() {
 	    if ($user_id.val() == '') {
 	      alert('아이디를 입력해 주세요!');
 	      $user_id.focus();
-	    }  else if ($user_pw.val() == '') {
+	    }else if (!validateUserId($user_id.val())) {
+	        alert('아이디는 영어와 숫자를 조합한 5글자 이상이어야 합니다.');
+	        $user_id.focus();
+	      }  else if ($user_pw.val() == '') {
 	      alert('비밀번호를 입력해 주세요!');
 	      $user_pw.focus();
-	    } else if ($user_name.val() == '') {
+	    }else if (!/^[a-zA-Z0-9!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]*$/.test($user_pw.val())) {
+	        alert('비밀번호는 한글을 제외한 영문, 숫자, 특수문자만 입력 가능합니다.');
+	        $user_pw.focus();
+	      }else if ($user_name.val() == '') {
 	      alert('이름을 입력해 주세요!');
 	      $user_name.focus();
 	    } else if ($nickname.val() == '') {
@@ -526,7 +564,9 @@ function checkInput() {
     }
   }
 
-
+function validateUserId(userId) {
+	  return /^[a-zA-Z0-9]{5,}$/.test(userId);
+	}
 
 
 
@@ -614,6 +654,8 @@ $('#confirm').on('keyup',function(e){
 
 
 function sample6_execDaumPostcode() {
+
+	  console.log("실행.");
 	  // 우편번호 찾기 실행
 	  new daum.Postcode({
 	    oncomplete: function(data) {
@@ -803,6 +845,7 @@ function workURL(input) {
 
 // 다음 지도 api
  function sample6_execDaumPostcode() {
+		console.log("실행.");
         new daum.Postcode({
             oncomplete: function(data) {
                 // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
@@ -900,7 +943,33 @@ function workURL(input) {
  	 }
 
 
+/// 비밀번호 알려주는 자스
+$(document).ready(function() {
+  // 비밀번호 보기/가리기 기능
+  $('#togglePassword').on('click', function() {
+    var passwordField = $('#confirm');
+    var fieldType = passwordField.attr('type');
+    if (fieldType === 'password') {
+      passwordField.attr('type', 'text');
+      $('#togglePassword').removeClass('fa-eye').addClass('fa-eye-slash');
+    } else {
+      passwordField.attr('type', 'password');
+      $('#togglePassword').removeClass('fa-eye-slash').addClass('fa-eye');
+    }
+  });
+});
 
+
+//마찬가지 비밀번호 보여주는
+const togglePassword = document.querySelector('#togglePassword');
+const passwordInput = document.querySelector('#user_pw');
+
+togglePassword.addEventListener('click', function () {
+  const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+  passwordInput.setAttribute('type', type);
+  togglePassword.classList.toggle('fa-eye');
+  togglePassword.classList.toggle('fa-eye-slash');
+});
 
 </script>
 </html>

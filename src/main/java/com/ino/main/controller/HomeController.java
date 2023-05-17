@@ -165,11 +165,55 @@ public class HomeController {
 				
 				
 				//사용자 주변 판매글 많은 사람 프로필 뽑아주기
-				String sigungu  = service.sigungu(user_id);
-				session.setAttribute("sigungu", sigungu);
-				ArrayList<HomeDTO> sigunguTopList = service.sigunguTopList(sigungu);
-				model.addAttribute("sigunguTopList",sigunguTopList);
+				if(session.getAttribute("sigungu").equals("")) {
+					
+					String sigungu  = service.sigungu(user_id);
+					session.setAttribute("sigungu", sigungu);
+					ArrayList<HomeDTO> sigunguTopList = service.sigunguTopList(sigungu);
+					model.addAttribute("sigunguTopList",sigunguTopList);
+					
+					
+					try {
+						for(HomeDTO arg : sigunguTopList) {
+							logger.info("user_id: " + arg.getUser_id());
+							logger.info("hit: " + arg.getHit());
+							logger.info("sigungu: " + arg.getSigungu());
+						}
+					} catch (Exception e) {
+
+						model.addAttribute("sigunguTopList", new ArrayList<MemberDTO>());
+					}
+					
+					
+					
+					logger.info("지금 시군구이거에 정보 있는건가? : " +sigunguTopList.size() );
+					//logger.info("지금 아이티오에 사진이 들어 있는거임? :"+sigunguTopList.get(1) );
+					
+					
+				}else {
+					String sigungu = (String) session.getAttribute("sigungu");
+					ArrayList<HomeDTO> sigunguTopList = service.sigunguTopList(sigungu);
+					model.addAttribute("sigunguTopList",sigunguTopList);
+					
+					try {
+						for(HomeDTO arg : sigunguTopList) {
+							logger.info("user_id: " + arg.getUser_id());
+							logger.info("hit: " + arg.getHit());
+							logger.info("sigungu: " + arg.getSigungu());
+						}
+					} catch (Exception e) {
+
+						model.addAttribute("sigunguTopList", new ArrayList<MemberDTO>());
+					}
+					
+					
+					
+					logger.info("지금 시군구이거에 정보 있는건가? : " +sigunguTopList.size() );
+					//logger.info("지금 아이티오에 사진이 들어 있는거임? :"+sigunguTopList.get(1) );
+				}
 				
+				
+				/*
 				try {
 					for(HomeDTO arg : sigunguTopList) {
 						logger.info("user_id: " + arg.getUser_id());
@@ -187,7 +231,7 @@ public class HomeController {
 				//logger.info("지금 아이티오에 사진이 들어 있는거임? :"+sigunguTopList.get(1) );
 						
 				
-				
+				*/
 
 		}
 			

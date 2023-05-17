@@ -22,8 +22,8 @@
 	 
 	<insert id="userRegist" parameterType="hashmap">
 		INSERT INTO user(
-			user_id,user_pw,user_name,nickname,post_num,left_addr
-			,sido,sigungu,phone_num,email,user_state,interest_biz_id,user_div
+			user_id,user_pw,user_name,nickname,post_num,sido
+			,sigungu,left_addr,phone_num,email,user_state,interest_biz_id,user_div
 		)VALUES(
 			#{user_id},#{user_pw},#{user_name},#{nickname},#{post_num},#{sido}
 			,#{sigungu},#{left_addr},#{phone_num},#{email},#{user_state},#{interest_biz_id}
@@ -184,6 +184,12 @@
       	 LEFT JOIN photo p ON p.photo_div = g.gallery_no AND p.cate_no = 'p006'
     	GROUP BY g.gallery_no ORDER BY g.gallery_hit desc limit 4;
 	</select>
+	
+	
+	<insert id="updateSigungu">
+		INSERT INTO verified_area(user_id,verified_sigungu)
+			VALUES(#{param1},#{param2})
+	</insert>
 	
 	
 	
