@@ -139,10 +139,11 @@
 					<div class="mt-2.5">
 						<div id="oldAddr">
 						${detailData.sales_sido } ${detailData.sigungu } ${detailData.left_addr }
-						<input type="button" id="change" value="변경" onclick="addrChange()" class="inline-block w-20 rounded-md bg-blue-500 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-blue-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-					</div>
-					<div id="newAddr"></div>
-						
+							<input type="button" id="change" value="변경" onclick="addrChange()" class="inline-block w-20 rounded-md bg-blue-500 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-blue-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+						</div>
+						<div id="newAddr">
+						<!-- 새로운 주소창 -->
+						</div>
 					</div>
 		        </div>
 		        <div class="sm:col-span-2">
@@ -184,35 +185,6 @@
 			</div>
 		</form>
 	</div>
-
-<!--  --><!--  --><!--  --><!--  --><!--  --><!--  --><!--  --><!--  --><!--  --><!--  --><!--  --><!--  --><!--  --><!--  --><!--  -->
-
-						<input type="text" id="roadAddress" name="roadAddress" placeholder="도로명주소" readonly="readonly" required class="mt-4 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-						<input type="text" id="jibunAddress" name="jibunAddress" placeholder="지번주소" hidden="true">
-						<input type="text" id="sido" name="sido" placeholder="시도" hidden="true" required>
-						<input type="text" id="sigungu1" name="sigungu" placeholder="시군구" hidden="true" required>
-						<input type="text" id="extraAddress" name="extraAddress" placeholder="참고항목" readonly="readonly" required class="mt-4 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-						<span id="guide" style="color:#999;display:none"></span>
-						<input type="text" id="detailAddress" name="detailAddress" placeholder="상세주소" class="mt-4 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-		
-						<select name="biz" id="biz" onchange="goodsCall()" required class="h-10 w-60 rounded-md border-0 bg-transparent bg-none py-0 pl-4 pr-9 text-gray-400 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm">
-							<option value="default">--</option>
-								<c:forEach items="${bizList}" var="i">
-									<option value="${i.biz_id}">${i.biz_name}</option>
-								</c:forEach>
-						</select>
-
-
-						<select name="goods" id="goods" required class="h-10 w-60 rounded-md border-0 bg-transparent bg-none py-0 pl-4 pr-9 text-gray-400 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm">
-							<option value="default">--</option>
-						</select>
-
-
-
-
-
-
-
 </body>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
