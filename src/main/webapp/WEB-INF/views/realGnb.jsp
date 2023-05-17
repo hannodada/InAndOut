@@ -33,7 +33,14 @@
 
 
 </style>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+
 <head>
+
+
 
  <header>
 
@@ -90,13 +97,13 @@
 														       <div id="location">
 
 																				            ${sessionScope.sigungu}
-															            <button class="test_btn1" onmouseover="showPopup()" onmouseout="hidePopup()">활동지역 인증</button>
+															            <button class="test_btn1" onclick="getLocation()" onmouseover="showPopup()" onmouseout="hidePopup()">활동지역 인증</button>
+
 
 																			<div id="popup" class="popup">
 																			  <p>활동지역 인증 후 메인페이지로 이동합니다</p>
 																			</div>
-																		<button class="test_btn1" onclick="getLocation()">활동지역 인증</button>
-  																		<span id="sigungu"></span>	
+			  																		<span id="sigungu"></span>	
   																		
 																		 
 																		
@@ -349,7 +356,7 @@ window.onscroll = function() {
 
 }
 */
-/*
+
 //slider
 
 new Swiper('.swiper', {
@@ -365,7 +372,7 @@ new Swiper('.swiper', {
 });
 
 
-/*
+
 
 ///top
 
@@ -376,8 +383,11 @@ $( window ).scroll( function() {
 		$( '.top' ).fadeOut();
 	}
 } );
-*/
+
 //로그인 관련 아작스!!
+
+
+
 
 function login(){
 	
@@ -407,8 +417,15 @@ function login(){
 
 }
 
+
+
+
+
+
+
+
 //활동지역  팝업
-function showPopup() {
+   function showPopup() {
   var popup = document.getElementById("popup");
   popup.style.display = "block";
 }
@@ -420,7 +437,94 @@ function hidePopup() {
 
 
 
+// 카카오 지도
 
+var options = {
+  enableHighAccuracy: true,
+  timeout: 5000,
+  maximumAge: 0
+};
+
+let region_2depth_name; // 전역 변수로 선언
+
+ function success(position) {
+  //좌표를 알아낼 수 있는데, 여기서 알아낸 좌표를 kakaoAPI url에 사용할 것이다.
+  console.log('위도 : ' + position.coords.latitude); 
+  console.log('경도: ' + position.coords.longitude);
+};
+
+function error(err) {
+  console.warn('ERROR(' + err.code + '): ' + err.message);
+};
+
+navigator.geolocation.getCurrentPosition(success, error, options);
+
+
+
+/// 위도 경도로 카카오로 위치 뽑아내기
+
+function onGeoOk(position){
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+        
+        console.log("lat:" + lat + " lon:" + lon);
+        
+        requestData = "https://dapi.kakao.com/v2/local/geo/coord2address.json?x=" + lon + "&y=" + lat + "&input_coord=WGS84";
+        
+        //kakao REST API에 get 요청을 보낸다.
+        //파라미터 x,y에 lon,lat을 넣어주고 API_KEY를 Authorization헤더에 넣어준다.
+        axios.get(requestData,
+        {
+        	headers:{Authorization:`KakaoAK e434e3b05b4f1c7f078a8511ceaaab79`}
+        })
+        .then(res=>{
+        	responseData = res.data.documents;
+        	region_2depth_name = responseData[0].address.region_2depth_name;
+        	console.log(responseData[0].address.region_2depth_name);
+            dispatch(changeRegion(res.data.documents[0].address.region_1depth_name))
+            dispatch(changeCity(res.data.documents[0].address.region_2depth_name)) 
+            
+           
+          
+            
+        }
+        ).catch(e=>console.log(e))
+       	
+    }
+    function onGeoError(){
+        alert("위치권한을 확인해주세요");
+    }
+  
+
+	//navigator.geolocation.getCurrentPosition(위치받는함수, 에러났을때 함수)
+	navigator.geolocation.getCurrentPosition(onGeoOk,onGeoError)
+
+function getLocation() {
+ $.ajax({
+                type: 'POST',
+                url: 'sigungu.ajax',
+                data: {
+                  sigungu: region_2depth_name,
+                },
+                dataType: 'json',
+                success: function (data) {
+                  console.log(data);
+                  if (data.success == 1) {
+                    alert('활동지역 인증이 완료되었습니다. 메인페이지로 이동합니다.');
+                    location.href='home';
+                  } else {
+                    alert('위치 정보 허용을 하시거나 로그인 정보를 확인해 주세요.');
+                  }
+                },
+                error: function (e) {
+                  console.log(e);
+                  alert('[오류]아이디 또는 비밀번호를 확인해 주세요!');
+                },
+              });
+
+	}
+
+/* 
 
 //버튼 클릭 이벤트 핸들러
 $(".test_btn1").on("click", function () {
@@ -443,100 +547,7 @@ $(".test_btn1").on("click", function () {
   }
 });
 
-
-
-
-//두번째
-
-function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      const lat = position.coords.latitude;
-      const lng = position.coords.longitude;
-      reverseGeocoding(lat, lng);  // 좌표를 이용하여 sigungu 정보를 찾아 출력합니다
-    });
-  } else {
-    document.getElementById("location").innerHTML = "Geolocation is not supported by this browser.";
-  }
-}
-
-function reverseGeocoding(lat, lng) {
-	  const geocoder = new daum.maps.services.Geocoder();
-	  let sigungu = '';
-
-	  // 좌표로 행정동 주소 정보를 요청합니다
-	  geocoder.coord2RegionCode(lng, lat, function(result, status) {
-	    if (status === daum.maps.services.Status.OK) {
-	      for (let i = 0; i < result.length; i++) {
-	        // 행정동 주소 중 구와 동 정보만 추출합니다
-	        if (result[i].regionType === 'H' || result[i].regionType === 'B') {
-	          sigungu += result[i].regionName;
-	        }
-	      }
-	      console.log(sigungu);
-	      // 추출한 구와 동 정보를 출력합니다
-	      document.getElementById("location").innerHTML = `현재 위치: ${lat}, ${lng}, ${sigungu}`;
-	    }
-	  });
-	}
-	
-//버튼 클릭 이벤트 핸들러
-$(".test_btn1").on("click", function () {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      // 위치 정보 가져오기에 성공했을 때 호출되는 success 콜백 함수
-      function (position) {
-        var latitude = position.coords.latitude;
-        var longitude = position.coords.longitude;
-        reverseGeocoding(latitude, longitude); // 좌표를 이용하여 sigungu 정보를 찾아 출력합니다
-      },
-      // 위치 정보 가져오기에 실패했을 때 호출되는 error 콜백 함수
-      function (error) {
-        console.log(error);
-        $("#location").html("위치 정보를 가져올 수 없습니다.");
-      }
-    );
-  } else {
-    $("#location").html("위치 정보를 지원하지 않는 브라우저입니다.");
-  }
-});
-
-
-
-//새로 넣으래
-function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      const lat = position.coords.latitude;
-      const lng = position.coords.longitude;
-      daum.maps.load(function() {
-        reverseGeocoding(lat, lng);  // 좌표를 이용하여 sigungu 정보를 찾아 출력합니다
-      });
-    });
-  } else {
-    document.getElementById("location").innerHTML = "Geolocation is not supported by this browser.";
-  }
-}
-
-function reverseGeocoding(lat, lng) {
-  const geocoder = new daum.maps.services.Geocoder();
-  let sigungu = '';
-
-  // 좌표로 행정동 주소 정보를 요청합니다
-  geocoder.coord2RegionCode(lng, lat, function(result, status) {
-    if (status === daum.maps.services.Status.OK) {
-      for (let i = 0; i < result.length; i++) {
-        // 행정동 주소 중 구와 동 정보만 추출합니다
-        if (result[i].regionType === 'H' || result[i].regionType === 'B') {
-          sigungu += result[i].regionName;
-        }
-      }
-      // 추출한 구와 동 정보를 출력합니다
-      document.getElementById("location").innerHTML = `현재 위치: ${lat}, ${lng}, ${sigungu}`;
-    }
-  });
-}
-
+ */
 
 
 
