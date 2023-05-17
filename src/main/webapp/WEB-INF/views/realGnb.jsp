@@ -481,14 +481,11 @@ function onGeoOk(position){
         	responseData = res.data.documents;
         	region_2depth_name = responseData[0].address.region_2depth_name;
         	console.log(responseData[0].address.region_2depth_name);
-            dispatch(changeRegion(res.data.documents[0].address.region_1depth_name))
-            dispatch(changeCity(res.data.documents[0].address.region_2depth_name)) 
+        	
+            //dispatch(changeRegion(res.data.documents[0].address.region_1depth_name))
+            //dispatch(changeCity(res.data.documents[0].address.region_2depth_name)) 
             
-           
-          
-            
-        }
-        ).catch(e=>console.log(e))
+        }).catch(e=>console.log(e))
        	
     }
     function onGeoError(){
@@ -508,7 +505,7 @@ function getLocation() {
                 },
                 dataType: 'json',
                 success: function (data) {
-                  console.log(data);
+                 console.log(data);
                   if (data.success == 1) {
                     alert('활동지역 인증이 완료되었습니다. 메인페이지로 이동합니다.');
                     location.href='home';

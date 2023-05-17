@@ -654,6 +654,8 @@ $('#confirm').on('keyup',function(e){
 
 
 function sample6_execDaumPostcode() {
+
+	  console.log("실행.");
 	  // 우편번호 찾기 실행
 	  new daum.Postcode({
 	    oncomplete: function(data) {
@@ -843,6 +845,7 @@ function workURL(input) {
 
 // 다음 지도 api
  function sample6_execDaumPostcode() {
+		console.log("실행.");
         new daum.Postcode({
             oncomplete: function(data) {
                 // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
