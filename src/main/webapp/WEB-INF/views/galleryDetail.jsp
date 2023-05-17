@@ -193,7 +193,7 @@ function attention(box){
 function openGalleryReportForm(gallery_no){
 	
 	window.name = "galleryDetail";
-	openWin = window.open("galleryReport.go?gallery_no=${detailData.gallery_no }", "galleryReportForm", "width=570, height=350, resizable = no, scrollbars = no");
+	openWin = window.open("galleryReport.go?gallery_no=${detailData.gallery_no }", "galleryReportForm", "width=570, height=800, resizable = no, scrollbars = no");
 }
 </script>
 </html>
