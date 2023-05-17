@@ -49,32 +49,10 @@
 	
     <div class="main-box">
         <div class="profile-box">
-        <img src="/photo/${new_photo_name}">
-            <div class="title-nickname">
-            <h2>${dto.nickname}</h2>
-            </div>
-        </div>
-        <div class="content">
-        <c:choose>
-        	<c:when test="${avg eq 1}">
-        	<img src="resources/img/dolphin1.png" style="width: 60px;"/>
-        	</c:when>
-        	<c:when test="${avg eq 2}">
-        	<img src="resources/img/dolphin2.png" style="width: 60px;"/>
-        	</c:when>
-        	<c:when test="${avg eq 3}">
-        	<img src="resources/img/dolphin3.png" style="width: 60px;"/>
-        	</c:when>
-        	<c:when test="${avg eq 4}">
-        	<img src="resources/img/dolphin4.png" style="width: 60px;"/>
-        	</c:when>
-        	<c:when test="${avg eq 5}">
-        	<img src="resources/img/dolphin5.png" style="width: 60px;"/>
-        	</c:when>
-        </c:choose>        
-        <div class="main-box">
-        <div class="profile-box">
-        <img src="/photo/${new_photo_name}">
+        <c:if test="${new_photo_name eq null}">
+        	<img src="resources/photo/프로필 기본.png" width="150px">
+        </c:if>
+        <img src="/photo/${new_photo_name}" width="150px">
             <div class="title-nickname">
             <h2>${dto.nickname}</h2>
             </div>
@@ -96,16 +74,16 @@
         	<c:when test="${avg eq 5}">
         	<img src="resources/img/dolphin5.png" style="width: 60px;"/>
         	</c:when>
-        </c:choose>        
-        </div>
+        </c:choose>
+                </div>  
             <div id="avgdolphin">&nbsp;&nbsp;나의 &돌핀 단계 : ${avg}단계&nbsp;&nbsp;</div>
             <div class="parent">
 		        <div class="pfirst">제안요청</div>
 		        <div class="psecond">배송 진행</div>
 		    		</div>
 		    <div class="child">
-		        <div class="cfirst">4</div>
-		        <div class="csecond">2</div>
+		        <div class="cfirst">${rideroffer}</div>
+		        <div class="csecond">${riderdelivery}</div>
 		    </div>
     </div>
 

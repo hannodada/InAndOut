@@ -145,7 +145,10 @@
 	<hr>
     <div class="main-box">
         <div class="profile-box">
-        <img src="/photo/${new_photo_name}" style="width: 130px;"/>
+        <c:if test="${new_photo_name eq null}">
+        	<img src="resources/photo/프로필 기본.png" width="150px">
+        </c:if>
+        <img src="/photo/${new_photo_name}" width="150px">
             <div class="title-nickname">
             <h2>${dto.nickname}</h2>
             </div>
@@ -185,6 +188,12 @@
 <!--다음 주소 api  -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>  
 <script>
+var msg = "${msg}";
+if(msg !=""){
+	 	alert(msg);
+	 
+}
+
 function join(){     
     var $user_id = $('#user_id');
     var $newpassword = $('#newpassword');
@@ -309,5 +318,8 @@ function sample6_execDaumPostcode() {
         }
     }).open();
 }
+
+
+
 </script>
 </html>

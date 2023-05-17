@@ -79,6 +79,7 @@ public class HomeController {
 				
 				String user_div = service.userCategory(user_id);
 				String new_photo_name  = service.afterList(user_id);
+				session.setAttribute("new_photo_name", new_photo_name);
 				page = "home";
 				logger.info("유저 구분 뭔지 좀 보자!!!!!  : "+user_div );
 				
@@ -93,6 +94,7 @@ public class HomeController {
 									logger.info("일반dto사진!! 나온거!!! :  " +new_photo_name);
 									
 									
+									
 								}
 								if(new_photo_name == null) {
 									//session.setAttribute("user_id", user_id);
@@ -102,12 +104,30 @@ public class HomeController {
 				
 
 				}
+				if(user_div.equals("b")) {
+					if(new_photo_name != null) {
+						
+						session.setAttribute("new_photo_name", new_photo_name);
+						logger.info("일반dto사진!! 나온거!!! :  " +new_photo_name);
+						
+						
+						
+					}
+					if(new_photo_name == null) {
+						//session.setAttribute("user_id", user_id);
+						//logger.info("제발dto 유저 아이디좀 해줘 : "+dto.getUser_id());
+						
+					}
+	
+
+	}
 				if(user_div.equals("c")) {
 					if(new_photo_name != null) {
 						
 						session.setAttribute("new_photo_name", new_photo_name);
 						//dto.setNew_photo_name(new_photo_name);
 						String new_photo_name2 =  (String) session.getAttribute("new_photo_name");
+						
 						logger.info("(세션에저장된)라이더!!dtot사진!! 나온거!!! :  " +new_photo_name2);
 						
 						

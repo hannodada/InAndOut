@@ -32,7 +32,7 @@
 		<a href="userBiz.go">인증판매자등록</a>
 		</nav>
 	</header>
-	<form action="userSetting.do" method="post" enctype="multipart/form-data" >
+	<form action="userSetting.do" method="post" enctype="multipart/form-data" onsubmit="return join()" >
 	<h2 id="rdupdate" style="color: skyblue; display:block;">회원정보 수정</h2>
 	<div id="rdidupdate" style="float:left; margin-right:10px;">
 			<h4 style="font-size:15px; color: skyblue; display:inline;">
@@ -150,7 +150,10 @@
 	<hr>
 <div class="main-box">
         <div class="profile-box">
-        <img src="/photo/${new_photo_name}">
+        <c:if test="${new_photo_name eq null}">
+        	<img src="resources/photo/프로필 기본.png" width="150px">
+        </c:if>
+        <img src="/photo/${new_photo_name}" width="150px">
             <div class="title-nickname">
             <h2>${dto.nickname}</h2>
             </div>
@@ -214,27 +217,34 @@ function join(){
         alert('비밀번호를 입력해 주세요!');
         console.log("1");
         $newpassword.focus();
+        return false;
     }else if($confirm_password.val() == ''){
         alert('비밀번호 확인을 해주세요!');
         $confirm_password.focus();
         console.log("2");
+        return false;
     }else if($nickname.val() == ''){
         alert('닉네임을 입력해 주세요!');
         $nickname.focus();
         console.log("3");
+        return false;
     }else if($post_num.val() == null){
         alert('우편번호를 입력해 주세요!');
         console.log("4");
+        return false;
     }else if($phone_num.val() == null){
         alert('전화번호를 입력해 주세요!');
         console.log("5");
+        return false;
     }else if($email.val() == ''){
         alert('이메일 입력해 주세요!');
         $email.focus();
         console.log("6");
+        return false;
     }else if($interest_biz_id.val() == '.'){
         alert('관심업종을 선택해 주세요!');
         console.log("7");
+        return false;
     }else{
         var overlayChk = true;
         var param = {};
@@ -318,5 +328,12 @@ function sample6_execDaumPostcode() {
         }
     }).open();
 }
+
+var msg = "${msg}";
+if(msg !=""){
+	 	alert(msg);
+	 
+}
+
 </script>
 </html>

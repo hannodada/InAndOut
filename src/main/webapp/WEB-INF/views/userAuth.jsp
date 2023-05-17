@@ -55,7 +55,10 @@
 	<hr>
     <div class="main-box">
         <div class="profile-box">
-        <img src="/photo/${new_photo_name}">
+        <c:if test="${new_photo_name eq null}">
+        	<img src="resources/photo/프로필 기본.png" width="150px">
+        </c:if>
+        <img src="/photo/${new_photo_name}" width="150px">
             <div class="title-nickname">
             <h2>${dto.nickname}</h2>
             </div>
@@ -96,11 +99,17 @@
     
 </body>  
 <script type="text/javascript">
+
+var msg = "${msg}";
+if(msg !=""){
+	 	alert(msg);
+	 
+}
 	
 $('#pwcheck').on('click',function(e){	
 	var oripassword = document.getElementById("oripassword").value;
 	console.log('oripassword : '+oripassword);
-	
+
 	$.ajax({
 		type:'get',
 		url:'pwcheck.ajax',
@@ -108,20 +117,19 @@ $('#pwcheck').on('click',function(e){
 		dataType:'json',
 		success:function(data){
 			console.log(data);
-			if(data.map == 0){
-				console.log('기존 비밀번호 전달 실패');
-				
-				
-				}else{
-					console.log('기존 비밀번호 전달 성공');
-					location.href='/userAuth.do';
-				}
-				
-			},error:function(e)
-			{
+			if(data == oripassword){
+				alert('비밀번호가 일치합니다');
+				console.log(data);
+			}else{
 				alert('비밀번호가 일치하지 않습니다');
+			}
+			},
+		error:function(e){
+				
 				console.log(e);
 			}
 			});
+});
+
 </script>
 </html>

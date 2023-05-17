@@ -28,20 +28,23 @@
 	<div style="float:left; margin-right:10px;">
 				<h6 id="riderAuth" style="font-size:15px; color: grey; display:inline;">
 				현재 비밀번호를 입력해주세요&nbsp;&nbsp;</h6>
-				<input type="password" id="oripassword">
+				<input type="password" name="oripassword" id="oripassword">
 				
 		</div>
 		
 	<div id="riderupdatebutton2">
 	<input type="button" onclick="location.href='./riderPage'" value="돌아가기"/>
-	<button>저장</button>
+	<button id="pwcheck">확인</button>
 	</div>
 	</form>
 	
 	<hr>
     <div class="main-box">
         <div class="profile-box">
-        <img src="/photo/${new_photo_name}" style="width: 130px;"/>
+        <c:if test="${new_photo_name eq null}">
+        	<img src="resources/photo/프로필 기본.png" width="150px">
+        </c:if>
+        <img src="/photo/${new_photo_name}" width="150px">
             <div class="title-nickname">
             <h2>${dto.nickname}</h2>
             </div>
@@ -77,4 +80,37 @@
 		    </div>
     </div>
 </body>  
+<script type="text/javascript">
+	
+var msg = "${msg}";
+if(msg !=""){
+	 	alert(msg);
+	 
+}
+
+$('#pwcheck').on('click',function(e){	
+	var oripassword = document.getElementById("oripassword").value;
+	console.log('oripassword : '+oripassword);
+
+	$.ajax({
+		type:'get',
+		url:'pwcheck.ajax',
+		data:{'oripassword':oripassword},
+		dataType:'json',
+		success:function(data){
+			console.log(data);
+			if(data == oripassword){
+				alert('비밀번호가 일치합니다');
+			}else{
+				alert('비밀번호가 일치하지 않습니다');
+			}
+			},
+		error:function(e){
+				
+				console.log(e);
+			}
+			});
+});
+
+</script>
 </html>

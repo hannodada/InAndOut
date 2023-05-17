@@ -22,6 +22,7 @@ public class MypageDTO {
 	private String store_time;
 	private String store_name;
 	   private int sales_no;
+	   private int gallery_no;
 	   private String subject;
 	   private int price;
 	   private String sales_sido;
@@ -269,6 +270,12 @@ public class MypageDTO {
 	}
 	public void setCate_no(String cate_no) {
 		this.cate_no = cate_no;
+	}
+	public int getGallery_no() {
+		return gallery_no;
+	}
+	public void setGallery_no(int gallery_no) {
+		this.gallery_no = gallery_no;
 	}
 	
 	
