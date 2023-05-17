@@ -250,7 +250,7 @@ function openStarThrowForm(){
 			success: function(data){
 				console.log(data);
 				window.name = "salesDetail";
-				openWin = window.open("starThrow.go?sales_no=${detailData.sales_no }&user_id=${detailData.user_id}", "salesReportForm", "width=570, height=350, resizable = no, scrollbars = no");
+				openWin = window.open("starThrow.go?sales_no=${detailData.sales_no }&user_id=${detailData.user_id}", "salesReportForm", "width=570, height=800, resizable = no, scrollbars = no");
 			},
 			error: function(e){
 				console.log(e);
