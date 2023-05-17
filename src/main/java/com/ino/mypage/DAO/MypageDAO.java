@@ -16,9 +16,9 @@ public interface MypageDAO {
 
 	MypageDTO myrider(String riderid);
 
-	ArrayList<MypageDTO> saleslist(String saleslist);
+	ArrayList<MypageDTO> saleslist(String writerid);
 
-	ArrayList<MypageDTO> galleryList(String galleryList);
+	ArrayList<MypageDTO> galleryList(String writerid);
 
 	int countsales(String writerid);
 
@@ -67,6 +67,8 @@ public interface MypageDAO {
 	int rideroffer(String user_id);
 
 	int riderdelivery(String user_id, String string);
+
+	void userdiv_update(String string);
 
 
 	

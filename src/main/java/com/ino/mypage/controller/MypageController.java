@@ -44,10 +44,12 @@ public class MypageController {
 				// 갤러리 띄우기
 				ArrayList<MypageDTO> galleryList = service.galleryList(user_id);
 				model.addAttribute("galleryList", galleryList);
+				logger.info("galleryList: " +galleryList);
 				
 		//프사 가져오기		
 		String new_photo_name = service.getPhotoName(user_id, "p001");
 		model.addAttribute("new_photo_name",new_photo_name);
+		session.setAttribute("new_photo_name", new_photo_name);
 		//평점
 		int avg;
 		try {
@@ -84,28 +86,47 @@ public class MypageController {
 		logger.info("가져온 값 : " + dto);
 		logger.info("닉네임: " + dto.getNickname());
 		model.addAttribute("dto", dto);
-		//평점
-				int avg;
-				try {
-				   avg = service.mystar(user_id);
-				} catch (Exception e) {
-				   avg = 0;
-				} 
-					logger.info("평균점수 :" + avg);
-					model.addAttribute("avg", avg);
+		
 		
 		// 라이더 extra 불러오기
 		MypageDTO extra = service.myrider(user_id);
 		logger.info("라이더 extra 불러오기: " + extra);
 		model.addAttribute("extra", extra);
 		// 라이더 star 불러오기
-		int star001 = service.star001(user_id);
+		int star001;
+		try {
+			star001 = service.star001(user_id);
+		} catch (Exception e) {
+			star001=0;
+		}
 		model.addAttribute("star001", star001);
-		int star002 = service.star002(user_id);
+		//
+		int star002;
+		try {
+			star002 = service.star002(user_id);
+		} catch (Exception e) {
+			star002=0;
+		}
 		model.addAttribute("star002", star002);
-		int star003 = service.star003(user_id);
+//
+		int star003;
+		try {
+			star003 = service.star003(user_id);
+		} catch (Exception e) {
+			star003=0;
+		}
 		model.addAttribute("star003", star003);
 		
+		//평점
+		int avg;
+		try {
+		   avg = service.mystar(user_id);
+		} catch (Exception e) {
+		   avg = 0;
+		} 
+			logger.info("평균점수 :" + avg);
+			model.addAttribute("avg", avg);
+		//프사
 		String new_photo_name = service.getPhotoName(user_id, "p001");
 		
 		model.addAttribute("new_photo_name",new_photo_name);
@@ -173,6 +194,7 @@ public class MypageController {
 		//프사 가져오기		
 				String new_photo_name = service.getPhotoName(user_id, "p001");
 				model.addAttribute("new_photo_name",new_photo_name);
+				session.setAttribute("new_photo_name", new_photo_name);
 	 return service.riderUpdatedo(params);
 	 
 	 }
@@ -212,6 +234,7 @@ public class MypageController {
 		}
 		String new_photo_name = service.getPhotoName(user_id, "p001");
 		model.addAttribute("new_photo_name",new_photo_name);
+		session.setAttribute("new_photo_name", new_photo_name);
 		return page;
 		}
 	
@@ -240,6 +263,7 @@ public class MypageController {
 		
 		String new_photo_name = service.getPhotoName(user_id, "p001");
 		model.addAttribute("new_photo_name",new_photo_name);
+		session.setAttribute("new_photo_name", new_photo_name);
 		
 		logger.info(user_id+"/"+user_pw);
 		
@@ -259,16 +283,17 @@ public class MypageController {
 	
 	@RequestMapping(value="/riderAuth.do")
 	public String riderAuth(Model model, @RequestParam HashMap<String,
-			 String>params, HttpSession session) {
+			 String>params, HttpSession session, @RequestParam String oripassword) {
 		
 		logger.info("riderAuth에 담겨있는 params : "+params);
-		String page = "riderPage";
+		String page = "riderAuth";
 		String user_id = (String) session.getAttribute("loginId");
 		String user_pw = (String) session.getAttribute("loginPw");
 		String pw = params.get("user_pw");
 		//프사 가져오기		
 				String new_photo_name = service.getPhotoName(user_id, "p001");
 				model.addAttribute("new_photo_name",new_photo_name);
+				session.setAttribute("new_photo_name", new_photo_name);
 		//닉네임
 		MypageDTO dto = service.mypage(user_id);
 		model.addAttribute("dto", dto);
@@ -288,17 +313,18 @@ public class MypageController {
 					model.addAttribute("riderdelivery", riderdelivery);
 		
 		logger.info("예전 비밀번호 : "+ user_pw);
-		if(user_pw.equals(pw)) {
-			logger.info("비밀번호가 일치합니다 회원정보 수정 페이지로 이동합니다");
+		if(user_pw.equals(oripassword)) {
+			
 			MypageDTO riderSetting = service.riderSetting(user_id);
 			if(riderSetting != null) {
-			
+				model.addAttribute("msg","비밀번호가 일치합니다 회원정보 수정 페이지로 이동합니다");
 			model.addAttribute("riderSetting", riderSetting);
-			page= "riderSetting";
-		} else{	
-			logger.info("현재 비밀번호가 일치하지 않습니다");
-		}
-		}
+			page = "riderSetting";
+			} 
+				
+			}else{	
+				model.addAttribute("msg","현재 비밀번호가 일치하지 않습니다");
+			}
 		return page;
 		
 	}
@@ -341,15 +367,17 @@ public class MypageController {
 		}
 		String new_photo_name = service.getPhotoName(user_id, "p001");
 		model.addAttribute("new_photo_name",new_photo_name);
+		session.setAttribute("new_photo_name", new_photo_name);
 		
 		return page;
 		}
 	
-	@RequestMapping(value="/pwcheck.ajax")
-	@ResponseBody
-	public HashMap<String, Object> pwcheck(@RequestParam(value="oripassword", required=false) String oripassword){
-		logger.info("oripassword : "+oripassword);
-		return service.pwcheck(oripassword);
+	@RequestMapping(value = "/pwcheck.ajax", method = RequestMethod.GET)
+	public String pwCheck(@RequestParam("oripassword") String oripassword, HttpSession session){
+		String user_pw = (String) session.getAttribute("loginPw");
+		logger.info("로그인 되어있는 비밀번호 : "+user_pw);
+		return user_pw;
+
 	}
 	
 	@RequestMapping(value="/userAuth.do")
@@ -369,6 +397,7 @@ public class MypageController {
 		//프사 가져오기		
 		String new_photo_name = service.getPhotoName(user_id, "p001");
 		model.addAttribute("new_photo_name",new_photo_name);
+		session.setAttribute("new_photo_name", new_photo_name);
 		//평점
 				int avg;
 				try {
@@ -392,13 +421,13 @@ public class MypageController {
 		
 		MypageDTO riderSetting = service.riderSetting(user_id);
 		if(riderSetting != null) {
-			logger.info("비밀번호가 일치합니다 회원정보 수정 페이지로 이동합니다");
+			model.addAttribute("msg","비밀번호가 일치합니다 회원정보 수정 페이지로 이동합니다");
 		model.addAttribute("riderSetting", riderSetting);
 		page = "userSetting";
-		} else{	
-			logger.info("현재 비밀번호가 일치하지 않습니다");
-		}
+		} 
 			
+		}else{	
+			model.addAttribute("msg","현재 비밀번호가 일치하지 않습니다");
 		}
 		return page;
 	}
@@ -427,6 +456,7 @@ public class MypageController {
 		//프사 저장
 		String new_photo_name = service.getPhotoName(user_id, "p001");
 		model.addAttribute("new_photo_name",new_photo_name);
+		session.setAttribute("new_photo_name", new_photo_name);
 		
 		String page ="redirect:/myPage";
 		String newpw = params.get("newpassword");
@@ -459,6 +489,7 @@ public class MypageController {
 		//프사 가져오기		
 		String new_photo_name = service.getPhotoName(user_id, "p001");
 		model.addAttribute("new_photo_name",new_photo_name);
+		session.setAttribute("new_photo_name", new_photo_name);
 		//평점
 				int avg;
 				try {
@@ -492,6 +523,7 @@ public class MypageController {
 		//프사 가져오기		
 		String new_photo_name = service.getPhotoName(user_id, "p001");
 		model.addAttribute("new_photo_name",new_photo_name);
+		session.setAttribute("new_photo_name", new_photo_name);
 		//평점
 				int avg;
 				try {
@@ -519,7 +551,10 @@ public class MypageController {
 	
 		//정보 인서트하기 (상호명, 사업자등록번호, 사업자등록증 사진)
 		service.userBizdo(photo, params, user_id,session);
-		logger.info("alert)인증사용자 신청이 완료되었습니다");
+		model.addAttribute("msg","인증사용자 신청이 완료되었습니다");
+		//auth_extra에서 user_div를 update하기
+		service.userdiv_update(user_id);
+		
 		//사업자등록증 가져오기
 		String biz_photo = service.getPhotoName(user_id, "p002");
 		model.addAttribute("biz_photo",biz_photo);
@@ -554,6 +589,7 @@ public class MypageController {
 		//프사 가져오기		
 		String new_photo_name = service.getPhotoName(user_id, "p001");
 		model.addAttribute("new_photo_name",new_photo_name);
+		session.setAttribute("new_photo_name", new_photo_name);
 		//평점
 				int avg;
 				try {
@@ -600,6 +636,7 @@ public class MypageController {
 				//프사 가져오기		
 				String new_photo_name = service.getPhotoName(user_id, "p001");
 				model.addAttribute("new_photo_name",new_photo_name);
+				session.setAttribute("new_photo_name", new_photo_name);
 		return "myGallery";
 	}
 
@@ -631,6 +668,7 @@ public class MypageController {
 				//프사 가져오기		
 				String new_photo_name = service.getPhotoName(user_id, "p001");
 				model.addAttribute("new_photo_name",new_photo_name);
+				session.setAttribute("new_photo_name", new_photo_name);
 		//관심 판매글
 				String attention_div = "판매글";
 				ArrayList<MypageDTO> interestSaleList = service.interestSaleList(user_id,attention_div);
@@ -666,6 +704,7 @@ public class MypageController {
 				//프사 가져오기		
 				String new_photo_name = service.getPhotoName(user_id, "p001");
 				model.addAttribute("new_photo_name",new_photo_name);
+				session.setAttribute("new_photo_name", new_photo_name);
 				//관심 판매글
 				String attention_div = "갤러리";
 				ArrayList<MypageDTO> interestglList = service.interestglList(user_id,attention_div);
@@ -702,6 +741,7 @@ public class MypageController {
 				//프사 가져오기		
 				String new_photo_name = service.getPhotoName(user_id, "p001");
 				model.addAttribute("new_photo_name",new_photo_name);
+				session.setAttribute("new_photo_name", new_photo_name);
 		return "mySetting";
 	}
 }

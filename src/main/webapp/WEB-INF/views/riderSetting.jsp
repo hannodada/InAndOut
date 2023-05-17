@@ -14,13 +14,13 @@
 <jsp:include page="realGnb.jsp"/>
  </head>
 
-<form action="riderSetting.do" method="post" enctype="multipart/form-data">
+<form action="riderSetting.do" method="post" enctype="multipart/form-data" onsubmit="return join()">
 <input type="hidden" name="user_id" value="${riderSetting.user_id}"/>
 <input type="hidden" name="user_pw" value="${riderSetting.user_pw}"/>
 	<header>
 	  <nav id="nav">
 	   <a href="riderPage" >프로필</a>
-	   <a href="riderSetting.do" style="color:blue; text-decoration: underline;">회원정보수정</a>
+	   <a href="riderSetting.do" style="color:skyblue; text-decoration: underline;">회원정보수정</a>
 	  </nav>
 	</header>
 	<h2 id="rdupdate" style="color: skyblue; display:block;">회원정보 수정</h2>
@@ -108,7 +108,7 @@
 	<div id="rdinterestupdate" style="float:left; margin-right:10px;">
 			<h4 style="font-size:15px; color: skyblue; display:inline;">
 			관심업종&nbsp;&nbsp;</h4>
-			<select name="interest_biz_id" id="interest_biz_id">
+			<select name="interest_biz_id" id="interest_biz_id" class="interest_biz_id">
 			<option value=".">==선택==</option>
 				    <option value="b001">카페</option>
 				    <option value="b002">음식점</option>
@@ -132,20 +132,23 @@
 				</c:if>
 				<c:if test="${new_photo_name ne null}">
 					<img src="/photo/${new_photo_name}" style="width: 130px;"/>
-					<input type="file" name="photo" />
+					<input type="file" name="photo" id="findPhoto"/>
 				</c:if>
 	</div>
 	
-	<div id="riderupdatebutton3">
-	<input type="button" onclick="location.href='./riderPage'" value="돌아가기"/>
-	<button onclick="join()">저장</button>
+	<div>
+	<input  id="riderupdatebutton3" type="button" onclick="location.href='./riderPage'" value="돌아가기"/>
+	<button id="riderupdatebutton4" type="submit" onclick="join()">저장</button>
 	</div>
 	</form>
 	
 	<hr>
     <div class="main-box">
         <div class="profile-box">
-        <img src="/photo/${new_photo_name}" style="width: 130px;"/>
+        <c:if test="${new_photo_name eq null}">
+        	<img src="resources/photo/프로필 기본.png" width="150px">
+        </c:if>
+        <img src="/photo/${new_photo_name}" width="150px">
             <div class="title-nickname">
             <h2>${dto.nickname}</h2>
             </div>
@@ -173,11 +176,11 @@
             <div id="avgdolphin">&nbsp;&nbsp;나의 &돌핀 단계 : ${avg}단계&nbsp;&nbsp;</div>
             <div class="parent">
 		        <div class="pfirst">제안요청</div>
-		        <div class="psecond">배송 진행</div>
+		        <div class="pthird">배송 진행</div>
 		    		</div>
 		    <div class="child">
 		        <div class="cfirst">${rideroffer}</div>
-		        <div class="csecond">${riderdelivery}</div>
+		        <div class="cthird">${riderdelivery}</div>
 		    </div>
     </div>
     </div>
@@ -185,6 +188,12 @@
 <!--다음 주소 api  -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>  
 <script>
+var msg = "${msg}";
+if(msg !=""){
+	 	alert(msg);
+	 
+}
+
 function join(){     
     var $user_id = $('#user_id');
     var $newpassword = $('#newpassword');
@@ -205,27 +214,34 @@ function join(){
         alert('비밀번호를 입력해 주세요!');
         console.log("1");
         $newpassword.focus();
+        return false;
     }else if($confirm_password.val() == ''){
         alert('비밀번호 확인을 해주세요!');
         $confirm_password.focus();
         console.log("2");
+        return false;
     }else if($nickname.val() == ''){
         alert('닉네임을 입력해 주세요!');
         $nickname.focus();
         console.log("3");
+        return false;
     }else if($post_num.val() == null){
         alert('우편번호를 입력해 주세요!');
         console.log("4");
+        return false;
     }else if($phone_num.val() == null){
         alert('전화번호를 입력해 주세요!');
         console.log("5");
+        return false;
     }else if($email.val() == ''){
         alert('이메일 입력해 주세요!');
         $email.focus();
         console.log("6");
+        return false;
     }else if($interest_biz_id.val() == '.'){
         alert('관심업종을 선택해 주세요!');
         console.log("7");
+        return false;
     }else{
         var overlayChk = true;
         var param = {};
@@ -309,5 +325,8 @@ function sample6_execDaumPostcode() {
         }
     }).open();
 }
+
+
+
 </script>
 </html>
