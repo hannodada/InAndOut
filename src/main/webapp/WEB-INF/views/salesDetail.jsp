@@ -225,7 +225,7 @@ function attention(box){
 function openSalesReportForm(sales_no){
 	
 	window.name = "salesDetail";
-	openWin = window.open("salesReport.go?sales_no=${detailData.sales_no }", "salesReportForm", "width=570, height=350, resizable = no, scrollbars = no");
+	openWin = window.open("salesReport.go?sales_no=${detailData.sales_no }", "salesReportForm", "width=570, height=800, resizable = no, scrollbars = no");
 }
 
 function openStarThrowForm(){
