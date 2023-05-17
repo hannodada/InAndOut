@@ -138,7 +138,7 @@
 				            <span class="ml-4 text-gray-600">관심 ${detailData.attention }회</span>
 						</span>
 						<c:if test="${sessionScope.loginId ne null}">
-							<input class="ml-4 h-5 w-5" type="checkbox" onclick="attention(this)" <c:if test="${attentionCheck==1 }">checked</c:if>/>
+							<input class="ml-4 h-8 w-8 accent-pink-500" type="checkbox" onclick="attention(this)" <c:if test="${attentionCheck==1 }">checked</c:if>/>
 			        	</c:if>
 			        </div>
 			        <div class="flex mt-6 items-center pb-5">
@@ -225,7 +225,7 @@ function attention(box){
 function openSalesReportForm(sales_no){
 	
 	window.name = "salesDetail";
-	openWin = window.open("salesReport.go?sales_no=${detailData.sales_no }", "salesReportForm", "width=570, height=350, resizable = no, scrollbars = no");
+	openWin = window.open("salesReport.go?sales_no=${detailData.sales_no }", "salesReportForm", "width=570, height=800, resizable = no, scrollbars = no");
 }
 
 function openStarThrowForm(){
@@ -250,7 +250,7 @@ function openStarThrowForm(){
 			success: function(data){
 				console.log(data);
 				window.name = "salesDetail";
-				openWin = window.open("starThrow.go?sales_no=${detailData.sales_no }&user_id=${detailData.user_id}", "salesReportForm", "width=570, height=350, resizable = no, scrollbars = no");
+				openWin = window.open("starThrow.go?sales_no=${detailData.sales_no }&user_id=${detailData.user_id}", "salesReportForm", "width=570, height=800, resizable = no, scrollbars = no");
 			},
 			error: function(e){
 				console.log(e);
