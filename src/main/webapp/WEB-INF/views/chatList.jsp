@@ -168,11 +168,11 @@
 	        <div class="inbox_people" id="left_box" style="height:100%">
 	          <div class="headind_srch">
 	            <div class="recent_heading">
-	              <h4>대화 목록</h4>
+	              <h4 style="color:#4E50FA">대화 목록</h4>
 	            </div>
-	            <div class="srch_bar">
+	            <div class="srch_bar" style="display:none">
 	              <div class="stylish-input-group">
-	                <input type="text" class="search-bar"  placeholder="Search" >
+	                <input type="text" class="search-bar"  placeholder="Search">
 	                <span class="input-group-addon">
 	                <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
 	                </span> </div>
@@ -450,7 +450,7 @@ function msgDraw(list,sale,salephoto,user,userphoto,delivery){
 	content = '';
 	
 	content += '<div style="width:40%; display:flex">';
-	content += '<div style="width:auto"><h3>&nbsp;' + user.user_name + '&nbsp;님&nbsp;&nbsp;</h3></div>';
+	content += '<div style="width:auto;display:flex"><h3 style="color:#4E50FA">&nbsp;' + user.user_name + '</h3><h3>&nbsp;님&nbsp;&nbsp;</h3></div>';
 	if(user.user_div == "b"){
 		content += '<div class="chat_img"> <img src="resources/photo/badge.png" alt="img"> </div>';
 	}else if (user.user_div == "c"){

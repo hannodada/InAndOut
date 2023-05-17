@@ -186,6 +186,12 @@
 	</select>
 	
 	
+	<insert id="updateSigungu">
+		INSERT INTO verified_area(user_id,verified_sigungu)
+			VALUES(#{param1},#{param2})
+	</insert>
+	
+	
 	
 	
 	

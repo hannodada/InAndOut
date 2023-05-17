@@ -123,7 +123,7 @@
 			        <div class="flex mb-4">
 			        	<h2 class="text-sm title-font text-gray-500 tracking-widest">${detailData.gallery_date }</h2>
 			        </div>
-			        <div class="flex mt-6 items-center pb-5 border-b-2 border-gray-100">
+			        <div class="flex mt-6 items-center pb-5">
 				        <div class="flex">
 							<button class="flex ml-auto text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded" onclick="location.href='./galleryList.do'">리스트</button>
 							<c:if test="${sessionScope.loginId != null}">
@@ -131,7 +131,7 @@
 							</c:if>
 				        </div>
 			        </div>
-			        <div class="flex items-center pb-5 border-b-2 border-gray-100 mb-5">
+			        <div class="flex items-center pb-5">
 				        <div class="flex">
 				        	<c:if test="${sessionScope.loginId eq detailData.user_id}">
 								<button class="flex ml-auto text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded" onclick="location.href='./galleryUpdate.go?gallery_no=${detailData.gallery_no}&user_id=${detailData.user_id }'">수정</button>

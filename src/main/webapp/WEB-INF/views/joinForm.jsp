@@ -124,9 +124,9 @@
 			      <option value="012">012</option>
 			    </select>
 			    -
-			    <input name="phone_num2" type="text" id="phone_num2" maxlength="4"/>
+			   <input name="phone_num2" type="text" id="phone_num2" maxlength="4" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 4)">
 			    -
-			    <input name="phone_num3" type="text" id="phone_num3" maxlength="4"/>
+			    <input name="phone_num3" type="text" id="phone_num3" maxlength="4" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 4)">
 			  </td>
 			</tr>
 		<tr>

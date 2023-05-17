@@ -10,10 +10,12 @@
     <link href="resources/css/home(경영).css" rel="stylesheet">  
     <style>
         /* @import url('https://fonts.googleapis.com/css2family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@100&display=swap'); */
-    
+
 
     
 </style>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 
 <body>
@@ -25,10 +27,8 @@
 
 
 
-	<a href="myPage.go">마이페이지 보기</a>
-	<a href="riderPage">라이더페이지 보기</a>
 
-	
+
 	
 	<br>
 	
@@ -428,8 +428,8 @@
 
 
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=03ca3b7a211dd9cbb0616b7b121983de"></script>
-	
+<!-- <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=03ca3b7a211dd9cbb0616b7b121983de"></script>
+	 -->
 <script>
 
 console.log(${sigunguTopList})
@@ -514,7 +514,7 @@ new Swiper('.swiper-container1', {
 });
 
 
-
+/*
 //지도 api
 
 var container = document.getElementById('map');
@@ -524,7 +524,9 @@ var container = document.getElementById('map');
 		};
 
 		var map = new kakao.maps.Map(container, options);
-
+*/
+		
+		
 /// 회원가입 성공 알림
 var msg = '${msg}';
  	 if(msg !=""){
@@ -532,7 +534,62 @@ var msg = '${msg}';
  		 
  	 }
 
+ 	 
+// sigungu 위치 찾기
 
+var options = {
+  enableHighAccuracy: true,
+  timeout: 5000,
+  maximumAge: 0
+};
+
+function success(position) {
+  //좌표를 알아낼 수 있는데, 여기서 알아낸 좌표를 kakaoAPI url에 사용할 것이다.
+  console.log('위도 : ' + position.coords.latitude); 
+  console.log('경도: ' + position.coords.longitude);
+};
+
+function error(err) {
+  console.warn('ERROR(' + err.code + '): ' + err.message);
+};
+
+navigator.geolocation.getCurrentPosition(success, error, options);
+
+
+
+/// 위도 경도로 카카오로 위치 뽑아내기
+
+ function onGeoOk(position){
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+        
+        console.log("lat:" + lat + " lon:" + lon);
+        
+        requestData = "https://dapi.kakao.com/v2/local/geo/coord2address.json?x=" + lon + "&y=" + lat + "&input_coord=WGS84";
+        
+        //kakao REST API에 get 요청을 보낸다.
+        //파라미터 x,y에 lon,lat을 넣어주고 API_KEY를 Authorization헤더에 넣어준다.
+        axios.get(requestData,
+        {
+        	headers:{Authorization:`KakaoAK e434e3b05b4f1c7f078a8511ceaaab79`}
+        })
+        .then(res=>{
+        	responseData = res.data.documents;
+        	region_2depth_name = responseData[0].address.region_2depth_name;
+        	console.log(responseData[0].address.region_2depth_name);
+            dispatch(changeRegion(res.data.documents[0].address.region_1depth_name))
+            dispatch(changeCity(res.data.documents[0].address.region_2depth_name)) 
+        }
+        ).catch(e=>console.log(e))
+       	
+    }
+    function onGeoError(){
+        alert("위치권한을 확인해주세요");
+    }
+  
+
+	//navigator.geolocation.getCurrentPosition(위치받는함수, 에러났을때 함수)
+	navigator.geolocation.getCurrentPosition(onGeoOk,onGeoError)
 
 
 
