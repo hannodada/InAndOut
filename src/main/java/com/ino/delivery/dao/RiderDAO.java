@@ -63,6 +63,8 @@ public interface RiderDAO {
 
 	int riderdelivery(String user_id, String string);
 
+	RiderDTO mypage(String id);
+
 	//ArrayList<RiderDTO> filtering(HashMap<String, String> params);
 
 

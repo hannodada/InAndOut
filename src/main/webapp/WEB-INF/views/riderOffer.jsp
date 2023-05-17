@@ -68,7 +68,7 @@
 
     nav {
         margin-top: 20px;
-    	margin-left: 36%;
+    	margin-left: 45%;
     }
     .in {
         word-wrap: break-word;
@@ -111,6 +111,9 @@
         </div>
         <div class="content2">
         <c:choose>
+        	<c:when test="${avg eq 0}">
+           <img src="resources/img/dolphin0.png" style="width: 60px;"/>
+           </c:when>
            <c:when test="${avg eq 1}">
            <img src="resources/img/dolphin1.png" style="width: 60px;"/>
            </c:when>

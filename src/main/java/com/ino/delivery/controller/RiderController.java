@@ -163,6 +163,9 @@ public class RiderController {
 	      int riderdelivery = service.riderdelivery(user_id,"배송중");
 	      model.addAttribute("riderdelivery", riderdelivery);
 	      
+	      RiderDTO dto = service.mypage(user_id);
+	      model.addAttribute("dto", dto);
+	      
 		return "riderOffer";
 	}
 	
@@ -219,7 +222,35 @@ public class RiderController {
 	}
 	*/
 	@RequestMapping(value = "/deliveryState.go")
-	public String deliveryStateG() {
+	public String deliveryStateG(Model model, HttpSession session) {
+		
+		String user_id = (String) session.getAttribute("loginId");
+		//평점
+	      int avg;
+	      try {
+	         avg = service.mystar(user_id);
+	      } catch (Exception e) {
+	         avg = 0;
+	      } 
+	         logger.info("평균점수 :" + avg);
+	         model.addAttribute("avg", avg);
+	      //프사
+	      String new_photo_name = service.getPhotoName(user_id, "p001");
+	      
+	      model.addAttribute("new_photo_name",new_photo_name);
+	      session.setAttribute("new_photo_name", new_photo_name);
+	      
+	      //제안요청, 배송 진행 불러오기
+	      int rideroffer = service.rideroffer(user_id);
+	      model.addAttribute("rideroffer", rideroffer);
+	      int riderdelivery = service.riderdelivery(user_id,"배송중");
+	      model.addAttribute("riderdelivery", riderdelivery);
+	      
+	      RiderDTO dto = service.mypage(user_id);
+	      model.addAttribute("dto", dto);
+		
+		
+		
 		return "deliveryState";
 	}
 	
@@ -284,6 +315,32 @@ public class RiderController {
 			page = "deliveryHistory";
 		}
 		*/
+		
+		String user_id = (String) session.getAttribute("loginId");
+		//평점
+	      int avg;
+	      try {
+	         avg = service.mystar(user_id);
+	      } catch (Exception e) {
+	         avg = 0;
+	      } 
+	         logger.info("평균점수 :" + avg);
+	         model.addAttribute("avg", avg);
+	      //프사
+	      String new_photo_name = service.getPhotoName(user_id, "p001");
+	      
+	      model.addAttribute("new_photo_name",new_photo_name);
+	      session.setAttribute("new_photo_name", new_photo_name);
+	      
+	      //제안요청, 배송 진행 불러오기
+	      int rideroffer = service.rideroffer(user_id);
+	      model.addAttribute("rideroffer", rideroffer);
+	      int riderdelivery = service.riderdelivery(user_id,"배송중");
+	      model.addAttribute("riderdelivery", riderdelivery);
+	      
+	      RiderDTO dto = service.mypage(user_id);
+	      model.addAttribute("dto", dto);
+		
 		return "deliveryHistory";
 	}
 	

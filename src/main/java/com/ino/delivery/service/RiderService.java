@@ -310,6 +310,11 @@ public class RiderService {
 		
 		return dao.riderdelivery(user_id,string);
 	}
+
+	public RiderDTO mypage(String id) {
+		logger.info("db에 있는 값 가져오는중");
+		return dao.mypage(id);
+	}
 	
 
 	/*

@@ -93,16 +93,16 @@ where dh.delivery_state = #{param1} and do.rider_id= #{param2}
 	</select>
 	
 	<select id="listDS" resultType="com.ino.delivery.dto.RiderDTO">
-SELECT dh.delivery_accept_no, dh.delivery_state, do.delivery_offer_no, u.nickname, concat(u.sido, u.sigungu, u.left_addr) as from_addr, do.to_addr FROM delivery_offer do
-LEFT JOIN 
-(SELECT delivery_accept_no, delivery_state, delivery_time FROM delivery_history WHERE delivery_state IS NOT NULL) dh 
-ON do.delivery_offer_no = dh.delivery_accept_no 
-LEFT JOIN `user` u 
-ON u.user_id = do.user_id WHERE (dh.delivery_accept_no, dh.delivery_time) IN (SELECT dh2.delivery_accept_no, MAX(dh2.delivery_time) FROM delivery_history dh2 
-WHERE dh2.delivery_state IS NOT NULL and do.rider_id = #{param3}
-GROUP BY dh2.delivery_accept_no )
-AND dh.delivery_state NOT IN ('배송완료', '배송실패')
-ORDER BY dh.delivery_time DESC
+		SELECT dh.delivery_accept_no, dh.delivery_state, do.delivery_offer_no, u.nickname, concat(u.sido, u.sigungu, u.left_addr) as from_addr, do.to_addr FROM delivery_offer do
+		LEFT JOIN 
+		(SELECT delivery_accept_no, delivery_state, delivery_time FROM delivery_history WHERE delivery_state IS NOT NULL) dh 
+		ON do.delivery_offer_no = dh.delivery_accept_no 
+		LEFT JOIN `user` u 
+		ON u.user_id = do.user_id WHERE (dh.delivery_accept_no, dh.delivery_time) IN (SELECT dh2.delivery_accept_no, MAX(dh2.delivery_time) FROM delivery_history dh2 
+		WHERE dh2.delivery_state IS NOT NULL and do.rider_id = #{param3}
+		GROUP BY dh2.delivery_accept_no )
+		AND dh.delivery_state NOT IN ('배송완료', '배송실패')
+		ORDER BY dh.delivery_time DESC
 		LIMIT #{param1} OFFSET #{param2}
 	</select>
 	
@@ -196,7 +196,9 @@ ORDER BY dh.delivery_time DESC
 		FROM delivery_offer where rider_id=#{param1} ) AND delivery_state =#{param2}
 	</select>
 	
-	
+	<select id="mypage" resultType="com.ino.delivery.dto.RiderDTO">
+		SELECT * FROM user WHERE user_id=#{param1}
+	</select>
 	
 	
 	
