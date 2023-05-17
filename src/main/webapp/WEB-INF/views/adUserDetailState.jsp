@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<jsp:include page="realGnb.jsp"/>
 <meta charset="UTF-8">
 </head>
 <script>
@@ -41,8 +42,8 @@ function confirmSubmit() {
 			<tr>
 				<td>회원상태</td>
 				<td>
-				<input type="radio" id="radioValueNormal" name="radioValue" value="정상" ${user_user_state eq '정상' ? 'checked' : ''}> 정상
-				<input type="radio" id="radioValueBlocked" name="radioValue" value="블록" ${user_user_state eq '블록' ? 'checked' : ''}> 블록
+				<input type="radio" id="radioValueNormal" name="user_state" value="정상" ${user.user_state eq '정상' ? 'checked' : ''}> 정상
+				<input type="radio" id="radioValueBlocked" name="user_state" value="블록" ${user.user_state eq '블록' ? 'checked' : ''}> 블록
 
 				</td>
 				
@@ -50,7 +51,7 @@ function confirmSubmit() {
 			
 			<tr>
 				<td>처리사유</td>
-				<td>  <textarea name="content">${user.user_content}</textarea></td>
+				<td><textarea name="user_content">${user.user_content}</textarea></td>
 			</tr>					
 				
 

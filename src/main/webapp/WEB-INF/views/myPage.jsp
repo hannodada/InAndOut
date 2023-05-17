@@ -39,7 +39,7 @@
 	</div>
 	</c:forEach>
 	</div>
-	
+	z
 	<div id="userdetailgallery">
 	<h4 style="font-size:15px; color:skyblue;line-height: 300%;">
 	내가 올린 갤러리</h4>

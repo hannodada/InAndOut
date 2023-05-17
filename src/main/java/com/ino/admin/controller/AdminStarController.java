@@ -50,7 +50,7 @@ public class AdminStarController {
 	
 		return "adStarWrite";
 	}
-    
+	
 	@RequestMapping(value="/ad.starwrite.do",method=RequestMethod.POST)
 	public String starWrite(HttpSession session,@RequestParam HashMap<String, String> params ) {
 	

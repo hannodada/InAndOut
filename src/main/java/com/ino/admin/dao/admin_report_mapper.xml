@@ -43,7 +43,7 @@
 
 
 	<select id="glist" resultType="com.ino.admin.dto.AdminReportDTO">
-		select r.report_no , g.gallery_subject , g.user_id , r.report_date,r.report_state
+		select r.report_no , g.gallery_subject , g.user_id , r.report_date,r.report_state, g.gallery_no
 		from gallery g
 		left join report r on r.report_whom = g.gallery_no 
 		where r.report_no IS NOT null and r.cate_no = 's001'
@@ -51,10 +51,11 @@
 	</select>	
 	
 <select id="ureportdetail" resultType="com.ino.admin.dto.AdminReportDTO">
-		select r.report_whom, u2.nickname,r.user_id,r.report_date,r.report_reason,r.report_state 
+		select r.report_whom, u2.nickname,r.user_id,r.report_date,r.report_reason,r.report_state, p.new_photo_name, r.report_no
 		from user u 
 		left join report r on u.user_id = r.user_id
-		left join `user` u2 on u2.user_id = r.report_whom
+		left join user u2 on u2.user_id = r.report_whom
+		left join photo p on u2.user_id = p.photo_div
 		where r.report_no =#{report_no}
 </select>
 
@@ -82,6 +83,16 @@
     WHERE r.report_state = '대기'
     AND g.blind = 0
     AND report_no = #{report_no}
+</update>
+
+<update id="ublindchange" parameterType="String">
+    UPDATE report r
+    JOIN user u ON r.report_whom = u.user_id
+    SET r.report_state = '완료',
+        u.user_state = '블록'
+    WHERE r.report_state = '대기'
+    AND u.user_state = '정상'
+    AND r.report_no = #{report_no}
 </update>
 
 <!-- 블라인드 반려 기능 통일 -->

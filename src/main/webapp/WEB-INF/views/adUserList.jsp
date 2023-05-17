@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<jsp:include page="realGnb.jsp"/>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="resources/js/jquery.twbsPagination.min.js"></script>
 </head>
@@ -30,18 +31,13 @@
 		
 		<br/>
 		
- 		<label> 회원상태</label> &nbsp
-      <label><input type="checkbox" name="user_state" value="default">전체</label>
-      <label><input type="checkbox" name="user_state" value="대기">대기</label>
-      <label><input type="checkbox" name="user_state" value="정상">정상</label>
-      <label><input type="checkbox" name="user_state" value="블록">블록</label>
-      <label><input type="checkbox" name="user_state" value="탈퇴">탈퇴</label>
- 
-    <br/>
-    
-   <input type="text" id="searchInput" placeholder="제목 또는 작성자를 입력">
-   <button id="searchButton">검색</button>
 
+    
+		<div class="search-container">
+					회원검색 &nbsp 
+		    <input type="text" id="searchInput" placeholder="제목 또는 작성자를 입력">
+		    <button id="searchButton"><alt="Search">검색</button>
+		</div>
 
  
 		<table class = "mokrok">
