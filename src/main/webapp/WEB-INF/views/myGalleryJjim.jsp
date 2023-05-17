@@ -18,7 +18,7 @@
 	   <a href="mySales.go">판매글</a>
 	   <a href="myGallery.go">갤러리</a>
 	   <a href="mySalesJjim.go">관심판매글</a>
-	   <a href="myGalleryJjim.go" style="color:blue; text-decoration: underline;">찜한갤러리</a>
+	   <a href="myGalleryJjim.go" style="color:skyblue; text-decoration: underline;">찜한갤러리</a>
 	   <a href="userAuth.go" >설정</a>
 	  </nav>
 	</header>
@@ -29,7 +29,7 @@
 	<c:forEach items="${interestglList}" var="ig">
 	<div style="float:left; margin-right:10px; display:inline;">
 		<a href="galleryDetail.do?gallery_no=${ig.sales_no}">
-			<img style="max-width: 300px; height: auto; object-fit: cover;" src="/photo/${ig.new_photo_name}"/>
+			<img style="width: 250px; height: 200px;" src="/photo/${ig.new_photo_name}"/>
 			<h5 align="center">${ig.gallery_subject}</h5>
 		</a>
 	</div>
@@ -38,7 +38,10 @@
 
     <div class="main-box">
         <div class="profile-box">
-        <img src="/photo/${new_photo_name}">
+        <c:if test="${new_photo_name eq null}">
+        	<img src="resources/photo/프로필 기본.png" width="150px">
+        </c:if>
+        <img src="/photo/${new_photo_name}" width="150px">
             <div class="title-nickname">
             <h2>${dto.nickname}</h2>
             </div>

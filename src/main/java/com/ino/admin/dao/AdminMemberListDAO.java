@@ -3,6 +3,8 @@ package com.ino.admin.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.ino.admin.dto.AdminMemberDTO;
 
 
@@ -98,13 +100,13 @@ public interface AdminMemberListDAO {
 	ArrayList<AdminMemberDTO> authuserlist(int offset);
 
 
-	int updateUserState(HashMap<String, String> params);
+	int updateUserState(HashMap<String, String> params, @Param("user_id")String user_id ,@Param("user_content")String user_content, @Param("user_state")String user_state, @Param("admin_id")String admin_id);
 
 
-	void userStatechange(String user_id, String radiovalue);
+	void userStatechange(String user_id, String user_state);
 
 
-	AdminMemberDTO uhistorydetail(String user_state);
+	AdminMemberDTO uhistorydetail(@Param("state_time") String state_time,@Param("user_id") String user_id);
 
 
 	int totalCousntSearch(String search);

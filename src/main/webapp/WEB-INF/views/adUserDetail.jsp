@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<jsp:include page="realGnb.jsp"/>
 <meta charset="UTF-8">
 </head>
 <body>

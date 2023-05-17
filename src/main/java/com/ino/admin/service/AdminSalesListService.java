@@ -76,8 +76,12 @@ public class AdminSalesListService {
 		
 	}
 
-	public void sblind(String sales_no) {
-	    dao.sblind(sales_no);
+	public boolean sblind(String sales_no) {
+		logger.info("체크한 판매글 블라인드 요청");
+		
+	    
+	    
+	    return dao.sblind(sales_no);
 	}
 
 	public AdminSalesDTO shistory(String sales_no) {
@@ -85,10 +89,14 @@ public class AdminSalesListService {
 		return dao.shistory(sales_no);
 	}
 
-	public int history_sblind(HashMap<String, String> params, String sales_no) {
+	public boolean snoblind(String sales_no) {
+		logger.info("체크한 판매글 블라인드 해제 요청");
 		
-		return dao.history_sblind(sales_no);
+	    
+	    
+	    return dao.snoblind(sales_no);
 	}
+
 
 /*
 	public int history_sblind(HashMap<String, String> params, String sales_no) {

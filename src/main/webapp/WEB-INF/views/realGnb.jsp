@@ -99,15 +99,11 @@
 																				            ${sessionScope.sigungu}
 															            <button class="test_btn1" onclick="getLocation()" onmouseover="showPopup()" onmouseout="hidePopup()">활동지역 인증</button>
 
-
 																			<div id="popup" class="popup">
 																			  <p>활동지역 인증 후 메인페이지로 이동합니다</p>
 																			</div>
 			  																		<span id="sigungu"></span>	
-  																		
-																		 
-																		
-	
+
 														      	</div>
 														      
 																														      	
@@ -153,9 +149,15 @@
 									 		      </div>
 										 		      <div id="etc">
 														       <div id="location">
+
 																				            ${sessionScope.sigungu}
-															            <button  class="test_btn1">활동지역 인증</button>
-												           		 			
+															            <button class="test_btn1" onclick="getLocation()" onmouseover="showPopup()" onmouseout="hidePopup()">활동지역 인증</button>
+
+																			<div id="popup" class="popup">
+																			  <p>활동지역 인증 후 메인페이지로 이동합니다</p>
+																			</div>
+			  																		<span id="sigungu"></span>	
+
 														      	</div>
 													  </div>    	
 														      
@@ -481,14 +483,11 @@ function onGeoOk(position){
         	responseData = res.data.documents;
         	region_2depth_name = responseData[0].address.region_2depth_name;
         	console.log(responseData[0].address.region_2depth_name);
-            dispatch(changeRegion(res.data.documents[0].address.region_1depth_name))
-            dispatch(changeCity(res.data.documents[0].address.region_2depth_name)) 
+        	
+            //dispatch(changeRegion(res.data.documents[0].address.region_1depth_name))
+            //dispatch(changeCity(res.data.documents[0].address.region_2depth_name)) 
             
-           
-          
-            
-        }
-        ).catch(e=>console.log(e))
+        }).catch(e=>console.log(e))
        	
     }
     function onGeoError(){
@@ -508,7 +507,7 @@ function getLocation() {
                 },
                 dataType: 'json',
                 success: function (data) {
-                  console.log(data);
+                 console.log(data);
                   if (data.success == 1) {
                     alert('활동지역 인증이 완료되었습니다. 메인페이지로 이동합니다.');
                     location.href='home';

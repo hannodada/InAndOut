@@ -166,4 +166,8 @@
 	<select id="userBiz" resultType="String">
 	SELECT interest_biz_id FROM user WHERE user_id=#{param1}
 	</select>
+	
+	<update id="userdiv_update">
+	UPDATE user SET user_div ='b' WHERE user_id=#{param1} AND user_div = 'a'
+	</update>
 </mapper>

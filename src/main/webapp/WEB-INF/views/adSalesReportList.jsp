@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<jsp:include page="realGnb.jsp"/>
 <meta charset="UTF-8">
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="resources/js/jquery.twbsPagination.min.js"></script>
@@ -136,7 +137,7 @@ function listPrint(list){
 	      content +='<tr>';
 	      content +='<td><input type="checkbox"></td>';
 	      content +='<td>'+item.report_no+'</td>';
-	      content +='<td id="userdiv"><a href="salesDetail.do?sales_no='+ item.sales_no +'">' + truncateString(item.subject, 16) + '</a></td>';
+	      content +='<td><a href="salesDetail.do?sales_no='+ item.sales_no +'">' + truncateString(item.subject, 16) + '</a></td>';
 	     // content +='<td id="userdiv">'+item.s.user_id+'</td>';
 	      content +='<td id="userdiv">'+item.user_id+'</td>';
 	      content +='<td id="userdiv">'+item.report_date+'</td>';

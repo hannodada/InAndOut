@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<jsp:include page="realGnb.jsp"/>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="resources/js/jquery.twbsPagination.min.js"></script>
 </head>
@@ -135,9 +136,11 @@ function listPrint(list){
 	      // 배열 요소들 반복문 실행 -> 행 구성 + 데이터 추가 
 	      content +='<tr>';
 	      content +='<td>'+item.report_no+'</td>';
-	      content +='<td id="userdiv">'+item.gallery_subject+'</td>';
+	      content += '<td id="userdiv"><a href="galleryDetail.do?gallery_no=' + item.gallery_no + '" target="_blank">' + truncateString(item.gallery_subject, 16) + '</a></td>';
+
 	      content +='<td id="userdiv">'+item.user_id+'</td>';
-	      content +='<td id="userdiv">'+item.report_date+'</td>';
+	      var date = new Date(item.report_date);
+          content += '<td>' + date.toLocaleDateString('ko-KR')+'</td>';
 	        if (item.report_state == '대기') {
 	            content += '<td>대기</td>';
 	        } else {
@@ -152,7 +155,12 @@ function listPrint(list){
 	   $('#list').empty();
 	   $('#list').append(content);
 	}
-
+function truncateString(str, maxLength) {
+    if (str.length > maxLength) {
+        return str.substring(0, maxLength) + "...";
+    }
+    return str;
+}
 
 </script>
 </body>

@@ -33,22 +33,31 @@
     LIMIT 10 OFFSET #{offset}
 	</select>
 	
-	
+	<!-- 판매글 블라인드 -->
 	<update id="sblind" parameterType="java.lang.String">
 		update sales set blind = 1 where blind = 0 and sales_no = #{sales_no}
 	</update>
 	
+	
+	<!-- 판매글 블라인드 해제 -->
+	<update id="snoblind" parameterType="java.lang.String">
+		update sales set blind = 0 where blind = 1 and sales_no = #{sales_no}
+	</update>	
+	<!-- 판매글 히스토리 작성 -->
+<!-- 	<insert id="history_sblind" parameterType="hashmap">
+		insert into report_history(sales_no, report_content,report_id)
+		VALUES (#{sales_no},#{report_content},#{report_id})
+	
+	</insert> -->
+	
+	
+	<!--  판매글 히스토리 페이지  -->
 	<select id="shistory" resultType="com.ino.admin.dto.AdminSalesDTO">
 		select *from sales s 
 		left join report r on s.sales_no = r.report_whom
 		where s.sales_no = #{sales_no}
 	</select>		
 	
-	<insert id="history_sblind" parameterType="hashmap">
-		insert into report_history(report_no, report_content,report_id)
-		VALUES (#{report_no},#{report_content},#{report_id})
-	
-	</insert>
 	
 	
 </mapper>

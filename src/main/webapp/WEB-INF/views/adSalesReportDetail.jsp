@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<jsp:include page="realGnb.jsp"/>
 <meta charset="UTF-8">
 </head>
 <body>
@@ -42,7 +43,7 @@
 			</tr>			
 			<tr>
 				<td colspan="3" align="right">
-					<button onclick="history.back()">닫기</button>
+					<button onclick="location.href='salesreportlist.do'">닫기</button>
 				</td>
 			</tr>
 	

@@ -43,14 +43,14 @@ Logger logger = LoggerFactory.getLogger(getClass());
 		return dao.myrider(riderid);
 	}
 
-	public ArrayList<MypageDTO> saleslist(String saleslist) {
+	public ArrayList<MypageDTO> saleslist(String writerid) {
 		// TODO Auto-generated method stub
-		return dao.saleslist(saleslist);
+		return dao.saleslist(writerid);
 	}
 
-	public ArrayList<MypageDTO> galleryList(String galleryList) {
+	public ArrayList<MypageDTO> galleryList(String writerid) {
 		// TODO Auto-generated method stub
-		return dao.galleryList(galleryList);
+		return dao.galleryList(writerid);
 	}
 
 	public int countsales(String writerid) {
@@ -199,13 +199,13 @@ Logger logger = LoggerFactory.getLogger(getClass());
 		return dao.countinterest(writerid);
 	}
 
-	public HashMap<String, Object> pwcheck(String oripassword) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		String page = "useSetting";
-		map.put("oripassword", oripassword);
-		map.put("page", page);
-		return map;
-	}
+//	public HashMap<String, Object> pwcheck(String oripassword) {
+//		HashMap<String, Object> map = new HashMap<String, Object>();
+//		String page = "useSetting";
+//		map.put("oripassword", oripassword);
+//		map.put("page", page);
+//		return map;
+//	}
 
 	
 	public void userBizdo(MultipartFile photo, HashMap<String, String> params, String user_id, HttpSession session) {
@@ -267,6 +267,11 @@ Logger logger = LoggerFactory.getLogger(getClass());
 	public ArrayList<MypageDTO> interestglList(String user_id, String attention_div) {
 		// TODO Auto-generated method stub
 		return dao.interestglList(user_id,attention_div);
+	}
+
+	public void userdiv_update(String string) {
+		dao.userdiv_update(string);
+		
 	}
 
 

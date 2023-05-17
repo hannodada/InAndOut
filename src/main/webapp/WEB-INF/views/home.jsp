@@ -559,7 +559,7 @@ navigator.geolocation.getCurrentPosition(success, error, options);
 
 /// 위도 경도로 카카오로 위치 뽑아내기
 
- function onGeoOk(position){
+/*  function onGeoOk(position){
         const lat = position.coords.latitude;
         const lon = position.coords.longitude;
         
@@ -577,19 +577,19 @@ navigator.geolocation.getCurrentPosition(success, error, options);
         	responseData = res.data.documents;
         	region_2depth_name = responseData[0].address.region_2depth_name;
         	console.log(responseData[0].address.region_2depth_name);
-            dispatch(changeRegion(res.data.documents[0].address.region_1depth_name))
-            dispatch(changeCity(res.data.documents[0].address.region_2depth_name)) 
+            //dispatch(changeRegion(res.data.documents[0].address.region_1depth_name))
+            //dispatch(changeCity(res.data.documents[0].address.region_2depth_name)) 
         }
         ).catch(e=>console.log(e))
        	
     }
     function onGeoError(){
         alert("위치권한을 확인해주세요");
-    }
+    } */
   
 
 	//navigator.geolocation.getCurrentPosition(위치받는함수, 에러났을때 함수)
-	navigator.geolocation.getCurrentPosition(onGeoOk,onGeoError)
+	//navigator.geolocation.getCurrentPosition(onGeoOk,onGeoError)
 
 
 

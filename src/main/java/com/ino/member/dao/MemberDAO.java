@@ -17,7 +17,6 @@ public interface MemberDAO {
 	
 	ArrayList<MemberDTO> normalTopList();
 	
-
 	int join(HashMap<String, String> params);
 
 	int login(String id, String pw);

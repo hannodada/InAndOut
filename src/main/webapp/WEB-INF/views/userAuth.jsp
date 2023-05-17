@@ -25,12 +25,12 @@
 	   <a href="myGallery.go">갤러리</a>
 	   <a href="mySalesJjim.go">관심판매글</a>
 	   <a href="myGalleryJjim.go">찜한갤러리</a>
-	   <a href="userAuth.go" style="color:blue; text-decoration: underline;">설정</a>
+	   <a href="userAuth.go" style="color:skyblue; text-decoration: underline;">설정</a>
 	   
 	   
 	  </nav>
 	  	<nav id="userauth" style="position: fixed;">
-		<a href="userAuth.go" style="color:blue; text-decoration: underline;">회원정보수정</a>
+		<a href="userAuth.go" style="color:skyblue; text-decoration: underline;">회원정보수정</a>
 		<a href="userBiz.go">인증판매자등록</a>
 		</nav>
 	</header>
@@ -46,8 +46,8 @@
 				
 		</div>
 		
-	<div id="riderupdatebutton2">
-	<input type="button" onclick="location.href='./myPage.go'" value="돌아가기"/>
+		<div>
+	<input id="pwcheck1"type="button" onclick="location.href='./myPage.go'" value="돌아가기"/>
 	<button id="pwcheck">확인</button>
 	</div>
 	</form>
@@ -55,7 +55,10 @@
 	<hr>
     <div class="main-box">
         <div class="profile-box">
-        <img src="/photo/${new_photo_name}">
+        <c:if test="${new_photo_name eq null}">
+        	<img src="resources/photo/프로필 기본.png" width="150px">
+        </c:if>
+        <img src="/photo/${new_photo_name}" width="150px">
             <div class="title-nickname">
             <h2>${dto.nickname}</h2>
             </div>
@@ -96,11 +99,17 @@
     
 </body>  
 <script type="text/javascript">
+
+var msg = "${msg}";
+if(msg !=""){
+	 	alert(msg);
+	 
+}
 	
 $('#pwcheck').on('click',function(e){	
 	var oripassword = document.getElementById("oripassword").value;
 	console.log('oripassword : '+oripassword);
-	
+
 	$.ajax({
 		type:'get',
 		url:'pwcheck.ajax',
@@ -108,20 +117,19 @@ $('#pwcheck').on('click',function(e){
 		dataType:'json',
 		success:function(data){
 			console.log(data);
-			if(data.map == 0){
-				console.log('기존 비밀번호 전달 실패');
-				
-				
-				}else{
-					console.log('기존 비밀번호 전달 성공');
-					location.href='/userAuth.do';
-				}
-				
-			},error:function(e)
-			{
+			if(data == oripassword){
+				alert('비밀번호가 일치합니다');
+				console.log(data);
+			}else{
 				alert('비밀번호가 일치하지 않습니다');
+			}
+			},
+		error:function(e){
+				
 				console.log(e);
 			}
 			});
+});
+
 </script>
 </html>

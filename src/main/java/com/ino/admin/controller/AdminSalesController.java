@@ -64,9 +64,29 @@ public class AdminSalesController {
 	       
 	        for(int i=0; i<size; i++) {
 	        	service.sblind(ajaxMsg[i]);
+	        	
 	        }
 	        return "redirect:/adsaleslist.do";
-	    }		
+	    }
+	    
+	    @RequestMapping(value = "/ad.sNoblind", method = RequestMethod.GET)
+	    public String snoblind(String no) throws Exception {
+	    	service.snoblind(no);
+	       return "redirect:/adsaleslist.do";
+	    }
+	    //게시물 선택 블라인드
+	    @RequestMapping(value = "/ad.sNoblind")
+	    public String ajaxsno(HttpServletRequest request) throws Exception {
+
+	        String[] ajaxMsg = request.getParameterValues("valueArr");
+	        int size = ajaxMsg.length;
+	       
+	        for(int i=0; i<size; i++) {
+	        	service.snoblind(ajaxMsg[i]);
+	        	
+	        }
+	        return "redirect:/adsaleslist.do";
+	    }		    
 	
 	    // 판매글 히스토리 상세보기 
 		@RequestMapping(value="/shistory.go")
@@ -82,27 +102,24 @@ public class AdminSalesController {
 			return "adSaleshistory";
 		}  
 	
-		// 판매글 블라인드 히스토리 작성
-		@RequestMapping(value = "/ad.sblindhistory.do", method=RequestMethod.POST)
-		public String history_userstate(HttpServletRequest req,HttpSession session,@RequestParam HashMap<String, String> params, @RequestParam String sales_no, Model model) {
-
-			String page = "redirect:/";
-			if(session.getAttribute("loginId") != null) {
-				logger.info("로그인 여부 확인");
-				page = "adSaleshistory";
-			}
-			
-			logger.info("params : {}",params);
-			int row = service.history_sblind(params, sales_no); 
-			logger.info("insert row : "+row);
-			
-			logger.info("블라인드할 판매글번호"+sales_no);
-			AdminSalesDTO dto = service.shistory(sales_no);
-			logger.info("dto : ",dto);
-			model.addAttribute("user", dto);
-			return page;
-		}	
-		
+		/*
+		 * // 판매글 블라인드 히스토리 작성
+		 * 
+		 * @RequestMapping(value = "/ad.sblindhistory.do", method=RequestMethod.POST)
+		 * public String history_userstate(HttpServletRequest req,HttpSession
+		 * session,@RequestParam HashMap<String, String> params, @RequestParam String
+		 * sales_no, Model model) {
+		 * 
+		 * String page = "redirect:/"; if(session.getAttribute("loginId") != null) {
+		 * logger.info("로그인 여부 확인"); page = "adSaleshistory"; }
+		 * 
+		 * logger.info("params : {}",params); int row = service.history_sblind(params,
+		 * sales_no); logger.info("insert row : "+row);
+		 * 
+		 * logger.info("블라인드할 판매글번호"+sales_no); AdminSalesDTO dto =
+		 * service.shistory(sales_no); logger.info("dto : ",dto);
+		 * model.addAttribute("user", dto); return page; }
+		 */
 		
 		
 		

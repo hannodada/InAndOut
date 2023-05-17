@@ -21,6 +21,7 @@ public class AdminReportService {
 
 
 	public AdminReportDTO ureportdetail(String report_no) {
+		logger.info("회원 신고 디테일 "+report_no);
 		
 		return dao.ureportdetail(report_no);
 	}
@@ -99,19 +100,6 @@ public class AdminReportService {
 		return dao.sreportdetail(report_no);
 	}
 
-	public int gblindyes(HashMap<String, String> params, String report_no, String report_id,String report_content) {
-		logger.info("갤러리 신고처리 요청");
-		int result = dao.blind_history(report_no,report_id,report_content);
-
-		dao.gblindchange(report_no);
-		return result;
-	}
-
-	public int sblindno(HashMap<String, String> params,String report_no, String report_id,String report_content) {
-		int result = dao.blind_history(report_no,report_id,report_content);
-		dao.blindnochange(report_no);
-		return result;
-	}
 
 	public HashMap<String, Object> gallerylist(HashMap<String, Object> params) {
 		
@@ -152,6 +140,28 @@ public class AdminReportService {
 		
 		return dao.greportdetail(report_no);
 	}
+	public int gblindyes(HashMap<String, String> params, String report_no, String report_id,String report_content) {
+		logger.info("갤러리 신고처리 요청");
+		int result = dao.blind_history(report_no,report_id,report_content);
+		
+		dao.gblindchange(report_no);
+		return result;
+	}
+	
+	public int sblindno(HashMap<String, String> params,String report_no, String report_id,String report_content) {
+		int result = dao.blind_history(report_no,report_id,report_content);
+		dao.blindnochange(report_no);
+		return result;
+	}
+
+	public int ublindyes(HashMap<String, String> params, String report_no, String report_id, String report_content) {
+		logger.info("회원 신고처리 요청");
+		int result = dao.blind_history(report_no,report_id,report_content);
+		
+		dao.ublindchange(report_no);
+		return result;
+	}
+
 
 	/*
 	 * public AdminReportDTO greportdetail(String report_no) { return
