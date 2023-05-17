@@ -132,7 +132,7 @@
 					<label for="price" class="block text-sm font-semibold leading-6 text-gray-900">*주소</label>
 					<div class="mt-2.5">
 						<input type="text" id="postcode" name="postcode" placeholder="우편번호" readonly="readonly" required class="inline-block w-60 rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-						<input type="button" onclick="DaumPostcode()" value="우편번호 찾기" class="inline-block w-40 rounded-md bg-blue-500 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+						<input type="button" onclick="DaumPostcode()" value="우편번호 찾기" class="inline-block w-40 rounded-md bg-blue-500 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-blue-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
 						<br>
 						<input type="text" id="roadAddress" name="roadAddress" placeholder="도로명주소" readonly="readonly" required class="mt-4 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
 						<input type="text" id="jibunAddress" name="jibunAddress" placeholder="지번주소" hidden="true">
@@ -163,7 +163,7 @@
 				</div>
 			</div>
 			<div class="mt-10">
-				<button type="submit" class="block w-full rounded-md bg-blue-500 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500">등록</button>
+				<button type="submit" class="block w-full rounded-md bg-blue-500 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-blue-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500">등록</button>
 				<input type="button" class="mt-4 block w-full rounded-md bg-gray-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600" onclick="location.href='./salesList.do'" value="리스트"/>
 			</div>
 		</form>
