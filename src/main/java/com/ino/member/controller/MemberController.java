@@ -143,6 +143,22 @@ public class MemberController {
 		
 
 		}
+		if(user_div.equals("b")) {
+			if(new_photo_name != null) {
+				
+				session.setAttribute("new_photo_name", new_photo_name);
+				logger.info("판매자dto사진!! 나온거!!! :  " +new_photo_name);
+				
+				
+			}
+			if(new_photo_name == null) {
+				//session.setAttribute("user_id", user_id);
+				//logger.info("제발dto 유저 아이디좀 해줘 : "+dto.getUser_id());
+				
+			}
+
+
+		}
 		if(user_div.equals("c")) {
 			if(new_photo_name != null) {
 				
