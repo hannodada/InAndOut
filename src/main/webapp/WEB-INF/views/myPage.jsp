@@ -15,7 +15,7 @@
 <form action="/myPage.go" method="get">
 	<header>
 	  <nav id="nav">
-	   <a href="myPage.go" style="color:blue; text-decoration: underline;">모아보기</a>
+	   <a href="myPage.go" style="color:skyblue; text-decoration: underline;">모아보기</a>
 	   <a href="mySales.go">판매글</a>
 	   <a href="myGallery.go">갤러리</a>
 	   <a href="mySalesJjim.go">관심판매글</a>

@@ -25,12 +25,12 @@
 	   <a href="myGallery.go">갤러리</a>
 	   <a href="mySalesJjim.go">관심판매글</a>
 	   <a href="myGalleryJjim.go">찜한갤러리</a>
-	   <a href="userAuth.go" style="color:blue; text-decoration: underline;">설정</a>
+	   <a href="userAuth.go" style="color:skyblue; text-decoration: underline;">설정</a>
 	   
 	   
 	  </nav>
 	  	<nav id="userauth" style="position: fixed;">
-		<a href="userAuth.go" style="color:blue; text-decoration: underline;">회원정보수정</a>
+		<a href="userAuth.go" style="color:skyblue; text-decoration: underline;">회원정보수정</a>
 		<a href="userBiz.go">인증판매자등록</a>
 		</nav>
 	</header>
@@ -46,8 +46,8 @@
 				
 		</div>
 		
-	<div id="riderupdatebutton2">
-	<input type="button" onclick="location.href='./myPage.go'" value="돌아가기"/>
+		<div>
+	<input id="pwcheck1"type="button" onclick="location.href='./myPage.go'" value="돌아가기"/>
 	<button id="pwcheck">확인</button>
 	</div>
 	</form>

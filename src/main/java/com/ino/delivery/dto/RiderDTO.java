@@ -41,7 +41,14 @@ public class RiderDTO {
 	private int star_no;
 	private String star_to_id;
 	private int totalCountDS;
+	private String user_div;
 	
+	public String getUser_div() {
+		return user_div;
+	}
+	public void setUser_div(String user_div) {
+		this.user_div = user_div;
+	}
 	public int getTotalCountDS() {
 		return totalCountDS;
 	}

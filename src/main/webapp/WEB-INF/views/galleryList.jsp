@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<jsp:include page="realGnb.jsp"/>
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
@@ -84,10 +85,9 @@ b{
 </style>
 </head>
 <body>
-<%-- <jsp:include page="realGnb.jsp"/>  --%>
 	<div class="container mx-auto flex justify-end p-8">
 		<div class="ml-60 text-2xl">
-			<select class="focus:outline-none focus:ring-2 focus:ring-sky-600 w-40 text-gray-600 py-2 px-3 border border-gray-300 bg-white rounded-md" name="filter" id="filter">
+			<select class="focus:outline-none focus:ring-2 focus:ring-sky-600 w-45 text-gray-600 py-2 px-3 border border-gray-300 bg-white rounded-md" name="filter" id="filter">
 				<option value="gallery_no">최신 순</option>
 				<option value="gallery_hit">조회수 순</option>
 			</select>

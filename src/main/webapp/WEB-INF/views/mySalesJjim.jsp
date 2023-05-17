@@ -17,7 +17,7 @@
 	   <a href="myPage.go" >모아보기</a>
 	   <a href="mySales.go">판매글</a>
 	   <a href="myGallery.go">갤러리</a>
-	   <a href="mySalesJjim.go" style="color:blue; text-decoration: underline;">관심판매글</a>
+	   <a href="mySalesJjim.go" style="color:skyblue; text-decoration: underline;">관심판매글</a>
 	   <a href="myGalleryJjim.go" >찜한갤러리</a>
 	   <a href="userAuth.go" >설정</a>
 	  </nav>
@@ -31,7 +31,7 @@
 		<c:forEach items="${interestSaleList}" var="is">
 		<div style="float:left; margin-right:10px; display:inline;">
 			<a href="salesDetail.do?sales_no=${is.sales_no}">
-				<img style="max-width: 200px; height: auto;" src="/photo/${is.new_photo_name}"/>
+				<img style="width: 250px; height: 200px;" src="/photo/${is.new_photo_name}"/>
 			</a>
 				<h5 align="center">${is.subject}</h5>
 				<h5 align="center">${is.price}</h5>

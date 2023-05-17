@@ -23,12 +23,12 @@
 	   <a href="myGallery.go">갤러리</a>
 	   <a href="mySalesJjim.go">관심판매글</a>
 	   <a href="myGalleryJjim.go">찜한갤러리</a>
-	   <a href="userAuth.go" style="color:blue; text-decoration: underline;">설정</a>
+	   <a href="userAuth.go" style="color:skyblue; text-decoration: underline;">설정</a>
 	   
 	   
 	  </nav>
 	  	<nav id="userauth" style="position: fixed;">
-		<a href="userAuth.go" style="color:blue; text-decoration: underline;">회원정보수정</a>
+		<a href="userAuth.go" style="color:skyblue; text-decoration: underline;">회원정보수정</a>
 		<a href="userBiz.go">인증판매자등록</a>
 		</nav>
 	</header>
@@ -141,9 +141,9 @@
 				</c:if>
 	</div>
 	
-	<div id="riderupdatebutton3">
-	<input type="button" onclick="location.href='./myPage'" value="돌아가기"/>
-	<button type="submit" onclick="join()">저장</button>
+	<div>
+	<input  id="riderupdatebutton3" type="button" onclick="location.href='./myPage'" value="돌아가기"/>
+	<button id="riderupdatebutton4" type="submit" onclick="join()">저장</button>
 	</div>
 </form>
 	
@@ -196,7 +196,11 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <script>
-
+var msg = "${msg}";
+if(msg !=""){
+	 	alert(msg);
+	 
+}
 function join(){     
     var $user_id = $('#user_id');
     var $newpassword = $('#newpassword');
@@ -215,7 +219,7 @@ function join(){
     
     if($newpassword.val().length == 0){
         alert('비밀번호를 입력해 주세요!');
-        console.log("1");
+        console.log("1");   
         $newpassword.focus();
         return false;
     }else if($confirm_password.val() == ''){
@@ -329,11 +333,7 @@ function sample6_execDaumPostcode() {
     }).open();
 }
 
-var msg = "${msg}";
-if(msg !=""){
-	 	alert(msg);
-	 
-}
+
 
 </script>
 </html>

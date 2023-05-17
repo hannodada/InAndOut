@@ -19,7 +19,7 @@
 	   <a href="myGallery.go">갤러리</a>
 	   <a href="mySalesJjim.go">관심판매글</a>
 	   <a href="myGalleryJjim.go">찜한갤러리</a>
-	   <a href="userAuth.go" style="color:blue; text-decoration: underline;">설정</a>
+	   <a href="userAuth.go" style="color:skyblue; text-decoration: underline;">설정</a>
 	  </nav>
 
 	</header>

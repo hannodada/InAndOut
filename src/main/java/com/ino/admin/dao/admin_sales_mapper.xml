@@ -19,7 +19,7 @@
 
 
 	<select id="slist" resultType="com.ino.admin.dto.AdminSalesDTO">
-		select s.sales_no , s.subject , s.user_id ,u.nickname , s.sales_state , s.date 
+		select s.sales_no , s.subject , s.user_id ,u.nickname , s.sales_state , s.date , s.blind
 		from sales s
 		join user u on u.user_id = s.user_id 
 		LIMIT 10 OFFSET #{offset}
@@ -45,8 +45,8 @@
 	</select>		
 	
 	<insert id="history_sblind" parameterType="hashmap">
-		insert into report_history(report_no,report_time, report_content,report_id)
-		VALUES (#{report_no},#{report_time},#{report_content},#{report_id})
+		insert into report_history(report_no, report_content,report_id)
+		VALUES (#{report_no},#{report_content},#{report_id})
 	
 	</insert>
 	

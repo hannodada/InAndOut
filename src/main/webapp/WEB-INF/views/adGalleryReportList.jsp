@@ -42,7 +42,7 @@
 				<th>제목</th>
 				<th>작성자</th>
 				<th>신고일자</th>
-				<th>블라인드 여부</th>
+				<th>처리 여부</th>
 				<th>신고내용</th>
 			</tr>
 		</thead>
@@ -138,10 +138,10 @@ function listPrint(list){
 	      content +='<td id="userdiv">'+item.gallery_subject+'</td>';
 	      content +='<td id="userdiv">'+item.user_id+'</td>';
 	      content +='<td id="userdiv">'+item.report_date+'</td>';
-	        if (item.blind == 1) {
-	            content += '<td>블라인드</td>';
+	        if (item.report_state == '대기') {
+	            content += '<td>대기</td>';
 	        } else {
-	            content += '<td>정상</td>';
+	            content += '<td>완료</td>';
 	        }
 	      content +='<td id="subject"><a href="detail.greport.do?report_no='+ item.report_no +'">' + "상세보기" + '</a></td>';
 	      content +='</tr>';

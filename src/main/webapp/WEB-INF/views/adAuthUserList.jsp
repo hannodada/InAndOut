@@ -42,7 +42,7 @@
 					<th><input type="checkbox" id="all"/></th>
 					<th>아이디</th>
 					<th>닉네임</th>
-					<th>회원분류</th>
+					<th>인증여부</th>
 					<th>회원상태</th>
 					<th>정보보기</th>
 				</tr>
@@ -144,7 +144,7 @@ function listPrint(list){
 	      content +='<td><input type="checkbox"></td>';
 	      content +='<td>'+item.user_id+'</td>';
 	      content +='<td>'+item.nickname+'</td>';
-	      content +='<td>'+item.user_div_name+'</td>';	
+	      content +='<td>'+item.state+'</td>';	
 	      content +='<td>'+item.user_state+'</td>';
 	      content +='<td id="subject"><a href="ad.userdetail.do?user_id='+ item.user_id +'">' + "정보보기" + '</a></td>';
 	      content +='</tr>';

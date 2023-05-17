@@ -35,14 +35,14 @@ public class MypageDTO {
 	   private String biz_id;
 	   private String goods_id;
 	   
-	   private String new_photo_name;
-	   private String biz_name;
-	   private String goods_name;
-	   private String gallery_subject;
-	   private int photo_no;
-		private String ori_photo_name;
-		private String photo_div;
-		private String cate_no;
+	private String new_photo_name;
+	private String biz_name;
+	private String goods_name;
+	private String gallery_subject;
+	private int photo_no;
+	private String ori_photo_name;
+	private String photo_div;
+	private String cate_no;
 
 	
 	

@@ -14,7 +14,7 @@
 <jsp:include page="realGnb.jsp"/>
 	<header>
 	  <nav id="nav">
-	   <a href="riderPage" style="color:blue; text-decoration: underline;">프로필</a>
+	   <a href="riderPage" style="color:skyblue; text-decoration: underline;">프로필</a>
 	   <a href="riderSetting.go">회원정보수정</a>
 	  </nav>
 	</header>
@@ -150,11 +150,11 @@
             <div id="avgdolphin">&nbsp;&nbsp;나의 &돌핀 단계 : ${avg}단계&nbsp;&nbsp;</div>
             <div class="parent">
 		        <div class="pfirst">제안요청</div>
-		        <div class="psecond">배송 진행</div>
+		        <div class="pthird">배송 진행</div>
 		    		</div>
 		    <div class="child">
 		        <div class="cfirst">${rideroffer}</div>
-		        <div class="csecond">${riderdelivery}</div>
+		        <div class="cthird">${riderdelivery}</div>
 		    </div>
     </div>
 

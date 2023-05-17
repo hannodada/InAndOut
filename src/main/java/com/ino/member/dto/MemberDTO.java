@@ -208,11 +208,6 @@ public class MemberDTO {
 	public void setPhone_num(String phone_num) {
 		this.phone_num = phone_num;
 	}
- 
- 	
- 	
- 	
- 	
 }
  	
 	

@@ -24,13 +24,13 @@
 	   <a href="myGallery.go">갤러리</a>
 	   <a href="mySalesJjim.go">관심판매글</a>
 	   <a href="myGalleryJjim.go">찜한갤러리</a>
-	   <a href="userAuth.go" style="color:blue; text-decoration: underline;">설정</a>
+	   <a href="userAuth.go" style="color:skyblue; text-decoration: underline;">설정</a>
 	   
 	   
 	  </nav>
 	  	<nav id="userauth" style="position: fixed;">
 		<a href="userAuth.go">회원정보수정</a>
-		<a href="userBiz.go" style="color:blue; text-decoration: underline;">인증판매자등록</a>
+		<a href="userBiz.go" style="color:skyblue; text-decoration: underline;">인증판매자등록</a>
 		</nav>
 	</header>
 	

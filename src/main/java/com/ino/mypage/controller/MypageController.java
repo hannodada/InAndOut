@@ -59,6 +59,7 @@ public class MypageController {
 		} 
 			logger.info("평균점수 :" + avg);
 			model.addAttribute("avg", avg);
+
 		// 판매글, 갤러리 갯수 세기
 		int countsales = service.countsales(user_id);
 		model.addAttribute("countsales", countsales);
@@ -67,7 +68,7 @@ public class MypageController {
 		int countinterest = service.countinterest(user_id);
 		model.addAttribute("countinterest", countinterest);
 		return page;
-		}
+	}
 
 	@RequestMapping(value = "/riderPage", method = RequestMethod.GET)
 	public String riderPage(Model model, HttpSession session) {
@@ -85,15 +86,7 @@ public class MypageController {
 		logger.info("가져온 값 : " + dto);
 		logger.info("닉네임: " + dto.getNickname());
 		model.addAttribute("dto", dto);
-		//평점
-				int avg;
-				try {
-				   avg = service.mystar(user_id);
-				} catch (Exception e) {
-				   avg = 0;
-				} 
-					logger.info("평균점수 :" + avg);
-					model.addAttribute("avg", avg);
+		
 		
 		// 라이더 extra 불러오기
 		MypageDTO extra = service.myrider(user_id);
@@ -124,6 +117,16 @@ public class MypageController {
 		}
 		model.addAttribute("star003", star003);
 		
+		//평점
+		int avg;
+		try {
+		   avg = service.mystar(user_id);
+		} catch (Exception e) {
+		   avg = 0;
+		} 
+			logger.info("평균점수 :" + avg);
+			model.addAttribute("avg", avg);
+		//프사
 		String new_photo_name = service.getPhotoName(user_id, "p001");
 		
 		model.addAttribute("new_photo_name",new_photo_name);

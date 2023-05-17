@@ -12,10 +12,6 @@
         /* @import url('https://fonts.googleapis.com/css2family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@100&display=swap'); */
     
 
-
-
-
-   
     
 </style>
 
@@ -31,7 +27,6 @@
 
 	<a href="myPage.go">마이페이지 보기</a>
 	<a href="riderPage">라이더페이지 보기</a>
-	<a href="riderList.go">라이더리스트</a>
 
 	
 	
@@ -237,7 +232,7 @@
 	     		 			<c:if test="${bbs.new_photo_name ne null}">
 				    			<td>	
 							     		 		<br>
-							     		 		<img src="resources/photo/${bbs.new_photo_name}" id="sellerProfile" onclick="location.href='myPage.go?user_id=${bbs.user_id}'">
+							     		 		<img src="/photo/${bbs.new_photo_name}" id="sellerProfile" onclick="location.href='myPage.go?user_id=${bbs.user_id}'">
 					    						<br>
 						    					<a>${bbs.user_id }</a>
 								</td>
@@ -271,7 +266,7 @@
 				     		 	<c:if test="${hGallery.new_photo_name ne null}">
 					     		 	<td>	
 					     		 		<br>
-					     		 		<img src="resources/photo/${hGallery.new_photo_name}" id="gallery" onclick="location.href='galleryDetail.do?gallery_no=${hGallery.gallery_no}'">
+					     		 		<img src="/photo/${hGallery.new_photo_name}" id="gallery" onclick="location.href='galleryDetail.do?gallery_no=${hGallery.gallery_no}'">
 				    					<br>
 			    						<a>${hGallery.gallery_subject }</a>
 			    					</td>
@@ -292,14 +287,6 @@
 </c:if>
 	
 <c:if test="${sessionScope.loginId ne null}">
-	
-			
-			
-			
-			
-			
-			
-			
 			<c:if test="${sigunguTopList eq null}">
 				시군구 지역 프로필 출력 못함
 			</c:if>
@@ -307,7 +294,7 @@
 
 			
 			<c:if test="${sigunguTopList ne null}">
-			<br>
+				<br>
 			<br>
 			<hr>
 			<br>
@@ -315,8 +302,23 @@
 			<br>
 					<table>
 						<tr>
-				   		 <c:forEach items="${sigunguTopList }" var="sigungu">
-
+				   		 <c:forEach items="${sigunguTopList}" var="sigungu">
+								<c:if test="${sigungu.new_photo_name eq null}">
+									<td>
+								     		  		<br>
+								     		 		<img src="resources/photo/프로필 기본.png" id="sellerProfile" onclick="location.href='myPage.go?user_id=${sigungu.user_id}'">
+					    							<br>
+							    					<a>${sigungu.user_id }</a>
+					    			</td>
+		   						</c:if>
+		     		 			 <c:if test="${sigungu.new_photo_name ne null}">
+					    			<td>	
+								     		 		<br>
+								     		 		<img src="/photo/${sigungu.new_photo_name}" id="sellerProfile" onclick="location.href='myPage.go?user_id=${sigungu.user_id}'">
+					    							<br>
+							    					<a>${sigungu.user_id }</a>
+									</td>
+		    					</c:if> 
 						</c:forEach>
 						</tr>
 					</table>
@@ -344,7 +346,7 @@
 					     		  	<c:if test="${attentiontop.new_photo_name eq null}">
 					     		 		<td>
 						     		 		<br>
-						     		 		<img src="/photo/로고기본.png" id="hitSeller" onclick="location.href='profile.go'">
+						     		 		<img src="/photo/로고기본.png" id="hitSeller" onclick="location.href='salesDetail.do?sales_no=${attentiontop.sales_no}'">
 					    					<br>
 					    					<a>${attentiontop.subject }</a>
 					    					<br>
@@ -354,7 +356,7 @@
 					     		 	<c:if test="${attentiontop.new_photo_name ne null}">
 						    			<td>	
 							     		 		<br>
-							     		 		<img src="resources/photo/${attentiontop.new_photo_name}" id="hitSeller" onclick="location.href='profile.go'">
+							     		 		<img src="/photo/${attentiontop.new_photo_name}" id="hitSeller" onclick="location.href='salesDetail.do?sales_no=${attentiontop.sales_no}'">
 						    					<br>
 						    					<a>${attentiontop.subject }</a>
 						    					<br>
@@ -379,7 +381,7 @@
 				     		  	<c:if test="${hGallery.new_photo_name eq null}">
 			     		 			<td>
 				     		 			<br>
-				     		 			<img src="/photo/로고기본.png" id="gallery" onclick="location.href='profile.go'">
+				     		 			<img src="/photo/로고기본.png" id="gallery" onclick="location.href='galleryDetail.do?gallery_no=${hGallery.gallery_no}'">
 			    						<br>
 			    						<a>${hGallery.gallery_subject }</a>	
 			    					</td>
@@ -387,7 +389,7 @@
 				     		 	<c:if test="${hGallery.new_photo_name ne null}">
 					     		 	<td>	
 					     		 		<br>
-					     		 		<img src="resources/photo/${hGallery.new_photo_name}" id="gallery" onclick="location.href='profile.go'">
+					     		 		<img src="/photo/${hGallery.new_photo_name}" id="gallery" onclick="location.href='galleryDetail.do?gallery_no=${hGallery.gallery_no}'">
 				    					<br>
 			    						<a>${hGallery.gallery_subject }</a>
 			    					</td>
@@ -424,10 +426,13 @@
 	
 </body>
 
+
+
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=03ca3b7a211dd9cbb0616b7b121983de"></script>
 	
 <script>
 
+console.log(${sigunguTopList})
 
 var prevScrollpos = window.pageYOffset; 
 

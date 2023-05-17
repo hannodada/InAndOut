@@ -185,7 +185,20 @@ public class MemberController {
 		String sigungu  = service.sigungu(user_id);
 		session.setAttribute("sigungu", sigungu);
 		ArrayList<MemberDTO> sigunguTopList = service.sigunguTopList(sigungu);
+		sigunguTopList = service.sigunguTopList(sigungu);
+
 		model.addAttribute("sigunguTopList",sigunguTopList);
+		try {
+			for(MemberDTO arg : sigunguTopList) {
+				logger.info("user_id: " + arg.getUser_id());
+				logger.info("hit: " + arg.getHit());
+				logger.info("sigungu: " + arg.getSigungu());
+			}
+		} catch (Exception e) {
+
+			model.addAttribute("sigunguTopList", new ArrayList<MemberDTO>());
+		}
+		
 		
 		
 		logger.info("지금 시군구이거에 정보 있는건가? : " +sigunguTopList.size() );
@@ -285,11 +298,24 @@ public class MemberController {
 		logger.info("profile도 왔음 !! ㄷㄷ; : "+profile);
 		logger.info("bizprofile도 도착 : "+bizprofile);
 		
+		
+		//폰 번호 병합
+		String phone_num = params.get("phone_num");
+		String phone_num2 = params.get("phone_num2");
+		String phone_num3 = params.get("phone_num3");
+		params.put("phone_num", phone_num+phone_num2+phone_num3);
+		String phone_num4 = params.get("phone_num");
+		logger.info(phone_num4);
+		
+		//이메일 병합
+		String email = params.get("email");
+		String url = params.get("url");
+		params.put("email", email +"@"+url );
 		String page = "joinForm";
 		
 		if(service.userRegist(profile, params,bizprofile)==1) {
-			 model.addAttribute("msg", "회원가입에 성공했습니다.");
-			page = "redirect:/";
+			 model.addAttribute("msg", "회원가입이 완료되었습니다. 홈으로 가서 로그인을 시도해주세요");
+			page = "joinForm";
 			
 		}else {
 	         model.addAttribute("msg", "회원가입에 실패 했습니다!");
@@ -303,13 +329,50 @@ public class MemberController {
 	
 	@RequestMapping(value="/riderRegist.do",method = RequestMethod.POST)
 	public String riderwrite(MultipartFile profile,  MultipartFile bizprofile,
-			@RequestParam HashMap<String, String> params) {
+			@RequestParam HashMap<String, String> params , Model model) {
 
 	logger.info(" 파람 왓따! params : "+params);
 	MemberDTO dto = new MemberDTO();
 	logger.info("riderprofile도 왔음 !! ㄷㄷ; : "+profile);
 	logger.info("riderbizprofile도 도착 : "+bizprofile);
-	return service.riderRegist(profile, params,bizprofile);
+	
+	// 폰 번호 병합
+	String phone_num = params.get("phone_num");
+	String phone_num2 = params.get("phone_num2");
+	String phone_num3 = params.get("phone_num3");
+	params.put("phone_num", phone_num+phone_num2+phone_num3);
+	String phone_num4 = params.get("phone_num");
+	logger.info(phone_num4);
+	
+	
+	//이메일 병합
+	String email = params.get("email");
+	String url = params.get("url");
+	params.put("email", email +"@"+url );
+	
+	
+	//영업시간 병합
+	String store_time = params.get("store_time");
+	String store_time2 = params.get("store_time2");
+	
+	params.put("store_time", store_time+"~"+store_time2);
+	
+	
+	String page = "riderForm";
+	
+	
+	if(service.riderRegist(profile, params,bizprofile)==1) {
+		 model.addAttribute("msg", "라이더회원가입이 완료되었습니다. 라이더 자격은 심사 후 승인, 반려 될 수 있으며 빠른 시일 내에 처리 될 예정입니다. 감사합니다.");
+		 
+		page = "riderForm";
+		
+	}else {
+        model.addAttribute("msg", "회원가입에 실패 했습니다!");
+     }
+	
+	
+	
+	return page;
 }
 	
 	
