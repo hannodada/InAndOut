@@ -50,7 +50,7 @@
 			<tr>
 				<th>새로운 사진</th>
 				<td>
-					<input type="file" id="btnAtt" multiple="multiple" name="photo"/>
+					<input type="file" id="btnAtt" multiple="multiple" name="photo" accept="image/*"/>
 					<div id="att_zone" data-placeholder="파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요"></div>
 				</td>
 			</tr>
