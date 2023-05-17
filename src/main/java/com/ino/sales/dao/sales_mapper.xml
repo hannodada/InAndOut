@@ -144,7 +144,7 @@
 	</update>
 	
 	<select id="salesTotalCount" parameterType="HashMap" resultType="Integer">
-		SELECT count(s.sales_no) FROM sales s 
+		SELECT COUNT(sales_no) AS cnt FROM (SELECT s.sales_no FROM sales s 
 			LEFT JOIN user u ON s.user_id = u.user_id
 			LEFT JOIN photo p ON p.photo_div = s.sales_no AND p.cate_no = 'p005'
 			LEFT JOIN biz b ON s.biz_id = b.biz_id 
@@ -168,6 +168,7 @@
 		<if test='maxPrice != null  and !maxPrice.equals("default")'>
 			<![CDATA[ AND s.price <= #{maxPrice} ]]>	
 		</if>
+		GROUP BY s.sales_no) sales
 	</select>
 	
 </mapper>

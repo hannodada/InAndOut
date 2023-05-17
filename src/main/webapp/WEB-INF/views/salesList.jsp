@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<jsp:include page="realGnb.jsp"/>
+<%-- <jsp:include page="realGnb.jsp"/> --%><!-- gnb sigungu와 salesList sigungu가 겹쳐서 기능동작에 문제있음. -->
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
@@ -20,11 +20,6 @@
 <link href="https://fonts.googleapis.com/css?family=Work+Sans:200,400&display=swap" rel="stylesheet">
 
 <style>
-table, th, td{
-	border: 1px black solid;
-	border-collapse: collapse;
-	padding: 5px 10px;	
-}
 #paging{
 	text-align: center;
 }
@@ -84,6 +79,13 @@ table, th, td{
 </head>
 <body class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
 
+	<div class="container mx-auto flex justify-start p-8">
+		<div class="flex items-center">
+			<span class="text-gray-600 text-2xl" id="currSido"></span>
+			<span class="ml-2 text-gray-600 text-2xl" id="currSigungu"></span>
+			<span class="ml-2 text-gray-600 text-2xl" id="totalItem"></span>
+		</div>
+	</div>
 	<div class="container mx-auto flex justify-start p-8">
 		<div class="text-3xl">
 			<label class="font-semibold text-3xl text-blue-600">판매목록 /</label>&nbsp;
@@ -241,7 +243,7 @@ function listCall(page){
 	if(sigungu=='전체'||sigungu==''){
 		sigungu = 'default';
 		console.log(sigungu);
-	}
+	}console.log(sigungu);
 	var minPrice = document.getElementById('minPrice').value;
 	console.log(minPrice);
 	if(minPrice==''){
@@ -282,7 +284,32 @@ function listCall(page){
 			
 			// 페이징을 구현하기 위해 알아야 되는 것(단순 플러그인만 쓰면 페이징 제대로 안됨)
 			// 총 페이지 수, 현재 페이지
+			console.log("currSido :"+data.currSido);
+			console.log("currSigungu :"+data.currSigungu);
+			console.log("totalItem :"+data.totalItem);
 			
+			var currSido = '';
+			var currSigungu = '';
+			var totalItem = data.totalItem;
+			
+			if(data.currSido == 'default'){
+				currSido = '전체';
+			}else{
+				currSido = data.currSido;
+			}
+			if(data.currSigungu == 'default'){
+				currSigungu = '전체';
+			}else{
+				currSigungu = data.currSigungu;
+			}
+
+			$('#currSido').empty();
+			$('#currSigungu').empty();
+			$('#totalItem').empty();
+			
+			$('#currSido').append(currSido);
+			$('#currSigungu').append(currSigungu+'의');
+			$('#totalItem').append(totalItem+'개 상품을 보여드릴게요.');
 			//paging plugin
 			$('#pagination').twbsPagination({
 				startPage:data.currPage,		//시작페이지
