@@ -15,18 +15,8 @@
 <h2 style="color: #708090;">&라이더 승인/반려</h2>
 	<hr style="border-top-width:2px; border-color:#b0cbd6;">
 		<!-- 검색 -->
-			<form>
-	      <label for="search-word">   
-	      조회 
-	      </label>
-	      &nbsp&nbsp&nbsp
-	      <select name="search-type">
-	        <option value="id">아이디</option>
-	        <option value="nickname">닉네임</option>
-	      </select>
-	      <input type="text" id="search-word" name="search-word">
-	      <input type="submit" value="검색">
-    </form>
+   <input type="text" id="rsearchInput" placeholder="제목 또는 작성자를 입력">
+   <button id="rsearchButton">검색</button>
     
     <form>
     <button onclick="">체크 승인</button>
@@ -93,7 +83,17 @@
 
 <script>
 var showPage = 1;
+var searchText = 'default';
 listCall(showPage);
+
+//검색어에 따른 출력 
+$('#rsearchButton').click(function(){
+   //검색어 확인 
+   searchText = $('#rsearchInput').val();
+   listCall(showPage);
+   searchText = 'default';
+   $('#pagination').twbsPagination('destroy');
+});
 
 
 function listCall(page){
@@ -102,7 +102,7 @@ function listCall(page){
 	      url:'rider.ajax',
 	      data:{
 	         'page':page,
-
+	         'search':searchText
 	      },
 	      dataType:'json',           
 	      success:function(data){

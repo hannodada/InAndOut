@@ -6,10 +6,19 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<jsp:include page="realGnb.jsp"/>
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
 <script src="resources/js/jquery.twbsPagination.min.js" type="text/javascript"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="description" content="Free open source Tailwind CSS Store template">
+<meta name="keywords" content="tailwind,tailwindcss,tailwind css,css,starter template,free template,store template, shop layout, minimal, monochrome, minimalistic, theme, nordic">
+<link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>
+<link href="https://fonts.googleapis.com/css?family=Work+Sans:200,400&display=swap" rel="stylesheet">
+
 <style>
 table, th, td{
 	border: 1px black solid;
@@ -22,40 +31,79 @@ b{
 #paging{
 	text-align: center;
 }
+/* 템플릿 */
+.work-sans {
+    font-family: 'Work Sans', sans-serif;
+}
+        
+#menu-toggle:checked + #menu {
+    display: block;
+}
+
+.hover\:grow {
+    transition: all 0.3s;
+    transform: scale(1);
+}
+
+.hover\:grow:hover {
+    transform: scale(1.02);
+}
+
+.carousel-open:checked + .carousel-item {
+    position: static;
+    opacity: 100;
+}
+
+.carousel-item {
+    -webkit-transition: opacity 0.6s ease-out;
+    transition: opacity 0.6s ease-out;
+}
+
+#carousel-1:checked ~ .control-1,
+#carousel-2:checked ~ .control-2,
+#carousel-3:checked ~ .control-3 {
+    display: block;
+}
+
+.carousel-indicators {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    bottom: 2%;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 10;
+}
+
+#carousel-1:checked ~ .control-1 ~ .carousel-indicators li:nth-child(1) .carousel-bullet,
+#carousel-2:checked ~ .control-2 ~ .carousel-indicators li:nth-child(2) .carousel-bullet,
+#carousel-3:checked ~ .control-3 ~ .carousel-indicators li:nth-child(3) .carousel-bullet {
+    color: #000;
+    /*Set to match the Tailwind colour you want the active one to be */
 </style>
 </head>
 <body>
-	<select name="filter" id="filter">
-		<option value="gallery_no">최신 순</option>
-		<option value="gallery_hit">조회수 순</option>
-	</select>
-	<table>
-		<thead>
-			<tr>
-				<th>갤러리번호</th>
-				<th>사진</th>
-				<th>제목</th>
-				<th>조회수</th>
-				<th>관심수</th>
-				<th>작성자 아이디</th>
-				<th>작성자 닉네임</th>
-				<th>등록일자</th>
-			</tr>
-		</thead>
-		<tbody id="list">
-
-		</tbody>
-		<tr>
-			<td colspan="8" id="paging">	
-				<!-- 	플러그인 사용	(twbsPagination)	-->
-				<div class="container">									
-					<nav aria-label="Page navigation" style="text-align:center">
-						<ul class="pagination" id="pagination"></ul>
-					</nav>					
-				</div>
-			</td>
-		</tr>
-	</table>
+	<div class="container mx-auto flex justify-end p-8">
+		<div class="ml-60 text-2xl">
+			<select class="focus:outline-none focus:ring-2 focus:ring-sky-600 w-45 text-gray-600 py-2 px-3 border border-gray-300 bg-white rounded-md" name="filter" id="filter">
+				<option value="gallery_no">최신 순</option>
+				<option value="gallery_hit">조회수 순</option>
+			</select>
+		</div>
+	</div>	
+    <section class="bg-white py-8">
+		<div id="add_item" class="container mx-auto flex items-center flex-wrap pt-4 pb-12">
+			<!-- 상품 들어가는 자리 -->
+		</div>
+	</section>	
+	<!-- 	플러그인 사용	(twbsPagination)	-->
+	<div class="container">									
+		<nav aria-label="Page navigation" style="text-align:center">
+			<ul class="pagination" id="pagination"></ul>
+		</nav>					
+	</div>
 </body>
 <script>
 //기본값으로 1번 페이지를 설정한다.
@@ -81,7 +129,7 @@ function listCall(page){
 		url: 'galleryList.ajax',
 		data: {
 			'page':page,
-			'cnt':15,
+			'cnt':6,
 			'filterName':filterName
 		},
 		dataType: 'json',
@@ -130,33 +178,34 @@ function listPrint(list){
 	//해결방법 2. JS에서 변환하는 방법
 	list.forEach(function(item, idx){
 		
-		content += '<tr>';
-		content += '<th>'+item.gallery_no+'</th>';
-		
-		if(item.new_photo_name == null){
-			content += '<th><img src="resources/img/defaultIMG.png';
-		}else{
-			content += '<th><img src="/photo/'+item.new_photo_name;
-		}
-		
-		content += '"/></th>';
-		
-		content += '<th><a href="galleryDetail.do?gallery_no='+item.gallery_no+'">'+item.gallery_subject+'</a></th>';
-		content += '<th>'+item.gallery_hit+'</th>';
-		content += '<th>'+item.gallery_jjim+'</th>';
-		content += '<th>'+item.user_id+'</th>';
-		content += '<th>'+item.nickname+'</th>';
-		
- 		let milliseconds = item.gallery_date;
-		let date = getFormatDate(new Date(milliseconds));
+		content += '<div class="w-full md:w-1/2 xl:w-1/3 p-6 flex flex-col">';
+		content += '<div class="pt-3 flex items-center justify-between">';
 
-		content += '<th>'+date+'</th>';
-		content += '</tr>';
+		content += '<p class="">'+item.store_name+'</p>';
+		content += '</div>';
+		content += '<a href="galleryDetail.do?gallery_no='+item.gallery_no+'">';
+		if(item.new_photo_name == null){
+			content += '<img class="hover:grow hover:shadow-lg rounded-lg" src="resources/img/defaultIMG.png">';
+		}else{
+			content += '<img class="hover:grow hover:shadow-lg rounded-lg" src="/photo/'+item.new_photo_name+'">';
+		}
+		content += '</a>';
 		
+		content += '<a href="galleryDetail.do?gallery_no='+item.gallery_no+'">'+item.gallery_subject+'</a>';
+		content += '<div class="pt-3 flex items-center justify-between">';
+		content += '<p class="">'+item.nickname+'</p>';
+		
+		let milliseconds = item.gallery_date;
+		let date = getFormatDate(new Date(milliseconds));
+		
+		content += '<p class="">'+date+'</p>';
+		content += '</div>';
+		content += '</a>';
+		content += '</div>';
 	});
 	
-	$('#list').empty();
-	$('#list').append(content);
+	$('#add_item').empty();
+	$('#add_item').append(content);
 	
 }
 

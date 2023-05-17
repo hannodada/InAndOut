@@ -10,7 +10,7 @@
 	</select>
 	
 	<select id="list" resultType="com.ino.gallery.dto.GalleryDTO">
-		SELECT g.gallery_no, g.gallery_subject, g.gallery_hit, g.user_id, u.nickname, g.gallery_date, p.new_photo_name
+		SELECT g.gallery_no, g.store_name, g.gallery_subject, g.gallery_hit, g.user_id, u.nickname, g.gallery_date, p.new_photo_name
 			FROM gallery g 
 			LEFT JOIN user u ON g.user_id = u.user_id
 			LEFT JOIN photo p ON p.photo_div = g.gallery_no AND p.cate_no = 'p006'
@@ -29,7 +29,7 @@
 	</select>
 	
 	<select id="galleryFilteringList" parameterType="String" resultType="com.ino.gallery.dto.GalleryDTO">
-		SELECT g.gallery_no, g.gallery_subject, g.gallery_hit, g.user_id, u.nickname, g.gallery_date, p.new_photo_name
+		SELECT g.gallery_no, g.store_name, g.gallery_subject, g.gallery_hit, g.user_id, u.nickname, g.gallery_date, p.new_photo_name
 			FROM gallery g 
 			LEFT JOIN user u ON g.user_id = u.user_id
 			LEFT JOIN photo p ON p.photo_div = g.gallery_no AND p.cate_no = 'p006'

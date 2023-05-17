@@ -160,7 +160,7 @@ public class ChatController {
 	public String newchat(@RequestParam String sales_no, @RequestParam String user_id, HttpSession session) {
 		String loginId = (String) session.getAttribute("loginId");
 		if(session.getAttribute("loginId") != null) {
-			String roomuserno = service.findroomuser(user_id, sales_no);
+			String roomuserno = service.findroomuser(loginId, sales_no);
 			logger.info("findroomuser: " + roomuserno);
 			if(roomuserno == null) {
 				logger.info("속한 채팅방이 없다");

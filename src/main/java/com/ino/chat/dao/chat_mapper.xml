@@ -64,7 +64,7 @@
 	
 	<select id="salephoto" resultType="String">
 		select new_photo_name from photo
-		where cate_no = 'p005' and photo_div = #{param1}
+		where cate_no = 'p005' and photo_div = #{param1} limit 1
 	</select>
 	
 	<select id="getsalephotobydelivery" resultType="String">

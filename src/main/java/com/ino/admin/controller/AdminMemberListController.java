@@ -118,7 +118,7 @@ public class AdminMemberListController {
 		AdminMemberDTO dto = service.viewdetail(user_id);
 		logger.info("dto : ",dto);
 		model.addAttribute("user", dto);
-		return "adUserDetailExtra";
+		return "adUserDetailState";
 	}
 	
 	@RequestMapping(value = "/ad.updateUserState", method=RequestMethod.POST)
@@ -129,7 +129,7 @@ public class AdminMemberListController {
 		int row = service.updateUserState(params, user_id, radioValue); 
 		logger.info("insert row : "+row);
 		
-		logger.info("ȸ�� ���º��� ��û"+user_id);
+	
 		AdminMemberDTO dto = service.viewdetail(user_id);
 		logger.info("dto : ",dto);
 		model.addAttribute("user", dto);
@@ -139,7 +139,7 @@ public class AdminMemberListController {
 	// 회원히스토리 이동
     @RequestMapping(value="/user.history.go", method = RequestMethod.GET)
     public String userhistory(Model model, @RequestParam (required=false, value="user_id")String user_id) {
-    	logger.info("����Ʈ��û");
+
     	ArrayList<AdminMemberDTO> userhistory=service.userhistory(user_id);
     
     	model.addAttribute("userhistory",userhistory);
@@ -176,7 +176,7 @@ public class AdminMemberListController {
     public HashMap<String, Object> authuserlist( @RequestParam HashMap<String, Object> params
  		  		
     		){
-    	logger.info("����Ʈ �ҷ�������");
+ 
        return service.authuserlist(params);
     }		
 	
@@ -190,7 +190,7 @@ public class AdminMemberListController {
 		int row = service.history_riderstate(params, user_id); // �ؿ��� Ȯ���غ����� row �� ��������
 		logger.info("insert row : "+row);
 		
-		logger.info("���̴� �󼼺��� ��û"+user_id);
+	
 		AdminMemberDTO dto = service.riderdetail(user_id);
 		logger.info("dto : ",dto);
 		model.addAttribute("rider", dto);
@@ -212,7 +212,7 @@ public class AdminMemberListController {
 		model.addAttribute("rider", dto);
 		return "adRiderDetail";
 	}	
-	// ���̴� ����/�ݷ� ������ �̵�
+
 	@RequestMapping(value="/ad.riderlist.do")
 	public String adriderlist(Model model) {
 
@@ -225,7 +225,7 @@ public class AdminMemberListController {
     public HashMap<String, Object> riderlist( @RequestParam HashMap<String, Object> params
  		  		
     		){
-    	logger.info("����Ʈ �ҷ�������");
+   
        return service.riderlist(params);
     }		
 	
@@ -236,7 +236,7 @@ public class AdminMemberListController {
 		String page ="redirect:/ad.userlist.do";
 		*/
 		
-		logger.info("���̴� �󼼺��� ��û"+user_id);
+
 		AdminMemberDTO dto = service.riderdetail(user_id);
 		logger.info("dto : ",dto);
 		model.addAttribute("rider", dto);
@@ -251,7 +251,7 @@ public class AdminMemberListController {
 		String page ="redirect:/ad.userlist.do";
 		*/
 		
-		logger.info("�߰� ���� ���� ��û"+user_id);
+
 		AdminMemberDTO dto = service.riderdetailextra(user_id);
 		logger.info("dto : ",dto);
 		model.addAttribute("rider", dto);

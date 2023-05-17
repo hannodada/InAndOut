@@ -34,6 +34,56 @@ public class AdminReportDTO {
 	private String report_time;
 	private String report_content;
 	private String report_id;
+	private int gallery_no;
+
+	public int getGallery_no() {
+		return gallery_no;
+	}
+	public void setGallery_no(int gallery_no) {
+		this.gallery_no = gallery_no;
+	}
+	public String getStore_name() {
+		return store_name;
+	}
+	public void setStore_name(String store_name) {
+		this.store_name = store_name;
+	}
+	public String getGallery_subject() {
+		return gallery_subject;
+	}
+	public void setGallery_subject(String gallery_subject) {
+		this.gallery_subject = gallery_subject;
+	}
+	public String getGallery_content() {
+		return gallery_content;
+	}
+	public void setGallery_content(String gallery_content) {
+		this.gallery_content = gallery_content;
+	}
+	public Date getGallery_date() {
+		return gallery_date;
+	}
+	public void setGallery_date(Date gallery_date) {
+		this.gallery_date = gallery_date;
+	}
+	public int getGallery_hit() {
+		return gallery_hit;
+	}
+	public void setGallery_hit(int gallery_hit) {
+		this.gallery_hit = gallery_hit;
+	}
+	public int getGallery_jjim() {
+		return gallery_jjim;
+	}
+	public void setGallery_jjim(int gallery_jjim) {
+		this.gallery_jjim = gallery_jjim;
+	}
+	private String store_name;
+	private String gallery_subject;
+	private String gallery_content;
+	private Date gallery_date;
+	private int gallery_hit;
+	private int gallery_jjim;
 	
 	
 	public int getReport_no() {

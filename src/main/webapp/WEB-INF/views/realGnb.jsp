@@ -19,6 +19,19 @@
   margin: 0;
 }
 
+
+#profileUser{
+	width: 55px;
+	cursor:pointer;
+	border-top-left-radius: 15px;
+            border-bottom-left-radius: 15px;
+            border-top-right-radius: 15px;
+            border-bottom-right-radius: 15px; 
+    margin-right: 9px;     
+            
+}
+
+
 </style>
 <head>
 
@@ -67,8 +80,10 @@
 											      <div class="logo">
 											      		<img src="resources/photo/로고2.png" onclick="location.href='home'" >
 											      </div>
-														<a href="salesList.do">Store</a>
-														<a href="galleryList.do">Gallery</a>
+													<div id="banner">
+															<a href="salesList.do">전체판매목록</a>
+															<a href="galleryList.do">갤러리</a>
+											      	</div>
 											       <div class="nbsp">		     
 									 		      </div>
 										 		      <div id="etc">
@@ -100,7 +115,7 @@
 														     		 </c:if>
 														     		 
 														     		 <c:if test="${sessionScope.new_photo_name ne null}">
-														     		 <img src="resources/photo/${sessionScope.new_photo_name}" id="profileUser" onclick="location.href='myPage.go?loginId=${sessionScope.loginId}'">
+														     		 <img src="/photo/${sessionScope.new_photo_name}" id="profileUser" onclick="location.href='myPage.go?loginId=${sessionScope.loginId}'">
 														     		 </c:if>
 															 
 															 		  <div class="dropdown">
@@ -123,8 +138,10 @@
 											      <div class="logo">
 											      		<img src="resources/photo/로고2.png" onclick="location.href='home'" >
 											      </div>
-														<a href="salesList.do">Store</a>
-														<a href="galleryList.do">Gallery</a>
+													<div id="banner">
+														<a href="salesList.do">전체판매목록</a>
+														<a href="galleryList.do">갤러리</a>
+											      </div>
 											       <div class="nbsp">		     
 									 		      </div>
 										 		      <div id="etc">
@@ -148,7 +165,7 @@
 														     		 
 														     		 <c:if test="${sessionScope.new_photo_name ne null}">
 														     		 
-														     		 <img src="resources/photo/${sessionScope.new_photo_name}" id="profileUser" onclick="location.href='myPage.go?loginId=${sessionScope.loginId}'">
+														     		 <img src="/photo/${sessionScope.new_photo_name}" id="profileUser" onclick="location.href='myPage.go?loginId=${sessionScope.loginId}'">
 														     		 </c:if>
 															 
 															 		  <div class="dropdown">
@@ -206,9 +223,10 @@
 															 		 <c:if test="${sessionScope.new_photo_name eq null}">
 														     		 <img src="resources/photo/프로필 기본.png" id="profileNomal" onclick="location.href='riderPage?loginId=${sessionScope.loginId}'">
 														     		 </c:if>
-														     		 
+														
+													     		 
 														     		 <c:if test="${sessionScope.new_photo_name ne null}">
-														     		 <img src="resources/photo/${sessionScope.new_photo_name}" id="profileUser" onclick="location.href='riderPage?loginId=${sessionScope.loginId}'">
+														     		 <img src="/photo/${sessionScope.new_photo_name}" id="profileUser" onclick="location.href='riderPage?loginId=${sessionScope.loginId}'">
 														     		 </c:if>
 															 </div>
 																      <div class="dropdown">
@@ -231,9 +249,9 @@
 											      		<img src="resources/photo/로고2.png" onclick="location.href='logout.do'" >
 											      </div>
 													<div id="banner">
-														<a href="#">관리자페이지 열기</a>
-														<a href="$">#</a>
-														<a href="$">#</a>
+														<a href="ad.userlist.do">회원 관리</a>
+														<a href="adsaleslist.do">판매글 관리</a>
+														<a href="userreportlist.do">회원 신고 관리</a>
 													</div>			
 																									       
 											       <div class="nbsp">		     
@@ -281,11 +299,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3.0">
   <title>INaNdOUT</title> 
   <link rel="stylesheet" href="style.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
   <script type="text/javascript">
 </script>
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e434e3b05b4f1c7f078a8511ceaaab79&libraries=services"></script>
    
  
     
@@ -301,11 +320,13 @@
 </body>
 
 
-<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e434e3b05b4f1c7f078a8511ceaaab79&libraries=services"></script>
 
 
 <script>
+
+
 /*
+
 var prevScrollpos = window.pageYOffset; 
 
 window.onscroll = function() { 
@@ -344,7 +365,7 @@ new Swiper('.swiper', {
 });
 
 
-
+/*
 
 ///top
 
