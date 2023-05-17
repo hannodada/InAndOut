@@ -6,6 +6,10 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 <link rel="stylesheet" href="resources/css/common.css" type="text/css">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+
+
 <style>
 
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
@@ -60,6 +64,14 @@ h4{
 	padding: 0% 0% 0% 25%;
 	color: blue;
 }
+
+h5{
+	font-size:10px;
+	color: gray;
+
+}
+
+
 h6{
 	padding: 0% 0% 0% 25%;
 	color: gray;
@@ -251,19 +263,42 @@ h6{
 			<td>
 				<input type="text" name="user_id" id="user_id"/>
 				<button type="button" id="overlay" class="test_btn1">중복체크</button>
+				
 			</td>
 		</tr>
 		<tr>
+			<th></th>
+			<td>
+				
+				<h5>아이디는 영문, 숫자를 포함한 5자 이상으로 입력해주세요.</h5>
+			</td>
+		</tr>
+		
+		<tr>
 			<th>*비밀번호</th>
-			<td><input type="text" name="user_pw" id="user_pw"/></td>
+			<td><input type="password" name="user_pw" id="user_pw"/>
+			<span id="togglePassword" class="eye-icon far fa-eye"></span>
+			</td>
 		</tr>
 		<tr>
-			<th>*비밀번호 확인</th>
+			<th></th>
 			<td>
-				<input type="text" name="confirm" id="confirm"/>
+				
+				<h5>비밀번호는 한글을 제외한 영문, 숫자, 특수문자만 입력 가능합니다.</h5>
+			</td>
+		</tr>
+		
+		
+		<tr>
+			<th>비밀번호 확인</th>
+			<td>
+				<input type="password" name="confirm" id="confirm"/>
+				<i class="fa fa-eye" id="togglePassword"></i>
 				<span id="msg"></span>
 			</td>
 		</tr>
+		
+		
 		<tr>
 			<th>*이름</th>
 			<td><input type="text" name="user_name" id="user_name"/></td>
@@ -462,6 +497,7 @@ h6{
 		</tr>
 	</table>
 	</form>
+	<br><br>	<br><br><br>
 </body>
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -591,39 +627,48 @@ function checkInput() {
 	   var $post_numTest = $('#sample6_postcode'); 
 	    
 	    
-	    if ($user_id.val() == '') {
-	      alert('아이디를 입력해 주세요!');
-	      $user_id.focus();
-	    }  else if ($user_pw.val() == '') {
-	      alert('비밀번호를 입력해 주세요!');
-	      $user_pw.focus();
-	    } else if ($user_name.val() == '') {
-	      alert('이름을 입력해 주세요!');
-	      $user_name.focus();
-	    } else if ($nickname.val() == '') {
-	      alert('닉네임을 입력해 주세요!');
-	      $nickname.focus();
-	    }else if ($phone_num.val() == '') {
-	      alert('전화번호를 입력해 주세요!');
-	    }else if ($post_num.val() == '') {
-	      alert('우편번호 찾기를 해주세요!');
-	    } else if ($email.val() == '') {
-	      alert('이메일 입력해 주세요!');
-	      $email.focus();
-	    } else if ($interest_biz_id.val() == '.') {
-	      alert('관심업종을 선택해 주세요!');
-	    } else  {
-	    	 alert('회원가입 준비가 됐습니다. 등록 버튼을 눌러주세요!');
-	    	 document.getElementById('registerButton').style.display = 'inline-block';
-    // 모든 필드의 유효성을 통과했을 경우
-	    } 
-	    
-     } else  {
-    	 alert('아이디 중복 체크와 비밀번호 확인을 해 주세요');
-      
-    }
-  }
+	   if ($user_id.val() == '') {
+		      alert('아이디를 입력해 주세요!');
+		      $user_id.focus();
+		    }else if (!validateUserId($user_id.val())) {
+		        alert('아이디는 영어와 숫자를 조합한 5글자 이상이어야 합니다.');
+		        $user_id.focus();
+		      }  else if ($user_pw.val() == '') {
+		      alert('비밀번호를 입력해 주세요!');
+		      $user_pw.focus();
+		    }else if (!/^[a-zA-Z0-9!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]*$/.test($user_pw.val())) {
+		        alert('비밀번호는 한글을 제외한 영문, 숫자, 특수문자만 입력 가능합니다.');
+		        $user_pw.focus();
+		      }else if ($user_name.val() == '') {
+		      alert('이름을 입력해 주세요!');
+		      $user_name.focus();
+		    } else if ($nickname.val() == '') {
+		      alert('닉네임을 입력해 주세요!');
+		      $nickname.focus();
+		    }else if ($phone_num.val() == '') {
+		      alert('전화번호를 입력해 주세요!');
+		    }else if ($post_num.val() == '') {
+		      alert('우편번호 찾기를 해주세요!');
+		    } else if ($email.val() == '') {
+		      alert('이메일 입력해 주세요!');
+		      $email.focus();
+		    } else if ($interest_biz_id.val() == '.') {
+		      alert('관심업종을 선택해 주세요!');
+		    } else  {
+		    	 alert('회원가입 준비가 됐습니다. 등록 버튼을 눌러주세요!');
+		    	 document.getElementById('registerButton').style.display = 'inline-block';
+	    // 모든 필드의 유효성을 통과했을 경우
+		    } 
+		    
+	     } else  {
+	    	 alert('아이디 중복 체크와 비밀번호 확인을 해 주세요');
+	      
+	    }
+	  }
 
+function validateUserId(userId) {
+	  return /^[a-zA-Z0-9]{5,}$/.test(userId);
+}
 
 
 $('#overlay').on('click',function(e){	
@@ -820,43 +865,38 @@ var msg = "${msg}";
 		 	alert(msg);
 		 
 	 }
-/* 
-/// 경고 팝업창
-function validateInput(input) {
-  // 숫자 이외의 문자를 제거
-  input.value = input.value.replace(/[^0-9]/g, '');
 
-  // 입력된 값이 최대 4자리인지 확인
-  if (input.value.length > 4) {
-    input.value = input.value.slice(0, 4);
-  }
 
-  // 숫자 이외의 문자가 입력되었을 때 팝업 메시지 표시
-  function validateInput(input) {
-  // 입력된 값이 숫자가 아닌 경우
-  if (isNaN(input.value)) {
-    // 한글 입력인 경우
-    if (/[\uAC00-\uD7AF\u1100-\u11FF\u3130-\u318F\uA960-\uA97F\uAC00-\uD7AF\u11A8-\u11FF\u3130-\u318F\uFF00-\uFFEF]/.test(input.value)) {
-      input.value = '';
-    }
-    openCustomPopup("숫자 이외의 문자는 입력할 수 없습니다.");
-  } else {
-    closeCustomPopup();
-  }
-}
+	/// 비밀번호 알려주는 자스
+	$(document).ready(function() {
+	  // 비밀번호 보기/가리기 기능
+	  $('#togglePassword').on('click', function() {
+	    var passwordField = $('#confirm');
+	    var fieldType = passwordField.attr('type');
+	    if (fieldType === 'password') {
+	      passwordField.attr('type', 'text');
+	      $('#togglePassword').removeClass('fa-eye').addClass('fa-eye-slash');
+	    } else {
+	      passwordField.attr('type', 'password');
+	      $('#togglePassword').removeClass('fa-eye-slash').addClass('fa-eye');
+	    }
+	  });
+	});
+	 
+	 
+//마찬가지 비밀번호 보여주는
+const togglePassword = document.querySelector('#togglePassword');
+const passwordInput = document.querySelector('#user_pw');
 
-function openCustomPopup(message) {
-  const customPopup = document.getElementById("custom-popup");
-  const popupMessage = document.getElementById("popup-message");
-  popupMessage.textContent = message;
-  customPopup.style.display = "flex";
-  setTimeout(closeCustomPopup, 2000); // 일정 시간 후에 팝업 닫기 (2초 후)
-}
+togglePassword.addEventListener('click', function () {
+  const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+  passwordInput.setAttribute('type', type);
+  togglePassword.classList.toggle('fa-eye');
+  togglePassword.classList.toggle('fa-eye-slash');
+});
 
-function closeCustomPopup() {
-  const customPopup = document.getElementById("custom-popup");
-  customPopup.style.display = "none";
-} */
+
+
 
 </script>
 </html>
