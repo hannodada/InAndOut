@@ -138,7 +138,7 @@
 				            <span class="ml-4 text-gray-600">관심 ${detailData.attention }회</span>
 						</span>
 						<c:if test="${sessionScope.loginId ne null}">
-							<input class="ml-4 h-5 w-5" type="checkbox" onclick="attention(this)" <c:if test="${attentionCheck==1 }">checked</c:if>/>
+							<input class="ml-4 h-8 w-8 accent-pink-500" type="checkbox" onclick="attention(this)" <c:if test="${attentionCheck==1 }">checked</c:if>/>
 			        	</c:if>
 			        </div>
 			        <div class="flex mt-6 items-center pb-5">
