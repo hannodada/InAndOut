@@ -4,53 +4,72 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>사용자 제한 요청</title>
+<jsp:include page="realGnb.jsp"/>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <style>
-	.main-box{
-		border : 1px solid black;
-		width: 40%;
-		border-radius: 10px;
-		margin-left: 10px;
-		margin-top: 10px;
-		padding-bottom: 2%;
-	}
-	.Xbutton{
-		float: right;
-		padding-right:5px;
-		padding-top:5px;
-	}
- 	.left-box{
-		float: left;	
-		padding-top: 15px;
-		padding-left: 20px;
-	}
-	 .right-box{
-		margin-left: 200px;
-		padding-top: 10px;
-	}
-	.button-box{
-		margin-top: 160px;
-		margin-left: 300px;
-	}
-	img.imgP{
-		border-radius: 10px;
-	}
-	img.imgS{
+	.main-box {
+  border: 1px solid skyblue;
+  width: 40%;
+  border-radius: 10px;
+  margin-left: 10px;
+  margin-top: 10px;
+  padding-bottom: 2%;
+  color: skyblue;
+}
 
-	}
-	span.star_name{
-		font-size: 1px;
-	}
-	div.profile-box{
-		padding-top: 5px;
-		padding-left: 10px;
-	}	
+hr {
+  color: skyblue;
+}
+
+.Xbutton {
+  float: right;
+  padding-right: 5px;
+  padding-top: 5px;
+}
+
+.left-box {
+  float: left;
+  padding-top: 15px;
+  padding-left: 20px;
+}
+
+.right-box {
+  margin-left: 200px;
+  padding-top: 10px;
+}
+
+.button-box {
+  margin-top: 160px;
+  margin-left: 300px;
+}
+
+.hide-btn,.recognize  {
+	background-color: lightgray;
+	border: none;
+	padding: 5px 10px;
+	border-radius: 5px;
+	color: white;
+}
+img.imgP {
+  border-radius: 10px;
+}
+
+img.imgS {}
+
+span.star_name {
+  font-size: 1px;
+}
+
+div.profile-box {
+  padding-top: 5px;
+  padding-left: 10px;
+}
 </style>
 </head>
 <body>
 
-	<jsp:include page="realGnb.jsp"/>
+	
 
 	<form action="write.do"> 
 		<div class="main-box">
@@ -59,13 +78,12 @@
 					<img width="20" src="resources/photo/1683523045633.png"/>
 				</a>
 			</div>
-			
-				<div class="profile-box">
+				<div class="profile-box" >
 					<c:if test="${dto.new_photo_name eq null}">
-						<img class="imgP"  width="50" src="resources/photo/프로필 기본.png"/>${dto.nickname}&nbsp;라이더님
+						<img class="imgP"  width="50" src="resources/photo/프로필 기본.png"/>${dto.nickname}&nbsp;라이더님 
 					</c:if>
 					<c:if test="${dto.new_photo_name ne null}">
-						<img class="imgP" width="50" src="resources/photo/${dto.new_photo_name}"/>${dto.nickname}&nbsp;라이더님
+						<img class="imgP" width="50" src="resources/photo/${dto.new_photo_name}"/>${dto.nickname}&nbsp;라이더님 
 					</c:if>
 				<span class="star">&nbsp;&nbsp;&nbsp;&nbsp;
 					 <c:choose>
@@ -105,7 +123,7 @@
 		              </c:when>
 	           		</c:choose>
 	        	</span>
-					<hr>
+					<hr style=color:skyblue;>
 				</div>
 
 			<div class="left-box">			
@@ -114,7 +132,7 @@
 				<div>판매내용 : ${dtoS.content}</div>
 				<div>
 					<c:if test="${dto.new_photo_name eq null}">
-						<img class="imgS"  width="150" src="resources/photo/1682798351016.jpg"/> <!-- defaultIMG.png  -->
+						<img class="imgS"  width="150" src="resources/img/defaultIMG.png"/> <!-- defaultIMG.png  -->
 					</c:if>
 					<c:if test="${dto.new_photo_name ne null}">
 						<img class="imgS" width="150" src="resources/photo/${dto.new_photo_name}"/>
@@ -134,13 +152,14 @@
 						</span>	
 					</div>								
 				</div>
+			<input style="display:none" name="user_div" value="${dto.user_div}"/>	<!-- insert id rider_id -->	
 			<input style="display:none" name="rider_id" value="${dto.user_id}"/>		<!-- insert id rider_id -->
 			<input style="display:none" name="user_id" value="${dtoS.user_id}"/>		<!-- insert id rider_id -->
 			<input style="display:none" name="sales_no" value="${dtoS.sales_no}"/>	<!-- insert id rider_id -->
 			
 			<div class="button-box">
-				<button>제안요청하기</button>
-				<button type="button" onclick="location.href='riderList.go'">취소하기</button>
+				<button class="hide-btn">제안요청하기</button>
+				<button class="recognize" type="button" onclick="location.href='riderList.go'">취소하기</button>
 			</div>
 		</div>
 	</form>
