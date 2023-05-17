@@ -63,7 +63,7 @@
 
 <!-- 회원 히스토리 리스트 -->
 <select id="userhistory" resultType="com.ino.admin.dto.AdminMemberDTO">
-	select uh.user_state ,uh.state_time, u.user_id ,u.nickname 
+	select uh.user_state ,uh.state_time, u.user_id ,u.nickname
 	from user_history uh 
 	left join user u on uh.user_id = u.user_id
 	where u.user_id = #{user_id}
@@ -71,10 +71,10 @@
 
 <!-- 회원 히스토리 디테일 -->
 <select id="uhistorydetail" parameterType="String" resultType="com.ino.admin.dto.AdminMemberDTO">
-	select uh.user_id , uh.user_state , uh.user_content, uh.admin_id , u.nickname 
+	select u.user_id , uh.state_time , uh.user_content, uh.admin_id , u.nickname 
 	from user_history uh
 	join user u on u.user_id = uh.user_id 
-	where uh.user_state = #{user_state}
+	where uh.state_time = #{state_time} AND u.user_id = #{user_id}
 </select>
 
 <!-- 인증사용자 리스트 -->
@@ -108,14 +108,14 @@ UPDATE auth_extra SET state =
     WHEN state = '인증대기' THEN '인증완료'
     ELSE state
   END
-WHERE user_id = #{user_id} AND user_div = 'b'
+WHERE user_id = #{user_id}
 </update>
 
 
 <!-- 회원 상태변경 시 사유 작성 -->
 <insert id="updateUserState" parameterType="hashmap">
-		INSERT INTO user_history(user_id,admin_id,user_state,user_content)
-			VALUES(#{user_id},#{admin_id},#{user_state},#{user_content})
+		INSERT INTO user_history(user_id,admin_id,user_content,user_state)
+			VALUES(#{user_id},#{admin_id},#{user_content},#{user_state})
 </insert>
 
 <!-- 회원 상태변경 -->

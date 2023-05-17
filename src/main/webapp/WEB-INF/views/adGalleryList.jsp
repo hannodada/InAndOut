@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<jsp:include page="realGnb.jsp"/>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="resources/js/jquery.twbsPagination.min.js"></script>
 <meta charset="UTF-8">
@@ -93,6 +94,8 @@
 	</article>
 </body>
 <script>
+
+
 var showPage = 1;
 listCall(showPage);
 
@@ -146,7 +149,8 @@ function listPrint(list){
 	      content +='<td id="userdiv"><a href="galleryDetail.do?gallery_no='+ item.gallery_no +'">' + truncateString(item.gallery_subject, 16) + '</a></td>';
 	      content +='<td>'+item.store_name+'</td>';
 	      content +='<td>'+item.user_id+'</td>';
-	      content +='<td>'+item.gallery_date+'</td>';
+	      var date = new Date(item.gallery_date);
+          content += '<td>' + date.toLocaleDateString('ko-KR')+'</td>';
 	        if (item.blind == 1) {
 	            content += '<td>블라인드</td>';
 	        } else {

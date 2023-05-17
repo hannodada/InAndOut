@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<jsp:include page="realGnb.jsp"/>
 <meta charset="UTF-8">
 </head>
 <body>
@@ -14,24 +15,24 @@
 	<table class = "mokrok">
 			<tr>
 				<td>아이디</td>
-				<td>${user.user_id}</td>
+				<td>${dto.user_id}</td>
 
 			</tr>	
 			<tr>
 				<td>닉네임</td>
-				<td>${user.nickname}</td>
+				<td>${dto.nickname}</td>
 			</tr>	
 			<tr>
 				<td>회원상태</td>
-				<td>${user.user_state}</td>
+				<td>${dto.state_time}</td>
 			</tr>	
 			<tr>
 				<td>처리자</td>
-				<td>${user.admin_id}</td>
+				<td>${dto.admin_id}</td>
 			</tr>				
 				<tr>
 				<td>처리내용</td>
-				<td>${user.user_content}</td>
+				<td>${dto.user_content}</td>
 			</tr>			
 		
 			<tr>

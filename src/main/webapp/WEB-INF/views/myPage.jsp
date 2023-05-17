@@ -15,7 +15,7 @@
 <form action="/myPage.go" method="get">
 	<header>
 	  <nav id="nav">
-	   <a href="myPage.go" style="color:blue; text-decoration: underline;">모아보기</a>
+	   <a href="myPage.go" style="color:skyblue; text-decoration: underline;">모아보기</a>
 	   <a href="mySales.go">판매글</a>
 	   <a href="myGallery.go">갤러리</a>
 	   <a href="mySalesJjim.go">관심판매글</a>
@@ -27,28 +27,31 @@
 	<div id="userdetailsales">
 	<h4 style="font-size:15px; color:skyblue; line-height: 300%;">
 	내가 올린 판매글</h4>
-	<h6 style="float:right; margin-right:100px; display:inline;">
+	<h6 style="float:right; margin-right:100px; margin-top:-50px; display:inline;">
 	<a href="mySales.go">전체보기 ></a></h6>
 	<c:forEach items="${saleslist}" var="sl">
-	<div style="float:left; margin-right:10px; display:inline;">
+	<div style="float:left; margin-right:3px; display:inline;">
 		<a href="salesDetail.do?sales_no=${sl.sales_no}">
-			<img style="max-width: 200px; height: auto;" src="/photo/${sl.new_photo_name}"/>
+			<img style="width: 250px; height: 200px;" src="/photo/${sl.new_photo_name}"/>
+
 		</a>
 			<h5 align="center">${sl.subject}</h5>
 			<h5 align="center">${sl.price}</h5>
 	</div>
 	</c:forEach>
 	</div>
-	
+	z
 	<div id="userdetailgallery">
 	<h4 style="font-size:15px; color:skyblue;line-height: 300%;">
 	내가 올린 갤러리</h4>
-	<h6 style="float:right; margin-right:100px; display:inline;">
+	<h6 style="float:right; margin-right:100px; margin-top: -50px; display:inline;">
 	<a href="myGallery.go">전체보기 ></a></h6>
 	<c:forEach items="${galleryList}" var="gl">
-	<div style="float:left; margin-right:10px; display:inline;">
-		<a href="galleryDetail.do?gallery_no=${gl.sales_no}">
-			<img style="max-width: 300px; height: auto; object-fit: cover;" src="/photo/${gl.new_photo_name}"/>
+	<div style="float:left; margin-right:3px; display:inline;">
+		<a href="galleryDetail.do?gallery_no=${gl.gallery_no}">
+		
+			<img style="width: 250px; height: 200px;" src="/photo/${gl.new_photo_name}"/>
+
 			<h5 align="center">${gl.gallery_subject}</h5>
 		</a>
 	</div>
@@ -57,7 +60,10 @@
 	<hr>
     <div class="main-box">
         <div class="profile-box">
-        <img src="/photo/${new_photo_name}">
+        <c:if test="${new_photo_name eq null}">
+        	<img src="resources/photo/프로필 기본.png" width="150px">
+        </c:if>
+        <img src="/photo/${new_photo_name}" width="150px">
             <div class="title-nickname">
             <h2>${dto.nickname}</h2>
             </div>
@@ -96,6 +102,13 @@
     </div>
 
 </form>
-</body>    
+</body>   
+<script>
+var msg = "${msg}";
+if(msg !=""){
+	 	alert(msg);
+	 
+}
+</script> 
 </head>
 </html>

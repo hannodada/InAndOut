@@ -8,7 +8,7 @@
 <jsp:include page="realGnb.jsp"/>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <style>
-	.main-box {
+	.main-box{
   border: 1px solid skyblue;
   width: 40%;
   border-radius: 10px;

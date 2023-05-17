@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<jsp:include page="realGnb.jsp"/>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="resources/js/jquery.twbsPagination.min.js"></script>
 <meta charset="UTF-8">
@@ -28,7 +29,6 @@
 		<table>
 			<thead>
 				<tr>
-					<th><input type="checkbox" id="all"/></th>
 					<th>아이디</th>
 					<th>닉네임</th>
 					<th>회원분류</th>
@@ -142,7 +142,7 @@ function listPrint(list){
 	      
 	      // 배열 요소들 반복문 실행 -> 행 구성 + 데이터 추가 
 	      content +='<tr>';
-	      content +='<td><input type="checkbox"></td>';
+
 	      content +='<td>'+item.user_id+'</td>';
 	      content +='<td id="userdiv">'+item.nickname+'</td>';
 	      content +='<td id="userdiv">'+item.user_div_name+'</td>';

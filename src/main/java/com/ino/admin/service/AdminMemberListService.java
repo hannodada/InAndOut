@@ -134,6 +134,7 @@ public class AdminMemberListService {
 
 	public int history_userstate(HashMap<String, String> params, String user_id) {
 		int result = dao.history_userstate(params);
+		logger.info("유저인증 히스토리 작성"+params);
 		dao.userchange(user_id);
 		return result;		
 		
@@ -269,15 +270,16 @@ public class AdminMemberListService {
 	      return map;
 	}
 
-	public int updateUserState(HashMap<String, String> params, String user_id, String radioValue) {
-		int result = dao.updateUserState(params);
-		dao.userStatechange(user_id,radioValue);
+	public int updateUserState(HashMap<String, String> params, String user_id, String user_state, String user_content, String admin_id) {
+		int result = dao.updateUserState(params,user_id,user_content,user_state,admin_id);
+		logger.info("회원 상태변경 히스토리 작성 기능 : "+params);
+		dao.userStatechange(user_id,user_state);
 		return result; 
 	}
 
-	public AdminMemberDTO uhistorydetail(String user_state) {
-		logger.info("히스토리 디테일 요청"+user_state);
-		return dao.uhistorydetail(user_state);
+	public AdminMemberDTO uhistorydetail(String state_time, String user_id) {
+		logger.info("히스토리 디테일 요청"+state_time,user_id);
+		return dao.uhistorydetail(state_time,user_id);
 	}
 
 

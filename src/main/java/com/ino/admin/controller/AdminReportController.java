@@ -200,4 +200,52 @@ public class AdminReportController {
 		model.addAttribute("dto", dto);
 		return "adGalleryReportDetail";
 	}
+	
+	// 회원 신고 처리
+	@RequestMapping(value = "/ad.ublind.do", method = RequestMethod.POST)
+	public String ublindyes(@RequestParam HashMap<String, String> params, 
+			@RequestParam String report_no,
+			@RequestParam String report_id, 
+			@RequestParam String report_content, 
+			Model model) {
+
+		logger.info("회원 신고params : {}"+ params);
+		int row = service.ublindyes(params, report_no, report_id,report_content);
+		logger.info("insert row : " + row);
+		
+		logger.info("회원 신고처리할 번호" + report_no, report_id);
+		AdminReportDTO dto = service.ureportdetail(report_no);
+		logger.info("회원 신고처리 dto : " + dto);
+
+		model.addAttribute("dto", dto);
+		return "adUserReportDetail";
+	}
+
+	// 회원 신고 반려
+
+	@RequestMapping(value = "/ad.ublind.go", method = RequestMethod.POST)
+	public String ublindno(@RequestParam HashMap<String, String> params, 
+			@RequestParam String report_no,
+			@RequestParam String report_id, 
+			@RequestParam String report_content, 			
+			Model model) {
+
+		logger.info("회원 신고 반려처리 params : {}", params);
+		int row = service.sblindno(params, report_no, report_id,report_content);
+		logger.info("insert row : " + row);
+
+		logger.info("회원 신고 반려처리할 번호" + report_no);
+		AdminReportDTO dto = service.ureportdetail(report_no);
+		logger.info("dto : ", dto);
+		model.addAttribute("dto", dto);
+		return "adUserReportDetail";
+	}	
+	
+	
+	
+	
+	
+	
+	
+	
 }

@@ -36,5 +36,7 @@ public interface AdminReportDAO {
 
 	int blind_history(@Param("report_no")String report_no, @Param("report_id")String report_id, @Param("report_content")String report_content);
 
+	void ublindchange(String report_no);
+
 
 }

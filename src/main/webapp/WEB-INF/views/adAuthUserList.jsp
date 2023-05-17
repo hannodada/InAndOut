@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<jsp:include page="realGnb.jsp"/>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="resources/js/jquery.twbsPagination.min.js"></script>
 </head>
@@ -29,17 +30,17 @@
 	      <input type="submit" value="검색">
     </form>
     
-    <form>
+<!--     <form>
     <button onclick="">체크 승인</button>
     <button onclick="">체크 반려</button>
-		</form>
+		</form> -->
     
    <!-- 표 -->
    <div>
 		<table>
 			<thead>
 				<tr>
-					<th><input type="checkbox" id="all"/></th>
+
 					<th>아이디</th>
 					<th>닉네임</th>
 					<th>인증여부</th>
@@ -141,7 +142,6 @@ function listPrint(list){
 	      
 	      // 배열 요소들 반복문 실행 -> 행 구성 + 데이터 추가 
 	      content +='<tr>';
-	      content +='<td><input type="checkbox"></td>';
 	      content +='<td>'+item.user_id+'</td>';
 	      content +='<td>'+item.nickname+'</td>';
 	      content +='<td>'+item.state+'</td>';	

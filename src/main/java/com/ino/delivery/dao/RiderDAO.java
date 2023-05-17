@@ -43,17 +43,27 @@ public interface RiderDAO {
 
 	int totalCountRO();
 
-	int totalCountDS();
+	int totalCountDS(String loginId);
 
-	ArrayList<RiderDTO> listDS(int cnt, int offset);
+	ArrayList<RiderDTO> listDS(int cnt, int offset, String loginId);
 
-	int totalCountDH(String state);
+	int totalCountDH(String state, String loginId);
 
 	// ArrayList<RiderDTO> listDH(int cnt, int offset);
 
-	ArrayList<RiderDTO> filtering(String state);
+	ArrayList<RiderDTO> filtering(String state, String loginId);
 
 	String userC(String user_id);
+
+	Integer mystar(String starid);
+
+	String getPhotoName(String userId, String string);
+
+	int rideroffer(String user_id);
+
+	int riderdelivery(String user_id, String string);
+
+	RiderDTO mypage(String id);
 
 	//ArrayList<RiderDTO> filtering(HashMap<String, String> params);
 

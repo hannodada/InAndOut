@@ -72,7 +72,7 @@ public class AdminMemberListController {
 	}  
 	
 	
-	// ȸ�� �߰�����
+
 	@RequestMapping(value="/ad.userdetail.extra.do")
 	public String userdetailextra(HttpSession session,Model model,@RequestParam (required=false, value="user_id")String user_id) {
 		
@@ -82,7 +82,7 @@ public class AdminMemberListController {
 			logger.info("로그인 여부 확인");
 			page = "adUserDetailExtra";
 		}
-		logger.info("�߰� ���� ���� ��û"+user_id);
+
 		AdminMemberDTO dto = service.viewdetailextra(user_id);
 		logger.info("dto : "+dto);
 		model.addAttribute("user", dto);
@@ -105,28 +105,34 @@ public class AdminMemberListController {
 		int row = service.history_userstate(params, user_id); 
 		logger.info("insert row : "+row);
 		
-		logger.info("�󼼺��� ��û"+user_id);
+
 		AdminMemberDTO dto = service.viewdetailextra(user_id);
-		logger.info("dto : ",dto);
+		logger.info("유저 상태 변경 히스토리 작성 dto : ",dto);
 		model.addAttribute("user", dto);
 		return page;
 	}	
 	
+	
+	// 회원 상태 정상 . 블록 변경하는 페이지 
 	@RequestMapping(value="/ustatechange.do")
 	public String userstatechange(Model model,@RequestParam (required=false, value="user_id")String user_id) {	
-		logger.info("���º��� â���� �̵�"+user_id);
 		AdminMemberDTO dto = service.viewdetail(user_id);
-		logger.info("dto : ",dto);
+		logger.info("정상,블록 dto : "+dto);
 		model.addAttribute("user", dto);
 		return "adUserDetailState";
 	}
 	
+	// 회원 상태 정상 . 블록 결정 확인 클릭 시 
 	@RequestMapping(value = "/ad.updateUserState", method=RequestMethod.POST)
 	public String updateUserState(@RequestParam HashMap<String, String> params, 
-			                       @RequestParam String user_id, Model model){
-	    String radioValue = params.get("radioValue"); 
-		logger.info("params : {}",params);
-		int row = service.updateUserState(params, user_id, radioValue); 
+			                       @RequestParam String user_id,
+			                       @RequestParam String user_content,
+			                       @RequestParam String admin_id,
+			                       @RequestParam String user_state,
+			                       Model model){
+	    //String radioValue = params.get("radioValue"); 
+		logger.info("상태 확정 params : {}",params, user_state);
+		int row = service.updateUserState(params, user_id, user_state,user_content,admin_id); 
 		logger.info("insert row : "+row);
 		
 	
@@ -149,16 +155,15 @@ public class AdminMemberListController {
 	
     // 회원 히스토리 디테일로 이동
 	@RequestMapping(value="/ad.uhistory.detail.do")
-	public String uhistorydetail(Model model,@RequestParam String user_state
-	
-			) {
+	public String uhistorydetail(Model model,@RequestParam String state_time, 
+								@RequestParam String user_id){
 
 		
-		logger.info("유저아이디,상태"+user_state);
-		AdminMemberDTO dto = service.uhistorydetail(user_state);
+		logger.info("유저아이디,상태"+state_time);
+		AdminMemberDTO dto = service.uhistorydetail(state_time,user_id);
 		
 		logger.info("히스토리 디테일 dto"+dto);
-		model.addAttribute("user", dto);
+		model.addAttribute("dto", dto);
 
 		
 		return "adUserHistoryDetail";

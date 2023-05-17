@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<jsp:include page="realGnb.jsp"/>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="resources/js/jquery.twbsPagination.min.js"></script>
 </head>
@@ -23,26 +24,29 @@
    <!-- 표 -->
 <form action="ad.goodsupdate.do" method="post" onsubmit="return submitForm()">
 	<table class="mokrok">
-	  <tr>
-	    <th>업종 카테고리</th>
+	  
 	    <th>
-	   		${dto.biz_name}
+	    업종 카테고리 &nbsp;&nbsp;&nbsp;&nbsp;
+	    
+	   		[${dto.biz_name}] 
 	   		<input type = "text" name="biz_name" value="${dto.biz_name}" hidden/>
-	    </th>
-	  </tr>
+	   </th>
+	 
 	  <tr>
-	    <th>물품별 기호</th>
-	   	<th>
-	   		${dto.goods_id}
+	    <th>물품별 기호 &nbsp;&nbsp;&nbsp;&nbsp;
+	   	
+	   		[${dto.goods_id}]
 	   		<input type = "text" name="goods_id" value="${dto.goods_id}" hidden/>
 	    </th>
 	   </tr>
-	   <tr>
-	    <th>
+	   
+	    
+	    <th>물품 수정명: &nbsp;
 	      <input type="text" name="goods_name" oninput="checkCateName()" value="${dto.goods_name}"/>
 	      <span id="nameLengthInfo"></span>
-	    </th>
-	  </tr>
+	      </th>
+	    
+	  
 	  <tr>
 	    <th colspan="4">
 	      <button type="submit">수정하기</button>

@@ -15,10 +15,12 @@ public interface AdminSalesDAO {
 
 	AdminSalesDTO shistory(String sales_no);
 
-	int history_sblind(String sales_no);
+	int history_sblind(String sales_no, String report_id, String report_content);
 
 	int stotalCountSearch(String search);
 
 	ArrayList<AdminSalesDTO> slistSearch(HashMap<String, Object> params);
+
+	boolean snoblind(String sales_no);
 
 }
