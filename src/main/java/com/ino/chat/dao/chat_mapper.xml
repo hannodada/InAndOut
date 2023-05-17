@@ -6,7 +6,7 @@
 <mapper namespace="com.ino.chat.dao.ChatDAO">
 	<select id="list" resultType="com.ino.chat.dto.ChatDTO">
 		select * from chatroom where roomid in 
-		(select roomid from roomuser where id = #{param1}) order by recent_no desc
+		(select roomid from roomuser where id = #{param1}) order by recent_time desc
 	</select>
 	
 	<select id="riderlist" resultType="com.ino.member.dto.MemberDTO">
