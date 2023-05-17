@@ -159,7 +159,6 @@
       WHERE (s.sales_no = #{param1} and p.new_photo_name is null)
       or (s.sales_no = #{param1} and p.new_photo_name is not null)
       limit 1
->>>>>>> origin/master
 	</select>
 	
 	<insert id="selectAjax" parameterType="hashmap">
