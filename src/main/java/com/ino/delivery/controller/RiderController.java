@@ -139,8 +139,30 @@ public class RiderController {
 	}
 	*/
 	@RequestMapping(value = "/riderOffer.go") // 라이더 제안 확인
-	public String riderOffer() {
+	public String riderOffer(HttpSession session, Model model) {
 		
+		String user_id = (String) session.getAttribute("loginId");
+		//평점
+	      int avg;
+	      try {
+	         avg = service.mystar(user_id);
+	      } catch (Exception e) {
+	         avg = 0;
+	      } 
+	         logger.info("평균점수 :" + avg);
+	         model.addAttribute("avg", avg);
+	      //프사
+	      String new_photo_name = service.getPhotoName(user_id, "p001");
+	      
+	      model.addAttribute("new_photo_name",new_photo_name);
+	      session.setAttribute("new_photo_name", new_photo_name);
+	      
+	      //제안요청, 배송 진행 불러오기
+	      int rideroffer = service.rideroffer(user_id);
+	      model.addAttribute("rideroffer", rideroffer);
+	      int riderdelivery = service.riderdelivery(user_id,"배송중");
+	      model.addAttribute("riderdelivery", riderdelivery);
+	      
 		return "riderOffer";
 	}
 	
@@ -205,9 +227,11 @@ public class RiderController {
 	@ResponseBody
 	public HashMap<String, Object> deliveryStateAjax(
 			@RequestParam String page,
-			@RequestParam String cnt){
+			@RequestParam String cnt,
+			HttpSession session){
+		String loginId = (String) session.getAttribute("loginId");
 		
-		return service.deliveryStateAjax(Integer.parseInt(page),Integer.parseInt(cnt));
+		return service.deliveryStateAjax(Integer.parseInt(page),Integer.parseInt(cnt),loginId);
 	}
 	
 	
@@ -265,15 +289,17 @@ public class RiderController {
 	
 	@RequestMapping(value = "filtering.ajax", method=RequestMethod.POST)
 	@ResponseBody
-	public HashMap<String, Object> filteringAjax(@RequestParam HashMap<String, String>param){
+	public HashMap<String, Object> filteringAjax(@RequestParam HashMap<String, String>param, HttpSession session){
+		
+		String loginId = (String) session.getAttribute("loginId");
 		
 		HashMap<String, Object> returnData = new HashMap<String, Object>();
 		logger.info("historystate : " + param.get("delivery_state"));
 		String state = param.get("delivery_state");
 		
-		int total = service.totalCountDH(state);
+		int total = service.totalCountDH(state,loginId);
 		
-		ArrayList<RiderDTO> riderList = service.filtering(state);
+		ArrayList<RiderDTO> riderList = service.filtering(state,loginId);
 		returnData.put("list", riderList);
 		returnData.put("total", total);
 		
@@ -299,7 +325,7 @@ public class RiderController {
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 	@RequestMapping(value = "/select.ajax", method = RequestMethod.POST)
 	@ResponseBody
-	public HashMap<String, Object> selectAjax(Model model, @RequestParam HashMap<String, String> params) {
+	public HashMap<String, Object> selectAjax(@RequestParam HashMap<String, String> params) {
 
 		logger.info("delivery_state :"+params.get("delivery_state"));
 		logger.info("delivery_offer_no :"+params.get("delivery_offer_no"));

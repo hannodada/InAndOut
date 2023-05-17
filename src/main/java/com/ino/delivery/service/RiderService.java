@@ -209,7 +209,7 @@ public class RiderService {
 		return map;
 	}
 
-	public HashMap<String, Object> deliveryStateAjax(int page, int cnt) {
+	public HashMap<String, Object> deliveryStateAjax(int page, int cnt, String loginId) {
 		
 		logger.info(page+"페이지 보여줘");
 		logger.info("한 페이지에 "+cnt+" 개씩 보여줄거야");
@@ -224,7 +224,7 @@ public class RiderService {
 		
 		// 만들 수 있는 총 페이지 수
 		// 전체 게시물 / 페이지당 보여줄 수
-		int total = dao.totalCountDS();
+		int total = dao.totalCountDS(loginId);
 				
 		int range = total%cnt == 0?total/cnt : (total/cnt)+1;
 		logger.info("전체 페이지 수 : " +total);
@@ -236,7 +236,7 @@ public class RiderService {
 		map.put("pages", range);
 		map.put("total", total);
 		
-		ArrayList<RiderDTO> list1 = dao.listDS(cnt,offset);
+		ArrayList<RiderDTO> list1 = dao.listDS(cnt,offset,loginId);
 		map.put("list", list1);
 		
 		return map;
@@ -280,15 +280,35 @@ public class RiderService {
 	}
 	*/
 
-	public ArrayList<RiderDTO> filtering(String state) {
+	public ArrayList<RiderDTO> filtering(String state, String loginId) {
 	    logger.info("params 값 : " + state);
 	    
-	    return dao.filtering(state);
+	    return dao.filtering(state,loginId);
 	}
 
-	public int totalCountDH(String state) {
+	public int totalCountDH(String state, String loginId) {
 
-		return dao.totalCountDH(state);
+		return dao.totalCountDH(state, loginId);
+	}
+
+	public int mystar(String starid) {
+		
+		return dao.mystar(starid);
+	}
+
+	public String getPhotoName(String userId, String string) {
+		
+		return dao.getPhotoName(userId,string);
+	}
+
+	public int rideroffer(String user_id) {
+		
+		return dao.rideroffer(user_id);
+	}
+
+	public int riderdelivery(String user_id, String string) {
+		
+		return dao.riderdelivery(user_id,string);
 	}
 	
 
