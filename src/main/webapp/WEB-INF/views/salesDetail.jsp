@@ -6,177 +6,167 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<jsp:include page="realGnb.jsp"/>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="description" content="Free open source Tailwind CSS Store template">
+<meta name="keywords" content="tailwind,tailwindcss,tailwind css,css,starter template,free template,store template, shop layout, minimal, monochrome, minimalistic, theme, nordic">
+<link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>
+<link href="https://fonts.googleapis.com/css?family=Work+Sans:200,400&display=swap" rel="stylesheet">
+
 <style>
-table, th, td{
-	border: 1px black solid;
-	border-collapse: collapse;
-	padding: 5px 10px;	
+/* 템플릿 */
+.work-sans {
+    font-family: 'Work Sans', sans-serif;
 }
-*{
-    box-sizing: border-box;
-}
-
-body.noScroll{ /* 이미지 팝업 시 이중 스크롤 방지 */
-    overflow: hidden;
+        
+#menu-toggle:checked + #menu {
+    display: block;
 }
 
-.wrap{ /* 이미지 사이즈 */
-    overflow: hidden;
-    width: 300px;
-    height: 200px;
-    display: inline-flex;
-    align-items: center;
+.hover\:grow {
+    transition: all 0.3s;
+    transform: scale(1);
 }
 
-.wrap>img{ /* 커서 모양 바꿈 */
-    cursor: pointer;
+.hover\:grow:hover {
+    transform: scale(1.02);
 }
 
-img{ /* 이미지 배율 증가 시 부드럽게 */
-    width: 200%;
-    object-position: center;
-    object-fit: contain;
-    transition: .3s;
-    -webkit-transition: .3s;
-    -moz-transition: .3s;
-    -ms-transition: .3s;
-    -o-transition: .3s;
+.carousel-open:checked + .carousel-item {
+    position: static;
+    opacity: 100;
 }
 
-.popup{ /* 팝업 배경 */
-    width: 100%;
-    height: 100vh;
-    overflow: auto;
-    position: fixed;
-    opacity: 0;
-    top: 0;
+.carousel-item {
+    -webkit-transition: opacity 0.6s ease-out;
+    transition: opacity 0.6s ease-out;
+}
+
+#carousel-1:checked ~ .control-1,
+#carousel-2:checked ~ .control-2,
+#carousel-3:checked ~ .control-3 {
+    display: block;
+}
+
+.carousel-indicators {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    bottom: 2%;
     left: 0;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 2rem 0;
-    transition: .3s;
-    -webkit-transition: .3s;
-    -moz-transition: .3s;
-    -ms-transition: .3s;
-    -o-transition: .3s;
-    opacity: 0;
-    pointer-events: none;
+    right: 0;
+    text-align: center;
+    z-index: 10;
 }
 
-.popup.show{ /* 팝업 보이기 */
-    opacity: 1;
-    pointer-events: unset;
-    top: 20%;
+#carousel-1:checked ~ .control-1 ~ .carousel-indicators li:nth-child(1) .carousel-bullet,
+#carousel-2:checked ~ .control-2 ~ .carousel-indicators li:nth-child(2) .carousel-bullet,
+#carousel-3:checked ~ .control-3 ~ .carousel-indicators li:nth-child(3) .carousel-bullet {
+    color: #000;
+    /*Set to match the Tailwind colour you want the active one to be */
 }
 </style>
 </head>
 <body>
-	<jsp:include page="realGnb.jsp"/>
-	<table>
-		<tr>
-			<th>판매글번호</th>
-			<td>${detailData.sales_no }</td>
-		</tr>
-		<tr>
-			<th>판매상태</th>
-			<td>${detailData.sales_state }</td>
-		</tr>
-		<tr>
-			<th>아이디</th>
-			<td>${detailData.user_id }</td>
-		</tr>
-		<tr>
-			<th>닉네임</th>
-			<td>${detailData.nickname }</td>
-		</tr>
-		<tr>
-			<th>제목</th>
-			<td>${detailData.subject }</td>
-		</tr>
-		<tr>
-			<th>사진</th>
-			<td>
-				<c:if test="${detailPhoto.size() == 0 }">
-					<div class="default">
-						<span class="wrap">
-							<img src="resources/img/defaultIMG.png">
-					 	</span>
+	<section class="text-gray-600 body-font overflow-hidden">
+		<div class="container px-5 py-10 mx-auto">
+		    <div class="lg:w-4/5 mx-auto flex flex-wrap">
+					
+			    <div class="carousel relative container mx-auto mt-4" style="max-width:400px;">
+			   	 	<div class="flex mb-4">
+			    		<span class="text-gray-600">${detailData.biz_name } ></span>
+			    		<span class="text-gray-600 ml-1">${detailData.goods_name }</span>
+			    	</div>
+			    	<c:if test="${detailData.sales_state eq '판매중'}">
+			    		<h2 class="font-bold text-l title-font text-black">${detailData.sales_state }</h2>
+			    	</c:if>
+			    	<c:if test="${detailData.sales_state eq '판매완료'}">
+			    		<h2 class="font-bold text-l title-font text-gray-500">${detailData.sales_state }</h2>
+			    	</c:if>
+			       	<div class="carousel-inner relative overflow-hidden w-full">
+						<c:if test="${detailPhoto.size() == 0 }">
+				   			<input class="carousel-open" type="radio" id="carousel-1" name="carousel" aria-hidden="true" hidden="" checked="checked">
+			          			<div class="carousel-item absolute opacity-0" style="height:50vh;">
+			          				<div class="block h-full w-full mx-auto flex pt-6 md:pt-0 md:items-center bg-contain bg-center bg-no-repeat" style="background-image: url('resources/img/defaultIMG.png');">
+			          				</div>
+			          			</div>
+						</c:if>
+						<c:if test="${detailPhoto.size() > 0 }">
+							<c:forEach items="${detailPhoto }" var="i" varStatus="stat">
+								<input class="carousel-open" type="radio" id="carousel-${stat.count}" name="carousel" aria-hidden="true" hidden="" checked="checked">
+			          				<div class="carousel-item absolute opacity-0" style="height:50vh;">
+			          					<div class="block h-full w-full mx-auto flex pt-6 md:pt-0 md:items-center bg-contain bg-center bg-no-repeat" style="background-image: url('/photo/${i }');">
+			          					</div>
+			          				</div>
+							</c:forEach>
+						</c:if>
+				    	<!-- Add additional indicators for each slide-->
+			           	<ol class="carousel-indicators">
+			           		<c:forEach items="${detailPhoto }" var="i" varStatus="stat">
+			               		<li class="inline-block mr-3">
+			                   		<label for="carousel-${stat.count}" class="carousel-bullet cursor-pointer block text-5xl text-indigo-600 hover:text-blue-400">•</label>
+			               		</li>
+			           		</c:forEach>
+			           	</ol>
+			    	</div>
+			    </div>
+				<div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+				<h2 class="mb-4 text-sm title-font text-gray-500t">No. ${detailData.sales_no }</h2>
+			        <h1 class="text-gray-900 text-3xl title-font font-medium mb-1">${detailData.subject }</h1>
+			        <p class="mt-8 mb-4 leading-relaxed text-xl">${detailData.content }</p>
+			        <c:if test="${detailData.sales_state eq '판매중'}">
+			        	<p class="font-semibold pt-1 text-gray-900 text-2xl" id="priceComma">${detailData.price }원</p>
+			        </c:if>
+			        <c:if test="${detailData.sales_state eq '판매완료'}">
+			        	<p class="font-semibold pt-1 text-gray-900 text-2xl line-through" id="priceComma">${detailData.price }원</p>
+			        </c:if>
+			        <div class="flex mt-4 mb-2">
+						<img class="w-5 h-5" src="resources/img/location.png">
+						<h2 class="text-sm title-font text-gray-500 tracking-widest">${detailData.sales_sido } ${detailData.sigungu } ${detailData.left_addr }</h2>
 					</div>
-				</c:if>
-				<c:if test="${detailPhoto.size() > 0 }">
-					<c:forEach items="${detailPhoto }" var="i">
-							<div class="container text-center d-flex flex-wrap">
-							    <span class="wrap">
-							        <img src="/photo/${i }" alt="test">
-							    </span>
-							</div>
-					</c:forEach>
-				</c:if>
-			</td>
-		</tr>
-		<tr>
-			<th>가격</th>
-			<td>${detailData.price }</td>
-		</tr>
-		<tr>
-			<th>거래지역</th>
-			<td>
-				${detailData.sales_sido } ${detailData.sigungu }
-			</td>
-		</tr>
-		<tr>
-			<th>1차 카테고리</th>
-			<td>
-				${detailData.biz_name }
-			</td>
-		</tr>
-		<tr>
-			<th>2차 카테고리</th>
-			<td>
-				${detailData.goods_name }
-			</td>
-		</tr>
-		<tr>
-			<th>내용</th>
-			<td>${detailData.content }</td>
-		</tr>
-		<tr>
-			<th>조회수</th>
-			<td>${detailData.hit }</td>
-		</tr>
-		<tr>
-			<th>관심수</th>
-			<td>${detailData.attention }</td>
-		</tr>
-		<tr>
-			<th>등록일자</th>
-			<td>${detailData.date }</td>
-		</tr>
-		<tr>
-			<th colspan="2">
-				<c:if test="${sessionScope.loginId != null}">
-					<input type="button" onclick="openSalesReportForm(${detailData.sales_no})" value="신고하기"/>
-				</c:if>
-				<c:if test="${sessionScope.loginId eq detailData.user_id}">
-					<input type="button" onclick="location.href='./salesUpdate.go?sales_no=${detailData.sales_no}&user_id=${detailData.user_id }'" value="수정"/>
-				</c:if>
-				<c:if test="${sessionScope.loginId eq detailData.user_id}">
-					<input type="button" onclick="location.href='./salesDelete.do?sales_no=${detailData.sales_no}&user_id=${detailData.user_id }'" value="삭제"/>
-				</c:if>
-				<!-- 판매자-구매자간 채팅. 판매자가 클릭하는 경우 alert 출력 -->
-				<input type="button" onclick="saleChat()" value="채팅"/>
-				<input type="button" onclick="location.href='./salesList.do'" value="리스트"/>
-				<c:if test="${sessionScope.loginId ne null}">
-					관심여부 : <input type="checkbox" onclick="attention(this)" <c:if test="${attentionCheck==1 }">checked</c:if>/>
-				</c:if>
-				<c:if test="${detailData.sales_state == '판매완료'}">
-					<input type="button" onclick="openStarThrowForm()" value="별점주기"/>
-				</c:if>
-			</th>
-		</tr>
-	</table>
+					<div class="flex justify-between">
+			        	<h2 class="text-sm title-font font-semibold text-black tracking-widest">${detailData.nickname }</h2>
+			        	<h2 class="text-sm title-font text-gray-500 tracking-widest">${detailData.date }</h2>
+			        </div>
+					<div class="flex mb-2 mt-4">
+						<span class="flex items-center">
+			            	<span class="text-gray-600">조회수 ${detailData.hit }회</span>
+				            <span class="ml-4 text-gray-600">관심 ${detailData.attention }회</span>
+						</span>
+						<c:if test="${sessionScope.loginId ne null}">
+							<input class="ml-4 h-5 w-5" type="checkbox" onclick="attention(this)" <c:if test="${attentionCheck==1 }">checked</c:if>/>
+			        	</c:if>
+			        </div>
+			        <div class="flex mt-6 items-center pb-5">
+				        <div class="flex">
+				        	<button class="flex ml-auto text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded" onclick="saleChat()">채팅하기</button>
+							<button class="flex ml-4 text-white bg-gray-500 border-0 py-2 px-6 focus:outline-none hover:bg-gray-600 rounded" onclick="location.href='./salesList.do'">리스트</button>
+							<c:if test="${sessionScope.loginId != null}">
+								<button class="flex ml-4 text-white bg-red-600 border-0 py-2 px-6 focus:outline-none hover:bg-red-700 rounded" onclick="openSalesReportForm(${detailData.sales_no})">신고</button>
+							</c:if>
+				        </div>
+			        </div>
+					<c:if test="${detailData.sales_state == '판매완료'}">
+						<div class="flex items-center pb-5">
+							<button class="flex mr-4 text-white bg-yellow-600 border-0 py-2 px-6 focus:outline-none hover:bg-yellow-700 rounded" onclick="openStarThrowForm()">별점주기</button>
+						</div>
+					</c:if>
+			        <div class="flex items-center pb-5">
+				        <div class="flex">
+				        	<c:if test="${sessionScope.loginId eq detailData.user_id}">
+								<button class="flex ml-auto text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded" onclick="location.href='./salesUpdate.go?sales_no=${detailData.sales_no}&user_id=${detailData.user_id }'">수정</button>
+								<button class="flex ml-4 text-white bg-gray-500 border-0 py-2 px-6 focus:outline-none hover:bg-gray-600 rounded" onclick="location.href='./salesDelete.do?sales_no=${detailData.sales_no}&user_id=${detailData.user_id }'">삭제</button>
+							</c:if>
+				        </div>
+			        </div>
+			    </div>
+		    </div>
+		</div>
+	</section>
 </body>
 <script>
 function saleChat() {
@@ -186,111 +176,6 @@ function saleChat() {
 		location.href="./saleChatOpen.do?sales_no=${detailData.sales_no}&user_id=${detailData.user_id}";
 	}
 }
-
-const imgs = document.querySelectorAll('img');
-let click = false; // 클릭 여부
-let zoomLayer = 100; // 줌 배율 기본 값
-let moved; // 움직임 여부
-let moving = false; // 움직이는 중인지 여부
-let click_position_X = 0; // 이미지 클릭한 위치
-let click_position_Y = 0; // 이미지 클릭한 위치
-let originX = 0; // 클릭한 이미지의 현재 left 값
-let originY = 0; // 클릭한 이미지의 현재 top 값
-
-let downListener = (ev)=>{ // 클릭 시
-    moved = true;
-    moving = false;
-
-    originX = parseInt(getComputedStyle(ev.target)['left'].slice(0,-2));
-    originY = parseInt(getComputedStyle(ev.target)['top'].slice(0,-2));
-    click_position_X = ev.clientX;
-    click_position_Y = ev.clientY;
-}
-
-let upListener = () => { // 마우스는 떼면 움직임 멈춤
-    moved = false;
-}
-
-imgs.forEach(img=>{ // 이미지 마다 설정하기
-    img.draggable = false; // 이미지 드래그 방지
-    img.addEventListener('click', (ev)=>{
-        document.body.classList.add("noScroll");
-        if(!click){
-            let copy = img.cloneNode();
-            let pop = document.createElement('div');
-            let zoom = document.createElement('div');
-            let btn = document.createElement('button');
-            copy.classList.add("zoomIn");
-            pop.id = "pop";
-            pop.classList.add("popup");
-            pop.prepend(zoom);
-            zoom.classList.add('zoom');
-            zoom.prepend(copy);
-            zoom.prepend(btn);
-            btn.innerHTML = "&times;";
-            btn.classList.add('btn','btn-danger', 'close');
-
-            btn.addEventListener('click', ()=>{
-                pop.classList.remove("show");
-                setTimeout(()=>{
-                    pop.remove();
-                    click = false;
-                    document.body.classList.remove("noScroll");
-                }, 300);
-            });
-
-            copy.addEventListener('click', (evt)=>{
-                if(!moved && !moving){
-                    if(copy.classList.contains("zoomOut")){
-                        copy.classList.replace("zoomOut","zoomIn");
-                    }
-                    let zoomIn = evt.target;
-                    zoomIn.style.cssText = `
-                        width: ${zoomLayer}%;
-                        top: ${evt.target.style.top};
-                        left: ${evt.target.style.left};
-                    `;
-                    if(zoomLayer == 150){
-                        copy.classList.replace("zoomIn","zoomOut");
-                    }
-                    if(zoomLayer>150){
-                        zoomLayer = 100;
-                        zoomIn.style.cssText = `
-                            width: ${zoomLayer}%;
-                            top: 0;
-                            left: 0;
-                        `;
-                    }
-                    zoomLayer+=10;
-                }
-            });
-
-            copy.addEventListener('mousedown', downListener);
-            copy.addEventListener('mousemove', evt=>{
-                if (moved) {
-                    moving = true;
-                    let oX = evt.clientX;
-                    let oY = evt.clientY;
-                    evt.target.style.cssText = `
-                        top: ${originY + (oY-click_position_Y)}px;
-                        left: ${originX + (oX-click_position_X)}px;
-                        width: ${evt.target.style.width};
-                    `;
-                } else {
-                    moving = false;
-                    moved = false;
-                }
-            });
-            window.addEventListener('mouseup', upListener);
-
-            document.body.prepend(pop);
-            setTimeout(()=>{
-                pop.classList.add('show');
-            }, 300);
-            click = true;
-        }
-    });
-});
 
 function attention(box){
 	
@@ -345,7 +230,6 @@ function openSalesReportForm(sales_no){
 
 function openStarThrowForm(){
 	
-
 	if("${sessionScope.loginId}" == ""){
 		alert("로그인 상태에서 별점을 남길 수 있습니다.");
 	}else if("${sessionScope.loginId}" == "${detailData.user_id }"){

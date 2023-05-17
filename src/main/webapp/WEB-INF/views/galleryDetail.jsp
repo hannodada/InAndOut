@@ -17,11 +17,6 @@
 <link href="https://fonts.googleapis.com/css?family=Work+Sans:200,400&display=swap" rel="stylesheet">
 
 <style>
-table, th, td{
-	border: 1px black solid;
-	border-collapse: collapse;
-	padding: 5px 10px;	
-}
 /* 템플릿 */
 .work-sans {
     font-family: 'Work Sans', sans-serif;
@@ -77,60 +72,77 @@ table, th, td{
 </style>
 </head>
 <body>
-    <div class="carousel relative container mx-auto" style="max-width:600px;">
-       	<div class="carousel-inner relative overflow-hidden w-full">
-			<c:if test="${detailPhoto.size() == 0 }">
-	   			<input class="carousel-open" type="radio" id="carousel-1" name="carousel" aria-hidden="true" hidden="" checked="checked">
-          			<div class="carousel-item absolute opacity-0" style="height:50vh;">
-          				<div class="block h-full w-full mx-auto flex pt-6 md:pt-0 md:items-center bg-cover bg-right object-cover" style="background-image: url('resources/img/defaultIMG.png');">
-          				</div>
-          			</div>
-			</c:if>
-			<c:if test="${detailPhoto.size() > 0 }">
-				<c:forEach items="${detailPhoto }" var="i" varStatus="stat">
-					<input class="carousel-open" type="radio" id="carousel-${stat.count}" name="carousel" aria-hidden="true" hidden="" checked="checked">
-          				<div class="carousel-item absolute opacity-0" style="height:50vh;">
-          					<div class="block h-full w-full mx-auto flex pt-6 md:pt-0 md:items-center bg-cover bg-right object-cover" style="background-image: url('/photo/${i }');">
-          					</div>
-          				</div>
-				</c:forEach>
-			</c:if>
-	    	<!-- Add additional indicators for each slide-->
-           	<ol class="carousel-indicators">
-           		<c:forEach items="${detailPhoto }" var="i" varStatus="stat">
-               		<li class="inline-block mr-3">
-                   		<label for="carousel-${stat.count}" class="carousel-bullet cursor-pointer block text-4xl text-gray-400 hover:text-gray-900">•</label>
-               		</li>
-           		</c:forEach>
-           	</ol>
-    	</div>
-    	<div>${detailData.gallery_no }</div>
-    	<div><img class="w-5 h-5" src="resources/img/location.png"><div>${detailData.store_name }</div></div>
-    	<div>${detailData.nickname }</div>
-    	<div>${detailData.gallery_subject }</div>
-    	<div>${detailData.gallery_content }</div>
-    	<div>${detailData.gallery_hit }</div>
-    	<div>${detailData.gallery_jjim }</div>
-    	<div>${detailData.gallery_date }</div>
-    	<div>
-    		<c:if test="${sessionScope.loginId != null}">
-				<input type="button" onclick="openGalleryReportForm(${detailData.gallery_no})" value="신고하기"/>
-			</c:if>
-			<c:if test="${sessionScope.loginId eq detailData.user_id}">
-				<input type="button" onclick="location.href='./galleryUpdate.go?gallery_no=${detailData.gallery_no}&user_id=${detailData.user_id }'" value="수정"/>
-			</c:if>
-			<c:if test="${sessionScope.loginId eq detailData.user_id}">
-				<input type="button" onclick="location.href='./galleryDelete.do?gallery_no=${detailData.gallery_no}&user_id=${detailData.user_id }'" value="삭제"/>
-			</c:if>
-			<input type="button" onclick="location.href='./galleryList.do'" value="리스트"/>
-			<c:if test="${sessionScope.loginId ne null}">
-				찜여부 : <input type="checkbox" onclick="attention(this)" <c:if test="${attentionCheck==1 }">checked</c:if>/>
-			</c:if>
-    	</div>
-   	</div>
-
-
-    	
+	<section class="text-gray-600 body-font overflow-hidden">
+		<div class="container px-5 py-10 mx-auto">
+		    <div class="lg:w-4/5 mx-auto flex flex-wrap">
+			    <div class="carousel relative container mx-auto mt-14" style="max-width:400px;">
+			       	<div class="carousel-inner relative overflow-hidden w-full">
+						<c:if test="${detailPhoto.size() == 0 }">
+				   			<input class="carousel-open" type="radio" id="carousel-1" name="carousel" aria-hidden="true" hidden="" checked="checked">
+			          			<div class="carousel-item absolute opacity-0" style="height:50vh;">
+			          				<div class="block h-full w-full mx-auto flex pt-6 md:pt-0 md:items-center bg-contain bg-center bg-no-repeat" style="background-image: url('resources/img/defaultIMG.png');">
+			          				</div>
+			          			</div>
+						</c:if>
+						<c:if test="${detailPhoto.size() > 0 }">
+							<c:forEach items="${detailPhoto }" var="i" varStatus="stat">
+								<input class="carousel-open" type="radio" id="carousel-${stat.count}" name="carousel" aria-hidden="true" hidden="" checked="checked">
+			          				<div class="carousel-item absolute opacity-0" style="height:50vh;">
+			          					<div class="block h-full w-full mx-auto flex pt-6 md:pt-0 md:items-center bg-contain bg-center bg-no-repeat" style="background-image: url('/photo/${i }');">
+			          					</div>
+			          				</div>
+							</c:forEach>
+						</c:if>
+				    	<!-- Add additional indicators for each slide-->
+			           	<ol class="carousel-indicators">
+			           		<c:forEach items="${detailPhoto }" var="i" varStatus="stat">
+			               		<li class="inline-block mr-3">
+			                   		<label for="carousel-${stat.count}" class="carousel-bullet cursor-pointer block text-5xl text-indigo-600 hover:text-blue-400">•</label>
+			               		</li>
+			           		</c:forEach>
+			           	</ol>
+			    	</div>
+			    </div>
+				<div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+				<h2 class="mb-4 text-sm title-font text-gray-500t">No. ${detailData.gallery_no }</h2>
+					<div class="flex">
+						<img class="w-5 h-5" src="resources/img/location.png">
+						<h2 class="text-sm title-font text-gray-500 tracking-widest">${detailData.store_name }</h2>
+					</div>
+			        <h1 class="text-gray-900 text-3xl title-font font-medium mb-1">${detailData.gallery_subject }</h1>
+			        <p class="mt-8 mb-4 leading-relaxed text-xl">${detailData.gallery_content }</p>
+					<div class="flex mb-2 mt-4">
+						<span class="flex items-center">
+			            	<span class="text-gray-600">조회수 ${detailData.gallery_hit }회</span>
+				            <span class="ml-4 text-gray-600">찜 ${detailData.gallery_jjim }회</span>
+						</span>
+						<c:if test="${sessionScope.loginId ne null}">
+							<input class="ml-4 h-5 w-5" type="checkbox" onclick="attention(this)" <c:if test="${attentionCheck==1 }">checked</c:if>/>
+			        	</c:if>
+			        </div>
+			        <div class="flex mb-4">
+			        	<h2 class="text-sm title-font text-gray-500 tracking-widest">${detailData.gallery_date }</h2>
+			        </div>
+			        <div class="flex mt-6 items-center pb-5">
+				        <div class="flex">
+							<button class="flex ml-auto text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded" onclick="location.href='./galleryList.do'">리스트</button>
+							<c:if test="${sessionScope.loginId != null}">
+								<button class="flex ml-4 text-white bg-red-600 border-0 py-2 px-6 focus:outline-none hover:bg-red-700 rounded" onclick="openGalleryReportForm(${detailData.gallery_no})">신고</button>
+							</c:if>
+				        </div>
+			        </div>
+			        <div class="flex items-center pb-5">
+				        <div class="flex">
+				        	<c:if test="${sessionScope.loginId eq detailData.user_id}">
+								<button class="flex ml-auto text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded" onclick="location.href='./galleryUpdate.go?gallery_no=${detailData.gallery_no}&user_id=${detailData.user_id }'">수정</button>
+								<button class="flex ml-4 text-white bg-gray-500 border-0 py-2 px-6 focus:outline-none hover:bg-gray-600 rounded" onclick="location.href='./galleryDelete.do?gallery_no=${detailData.gallery_no}&user_id=${detailData.user_id }'">삭제</button>
+							</c:if>
+				        </div>
+			        </div>
+			    </div>
+		    </div>
+		</div>
+	</section>
 </body>
 <script>
 function attention(box){

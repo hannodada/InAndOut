@@ -46,7 +46,7 @@
 			<tr>
 				<th>새로운 사진</th>
 				<td>
-					<input type="file" id="btnAtt" multiple="multiple" name="photo"/>
+					<input type="file" id="btnAtt" multiple="multiple" name="photo" accept="image/*"/>
 					<div id="att_zone" data-placeholder="파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요"></div>
 				</td>
 			</tr>
@@ -232,12 +232,12 @@ function addrChange(){
 	
 	var content = '';
 	
-	content += '<input type="text" id="postcode" name="postcode" placeholder="우편번호">';
+	content += '<input type="text" id="postcode" name="postcode" placeholder="우편번호" readonly="readonly">';
 	content += '<input type="button" onclick="DaumPostcode()" value="우편번호 찾기"><input type="button" id="back" value="취소" onclick="addrBack()">';
 	content += '<br>';
-	content += '<input type="text" id="roadAddress" name="roadAddress" placeholder="도로명주소">';
+	content += '<input type="text" id="roadAddress" name="roadAddress" placeholder="도로명주소" readonly="readonly">';
 	content += '<br>';
-	content += '<input type="text" id="jibunAddress" name="jibunAddress" placeholder="지번주소">';
+	content += '<input type="text" id="jibunAddress" name="jibunAddress" placeholder="지번주소" hidden="true">';
 	content += '<br>';
 	content += '<input type="text" id="sido" name="sido" placeholder="시도" hidden="true">';
 	content += '<br>';
@@ -246,7 +246,7 @@ function addrChange(){
 	content += '<span id="guide" style="color:#999;display:none"></span>';
 	content += '<input type="text" id="detailAddress" name="detailAddress" placeholder="상세주소">';
 	content += '<br>';
-	content += '<input type="text" id="extraAddress" name="extraAddress" placeholder="참고항목">';
+	content += '<input type="text" id="extraAddress" name="extraAddress" placeholder="참고항목" readonly="readonly">';
 		
 	$('#newAddr').append(content);
 }
