@@ -92,7 +92,7 @@
 	</select>
 	 
 	 <select id="getdelivery" resultType="com.ino.delivery.dto.RiderDTO">
-		select * from delivery_offer do LEFT JOIN delivery_history dh ON do.delivery_offer_no = dh.delivery_accept_no where do.delivery_offer_no = #{param1};
+		select * from delivery_offer do LEFT JOIN delivery_history dh ON do.delivery_offer_no = dh.delivery_accept_no where do.delivery_offer_no = #{param1} order by delivery_time desc limit 1
 	</select>
 	
 	<select id="msgsale" resultType="com.ino.sales.dto.SalesDTO">
