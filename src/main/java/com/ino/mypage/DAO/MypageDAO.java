@@ -71,6 +71,7 @@ public interface MypageDAO {
 	void userdiv_update(String string);
 
 
+
 	
 
 

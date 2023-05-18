@@ -30,8 +30,8 @@ public class MypageController {
 	MypageService service;
 
 	@RequestMapping(value = "/myPage.go", method = RequestMethod.GET)
-	public String mypage(Model model, HttpSession session) {
-		String user_id = (String) session.getAttribute("loginId");
+	public String mypage(Model model, HttpSession session, @RequestParam String user_id) {
+		//String user_id = (String) session.getAttribute("loginId");
 		logger.info("유저의 마이페이지 호출");
 		String page = "myPage";
 		// ArrayList<MypageDTO> dto = service.mypage();//db에 있는 값 저장하고
