@@ -186,13 +186,13 @@ WHERE user_id = #{user_id}
 
 <!-- 라이더 추가정보 -->
 <select id="riderdetailextra" resultType="com.ino.admin.dto.AdminMemberDTO">
-	select u.user_id , u.nickname ,re.store_name, d.user_div_name , re.biz_num, p.new_photo_name 
-	from user u
-	left join user_div d on u.user_div = d.user_div 
-	left join rider_extra re on re.user_id = u.user_id
-	left join photo p on p.photo_div = re.user_id
-	where u.user_id= #{user_id}
-</select>	
+   select u.user_id , u.nickname ,re.store_name, d.user_div_name , re.biz_num, p.new_photo_name 
+   from user u
+   left join user_div d on u.user_div = d.user_div 
+   left join rider_extra re on re.user_id = u.user_id
+   left join photo p on p.photo_div = re.user_id
+   where u.user_id= #{user_id} and p.cate_no = 'p002'
+</select>
 
 <!-- 가입대기에서 라이더로 변경 -->
 <update id="riderchange" parameterType="String">
