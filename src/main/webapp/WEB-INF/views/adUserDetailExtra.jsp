@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<jsp:include page="realGnb.jsp"/>
 <meta charset="UTF-8">
 </head>
 <body>
@@ -42,7 +43,7 @@
 			</tr>					
 			<tr>
 				<td>인증상태</td>
-				<td>${user.user_div_name}</td>
+				<td>${user.state}</td>
 				<td>
 				<button id="myBtn" onclick ="">인증변경</button>
 
@@ -81,7 +82,7 @@
 			</tr>			
 			<tr>
 				<td colspan="3" align="right">
-					<button onclick="history.back()">닫기</button>
+					<button onclick="location.href='./ad.userlist.do'">닫기</button>
 				</td>
 			</tr>
 		

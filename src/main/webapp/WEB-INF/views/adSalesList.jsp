@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<jsp:include page="realGnb.jsp"/>
 <meta charset="UTF-8">
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="resources/js/jquery.twbsPagination.min.js"></script>
@@ -43,7 +44,10 @@
     
    <input type="text" id="searchInput" placeholder="제목 또는 작성자를 입력">
    <button id="searchButton">검색</button>
-     
+     <br/>
+	   <button id="blindBtn" onclick="deleteValue()">블라인드</button>
+    <button onclick="vdeleteValue()">블라인드 해제</button>
+    
 		<table class = "mokrok">
 		<thead>
 			<tr>
@@ -74,13 +78,11 @@
              </div>
            </th>
          </tr>				
-	   <button onclick="deleteValue()" id="blindBtn">블라인드</button>
-    <button onclick="noblind()">블라인드 해제</button>
 
 
-			<div id="myModal" class="modal">
+<%-- 			<div id="myModal" class="modal">
 		  <div class="modal-content">
-			  	<form action="ad.sblindhistory.do" method = "post">
+			  	
 			    <div class="modal-header">
 			      <span class="close">&times;</span>
 			      <h2>처리자 ${loginId}</h2> <!-- 세션체크해서 로그인 한 놈 출력 -->
@@ -94,11 +96,11 @@
 			
 			    </div>
 			    <div class="modal-footer">
-					 <button onclick="changeuser" id="updateBtn" type="submit" class="btn btn-success">완료</button>
+					 <button onclick="deleteValue()" id="updateBtn" type="submit" class="btn btn-success">완료</button>
 			    </div>
 			  </div>
-				</form>
-			</div>		
+	
+			</div> --%>		
   		</tbody> 			 	 		
 			</table>
 
@@ -183,7 +185,9 @@ function listPrint(list){
 	        } else {
 	            content += '<td>정상</td>';
 	        }
-	      content +='<td>'+item.date+'</td>';
+
+	      var date = new Date(item.date);
+          content += '<td>' + date.toLocaleDateString('ko-KR')+'</td>';
 	      content +='<td id="subject"><a href="shistory.go?sales_no='+ item.sales_no +'">' + "상세보기" + '</a></td>';
 
 	      content +='</tr>';
@@ -231,7 +235,7 @@ function deleteValue(){
 	    return; // 함수 종료
 	  }
     else{
-		var chk = confirm("정말 블라인드 처리하시겠습니까?");	
+		var chk = confirm("블라인드 처리하시겠습니까?");	
 		
 	    // 선택된 체크박스의 값을 valueArr 배열에 추가
 	    slist.each(function () {
@@ -261,35 +265,47 @@ function deleteValue(){
 	}
 }
 	
-	
-// Get the modal
-var modal = document.getElementById("myModal");
+	// 체크 블라인드 해제 클릭 시 
+function vdeleteValue(){
+	   // Controller로 보내고자 하는 URL (.dh부분은 자신이 설정한 값으로 변경해야됨)
+		  var valueArr = []; // 빈 배열로 초기화
 
-// Get the button that opens the modal
-var btn = document.getElementById("blindBtn");
+		  var slist = $("input[name='Rowcheck']:checked"); // 선택된 체크박스 요소들을 가져옴
 
+		  if (slist.length === 0) {
+		    alert("선택된 글이 없습니다.");
+		    return; // 함수 종료
+		  }
+	    else{
+			var chk = confirm("블라인드 해제 처리하시겠습니까?");	
+			
+		    // 선택된 체크박스의 값을 valueArr 배열에 추가
+		    slist.each(function () {
+		      valueArr.push($(this).val());
+		    });
+			
+			$.ajax({
+			    url :'ad.sNoblind',                    // 전송 URL
+			    type : 'POST',                // GET or POST 방식
+			    traditional : true,
+			    data : {
+			    	valueArr : valueArr        // 보내고자 하는 data 변수 설정
+			    },
+	            success: function(jdata){
+	                if(jdata = 1) {
+	                    alert("블라인드 해제 완료");
+	                    location.replace("adsaleslist.do")
+	                }
+	                else{
+	                    alert("블라인드 해제 실패");
+	                }
+	            }
+			});
+			
 
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks the button, open the modal 
-
-btn.onclick = function() {
-  modal.style.display = "block";
-}
-
-// When the user clicks on <span> (x), close the modal	
-span.onclick = function() {
-  modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-	
-}
+			
+		}
+	}	
 
 
 function truncateString(str, maxLength) {

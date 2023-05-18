@@ -6,7 +6,7 @@
 <mapper namespace="com.ino.chat.dao.ChatDAO">
 	<select id="list" resultType="com.ino.chat.dto.ChatDTO">
 		select * from chatroom where roomid in 
-		(select roomid from roomuser where id = #{param1}) order by recent_no desc
+		(select roomid from roomuser where id = #{param1}) order by recent_time desc
 	</select>
 	
 	<select id="riderlist" resultType="com.ino.member.dto.MemberDTO">
@@ -92,7 +92,7 @@
 	</select>
 	 
 	 <select id="getdelivery" resultType="com.ino.delivery.dto.RiderDTO">
-		select * from delivery_offer do LEFT JOIN delivery_history dh ON do.delivery_offer_no = dh.delivery_accept_no where do.delivery_offer_no = #{param1};
+		select * from delivery_offer do LEFT JOIN delivery_history dh ON do.delivery_offer_no = dh.delivery_accept_no where do.delivery_offer_no = #{param1} order by delivery_time desc limit 1
 	</select>
 	
 	<select id="msgsale" resultType="com.ino.sales.dto.SalesDTO">

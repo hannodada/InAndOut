@@ -4,6 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<jsp:include page="realGnb.jsp"/>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <meta charset="UTF-8">
 </head>
 <body>
@@ -41,7 +43,8 @@
 			</tr>			
 			<tr>
 				<td colspan="3" align="right">
-					<button onclick="history.back()">닫기</button>
+					<button onclick="location.href='galleryreportlist.do' ">닫기</button>
+					
 				</td>
 			</tr>
 	
@@ -50,7 +53,7 @@
 			
 			<div id="sMyModal" class="modal">
 			  <div class="modal-content">
-			  	<form action="ad.gblind.do" method = "post">
+			  	<form action="ad.gblind.do" method = "post" onsubmit="return confirmSubmit()">
 			    <div class="modal-header">
 			      <span class="close">&times;</span>
 			      <h2>처리자 ${loginId}</h2>
@@ -73,15 +76,16 @@
 			
 			<div id="sYourModal" class="modal">
 			  <div class="modal-content">
-			  	<form action="ad.gblind.go" method = "post">
+			  	<form action="ad.gblind.go" method = "post" onsubmit="return confirmSubmit2()">
 			    <div class="modal-header">
 			      <span class="close">&times;</span>
-
 			      <h2>처리자 ${loginId}</h2>
-			      <input type = "text" name="report_id" value="${dto.report_id}" />
+			      <input type = "text" name="report_id" id="report_id" value="${dto.report_id}" hidden/>
+			
 			    </div>
 			    <div class="modal-body">
-						<input type = "text" name="report_no" value="${dto.report_no}"/>
+			    	<h2>신고번호 ${dto.report_no}</h2>
+						<input type = "text" name="report_no" id="report_no" value="${dto.report_no}" hidden/>
 			    	<p>처리사유</p>
 			      <p><textarea name="report_content">${dto.report_content}</textarea></p>
 			
@@ -134,6 +138,24 @@
 		    document.getElementById("report_id").value = "${loginId}";
 		    document.getElementById("report_no").value = "${dto.report_no}";
 		  });
+	  
+	  function confirmSubmit() {
+		    if (confirm("블라인드 처리 하시겠습니까?")) {
+		        return true; // Allow form submission
+		    } else {
+		        return false; // Cancel form submission
+		    }
+		}
+	  
+	  function confirmSubmit2() {
+		    if (confirm("블라인드 해제처리 하시겠습니까?")) {
+		        return true; // Allow form submission
+		    } else {
+		        return false; // Cancel form submission
+		    }
+		}
+
+
     </script>	
 </body>
 </html>
