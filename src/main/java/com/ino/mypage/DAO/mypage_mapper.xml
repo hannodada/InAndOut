@@ -10,6 +10,7 @@
 		SELECT * FROM user WHERE user_id=#{param1}
 	</select>
 
+
 	<select id="mystar" resultType="Integer">
 		SELECT AVG(star_score) FROM star_test_paper
 		WHERE star_no IN (SELECT star_no FROM star s2 WHERE star_to_id=#{param1})
