@@ -260,7 +260,9 @@
 				     		 			<br>
 				     		 			<img src="/photo/로고기본.png" id="gallery" onclick="location.href='galleryDetail.do?gallery_no=${hGallery.gallery_no}'">
 			    						<br>
-			    						<a>${hGallery.gallery_subject }</a>	
+			    						<a>${hGallery.gallery_subject }</a>
+			    						<br>
+			    						<a class="hit">조회수 ${hGallery.gallery_hit }</a>	
 			    					</td>
 			    				</c:if>
 				     		 	<c:if test="${hGallery.new_photo_name ne null}">
@@ -269,6 +271,8 @@
 					     		 		<img src="/photo/${hGallery.new_photo_name}" id="gallery" onclick="location.href='galleryDetail.do?gallery_no=${hGallery.gallery_no}'">
 				    					<br>
 			    						<a>${hGallery.gallery_subject }</a>
+			    						<br>
+			    						<a class="hit">조회수 ${hGallery.gallery_hit }</a>
 			    					</td>
 			    				</c:if>
 							</c:forEach>
@@ -351,6 +355,8 @@
 					    					<a>${attentiontop.subject }</a>
 					    					<br>
 					    					<a>${attentiontop.price }원</a>
+					    					<br>
+			    						<a class="hit">조회수 ${attentiontop.hit }</a>	
 						    			</td>
 				    				</c:if>
 					     		 	<c:if test="${attentiontop.new_photo_name ne null}">
@@ -361,6 +367,8 @@
 						    					<a>${attentiontop.subject }</a>
 						    					<br>
 						    					<a>${attentiontop.price }원</a>
+						    					<br>
+			    						<a class="hit">조회수 ${attentiontop.hit }</a>	
 					     		 		</td>
 			    					</c:if>
 							</c:forEach>
@@ -383,7 +391,9 @@
 				     		 			<br>
 				     		 			<img src="/photo/로고기본.png" id="gallery" onclick="location.href='galleryDetail.do?gallery_no=${hGallery.gallery_no}'">
 			    						<br>
-			    						<a>${hGallery.gallery_subject }</a>	
+			    						<a>${hGallery.gallery_subject }</a>
+			    						<br>
+			    						<a class="hit">조회수 ${hGallery.gallery_hit }</a>	
 			    					</td>
 			    				</c:if>
 				     		 	<c:if test="${hGallery.new_photo_name ne null}">
@@ -392,6 +402,8 @@
 					     		 		<img src="/photo/${hGallery.new_photo_name}" id="gallery" onclick="location.href='galleryDetail.do?gallery_no=${hGallery.gallery_no}'">
 				    					<br>
 			    						<a>${hGallery.gallery_subject }</a>
+			    						<br>
+			    						<a class="hit">조회수 ${hGallery.gallery_hit }</a>
 			    					</td>
 			    				</c:if>
 							</c:forEach>
