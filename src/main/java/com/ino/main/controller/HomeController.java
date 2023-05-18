@@ -56,7 +56,6 @@ public class HomeController {
 		
 		//조회수 순으로 갤러리(4개) 호출
 				ArrayList<HomeDTO> hitGallery = service.hitGallery();
-				logger.info("갤러리호출요청");
 				model.addAttribute("hitGallery",hitGallery);
 				
 				
