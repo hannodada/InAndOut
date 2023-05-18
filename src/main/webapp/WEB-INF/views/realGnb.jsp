@@ -118,7 +118,7 @@
 														     		 </c:if>
 														     		 
 														     		 <c:if test="${sessionScope.new_photo_name ne null}">
-														     		 <img src="/photo/${sessionScope.new_photo_name}" id="profileUser" onclick="location.href='myPage.go?loginId=${sessionScope.loginId}'">
+														     		 <img src="/photo/${sessionScope.new_photo_name}" id="profileUser" onclick="location.href='myPage.go?user_id=${sessionScope.loginId}'">
 														     		 </c:if>
 															 
 															 		  <div class="dropdown">
