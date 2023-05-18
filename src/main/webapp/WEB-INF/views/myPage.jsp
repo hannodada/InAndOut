@@ -40,7 +40,6 @@
 	</div>
 	</c:forEach>
 	</div>
-	z
 	<div id="userdetailgallery">
 	<h4 style="font-size:15px; color:skyblue;line-height: 300%;">
 	내가 올린 갤러리</h4>
@@ -57,7 +56,7 @@
 	</div>
 	</c:forEach>
 	</div>
-	<hr>
+
     <div class="main-box">
         <div class="profile-box">
         <c:if test="${new_photo_name eq null}">
@@ -88,7 +87,7 @@
         </c:choose>        
         </div>
             <div id="avgdolphin">&nbsp;&nbsp;나의 &돌핀 단계 : ${avg}단계&nbsp;&nbsp;</div>
-            <hr>
+
             <div class="parent">
 		        <div class="pfirst">판매글</div>
 		        <div class="psecond">갤러리</div>

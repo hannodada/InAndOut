@@ -70,7 +70,7 @@
 	<select id="getsalephotobydelivery" resultType="String">
 		select new_photo_name from photo
 		where cate_no = 'p005' and photo_div = 
-		(select sales_no from delivery_offer do  where  delivery_offer_no = #{param1})
+		(select sales_no from delivery_offer do where  delivery_offer_no = #{param1}) limit 1
 	</select>
 	
 	<select id="userphoto" resultType="String">

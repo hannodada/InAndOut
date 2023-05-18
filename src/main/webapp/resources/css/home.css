@@ -24,7 +24,7 @@
 		
     margin: 20px;
     text-align: center;
-    font-family: "Noto Sans Kr"
+    font-family: "Noto Sans Kr";
     top: 80px;
 }
 .content {
@@ -553,27 +553,5 @@ img:hover {
             background-color: #3788fd;
         }
         
-          			#riderupdatebutton3{
-            border-top-left-radius: 5px;
-            border-bottom-left-radius: 5px;
-            border-top-right-radius: 5px;
-            border-bottom-right-radius: 5px;  
-            
-            margin-right:-4px;
-             font-family: 'Noto Sans KR', sans-serif;
-             font-size: 13px;
-            
-        }
-       
-        #riderupdatebutton3{
-            border: 1px solid #227cff;
-            background-color: #227cff;
-            color: white;
-            padding: 5px 10px 5px 10px;
-            font: 'Noto Sans KR', sans-serif;
-        }
-        #riderupdatebutton3:hover{
-            color:white;
-            background-color: #3788fd;
-        }
+
 

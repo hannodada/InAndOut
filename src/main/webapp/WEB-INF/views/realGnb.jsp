@@ -97,7 +97,7 @@
 														       <div id="location">
 
 																				            ${sessionScope.sigungu}
-															            <button class="test_btn1" onclick="getLocation()" onmouseover="showPopup()" onmouseout="hidePopup()">활동지역 인증</button>
+															            <button style="" class="test_btn1" onclick="getLocation()" onmouseover="showPopup()" onmouseout="hidePopup()">활동지역 인증</button>
 
 																			<div id="popup" class="popup">
 																			  <p>활동지역 인증 후 메인페이지로 이동합니다</p>
@@ -151,7 +151,7 @@
 														       <div id="location">
 
 																				            ${sessionScope.sigungu}
-															            <button class="test_btn1" onclick="getLocation()" onmouseover="showPopup()" onmouseout="hidePopup()">활동지역 인증</button>
+															            <button style="" class="test_btn1" onclick="getLocation()" onmouseover="showPopup()" onmouseout="hidePopup()">활동지역 인증</button>
 
 																			<div id="popup" class="popup">
 																			  <p>활동지역 인증 후 메인페이지로 이동합니다</p>
@@ -174,7 +174,7 @@
 														     		 
 														     		 <c:if test="${sessionScope.new_photo_name ne null}">
 														     		 
-														     		 <img src="/photo/${sessionScope.new_photo_name}" id="profileUser" onclick="location.href='myPage.go?loginId=${sessionScope.loginId}'">
+														     		 <img src="/photo/${sessionScope.new_photo_name}" id="profileUser" onclick="location.href='myPage.go?user_id=${sessionScope.loginId}'">
 														     		 </c:if>
 															 
 															 		  <div class="dropdown">
@@ -235,7 +235,7 @@
 														
 													     		 
 														     		 <c:if test="${sessionScope.new_photo_name ne null}">
-														     		 <img src="/photo/${sessionScope.new_photo_name}" id="profileUser" onclick="location.href='riderPage?loginId=${sessionScope.loginId}'">
+														     		 <img src="/photo/${sessionScope.new_photo_name}" id="profileUser" onclick="location.href='riderPage?user_id=${sessionScope.loginId}'">
 														     		 </c:if>
 															 </div>
 																      <div class="dropdown">
@@ -313,14 +313,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
   <script type="text/javascript">
 </script>
-<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e434e3b05b4f1c7f078a8511ceaaab79&libraries=services"></script>
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3b18057051a40a75c7adca1d5ea98cab&libraries=services"></script>
    
  
     
 </head>
 <body>
 
-<hr>
+
 
 
 
@@ -449,15 +449,17 @@ var options = {
 
 let region_2depth_name; // 전역 변수로 선언
 
- function success(position) {
+function success(position) {
+	console.log("success.");
   //좌표를 알아낼 수 있는데, 여기서 알아낸 좌표를 kakaoAPI url에 사용할 것이다.
-  console.log('위도 : ' + position.coords.latitude); 
-  console.log('경도: ' + position.coords.longitude);
+  	console.log('위도 : ' + position.coords.latitude); 
+  	console.log('경도: ' + position.coords.longitude);
 };
 
 function error(err) {
-  console.warn('ERROR(' + err.code + '): ' + err.message);
+  	console.warn('ERROR(' + err.code + '): ' + err.message);
 };
+
 
 navigator.geolocation.getCurrentPosition(success, error, options);
 
@@ -466,6 +468,7 @@ navigator.geolocation.getCurrentPosition(success, error, options);
 /// 위도 경도로 카카오로 위치 뽑아내기
 
 function onGeoOk(position){
+		console.log("onGeoOk");
         const lat = position.coords.latitude;
         const lon = position.coords.longitude;
         
@@ -477,7 +480,7 @@ function onGeoOk(position){
         //파라미터 x,y에 lon,lat을 넣어주고 API_KEY를 Authorization헤더에 넣어준다.
         axios.get(requestData,
         {
-        	headers:{Authorization:`KakaoAK e434e3b05b4f1c7f078a8511ceaaab79`}
+        	headers:{Authorization:`KakaoAK 3b18057051a40a75c7adca1d5ea98cab`}
         })
         .then(res=>{
         	responseData = res.data.documents;
@@ -487,40 +490,43 @@ function onGeoOk(position){
             //dispatch(changeRegion(res.data.documents[0].address.region_1depth_name))
             //dispatch(changeCity(res.data.documents[0].address.region_2depth_name)) 
             
-        }).catch(e=>console.log(e))
+	}).catch(e=>console.log(e))
        	
-    }
-    function onGeoError(){
-        alert("위치권한을 확인해주세요");
-    }
+}
+function onGeoError(){
+    	console.log("위치권한을 확인해주세요");
+}
+
+navigator.geolocation.getCurrentPosition(onGeoOk,onGeoError);	
   
 
 	//navigator.geolocation.getCurrentPosition(위치받는함수, 에러났을때 함수)
-	navigator.geolocation.getCurrentPosition(onGeoOk,onGeoError)
 
 function getLocation() {
- $.ajax({
-                type: 'POST',
-                url: 'sigungu.ajax',
-                data: {
-                  sigungu: region_2depth_name,
-                },
-                dataType: 'json',
-                success: function (data) {
-                 console.log(data);
-                  if (data.success == 1) {
-                    alert('활동지역 인증이 완료되었습니다. 메인페이지로 이동합니다.');
-                    location.href='home';
-                  } else {
-                    alert('위치 정보 허용을 하시거나 로그인 정보를 확인해 주세요.');
-                  }
-                },
-                error: function (e) {
-                  console.log(e);
-                  alert('[오류]아이디 또는 비밀번호를 확인해 주세요!');
-                },
-              });
 
+	console.log("getLocation");
+	
+ 		$.ajax({
+			type: 'POST',
+			url: 'sigungu.ajax',
+			data: {
+			  sigungu: region_2depth_name,
+			},
+			dataType: 'json',
+			success: function (data) {
+			 console.log(data);
+			  if (data.success == 1) {
+			    alert('활동지역 인증이 완료되었습니다. 메인페이지로 이동합니다.');
+			    location.href='home';
+			  } else {
+			    alert('위치 정보 허용을 하시거나 로그인 정보를 확인해 주세요.');
+			  }
+			},
+			error: function (e) {
+			  console.log(e);
+			  alert('[오류]아이디 또는 비밀번호를 확인해 주세요!');
+			},
+		});
 	}
 
 /* 

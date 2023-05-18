@@ -58,6 +58,7 @@ public class ChatController {
 			ArrayList<String> salephotolist = new ArrayList<String>();
 			ArrayList<String> userphotolist = new ArrayList<String>();
 			for (ChatDTO args: chatlist) {
+				logger.info(args.getMsg_div());
 				if(args.getMsg_div().equals("판매")) {
 					String salephoto = service.salephoto(args.getMsg_div_no());
 					salephotolist.add(salephoto);

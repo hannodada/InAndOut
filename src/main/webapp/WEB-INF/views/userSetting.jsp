@@ -142,7 +142,7 @@
 	</div>
 	
 	<div>
-	<input  id="riderupdatebutton3" type="button" onclick="location.href='./myPage'" value="돌아가기"/>
+	<input  id="riderupdatebutton3" type="button" onclick="location.href='./myPage.go?user_id=${riderSetting.user_id}'" value="돌아가기"/>
 	<button id="riderupdatebutton4" type="submit" onclick="join()">저장</button>
 	</div>
 </form>

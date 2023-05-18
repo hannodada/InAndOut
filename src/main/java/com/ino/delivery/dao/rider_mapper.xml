@@ -129,9 +129,10 @@ where dh.delivery_state = #{param1} and do.rider_id= #{param2}
 			on s.star_no = stp.star_no  
 		where (u.user_div = 'c' and u.user_id = #{param1} and p.new_photo_name is null)
 		or (u.user_div = 'c' and u.user_id = #{param1} and p.new_photo_name is not null)
-		GROUP BY u.nickname, u.user_id, u.user_div, p.new_photo_name;
+		GROUP BY u.nickname, u.user_id, u.user_div, p.new_photo_name
+		limit 1
 	</select>
-	
+	 
 	<select id="dtoUOS" resultType="com.ino.delivery.dto.RiderDTO">
 		SELECT c.msg_div_no, s.user_id, s.sales_no, s.subject, s.content, b.biz_name, g.goods_name, p.new_photo_name, concat(s.sales_sido,' ' , s.sigungu,' ' , s.left_addr) as from_addr FROM sales s 
          LEFT JOIN biz b 
