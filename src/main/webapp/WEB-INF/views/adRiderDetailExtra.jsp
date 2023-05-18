@@ -40,7 +40,7 @@
 
 			<tr>
 				<td>사업자등록증</td>
-				<td><img width="500" src="/photo/${user.new_photo_name}"/></td>
+				<td><img width="500" src="/photo/${rider.new_photo_name}"/></td>
 			</tr>
 			
 			<button id="myBtn" >가입승인</button>

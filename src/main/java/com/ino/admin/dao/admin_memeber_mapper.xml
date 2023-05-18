@@ -191,7 +191,7 @@ WHERE user_id = #{user_id}
 	left join user_div d on u.user_div = d.user_div 
 	left join rider_extra re on re.user_id = u.user_id
 	left join photo p on p.photo_div = re.user_id
-	where u.user_id= #{user_id}
+	where u.user_id= #{user_id} and p.cate_no = 'p002'
 </select>	
 
 <!-- 가입대기에서 라이더로 변경 -->
