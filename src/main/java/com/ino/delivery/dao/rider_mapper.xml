@@ -149,7 +149,7 @@ where dh.delivery_state = #{param1} and do.rider_id= #{param2}
 	
 	<insert id="selectAjax" parameterType="hashmap">
 		insert into delivery_history (delivery_accept_no, delivery_state)
-		values(#{de livery_accept_no}, #{delivery_state});
+		values(#{delivery_accept_no}, #{delivery_state});
 	</insert>
 	
 	<select id="filtering" resultType="com.ino.delivery.dto.RiderDTO">
