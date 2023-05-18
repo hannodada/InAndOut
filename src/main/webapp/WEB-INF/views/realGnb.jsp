@@ -169,7 +169,7 @@
 																	<img src="resources/photo/free-icon-letter-1250663.png" id="chating" onclick="location.href='chat.go'">
 															 
 															 		 <c:if test="${sessionScope.new_photo_name eq null}">
-														     		 <img src="resources/photo/프로필 기본.png" id="profileNomal" onclick="location.href='myPage.go?loginId=${sessionScope.loginId}'">
+														     		 <img src="resources/photo/프로필 기본.png" id="profileNomal" onclick="location.href='myPage.go?user_id=${sessionScope.loginId}'">
 														     		 </c:if>
 														     		 
 														     		 <c:if test="${sessionScope.new_photo_name ne null}">
@@ -230,7 +230,7 @@
 															 
 															 
 															 		 <c:if test="${sessionScope.new_photo_name eq null}">
-														     		 <img src="resources/photo/프로필 기본.png" id="profileNomal" onclick="location.href='riderPage?loginId=${sessionScope.loginId}'">
+														     		 <img src="resources/photo/프로필 기본.png" id="profileNomal" onclick="location.href='riderPage?user_id=${sessionScope.loginId}'">
 														     		 </c:if>
 														
 													     		 
