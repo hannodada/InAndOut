@@ -110,7 +110,7 @@
 						<h2 class="text-sm title-font text-gray-500 tracking-widest">${detailData.store_name }</h2>
 					</div>
 			        <h1 class="text-gray-900 text-3xl title-font font-medium mb-1">${detailData.gallery_subject }</h1>
-			        <textarea required readonly="readonly" rows="4" class="mt-8 mb-4 resize-none block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 text-xl cursor-none">${detailData.content }</textarea>
+			        <textarea required readonly="readonly" rows="4" class="mt-8 mb-4 resize-none block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 text-xl cursor-none">${detailData.gallery_content }</textarea>
 					<div class="flex mb-2 mt-4">
 						<span class="flex items-center">
 			            	<span class="text-gray-600">조회수 ${detailData.gallery_hit }회</span>
