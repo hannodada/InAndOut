@@ -130,6 +130,8 @@ public class SalesService {
 
 	public HashMap<String, Object> filtering(HttpSession session, HashMap<String, String> userParams) {
 		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
 		if(session.getAttribute("loginId")!=null) {
 			String loginId = (String) session.getAttribute("loginId");
 			String flag = userParams.get("flag");
@@ -140,7 +142,15 @@ public class SalesService {
 				String sigungu = dao.getUserSigungu(loginId);
 				userParams.put("sido", sido);
 				userParams.put("sigungu", sigungu);
+				map.put("currSido", sido);
+				map.put("currSigungu", sigungu);
+			}else {
+				map.put("currSido", userParams.get("sido"));
+				map.put("currSigungu", userParams.get("sigungu"));
 			}
+		}else {
+			map.put("currSido", userParams.get("sido"));
+			map.put("currSigungu", userParams.get("sigungu"));
 		}
 		
 		String filterName = userParams.get("filterName");
@@ -159,7 +169,7 @@ public class SalesService {
 		logger.info(page+" 페이지 보여줘");
 		logger.info("한 페이지에 "+cnt+"개씩 보여줄거야");
 		
-		HashMap<String, Object> map = new HashMap<String, Object>();
+		
 		
 		//1 page = offset : 0
 		//2 page = offset : 5
@@ -184,6 +194,7 @@ public class SalesService {
 		
 		map.put("currPage", page);
 		map.put("pages", range);
+		map.put("totalItem", total);
 		
 		userParams.put("cnt", userParams.get("cnt"));
 		userParams.put("offset", Integer.toString(offset));

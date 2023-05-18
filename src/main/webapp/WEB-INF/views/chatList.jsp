@@ -332,7 +332,7 @@ function riderListDraw(list){
 		content += '<button class="btn btn-primary" style="position: absolute; right:20px">견적신청</button></div>'; */
 		content += '<tr style="height: 100px">';
 		content += '<th><img src="/photo/' + item.new_photo_name + '" style="max-width:80px;max-height:80px"></th>';
-		content += '<th>' + item.user_name + '</th>';
+		content += '<th>' + item.nickname + '</th>';
 		content += '<th>' + item.sigungu + '</th>';
 		content += '<th>' + 'A.M. 7:00 ~ P.M. 7:00' + '</th>';
 		content += '<th><button class="btn btn-primary" onclick="location.href=\'userOffer.do?rider_id=' + item.user_id + '&sales_no=' + delivery_no + '\'">견적신청</button></th></tr>'
@@ -360,7 +360,7 @@ function listDraw(list, userlist, salephotolist, userphotolist) {
 			content += '<div class="chat_img"> <img src="/photo/' + userphotolist[index] + '" alt="img"> </div>';
 		}
 		content += '<div class="chat_ib"><div style="display:flex"><div style="width:100%; display:flex"><div style="width:auto"><h5>';
-		content += userlist[index].user_name + '&nbsp;&nbsp; </h5></div>';
+		content += userlist[index].nickname + '&nbsp;&nbsp; </h5></div>';
 		console.log("user_div : " + userlist[index]);
 		if(userlist[index].user_div == "b"){
 			content += '<div class="chat_img"> <img style="position:relative;top:-5px" src="resources/photo/badge.png" alt="img"> </div>';
@@ -450,7 +450,7 @@ function msgDraw(list,sale,salephoto,user,userphoto,delivery){
 	content = '';
 	
 	content += '<div style="width:40%; display:flex">';
-	content += '<div style="width:auto;display:flex"><h3 style="color:#4E50FA">&nbsp;' + user.user_name + '</h3><h3>&nbsp;님&nbsp;&nbsp;</h3></div>';
+	content += '<div style="width:auto;display:flex"><h3 style="color:#4E50FA">&nbsp;' + user.nickname + '</h3><h3>&nbsp;님&nbsp;&nbsp;</h3></div>';
 	if(user.user_div == "b"){
 		content += '<div class="chat_img"> <img src="resources/photo/badge.png" alt="img"> </div>';
 	}else if (user.user_div == "c"){

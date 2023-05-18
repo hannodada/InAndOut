@@ -115,9 +115,9 @@
 			    	</div>
 			    </div>
 				<div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-				<h2 class="mb-4 text-sm title-font text-gray-500t">No. ${detailData.sales_no }</h2>
+					<h2 class="mb-4 text-sm title-font text-gray-500t">No. ${detailData.sales_no }</h2>
 			        <h1 class="text-gray-900 text-3xl title-font font-medium mb-1">${detailData.subject }</h1>
-			        <p class="mt-8 mb-4 leading-relaxed text-xl">${detailData.content }</p>
+			        <textarea required readonly="readonly" rows="4" class="mt-8 mb-4 resize-none block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 text-xl cursor-none">${detailData.content }</textarea>
 			        <c:if test="${detailData.sales_state eq '판매중'}">
 			        	<p class="font-semibold pt-1 text-gray-900 text-2xl" id="priceComma">${detailData.price }원</p>
 			        </c:if>

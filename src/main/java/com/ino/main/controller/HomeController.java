@@ -56,6 +56,7 @@ public class HomeController {
 		
 		//조회수 순으로 갤러리(4개) 호출
 				ArrayList<HomeDTO> hitGallery = service.hitGallery();
+				logger.info("갤러리 호출 요청");
 				model.addAttribute("hitGallery",hitGallery);
 				
 				
@@ -120,7 +121,7 @@ public class HomeController {
 					}
 	
 
-	}
+				}
 				if(user_div.equals("c")) {
 					if(new_photo_name != null) {
 						
@@ -129,6 +130,25 @@ public class HomeController {
 						String new_photo_name2 =  (String) session.getAttribute("new_photo_name");
 						
 						logger.info("(세션에저장된)라이더!!dtot사진!! 나온거!!! :  " +new_photo_name2);
+						
+						
+					}
+					if(new_photo_name == null) {
+						//session.setAttribute("user_id", user_id);
+						//dto.setUser_id(user_id);
+						logger.info("제발dto 유저 아이디좀 해줘 : "+user_id);
+						
+					}
+					
+				}
+				if(user_div.equals("d")) {
+					if(new_photo_name != null) {
+						
+						session.setAttribute("new_photo_name", new_photo_name);
+						//dto.setNew_photo_name(new_photo_name);
+						String new_photo_name2 =  (String) session.getAttribute("new_photo_name");
+						
+						logger.info("(세션에저장된)관리자!!dtot사진!! 나온거!!! :  " +new_photo_name2);
 						
 						
 					}

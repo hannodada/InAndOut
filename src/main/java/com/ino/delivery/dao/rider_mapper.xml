@@ -59,7 +59,10 @@
 	</select>
 	
 	<select id="totalCountDH" resultType="int">  
-		select count(delivery_state) FROM delivery_history dh where dh.delivery_state = #{param1};
+		select count(do.delivery_offer_no) FROM delivery_history dh 
+left join delivery_offer do 
+on dh.delivery_accept_no = do.delivery_offer_no 
+where dh.delivery_state = #{param1} and do.rider_id= #{param2}
 	</select>
 	
 	<select id="listRO" resultType="com.ino.delivery.dto.RiderDTO">
@@ -77,44 +80,27 @@
 	</select>
 	
 	<select id="totalCountDS" resultType="int">
-    	SELECT count(dh.delivery_accept_no) 
-		FROM delivery_offer do
-		LEFT JOIN (
-		  SELECT delivery_accept_no, delivery_state, delivery_time 
-		  FROM delivery_history 
-		  WHERE delivery_state IS NOT NULL 
-		) dh 
+		SELECT count(dh.delivery_accept_no)FROM delivery_offer do
+		LEFT JOIN 
+		(SELECT delivery_accept_no, delivery_state, delivery_time FROM delivery_history WHERE delivery_state IS NOT NULL) dh 
 		ON do.delivery_offer_no = dh.delivery_accept_no 
 		LEFT JOIN `user` u 
-		ON u.user_id = do.rider_id
-		WHERE (dh.delivery_accept_no, dh.delivery_time) IN (
-		  SELECT dh2.delivery_accept_no, MAX(dh2.delivery_time) 
-		  FROM delivery_history dh2 
-		  WHERE dh2.delivery_state IS NOT NULL 
-		  GROUP BY dh2.delivery_accept_no 
-		)
+		ON u.user_id = do.user_id WHERE (dh.delivery_accept_no, dh.delivery_time) IN (SELECT dh2.delivery_accept_no, MAX(dh2.delivery_time) FROM delivery_history dh2 
+		WHERE dh2.delivery_state IS NOT NULL and do.rider_id = #{param1}
+		GROUP BY dh2.delivery_accept_no )
 		AND dh.delivery_state NOT IN ('배송완료', '배송실패')
-		ORDER BY dh.delivery_time DESC
+		ORDER BY dh.delivery_time desc
 	</select>
 	
 	<select id="listDS" resultType="com.ino.delivery.dto.RiderDTO">
-		SELECT dh.delivery_accept_no, dh.delivery_state, do.delivery_offer_no, u.nickname, 
-		       concat(u.sido, u.sigungu, u.left_addr) as from_addr, do.to_addr 
-		FROM delivery_offer do
-		LEFT JOIN (
-		  SELECT delivery_accept_no, delivery_state, delivery_time 
-		  FROM delivery_history 
-		  WHERE delivery_state IS NOT NULL 
-		) dh 
+		SELECT dh.delivery_accept_no, dh.delivery_state, do.delivery_offer_no, u.nickname, concat(u.sido, u.sigungu, u.left_addr) as from_addr, do.to_addr FROM delivery_offer do
+		LEFT JOIN 
+		(SELECT delivery_accept_no, delivery_state, delivery_time FROM delivery_history WHERE delivery_state IS NOT NULL) dh 
 		ON do.delivery_offer_no = dh.delivery_accept_no 
 		LEFT JOIN `user` u 
-		ON u.user_id = do.rider_id
-		WHERE (dh.delivery_accept_no, dh.delivery_time) IN (
-		  SELECT dh2.delivery_accept_no, MAX(dh2.delivery_time) 
-		  FROM delivery_history dh2 
-		  WHERE dh2.delivery_state IS NOT NULL 
-		  GROUP BY dh2.delivery_accept_no 
-		)
+		ON u.user_id = do.user_id WHERE (dh.delivery_accept_no, dh.delivery_time) IN (SELECT dh2.delivery_accept_no, MAX(dh2.delivery_time) FROM delivery_history dh2 
+		WHERE dh2.delivery_state IS NOT NULL and do.rider_id = #{param3}
+		GROUP BY dh2.delivery_accept_no )
 		AND dh.delivery_state NOT IN ('배송완료', '배송실패')
 		ORDER BY dh.delivery_time DESC
 		LIMIT #{param1} OFFSET #{param2}
@@ -143,9 +129,10 @@
 			on s.star_no = stp.star_no  
 		where (u.user_div = 'c' and u.user_id = #{param1} and p.new_photo_name is null)
 		or (u.user_div = 'c' and u.user_id = #{param1} and p.new_photo_name is not null)
-		GROUP BY u.nickname, u.user_id, u.user_div, p.new_photo_name;
+		GROUP BY u.nickname, u.user_id, u.user_div, p.new_photo_name
+		limit 1
 	</select>
-	
+	 
 	<select id="dtoUOS" resultType="com.ino.delivery.dto.RiderDTO">
 		SELECT c.msg_div_no, s.user_id, s.sales_no, s.subject, s.content, b.biz_name, g.goods_name, p.new_photo_name, concat(s.sales_sido,' ' , s.sigungu,' ' , s.left_addr) as from_addr FROM sales s 
          LEFT JOIN biz b 
@@ -176,8 +163,8 @@
 			on do.sales_no = s.sales_no
 			left join photo p 
 			on p.photo_div = u.user_id
-		where (dh.delivery_state = #{param1} and p.new_photo_name is null) 
-		or (dh.delivery_state = #{param1} and p.new_photo_name is not null)  
+		where (dh.delivery_state = #{param1} and p.new_photo_name is null and do.rider_id = #{param2}) 
+		or (dh.delivery_state = #{param1} and p.new_photo_name is not null and do.rider_id = #{param2})  
 		group by dh.delivery_accept_no
 	</select>
 	
@@ -190,5 +177,46 @@
 		SELECT user_div FROM user
 		WHERE user_id =  #{param1}
 	</select>
+	
+	<select id="mystar" resultType="Integer">
+		SELECT AVG(star_score) FROM star_test_paper
+		WHERE star_no IN (SELECT star_no FROM star s2 WHERE star_to_id=#{param1})
+		<!-- 로그인 기능 넣으면 여기에 where절 넣어서 수정해야함 -->
+	</select>
+	
+	<select id="getPhotoName" resultType="String">
+		SELECT p.new_photo_name FROM photo p WHERE p.photo_div = #{param1} AND cate_no=#{param2}
+	</select>
+	
+	<select id="rideroffer" resultType="int">
+		SELECT COUNT(delivery_offer_no) FROM delivery_offer WHERE rider_id=#{param1} 
+	</select>
+	
+	<select id="riderdelivery" resultType="int">
+		SELECT COUNT(delivery_state) from delivery_history dh WHERE dh.delivery_accept_no IN (select delivery_offer_no 
+		FROM delivery_offer where rider_id=#{param1} ) AND delivery_state =#{param2}
+	</select>
+	
+	<select id="mypage" resultType="com.ino.delivery.dto.RiderDTO">
+		SELECT * FROM user WHERE user_id=#{param1}
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 </mapper>
