@@ -185,9 +185,9 @@
 		<option value="배송실패">배송실패</option>
 	</select>
 	
-		<h2 class="filer">배송 필터링을 해주세요</h2>
+		
 	 <div id="list">
-	 	
+	 	<h2 class="filer">배송 필터링을 해주세요</h2>
 	 	
 	 </div>
 	 

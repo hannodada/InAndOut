@@ -236,7 +236,7 @@ list.forEach(function(item, idx){
 function myfunction(e){
 	console.log($(e).val());
 	var val = $(e).val();
-    var val2 = $(e).parents(".main-box").find("span").text();
+    var val2 = $(e).parents(".main-box1").find("span").text();
 	console.log(val2);
 	if(confirm("변경하시겠습니까?")){
 		$.ajax({
