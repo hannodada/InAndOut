@@ -255,7 +255,7 @@
 										 <nav>
 											<div id="navbar">
 											      <div class="logo">
-											      		<img src="resources/photo/로고2.png" onclick="location.href='logout.do'" >
+											      		<img src="resources/photo/로고2.png" onclick="location.href='home'" >
 											      </div>
 													<div id="banner">
 														<a href="ad.userlist.do">회원 관리</a>
